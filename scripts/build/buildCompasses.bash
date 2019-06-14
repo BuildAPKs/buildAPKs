@@ -36,37 +36,9 @@ trap '_SCOTRPERROR_ $LINENO $BASH_COMMAND $?' ERR
 trap _SCOTRPEXIT_ EXIT
 trap _SCOTRPSIGNAL_ HUP INT TERM 
 trap _SCOTRPQUIT_ QUIT 
-export DAY="$(date +%Y%m%d)"
-export JID=Compasses 
-export NUM="$(date +%s)"
-export RDR="$(cat $HOME/buildAPKs/var/conf/RDR)"   #  Set variable to contents of file.
-export JDR="$RDR/sources/${JID,,}"
-export SRDR="${RDR:33}" # search.string: string manipulation site:www.tldp.org
-cd "$RDR"
-(git pull 2>/dev/null && git submodule update --init --recursive --remote ./scripts/shlibs 2>/dev/null) || (echo ; echo "Cannot update: continuing..." ; echo) # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
-. "$RDR/scripts/shlibs/lock.bash"
-if [[ ! -f "$RDR/sources/compasses/.git" ]] || [[ ! -f "$RDR/sources/samples/.git" ]] || [[ ! -f "$RDR/sources/tutorials/.git" ]]
-then
-	echo
-	echo "Updating buildAPKs; \`${0##*/}\` might want to load sources from submodule repositories into buildAPKs. This may take a little while to complete. Please be patient if this script wants to download source code from https://github.com"
-	cd "$RDR"
-	_GSU_() {
-		(git submodule update --init --recursive --remote $1 2>/dev/null) || (echo; echo "Cannot update $1: continuing...")
-	}
-	_GSU_ ./sources/compasses 
-	_GSU_ ./sources/samples
-	_GSU_ ./sources/tutorials
-else
-	echo
-	echo "To update module ~/buildAPKs/sources/compasses to the newest version remove the ~/buildAPKs/sources/compasses/.git file and run ${0##*/} again."
-fi
-find "$RDR/sources/compasses" -name AndroidManifest.xml \
-	-execdir "$RDR/build.one.bash" "$JID" {} \; \
-	2>"$RDR/var/log/stnderr.${JID,,}.$NUM.log"
-cd "$RDR/sources/samples/android-code/Compass/"
-. "$RDR/build.one.bash" "$JID" 2> "$RDR/var/log/stnderr.${JID,,}.$NUM.log"
-cd "$RDR/sources/samples/Compass/"
-. "$RDR/build.one.bash" "$JID" 2> "$RDR/var/log/stnderr.${JID,,}.$NUM.log"
-. "$RDR/scripts/shlibs/fa.bash" "$JID" "$JDR" ||:
+
+export JID=compasses # job id/name
+export JAD=github.com/compasses/buildAPKsCompasses
+. "$HOME/buildAPKs/scripts/init.bash"
 
 #EOF

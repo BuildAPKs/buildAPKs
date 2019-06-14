@@ -37,47 +37,8 @@ trap _SCLTRPEXIT_ EXIT
 trap _SCLTRPSIGNAL_ HUP INT TERM 
 trap _SCLTRPQUIT_ QUIT 
 
-export DAY="$(date +%Y%m%d)"
-export JID=Clocks
-export NUM="$(date +%s)"
-export RDR="$(cat $HOME/buildAPKs/var/conf/RDR)"   #  Set variable to contents of file.
-export JDR="$RDR/sources/${JID,,}"
-export SRDR="${RDR:33}" # search.string: string manipulation site:www.tldp.org
-cd "$RDR"
-(git pull 2>/dev/null && git submodule update --init --recursive --remote ./scripts/shlibs 2>/dev/null) || (echo ; echo "Cannot update: continuing..." ; echo) # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
-. "$RDR/scripts/shlibs/lock.bash"
-if [[ ! -f "$RDR/sources/clocks/.git" ]] || [[ ! -f "$RDR/sources/livewallpapers/.git" ]] || [[ ! -f "$RDR/sources/widgets/.git" ]]
-then
-	echo
-	echo "Updating buildAPKs; \`${0##*/}\` might want to load sources from submodule repositories into buildAPKs. This may take a little while to complete. Please be patient if this script wants to download source code from https://github.com"
-	cd "$RDR"
-	_GSU_() {
-		(git submodule update --init --recursive --remote $1 2>/dev/null) || (echo; echo "Cannot update $1: continuing...")
-	}
-	_GSU_ ./sources/clocks
-	_GSU_ ./sources/livewallpapers
-	_GSU_ ./sources/widgets
-else
-	echo
-	echo "To update module ~/buildAPKs/sources/clocks to the newest version remove the ~/buildAPKs/sources/clocks/.git file and run ${0##*/} again."
-fi
-find "$RDR/sources/clocks" -name AndroidManifest.xml \
-	-execdir "$RDR/build.one.bash" "$JID" {} \; \
-	2>"$RDR/var/log/stnderr.${JID,,}.$NUM.log"
-cd "$RDR/sources/livewallpapers/android-clock-livewallpaper/"
-../../../build.one.bash Clocks "$JID" 2> "$RDR/var/log/stnderr.${JID,,}.$NUM.log"
-cd "$RDR/sources/widgets/16-bit-clock/16-bit-clock/"
-../../../../build.one.bash Clocks "$JID" 2> "$RDR/var/log/stnderr.${JID,,}.$NUM.log"
-cd "$RDR/sources/widgets/MonthCalendarWidget/choose-a/"
-../../../../build.one.bash Clocks "$JID" 2> "$RDR/var/log/stnderr.${JID,,}.$NUM.log"
-cd "$RDR/sources/widgets/MonthCalendarWidget/romannurik/"
-../../../../build.one.bash Clocks "$JID" 2> "$RDR/var/log/stnderr.${JID,,}.$NUM.log"
-cd "$RDR/sources/widgets/clockWidget/"
-../../../build.one.bash Clocks "$JID" 2> "$RDR/var/log/stnderr.${JID,,}.$NUM.log"
-cd "$RDR/sources/widgets/decimal-clock-widget/decimal-clock-widget"
-../../../../build.one.bash Clocks "$JID" 2> "$RDR/var/log/stnderr.${JID,,}.$NUM.log"
-cd "$RDR/sources/widgets/unix-time-clock-widget/unix-time-clock"
-../../../../build.one.bash Clocks "$JID" 2> "$RDR/var/log/stnderr.${JID,,}.$NUM.log"
-. "$RDR/scripts/shlibs/fa.bash" "$JID" "$JDR" ||:
+export JID=compasses # job id/name
+export JAD=github.com/compasses/buildAPKsCompasses
+. "$HOME/buildAPKs/scripts/init.bash"
 
 #EOF
