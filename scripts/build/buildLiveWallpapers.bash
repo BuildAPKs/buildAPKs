@@ -34,7 +34,8 @@ trap _SETRPEXIT_ EXIT
 trap _SETRPSIGNAL_ HUP INT TERM 
 trap _SETRPQUIT_ QUIT 
 
-export JID=LiveWallpapers	# job id/name
+export JAD=github.com/BuildAPKs/buildAPKsLiveWallpapers
+export JID=live.wallpapers # job id/name
 . "$HOME/buildAPKs/scripts/init.bash"
 
 #EOF

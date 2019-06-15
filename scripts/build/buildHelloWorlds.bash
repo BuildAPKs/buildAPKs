@@ -33,8 +33,10 @@ trap '_SATRPERROR_ $LINENO $BASH_COMMAND $?' ERR
 trap _SATRPEXIT_ EXIT
 trap _SATRPSIGNAL_ HUP INT TERM 
 trap _SATRPQUIT_ QUIT 
+
 export DAY="$(date +%Y%m%d)"
-export JID=HelloWorlds
+export JAD=github.com/BuildAPKs/buildAPKsSamples
+export JID=hello.worlds
 export NUM="$(date +%s)"
 export RDR="$(cat $HOME/buildAPKs/var/conf/RDR)"   #  Set variable to contents of file.
 export JDR="$RDR/sources/${JID,,}"
@@ -53,10 +55,7 @@ else
 	echo "To update module ~/buildAPKs/sources/samples to the newest version remove the ~/buildAPKs/sources/samples/.git file and run ${0##*/} again."
 fi
 
-find "$RDR/sources/samples/helloWorlds" \
-       	-name AndroidManifest.xml \
-	-execdir "$RDR/build.one.bash" "$JID" {} \; \
-	2>"$RDR/var/log/stnderr.${JID,,}.$NUM.log"
+find "$RDR/sources/samples/helloWorlds" -name AndroidManifest.xml -execdir "$RDR/build.one.bash" "$JID" {} \; 2>"$RDR/var/log/stnderr.$JID.$NUM.log"
 . "$RDR/scripts/shlibs/fa.bash" "$JID" "$JDR" ||:
 
 #EOF

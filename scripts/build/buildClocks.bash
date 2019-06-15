@@ -37,8 +37,8 @@ trap _SCLTRPEXIT_ EXIT
 trap _SCLTRPSIGNAL_ HUP INT TERM 
 trap _SCLTRPQUIT_ QUIT 
 
-export JID=clocks # job id/name
 export JAD=github.com/BuildAPKs/buildAPKsClocks 
+export JID=clocks # job id/name
 . "$HOME/buildAPKs/scripts/init.bash"
 
 #EOF

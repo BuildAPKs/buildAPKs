@@ -37,8 +37,8 @@ trap _SETRPEXIT_ EXIT
 trap _SETRPSIGNAL_ HUP INT TERM 
 trap _SETRPQUIT_ QUIT 
 
-cd "$HOME"/buildAPKs/
-./scripts/pullBuildAPKsSubmodules.bash
-./build.dir.bash ./sources/
+cd "$HOME/buildAPKs/"
+./scripts/pull.buildAPKs.submodules.bash
+./scripts/build/build.dir.bash ./sources/
 
 #EOF
