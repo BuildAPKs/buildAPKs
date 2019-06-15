@@ -42,14 +42,15 @@ trap '_SUPTRPERROR_ $LINENO $BASH_COMMAND $?' ERR
 trap _SUPTRPEXIT_ EXIT
 trap _SUPTRPSIGNAL_ HUP INT TERM 
 trap _SUPTRPQUIT_ QUIT 
-declare -a ARGS="$@"	# Declare arguments as string.
+
+declare -a ARGS="$@" # Declare arguments as string.
 if [[ -z "${1:-}" ]]
 then
 	ARGS=""
 fi
 STRING="COMMAND \`au\` enables rollback, available at https://github.com/sdrausty/au IS NOT FOUND: Continuing... "
 STRING2="Cannot update ~/buildAPKs prerequisites: Continuing..."
-printf "\\n\\e[1;38;5;116m%s\\n" "Beginning buildAPKs setup:"
+printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "Beginning buildAPKs setup:"
 declare COMMANDIF=""
 COMMANDIF="$(command -v au)" || (printf "%s\\n\\n" "$STRING") 
 if [[ "$COMMANDIF" = au ]] 
@@ -59,7 +60,7 @@ else
 	(pkg install aapt apksigner dx ecj findutils git) || (printf "%s\\n\\n" "$STRING2") 
 fi
 cd "$HOME"
-	(git clone https://github.com/sdrausty/buildAPKs) || (printf "%s\\n\\n" "$STRING2") 
+	(git clone https://github.com/buildAPKs/buildAPKs) || (printf "%s\\n\\n" "$STRING2") 
 ./buildAPKs/scripts/build/buildEntertainment.bash
 
 #EOF

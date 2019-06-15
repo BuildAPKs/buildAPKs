@@ -7,8 +7,9 @@ shopt -s nullglob globstar
 
 _SBOTRPERROR_() { # Run on script error.
 	local RV="$?"
-	echo $RV
+	echo $RV build.one.bash  
 	echo trap '_SBOTRPERROR_ $LINENO $BASH_COMMAND $?' ERR 
+	echo $LINENO $BASH_COMMAND $?
 	echo "$1 $2 $3"
 	if [[ "$2" = ecj ]]  
 	then 
@@ -52,7 +53,7 @@ _SBOTRPEXIT_() { # Run on exit.
 	local RV="$?"
 	if [[ "$RV" != 0 ]]  
 	then 
-		printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs signal %s received by %s in %s.  More information in \`%s/var/log/stnderr.%s.%s.log\` file.\\n\\n" "$RV" "${0##*/}" "$PWD" "$RDR" "${JID,,}" "$NUM"
+		printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs signal %s received by %s in %s by build.one.bash.  More information in \`%s/var/log/stnderr.%s.%s.log\` file.\\n\\n" "$RV" "${0##*/}" "$PWD" "$RDR" "${JID,,}" "$NUM"
 		echo "running: tail -n 16 $RDR/var/log/stnderr.${JID,,}.$NUM.log"
 		echo 
 		tail -n 16 "$RDR/var/log/stnderr.${JID,,}.$NUM.log"
@@ -86,12 +87,12 @@ _SBOTRPEXIT_() { # Run on exit.
 }
 
 _SBOTRPSIGNAL_() { # Run on signal.
-	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Signal %s received!\\e[0m\\n" "${0##*/}" "$?"
+	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Signal %s received by build.one.bash!\\e[0m\\n" "${0##*/}" "$?" 
  	exit 161 
 }
 
 _SBOTRPQUIT_() { # Run on quit.
-	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Quit signal %s received!\\e[0m\\n" "${0##*/}" "$?"
+	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Quit signal %s received by build.one.bash!\\e[0m\\n" "${0##*/}" "$?"
  	exit 162 
 }
 
