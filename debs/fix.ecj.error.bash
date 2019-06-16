@@ -36,7 +36,7 @@ trap _SDGTRPSIGNAL_ HUP INT TERM
 trap _SDGTRPQUIT_ QUIT 
 export RDR="$(cat $HOME/buildAPKs/var/conf/RDR)" # Set variable to contents of file.
 cd "$RDR"
-(git pull && git submodule update --init ./debs/ecj4.7) || (echo ; echo "Cannot update: continuing..." ; echo) # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
+(git pull && git submodule add https://github.com/BuildAPKs/debs.ecj.buildAPKs ./debs/ecj4.7) || (printf "\\n\\n%s\\n" "Cannot update: continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
 dpkg --purge ecj ecj4.6
 dpkg --install "$RDR/debs/ecj4.7/ecj_4.7.2-1_all.deb"
 rm -f "$RDR/var/tmp/*err"
