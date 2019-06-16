@@ -29,7 +29,7 @@ _SDGTRPQUIT_() { # Run on quit.
 	printf "\\e[?25h\\e[1;7;38;5;0mBuildAPKs %s WARNING:  Quit signal %s received!\\e[0m\\n" "fix.ecj.error.bash" "$RV"
  	exit 177 
 }
-
+# https://developer.ibm.com/articles/au-usingtraps/
 trap '_SDGTRPERROR_ $LINENO $BASH_COMMAND $?' ERR 
 trap _SDGTRPEXIT_ EXIT
 trap _SDGTRPSIGNAL_ HUP INT TERM 
