@@ -46,10 +46,18 @@ export NUM="$(date +%s)"
 export SRDR="${RDR:33}" # search.string: string manipulation site:www.tldp.org
 export JDR="$RDR/sources/$JIDL"
 cd "$RDR"
-if [[ ! -f "$RDR/scripts/shlibs/.glk" ]]
+if [[ -f .gitmodules ]]
 then
-	(git pull && git submodule add https://github.com/shlibs/shlibs scripts/shlibs) || (printf "\\nCANNOT UPDATE: Continuing...\\n") 
+	if grep shlibs .gitmodules
+	then
+		(git pull && git submodule update --init --recursive --remote scripts/shlibs) || (printf "\\nCANNOT UPDATE ~/buildAPKs/scripts/shlibs: Continuing...\\n") 
+	else
+	       	(git pull && git submodule add https://github.com/shlibs/shlibs scripts/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n")
+	fi
+else
+	       	(git pull && git submodule add https://github.com/shlibs/shlibs scripts/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n")
 fi
+
 . "$RDR/scripts/shlibs/mod.bash"
 
 #EOF
