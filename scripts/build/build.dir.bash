@@ -50,7 +50,7 @@ then
 	exit 224
 fi
 JDR="$PWD"
-find "$@" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/build.one.bash" "$JID" "$JDR" {} \; 2> "$HOME/buildAPKs/var/log/stnderr."$JID".$NUM.log"
+find "$@" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2> "$HOME/buildAPKs/var/log/stnderr."$JID".$NUM.log"
 . "$RDR/scripts/shlibs/faa.bash" "$JID" "$JDR"
 #	search: lowercase bash variable pattern replacement substitution site:tldp.org
 #	http://www.tldp.org/LDP/abs/html/bashver4.html#CASEMODPARAMSUB
