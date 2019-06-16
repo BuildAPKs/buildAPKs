@@ -48,7 +48,7 @@ export JDR="$RDR/sources/$JIDL"
 cd "$RDR"
 if [[ -f .gitmodules ]]
 then
-	if grep shlibs .gitmodules
+	if grep shlibs .gitmodules 1>/dev/null
 	then
 		(git pull && git submodule update --init --recursive --remote scripts/shlibs) || (printf "\\nCANNOT UPDATE ~/buildAPKs/scripts/shlibs: Continuing...\\n") 
 	else
