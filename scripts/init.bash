@@ -34,28 +34,31 @@ trap '_SINITRPERROR_ $LINENO $BASH_COMMAND $?' ERR
 trap _SINITRPEXIT_ EXIT
 trap _SINITRPSIGNAL_ HUP INT TERM 
 trap _SINITRPQUIT_ QUIT 
-export RDR="$(cat $HOME/buildAPKs/var/conf/RDR)"   #  Set variable to contents of file.
+
+export RDR="$HOME/buildAPKs"   
 if [[ -z "${JID:-}" ]] 
 then
-	. "$RDR/scripts/build/buildEntertainment.bash"
+	. "$RDR/scripts/build/buildClocks.bash"
 	exit 0
 fi
 export DAY="$(date +%Y%m%d)"
-export JIDL="${JID,,}"	# search.string: bash variable lower case site:tldp.org
 export NUM="$(date +%s)"
 export SRDR="${RDR:33}" # search.string: string manipulation site:www.tldp.org
-export JDR="$RDR/sources/$JIDL"
+export JDR="$RDR/sources/$JID"
+if [[ ! -d "/storage/emulated/0/Download/builtAPKs/$JID$DAY" ]]
+then
+	(mkdir -p "/storage/emulated/0/Download/builtAPKs/$JID$DAY") || (mkdir -p "$RDR/gen/$JID$DAY")
+fi
 cd "$RDR"
+git pull 
 if [[ -f .gitmodules ]]
 then
 	if grep shlibs .gitmodules 1>/dev/null
 	then
-		(git pull && git submodule update --init --recursive --remote scripts/shlibs) || (printf "\\nCANNOT UPDATE ~/buildAPKs/scripts/shlibs: Continuing...\\n") 
-	else
-	       	(git pull && git submodule add https://github.com/shlibs/shlibs scripts/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n")
+		(git submodule update --init --recursive --remote scripts/shlibs) || (printf "\\nCANNOT UPDATE ~/buildAPKs/scripts/shlibs: Continuing...\\n") 
 	fi
 else
-	       	(git pull && git submodule add https://github.com/shlibs/shlibs scripts/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n")
+	(git submodule add https://github.com/shlibs/shlibs scripts/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n")
 fi
 
 . "$RDR/scripts/shlibs/mod.bash"
