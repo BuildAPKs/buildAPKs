@@ -50,15 +50,15 @@ then
 	(mkdir -p "/storage/emulated/0/Download/builtAPKs/$JID$DAY") || (mkdir -p "$RDR/gen/$JID$DAY")
 fi
 cd "$RDR"
-(git pull) || (printf "\\nCANNOT UPDATE ~/%s: Continuing...\\n" "${RDR##*/}") 
+(git pull) || (printf "\\nCANNOT UPDATE ~/%s: Continuing...\\n\\n" "${RDR##*/}") 
 if [[ -f .gitmodules ]]
 then
 	if grep shlibs .gitmodules 1>/dev/null
 	then
-		(git submodule update --init --recursive --remote scripts/shlibs) || (printf "\\nCANNOT UPDATE ~/%s/scripts/shlibs: Continuing...\\n" "${RDR##*/}") 
+		(git submodule update --init --recursive --remote scripts/shlibs) || (printf "\\nCANNOT UPDATE ~/%s/scripts/shlibs: Continuing...\\n\\n" "${RDR##*/}") 
 	fi
 else
-	(git submodule add https://github.com/shlibs/shlibs scripts/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n")
+	(git submodule add https://github.com/shlibs/shlibs scripts/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n\\n")
 fi
 
 . "$RDR/scripts/shlibs/mod.bash"
