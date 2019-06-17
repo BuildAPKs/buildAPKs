@@ -34,7 +34,7 @@ trap _SETRPEXIT_ EXIT
 trap _SETRPSIGNAL_ HUP INT TERM 
 trap _SETRPQUIT_ QUIT 
 
-export JAD=github.com/BuildAPKs/buildAPKsTop10
+export JAD=github.com/sdrausty/buildAPKsTop10
 export JID=top10 # job id/name
 . "$HOME/buildAPKs/scripts/init.bash"
 
