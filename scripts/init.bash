@@ -43,22 +43,20 @@ then
 fi
 export DAY="$(date +%Y%m%d)"
 export NUM="$(date +%s)"
-export SRDR="${RDR##*/}" # search: string manipulation site:www.tldp.org
+export SRDR="${RDR:33}" # search.string: string manipulation site:www.tldp.org
 export JDR="$RDR/sources/$JID"
-if [[ ! -d "/storage/emulated/0/Download/builtAPKs/$JID$DAY" ]]
-then
-	(mkdir -p "/storage/emulated/0/Download/builtAPKs/$JID$DAY") || (mkdir -p "$RDR/gen/$JID$DAY")
-fi
 cd "$RDR"
-(git pull) || (printf "\\nCANNOT UPDATE ~/%s: Continuing...\\n\\n" "${RDR##*/}") 
+git pull 
 if [[ -f .gitmodules ]]
 then
 	if grep shlibs .gitmodules 1>/dev/null
 	then
-		(git submodule update --init --recursive --remote scripts/shlibs) || (printf "\\nCANNOT UPDATE ~/%s/scripts/shlibs: Continuing...\\n\\n" "${RDR##*/}") 
+		(git submodule update --init --recursive --remote scripts/shlibs) || (printf "\\nCANNOT UPDATE ~/buildAPKs/scripts/shlibs: Continuing...\\n") 
+	else
+		(git submodule add https://github.com/shlibs/shlibs scripts/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n")
 	fi
 else
-	(git submodule add https://github.com/shlibs/shlibs scripts/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n\\n")
+	(git submodule add https://github.com/shlibs/shlibs scripts/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n")
 fi
 
 . "$RDR/scripts/shlibs/mod.bash"
