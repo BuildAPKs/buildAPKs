@@ -60,7 +60,7 @@ else
 	(pkg install aapt apksigner dx ecj findutils git) || (printf "%s\\n\\n" "$STRING2") 
 fi
 cd "$HOME"
-	(git clone https://github.com/sdrausty/buildAPKs) || (printf "%s\\n\\n" "$STRING2") 
+	(git clone https://github.com/BuildAPKs/buildAPKs) || (printf "%s\\n\\n" "$STRING2") 
 ./buildAPKs/scripts/build/buildEntertainment.bash
 
 #EOF

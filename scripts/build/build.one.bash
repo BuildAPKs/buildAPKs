@@ -20,7 +20,7 @@ _SBOTRPERROR_() { # Run on script error.
 		else
 			CER="conf.$NUM.err"
 			echo "$1 $2 $3 $RV" > "$RDR/var/tmp/$CER" # https://stackoverflow.com/questions/11162406/open-and-write-data-to-text-file-using-bash-shell-scripting
-			printf "\\033[0;34m\\n%s\\033[1;37m\\n\\n%s\\n\\n\033[0m" "Attempting to fix ecj https://github.com/termux/termux-packages/issues?q=is%3Aissue+ecj+error error." "This may take a little while pending connection…"
+			printf "\\033[0;34m\\n%s\\033[1;37m\\n\\n%s\\n\\n\033[0m" "Attempting to fix https://github.com/termux/termux-packages/issues?q=is%3Aissue+ecj+error ecj error." "This may take a little while pending connection…"
 			printf '\033]2; Please wait moment…  \007'
 			sleep 0.64
 			if [[ "$(command getprop ro.build.version.sdk)" -gt 26 ]] 
@@ -159,9 +159,9 @@ if [[ ! -d "./res" ]]
 then
 	mkdir -p ./res
 fi
-if [[ ! -d "/storage/emulated/0/Download/builtAPKs/$EXT$DAY" ]]
+if [[ ! -d "/storage/emulated/0/Download/builtAPKs/$JID$DAY" ]]
 then
-	(mkdir -p "/storage/emulated/0/Download/builtAPKs/$EXT$DAY") || (mkdir -p "$RDR/gen/$EXT$DAY")
+	(mkdir -p "/storage/emulated/0/Download/builtAPKs/$JID$DAY") || (mkdir -p "$RDR/gen/$JID$DAY")
 fi
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 aapt package -f \
