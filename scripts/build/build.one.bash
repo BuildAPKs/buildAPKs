@@ -181,7 +181,7 @@ aapt package -f \
 	-S ./res \
 	-A ./assets \
 	-F bin/"$PKGNAM.apk"
-printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding the classes.dex to $PKGNAM.apk..."
+printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex to $PKGNAM.apk..."
 cd bin 
 aapt add -f "$PKGNAM.apk" classes.dex
 printf "\\e[1;38;5;114m%s\\e[1;38;5;108m\\n" "Signing $PKGNAM.apk..."
