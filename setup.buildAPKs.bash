@@ -1,0 +1,1 @@
+scripts/init/setup.buildAPKs.bash
