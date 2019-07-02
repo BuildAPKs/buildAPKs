@@ -38,7 +38,7 @@ trap _SINITRPQUIT_ QUIT
 export RDR="$HOME/buildAPKs"   
 if [[ -z "${JID:-}" ]] 
 then
-	. "$RDR/scripts/build/buildClocks.bash"
+	. "$RDR/scripts/build/build.clocks.bash"
 	exit 0
 fi
 export DAY="$(date +%Y%m%d)"
