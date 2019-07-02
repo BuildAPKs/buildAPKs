@@ -35,7 +35,6 @@ trap _SPREPTRPEXIT_ EXIT
 trap _SPREPTRPSIGNAL_ HUP INT TERM 
 trap _SPREPTRPQUIT_ QUIT 
 
-
 find . -type f -name Android.kpf -exec rm -f {} \;
 find . -type f -name ant.properties -exec rm -f {} \;
 find . -type f -name "*.apk" -exec rm -f {} \;
@@ -52,6 +51,6 @@ find . -type f -name .project -exec rm -f {} \;
 find . -type f -name project.properties -exec rm -f {} \;
 find . -type f -name R.java -exec rm -f {} \;
 find . -type f -name .settings -exec rm -f {} \;
-find . -type f 
+find . 
 
 #EOF
