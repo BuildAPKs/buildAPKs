@@ -52,3 +52,6 @@ find . -type f -name .project -exec rm -f {} \;
 find . -type f -name project.properties -exec rm -f {} \;
 find . -type f -name R.java -exec rm -f {} \;
 find . -type f -name .settings -exec rm -f {} \;
+find . -type f 
+
+#EOF
