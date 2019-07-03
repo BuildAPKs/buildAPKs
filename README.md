@@ -8,11 +8,11 @@ You can try building hundreds of exciting, amazing and beautiful APKs by running
 
 Build Android APKs on device (smartphone and tablet).
 
-Build Android APKs on device, on your smartphone and tablet with [Termux](https://termux.com/); Make applications for your Android smartphone and tablet! This repository contains source code for various Android applications that have been successfully built in [Termux](https://termux.com/).
+Build Android APKs on device, on your smartphone and tablet with [Termux](https://github.com/termux/); Make applications for your Android smartphone and tablet! This repository contains source code for various Android applications that have been successfully built in [Termux](https://github.com/termux/).
 
 Have you ever wanted to build your own application? Something that you can distribute over the Internet, and can be used on Android smartphones and tablets worldwide.  Would you dare to try to spend some time learning something new to do so?
 
-[BuildAPKs](https://github.com/BuildAPKs/buildAPKs) is a repository of source code designed just for this purpose.  Source code is the way programs are written in a human understandable language for applications to compile and then to be run on an Android device.  These programs have been tested and were built successfully on device, a smartphone.  First successful builds on Sun May 28 2017 in [Termux](https://termux.com/) (Android 6.0.1 aarch64).
+[BuildAPKs](https://github.com/BuildAPKs/buildAPKs) is a repository of source code designed just for this purpose.  Source code is the way programs are written in a human understandable language for applications to compile and then to be run on an Android device.  These programs have been tested and were built successfully on device, a smartphone.  First successful builds on Sun May 28 2017 in [Termux](https://github.com/termux/) (Android 6.0.1 aarch64).
 
 See https://buildapks.github.io/docsBuildAPKs/reallyEasilyBuildAndroidAPKsOnDevice for quick setup instructions and https://sdrausty.github.io/docsBuildAPKs for the documentation website for this project.  
 
