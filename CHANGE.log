@@ -48,8 +48,7 @@ Computed on 20190114 branch master:
 Size in KB
 3384	.git
 4472	.
-Computed on 20190122 branch master:
-RESET; module errors 
+Computed on 20190122 branch master;  RESET; module errors 
 604	.git
 928	.
 AFTER `git pull`
@@ -63,8 +62,7 @@ Computed on 20190530 branch master:
 Size in KB
 8624	.git
 9020	.
-Computed on 20190602 branch master:
-RESET: size 
+Computed on 20190602 branch master;  RESET: size 
 704	.git
 1220	.
 AFTER `git pull`
@@ -74,8 +72,7 @@ Computed on 20190614 branch master:
 Size in KB
 6712	.git
 7080	.
-Computed on 20190614 branch master:
-RESET: size 
+Computed on 20190614 branch master;  RESET: size 
 Size in KB
 788	.git
 1096	.
@@ -83,3 +80,7 @@ Computed on 20190702 branch master:
 Size in KB
 5272	.git
 5560	.
+Computed on 20190702 branch master;  RESET: size 
+Size in KB
+1220	.git
+1532	.
