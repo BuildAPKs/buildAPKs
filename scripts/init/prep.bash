@@ -35,6 +35,19 @@ trap _SPREPTRPEXIT_ EXIT
 trap _SPREPTRPSIGNAL_ HUP INT TERM 
 trap _SPREPTRPQUIT_ QUIT 
 
+declare -A ADM	# declare associative array for all for all superfluous files
+ADM=([Android.kpf]=Android.kpf [axel]=axel [curl]=curl [lftp]=lftpget [wget]=wget)
+
+_AF_ () { # finds and removes superfluous files
+	for name in "${!ADM[@]}" 
+	do
+		find . -type f -name "$name" -exec rm -f {} \;
+	done
+}
+
+_AF_ 
+find . -type f 
+
 find . -type f -name Android.kpf -exec rm -f {} \;
 find . -type f -name ant.properties -exec rm -f {} \;
 find . -type f -name '*.apk' -exec rm -f {} \;
@@ -53,6 +66,5 @@ find . -type f -name .project -exec rm -f {} \;
 find . -type f -name project.properties -exec rm -f {} \;
 find . -type f -name R.java -exec rm -f {} \;
 find . -type f -name .settings -exec rm -f {} \;
-find . -type f 
 
 #EOF
