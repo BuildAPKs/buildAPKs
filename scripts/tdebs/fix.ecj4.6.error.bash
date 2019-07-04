@@ -39,7 +39,7 @@ cd "$RDR"
 (git submodule add https://github.com/BuildAPKs/debs.ecj4.6.buildAPKs ./debs/ecj4.6) || (printf "\\n\\n%s\\n" "Cannot update: continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
 dpkg --purge ecj ecj4.6
 dpkg --install "$RDR/debs/ecj4.6/ecj4.6_4.6.2_all.deb"
-rm -f "$RDR/var/tmp/*err"
+rm -f "$RDR/tmp/*err"
 echo "Error repaired!"
 echo 
 

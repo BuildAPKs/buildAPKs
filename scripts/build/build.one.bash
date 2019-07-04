@@ -13,13 +13,13 @@ _SBOTRPERROR_() { # Run on script error.
 	echo "$1 $2 $3"
 	if [[ "$2" = ecj ]]  
 	then 
-		mkdir -p "$RDR/var/tmp"
-		if [[ -n $(find "$RDR/var/tmp" -name "*.err") ]] # https://unix.stackexchange.com/questions/46541/how-can-i-use-bashs-if-test-and-find-commands-together
+		mkdir -p "$RDR/tmp"
+		if [[ -n $(find "$RDR/tmp" -name "*.err") ]] # https://unix.stackexchange.com/questions/46541/how-can-i-use-bashs-if-test-and-find-commands-together
 		then 
 			:
 		else
 			CER="conf.$NUM.err"
-			echo "$1 $2 $3 $RV" > "$RDR/var/tmp/$CER" # https://stackoverflow.com/questions/11162406/open-and-write-data-to-text-file-using-bash-shell-scripting
+			echo "$1 $2 $3 $RV" > "$RDR/tmp/$CER" # https://stackoverflow.com/questions/11162406/open-and-write-data-to-text-file-using-bash-shell-scripting
 			printf "\\033[0;34m\\n%s\\033[1;37m\\n\\n%s\\n\\n\033[0m" "Attempting to fix https://github.com/termux/termux-packages/issues?q=is%3Aissue+ecj+error ecj error." "This may take a little while pending connection…"
 			printf '\033]2; Please wait moment…  \007'
 			sleep 0.64
@@ -35,16 +35,16 @@ _SBOTRPERROR_() { # Run on script error.
 			fi
 		fi
 	else
-		printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s ERROR:  Signal %s received!  More information in \`%s/var/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "$RV" "$RDR" "${JID,,}" 
+		printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s ERROR:  Signal %s received!  More information in \`%s/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "$RV" "$RDR" "${JID,,}" 
 	fi
 	if [[ "$RV" = 1 ]] 
 	then 
-		printf "\\e[?25h\\e[1;7;38;5;0mOn Signal 1 try running %s again; This error can be resolved by running %s in a directory that has the \`AndroidManifest.xml\` file.  More information in \`%s/var/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "${0##*/}" "$RDR" "${JID,,}" 
+		printf "\\e[?25h\\e[1;7;38;5;0mOn Signal 1 try running %s again; This error can be resolved by running %s in a directory that has the \`AndroidManifest.xml\` file.  More information in \`%s/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "${0##*/}" "$RDR" "${JID,,}" 
 		ls
 	fi
 	if [[ "$RV" = 255 ]]
 	then 
-		printf "\\e[?25h\\e[1;7;38;5;0mOn Signal 255 try running %s again if the error includes R.java and similar; This error might have been corrected by clean up.  More information in \`%s/var/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "$RDR" "${JID,,}" 
+		printf "\\e[?25h\\e[1;7;38;5;0mOn Signal 255 try running %s again if the error includes R.java and similar; This error might have been corrected by clean up.  More information in \`%s/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "$RDR" "${JID,,}" 
 	fi
 	exit 160
 }
@@ -53,10 +53,10 @@ _SBOTRPEXIT_() { # Run on exit.
 	local RV="$?"
 	if [[ "$RV" != 0 ]]  
 	then 
-		printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs signal %s received by %s in %s by build.one.bash.  More information in \`%s/var/log/stnderr.%s.log\` file.\\n\\n" "$RV" "${0##*/}" "$PWD" "$RDR" "${JID,,}" 
-		echo "running: tail -n 16 $RDR/var/log/stnderr.${JID,,}.log"
+		printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs signal %s received by %s in %s by build.one.bash.  More information in \`%s/log/stnderr.%s.log\` file.\\n\\n" "$RV" "${0##*/}" "$PWD" "$RDR" "${JID,,}" 
+		echo "running: tail -n 16 $RDR/log/stnderr.${JID,,}.log"
 		echo 
-		tail -n 16 "$RDR/var/log/stnderr.${JID,,}.log"
+		tail -n 16 "$RDR/log/stnderr.${JID,,}.log"
 		printf "\\e[0m\\n\\n" 
 	fi
 	if [[ "$RV" = 220 ]]  
@@ -161,7 +161,7 @@ then
 fi
 if [[ ! -d "/storage/emulated/0/Download/builtAPKs/$JID$DAY" ]]
 then
-	(mkdir -p "/storage/emulated/0/Download/builtAPKs/$JID$DAY") || (mkdir -p "$RDR/var/cache/builtAPKs/$JID$DAY")
+	(mkdir -p "/storage/emulated/0/Download/builtAPKs/$JID$DAY") || (mkdir -p "$RDR/cache/builtAPKs/$JID$DAY")
 fi
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 aapt package -f \
@@ -187,6 +187,6 @@ aapt add -f "$PKGNAM.apk" classes.dex
 printf "\\e[1;38;5;114m%s\\e[1;38;5;108m\\n" "Signing $PKGNAM.apk..."
 apksigner ../"$PKGNAM-debug.key" "$PKGNAM.apk" ../"$PKGNAM.apk"
 cd ..
-(cp "$PKGNAM.apk" "/storage/emulated/0/Download/builtAPKs/$EXT$DAY/$PKGNAME.apk" && printf "\\e[1;38;5;115mCopied %s to Download/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME" && printf "\\e[1;38;5;149mThe APK %s file can be installed from Download/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME" && printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐") || (cp "$PKGNAM.apk" "$RDR/var/cache/builtAPKs/$EXT$DAY/$PKGNAME.apk" && printf "\\e[1;38;5;115mCopied %s to ~/${RDR:33}/var/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME" && printf "\\e[1;38;5;149mThe APK %s file can be installed from ~/${RDR:33}/var/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME" && printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐") 
+(cp "$PKGNAM.apk" "/storage/emulated/0/Download/builtAPKs/$EXT$DAY/$PKGNAME.apk" && printf "\\e[1;38;5;115mCopied %s to Download/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME" && printf "\\e[1;38;5;149mThe APK %s file can be installed from Download/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME" && printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐") || (cp "$PKGNAM.apk" "$RDR/cache/builtAPKs/$EXT$DAY/$PKGNAME.apk" && printf "\\e[1;38;5;115mCopied %s to ~/${RDR:33}/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME" && printf "\\e[1;38;5;149mThe APK %s file can be installed from ~/${RDR:33}/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME" && printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐") 
 
 #EOF

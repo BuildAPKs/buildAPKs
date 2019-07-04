@@ -55,7 +55,7 @@ else
 	echo "To update module ~/buildAPKs/sources/samples to the newest version remove the ~/buildAPKs/sources/samples/.git file and run ${0##*/} again."
 fi
 
-find "$RDR/sources/samples/helloWorlds" -name AndroidManifest.xml -execdir "$RDR/build.one.bash" "$JID" {} \; 2>"$RDR/var/log/stnderr.$JID.log"
+find "$RDR/sources/samples/helloWorlds" -name AndroidManifest.xml -execdir "$RDR/build.one.bash" "$JID" {} \; 2>"$RDR/log/stnderr.$JID.log"
 . "$RDR/scripts/shlibs/fa.bash" "$JID" "$JDR" ||:
 
 #EOF
