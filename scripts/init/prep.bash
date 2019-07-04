@@ -41,6 +41,8 @@ find . -type f -name "*.apk" -exec rm -f {} \;
 find . -type f -name build.xml -exec rm -f {} \;
 find . -type f -name .classpath -exec rm -f {} \;
 find . -type f -name default.properties -exec rm -f {} \;
+find . -type f -name gradle-wrapper.jar -exec rm -f {} \;
+find . -type f -name gradle-wrapper.properties -exec rm -f {} \;
 find . -type f -name "local.properties" -exec rm -f {} \;
 find . -type f -name makefile -exec rm -f {} \;
 find . -type f -name makefile.linux_pc -exec rm -f {} \;
