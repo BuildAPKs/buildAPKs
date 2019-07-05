@@ -1,6 +1,6 @@
-#!/bin/env bash 
-# Copyright 2017-2019 (c) all rights reserved 
-# by S D Rausty https://sdrausty.github.io
+#!/bin/env bash
+# Copyright 2019 (c) all rights reserved 
+# by BuildAPKs https://buildapks.github.io/buildAPKs/
 #####################################################################
 set -Eeuo pipefail
 shopt -s nullglob globstar
@@ -34,8 +34,8 @@ trap _SETRPEXIT_ EXIT
 trap _SETRPSIGNAL_ HUP INT TERM 
 trap _SETRPQUIT_ QUIT 
 
-export JAD=github.com/sdrausty/buildAPKsGames
-export JID=games		# job id/name
+export JAD=github.com/BuildAPKs/buildAPKs.games 
+export JID="games.1" # job id/name
 . "$HOME/buildAPKs/scripts/init/init.bash"
 
 #EOF
