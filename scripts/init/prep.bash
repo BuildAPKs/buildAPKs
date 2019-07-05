@@ -35,34 +35,16 @@ trap _SPREPTRPEXIT_ EXIT
 trap _SPREPTRPSIGNAL_ HUP INT TERM 
 trap _SPREPTRPQUIT_ QUIT 
 
-declare -A ADM	# declare associative array for all for all superfluous files
-ADM=([Android.kpf]=Android.kpf [axel]=axel [curl]=curl [lftp]=lftpget [wget]=wget)
-
 _AF_ () { # finds and removes superfluous files
-	for name in "${!ADM[@]}" 
+	for name in "${FLIST[@]}" 
 	do
-		find . -type f -name "$name" -exec rm -f {} \;
+ 		find "$JDR/$1/" -type f -name "$name" -exec rm -f {} \;
 	done
 }
 
-find . -type f -name Android.kpf -exec rm -f {} \;
-find . -type f -name ant.properties -exec rm -f {} \;
-find . -type f -name '*.apk' -exec rm -f {} \;
-find . -type f -name build.xml -exec rm -f {} \;
-find . -type f -name .classpath -exec rm -f {} \;
-find . -type f -name default.properties -exec rm -f {} \;
-find . -type f -name gradle-wrapper.jar -exec rm -f {} \;
-find . -type f -name gradle-wrapper.properties -exec rm -f {} \;
-find . -type f -name 'local.properties' -exec rm -f {} \;
-find . -type f -name makefile -exec rm -f {} \;
-find . -type f -name makefile.linux_pc -exec rm -f {} \;
-find . -type f -name pom.xml -exec rm -f {} \;
-find . -type f -name proguard.cfg -exec rm -f {} \;
-find . -type f -name proguard-project.txt -exec rm -f {} \;
-find . -type f -name .project -exec rm -f {} \;
-find . -type f -name project.properties -exec rm -f {} \;
-find . -type f -name R.java -exec rm -f {} \;
-find . -type f -name .settings -exec rm -f {} \;
+declare -a FLIST # declare array for all superfluous files
+FLIST=( "*.apk" "*.jar" "Android.kpf" "ant.properties" "build.xml" ".classpath" "default.properties" "gradle-wrapper.jar" "gradle-wrapper.properties" "local.properties" "makefile" "makefile.linux_pc" "pom.xml" "proguard.cfg" "proguard-project.txt" ".project" "project.properties" "R.java" ".settings" )
+_AF_ 
 find . -type f 
 
 #EOF
