@@ -40,7 +40,7 @@ _AF_ () { # finds and removes superfluous files
 	do
  		find "$JDR/$1/" -type f -name "$name" -exec rm -f {} \;
 	done
- 	find "$JDR/$1/" -type d rmdir --ignore-fail-on-non-empty {} \;
+ 	find "$JDR/$1/" -type d -exec rmdir --ignore-fail-on-non-empty {} \;
 }
 
 declare -a FLIST # declare array for all superfluous files
