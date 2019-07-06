@@ -40,10 +40,11 @@ _AF_ () { # finds and removes superfluous files
 	do
  		find "$JDR/$1/" -type f -name "$name" -exec rm -f {} \;
 	done
+ 	find "$JDR/$1/" -type d rmdir --ignore-fail-on-non-empty {} \;
 }
 
 declare -a FLIST # declare array for all superfluous files
-FLIST=( "*.apk" "*.jar" "Android.kpf" "ant.properties" "build.xml" ".classpath" "default.properties" "gradle-wrapper.jar" "gradle-wrapper.properties" "local.properties" "makefile" "makefile.linux_pc" "pom.xml" "proguard.cfg" "proguard-project.txt" ".project" "project.properties" "R.java" ".settings" )
+FLIST=( "*.apk" "*.jar" ".gitignore" "Android.kpf" "ant.properties" "build.xml" ".classpath" "default.properties" "gradle-wrapper.jar" "gradle-wrapper.properties" "local.properties" "makefile" "makefile.linux_pc" "org.eclipse.jdt.core.prefs" "pom.xml" "proguard.cfg" "proguard-project.txt" ".project" "project.properties" "R.java" ".settings" )
 _AF_ "$@"
 find . -type f 
 
