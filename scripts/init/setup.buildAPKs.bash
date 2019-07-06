@@ -43,7 +43,7 @@ trap _SUPTRPEXIT_ EXIT
 trap _SUPTRPSIGNAL_ HUP INT TERM 
 trap _SUPTRPQUIT_ QUIT 
 
-declare -a ARGS="$@" # Declare arguments as string.
+declare -a ARGS="$@"
 if [[ -z "${1:-}" ]]
 then
 	ARGS=""
