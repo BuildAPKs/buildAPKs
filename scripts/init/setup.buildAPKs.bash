@@ -55,9 +55,9 @@ declare COMMANDIF=""
 COMMANDIF="$(command -v au)" || (printf "%s\\n\\n" "$STRING") 
 if [[ "$COMMANDIF" = au ]] 
 then 
-	(au aapt apksigner dx ecj findutils git) || (printf "%s\\n\\n" "$STRING2") 
+	(au aapt apksigner curl dx ecj findutils git) || (printf "%s\\n\\n" "$STRING2") 
 else
-	(pkg install aapt apksigner dx ecj findutils git) || (printf "%s\\n\\n" "$STRING2") 
+	(pkg install aapt apksigner curl dx ecj findutils git) || (printf "%s\\n\\n" "$STRING2") 
 fi
 cd "$HOME"
 	(git clone https://github.com/BuildAPKs/buildAPKs) || (printf "%s\\n\\n" "$STRING2") 
