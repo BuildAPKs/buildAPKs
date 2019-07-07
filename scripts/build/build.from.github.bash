@@ -45,10 +45,13 @@ export JAD=""
 export JID="git.$USER"
 export NUM="$(date +%s)"
 export RDR="$HOME/buildAPKs"
-export UDR="$RDR/sources/$USER"
+export JDR="$RDR/sources/$USER"
 . "$HOME/buildAPKs/scripts/shlibs/lock.bash"
-mkdir -p "$UDR"
-cd "$UDR"
+if [[ ! -d "repos" ]] 
+then
+	mkdir -p "$JDR"
+fi
+cd "$JDR"
 if [[ -f "repos" ]] 
 then
 	:
@@ -58,12 +61,12 @@ fi
 ARR=($(grep -B 5 Java repos |grep svn_url|awk -v x=2 '{print $x}'|sed 's/\,//g'|sed 's/\"//g'|xargs))
 for i in "${ARR[@]}"
 do
-	NUM="$(date +%s)"
-	printf "\\n%s\\n" "Getting $i/tarball/master -o ${i##*/}.$NUM.tar.gz:"
-	curl -L "$i"/tarball/master -o "${i##*/}.$NUM.tar.gz"
-	tar xvf "${i##*/}.$NUM.tar.gz"
+	LNUM="$(date +%s)"
+	printf "\\n%s\\n" "Getting $i/tarball/master -o ${i##*/}.$LNUM.tar.gz:"
+	curl -L "$i"/tarball/master -o "${i##*/}.$LNUM.tar.gz"
+	tar xvf "${i##*/}.$LNUM.tar.gz"
 done
-find "$UDR" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$UDR" {} \; 2>> "$HOME/buildAPKs/log/stnderr."$JID".log"
-. "$RDR/scripts/shlibs/tots.bash" "$JID" "$UDR"
+find "$JDR" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>> "$HOME/buildAPKs/log/stnderr."$JID".log"
+. "$RDR/scripts/shlibs/tots.bash" "$JID" "$JDR"
 
 #EOF
