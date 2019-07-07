@@ -63,8 +63,7 @@ do
 	curl -L "$i"/tarball/master -o "${i##*/}.$NUM.tar.gz"
 	tar xvf "${i##*/}.$NUM.tar.gz"
 done
-UDR="$PWD"
-find "$@" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$UDR" {} \; 2>> "$HOME/buildAPKs/log/stnderr."$JID".log"
+find "$UDR" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$UDR" {} \; 2>> "$HOME/buildAPKs/log/stnderr."$JID".log"
 . "$RDR/scripts/shlibs/tots.bash" "$JID" "$UDR"
 
 #EOF
