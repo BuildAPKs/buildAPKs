@@ -67,6 +67,5 @@ do
 	tar xvf "${i##*/}.$LNUM.tar.gz"
 done
 find "$JDR" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>> "$HOME/buildAPKs/log/stnderr."$JID".log" ||:
-_WAKEUNLOCK_
 
 #EOF
