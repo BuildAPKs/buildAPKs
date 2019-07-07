@@ -39,7 +39,6 @@ then
 	printf "\\n%s\\n" "GitHub username must be provided!"
 	exit 227
 fi
-. "$HOME/buildAPKs/scripts/shlibs/lock.bash"
 export USER="$1"
 export DAY="$(date +%Y%m%d)"
 export JAD=""
@@ -47,6 +46,7 @@ export JID="git.$USER"
 export NUM="$(date +%s)"
 export RDR="$HOME/buildAPKs"
 export UDR="$RDR/sources/$USER"
+. "$HOME/buildAPKs/scripts/shlibs/lock.bash"
 mkdir -p "$UDR"
 cd "$UDR"
 if [[ -f "repos" ]] 
