@@ -34,15 +34,21 @@ trap _SGTRPEXIT_ EXIT
 trap _SGTRPSIGNAL_ HUP INT TERM 
 trap _SGTRPQUIT_ QUIT 
 
-export RDR="$HOME/buildAPKs"
 if [[ -z "${1:-}" ]] 
 then
 	printf "\\n%s\\n" "GitHub username must be provided!"
 	exit 227
 fi
-USER="$1"
-mkdir -p "$RDR/sources/$USER"
-cd "$RDR/sources/$USER"
+. "$HOME/buildAPKs/scripts/shlibs/lock.bash"
+export USER="$1"
+export DAY="$(date +%Y%m%d)"
+export JAD=""
+export JID="git.$USER"
+export NUM="$(date +%s)"
+export RDR="$HOME/buildAPKs"
+export UDR="$RDR/sources/$USER"
+mkdir -p "$UDR"
+cd "$UDR"
 if [[ -f "repos" ]] 
 then
 	:
@@ -57,6 +63,8 @@ do
 	curl -L "$i"/tarball/master -o "${i##*/}.$NUM.tar.gz"
 	tar xvf "${i##*/}.$NUM.tar.gz"
 done
-. "$HOME/buildAPKs/scripts/build/build.dir.bash"
+UDR="$PWD"
+find "$@" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$UDR" {} \; 2>> "$HOME/buildAPKs/log/stnderr."$JID".log"
+. "$RDR/scripts/shlibs/tots.bash" "$JID" "$UDR"
 
 #EOF
