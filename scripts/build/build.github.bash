@@ -41,7 +41,7 @@ export JID="git.$USER"
 export NUM="$(date +%s)"
 export RDR="$HOME/buildAPKs"
 export JDR="$RDR/sources/github/$USER"
-export STRING="ERROR FOUND:  Continuing... "
+export STRING="Error found by build.github.bash:  Continuing... "
 if [[ -z "${1:-}" ]] 
 then
 	printf "\\n%s%s\\n" "GitHub username must be provided;  See \`cat ~/${RDR##*/}/conf/UNAMES\` for example usernames that build APKs on device with BuildAPKs!" 
@@ -70,11 +70,12 @@ fi
 if [[ "${F1AR[@]}" = . ]]
 then 
 	tar xvf "${NAME##*/}.tar.gz" || (printf "%s\\n\\n" "$STRING")
-fi
+else
 # https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value
-if [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]]
-then 
-	tar xvf "${NAME##*/}.tar.gz" || (printf "%s\\n\\n" "$STRING")
+	if [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]]
+	then 
+		tar xvf "${NAME##*/}.tar.gz" || (printf "%s\\n\\n" "$STRING")
+	fi
 fi
 done
 find "$JDR" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || (printf "%s\\n\\n" "$STRING")
