@@ -46,7 +46,7 @@ export JID="git.$USER"
 export NUM="$(date +%s)"
 export RDR="$HOME/buildAPKs"
 export JDR="$RDR/sources/github/$USER"
-STRING="ERROR FOUND:  Continuing... "
+export STRING="ERROR FOUND:  Continuing... "
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "Beginning buildAPKs with build.github.bash:"
 . "$HOME/buildAPKs/scripts/shlibs/lock.bash"
 if [[ ! -d "$JDR" ]] 
@@ -77,6 +77,6 @@ then
 	tar xvf "${NAME##*/}.tar.gz" || (printf "%s\\n\\n" "$STRING")
 fi
 done
-find "$JDR" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>> "$HOME/buildAPKs/log/stnderr.${JID,,}.log" || (printf "%s\\n\\n" "$STRING")
+find "$JDR" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || (printf "%s\\n\\n" "$STRING")
 
 #EOF
