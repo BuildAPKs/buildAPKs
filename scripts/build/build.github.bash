@@ -58,16 +58,21 @@ if [[ ! -f "repos" ]]
 then
 	curl -O https://api.github.com/users/$USER/repos 
 fi
-ARR=($(grep -B 5 Java repos |grep svn_url|awk -v x=2 '{print $x}'|sed 's/\,//g'|sed 's/\"//g'|xargs))
-for i in "${ARR[@]}"
+JARR=($(grep -B 5 Java repos |grep svn_url|awk -v x=2 '{print $x}'|sed 's/\,//g'|sed 's/\"//g'|xargs))
+F1AR=$(find . -maxdepth 1 -type d)
+for NAME in "${JARR[@]}"
 do
-if [[ ! -f "${i##*/}.tar.gz" ]] 
+if [[ ! -f "${NAME##*/}.tar.gz" ]] 
 then
-	printf "\\n%s\\n" "Getting $i/tarball/master -o ${i##*/}.tar.gz:"
-	curl -L "$i"/tarball/master -o "${i##*/}.tar.gz" || (printf "%s\\n\\n" "$STRING")
+	printf "\\n%s\\n" "Getting $NAME/tarball/master -o ${NAME##*/}.tar.gz:"
+	curl -L "$NAME"/tarball/master -o "${NAME##*/}.tar.gz" || (printf "%s\\n\\n" "$STRING")
 fi
-tar xvf "${i##*/}.tar.gz" || (printf "%s\\n\\n" "$STRING")
+# https://stackoverflow.com/questions/6823484/find-substring-in-shell-script-variable
+if [ "${F1AR[@]}" != "${F1AR[@]/$NAME/}" ]
+then 
+	tar xvf "${i##*/}.tar.gz" || (printf "%s\\n\\n" "$STRING")
+fi
 done
-find "$JDR" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>> "$HOME/buildAPKs/log/stnderr."$JID".log" || (printf "%s\\n\\n" "$STRING")
+find "$JDR" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>> "$HOME/buildAPKs/log/stnderr.$JID.log" || (printf "%s\\n\\n" "$STRING")
 
 #EOF
