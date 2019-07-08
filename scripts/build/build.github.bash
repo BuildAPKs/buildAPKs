@@ -67,16 +67,16 @@ then
 	printf "\\n%s\\n" "Getting $NAME/tarball/master -o ${NAME##*/}.tar.gz:"
 	curl -L "$NAME"/tarball/master -o "${NAME##*/}.tar.gz" || (printf "%s\\n\\n" "$STRING")
 fi
-if [ "${F1AR[@]}" = . ]
+if [[ "${F1AR[@]}" = . ]]
 then 
 	tar xvf "${NAME##*/}.tar.gz" || (printf "%s\\n\\n" "$STRING")
 fi
-# https://stackoverflow.com/questions/6823484/find-substring-in-shell-script-variable
-if [ "${F1AR[@]}" != "${F1AR[@]/$NAME/}" ]
+# https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value
+if [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]]
 then 
 	tar xvf "${NAME##*/}.tar.gz" || (printf "%s\\n\\n" "$STRING")
 fi
 done
-find "$JDR" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>> "$HOME/buildAPKs/log/stnderr.$JID.log" || (printf "%s\\n\\n" "$STRING")
+find "$JDR" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>> "$HOME/buildAPKs/log/stnderr.${JID,,}.log" || (printf "%s\\n\\n" "$STRING")
 
 #EOF
