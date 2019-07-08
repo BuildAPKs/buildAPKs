@@ -34,11 +34,6 @@ trap _SGTRPEXIT_ EXIT
 trap _SGTRPSIGNAL_ HUP INT TERM 
 trap _SGTRPQUIT_ QUIT 
 
-if [[ -z "${1:-}" ]] 
-then
-	printf "\\n%s\\n" "GitHub username must be provided!" 
-	exit 227
-fi
 export USER="$1"
 export DAY="$(date +%Y%m%d)"
 export JAD=""
@@ -47,6 +42,11 @@ export NUM="$(date +%s)"
 export RDR="$HOME/buildAPKs"
 export JDR="$RDR/sources/github/$USER"
 export STRING="ERROR FOUND:  Continuing... "
+if [[ -z "${1:-}" ]] 
+then
+	printf "\\n%s%s\\n" "GitHub username must be provided;  See \`cat ~/${RDR##*/}/conf/UNAMES\` for example usernames that build APKs on device with BuildAPKs!" 
+	exit 227
+fi
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "Beginning buildAPKs with build.github.bash:"
 . "$HOME/buildAPKs/scripts/shlibs/lock.bash"
 if [[ ! -d "$JDR" ]] 
