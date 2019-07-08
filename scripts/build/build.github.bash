@@ -54,16 +54,14 @@ then
 	mkdir -p "$JDR"
 fi
 cd "$JDR"
-if [[ -f "repos" ]] 
+if [[ ! -f "repos" ]] 
 then
-	:
-else
 	curl -O https://api.github.com/users/$USER/repos 
 fi
 ARR=($(grep -B 5 Java repos |grep svn_url|awk -v x=2 '{print $x}'|sed 's/\,//g'|sed 's/\"//g'|xargs))
 for i in "${ARR[@]}"
 do
-if [[ ! -f " ${i##*/}.tar.gz" ]] 
+if [[ ! -f "${i##*/}.tar.gz" ]] 
 then
 	printf "\\n%s\\n" "Getting $i/tarball/master -o ${i##*/}.tar.gz:"
 	curl -L "$i"/tarball/master -o "${i##*/}.tar.gz" || (printf "%s\\n\\n" "$STRING")
