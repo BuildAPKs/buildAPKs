@@ -35,23 +35,23 @@ trap _SGTRPSIGNAL_ HUP INT TERM
 trap _SGTRPQUIT_ QUIT 
 
 _BUILDAPKS_ () {
-		if [[ ! -f "${NAME##*/}.$COMMIT.tar.gz" ]] # tests if tar file exists
+		if [[ ! -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] # tests if tar file exists
 	then
-		printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT -o ${NAME##*/}.$COMMIT.tar.gz:"
+		printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT -o ${NAME##*/}.${COMMIT::7}.tar.gz:"
 		if [[ "$OAUT" != "" ]] 
 		then
-			curl -u "$OAUT" -L "$NAME"/tarball/$COMMIT -o "${NAME##*/}.$COMMIT.tar.gz" || printf "%s\\n\\n" "$STRING"
+			curl -u "$OAUT" -L "$NAME"/tarball/$COMMIT -o "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
 		else
-			curl -L "$NAME"/tarball/$COMMIT -o "${NAME##*/}.$COMMIT.tar.gz" || printf "%s\\n\\n" "$STRING"
+			curl -L "$NAME"/tarball/$COMMIT -o "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
 		fi
-		export SFX="$(tar tf "${NAME##*/}.$COMMIT.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
-		tar xvf "${NAME##*/}.$COMMIT.tar.gz" || printf "%s\\n\\n" "$STRING"
+		export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
+		tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
 		find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
 	elif [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]] # tests if directory exists
 	# https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value
 	then 
-		export SFX="$(tar tf "${NAME##*/}.$COMMIT.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
-		tar xvf "${NAME##*/}.$COMMIT.tar.gz" || printf "%s\\n\\n" "$STRING"
+		export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
+		tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
 		find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
 	else
 		find "$JDR" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
