@@ -66,7 +66,7 @@ _AT_ () {
 	fi
 }
 
-_BUILDAPKS_ () {
+_BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/	
 	printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT -o ${NAME##*/}.${COMMIT::7}.tar.gz:"
 	if [[ "$OAUT" != "" ]] 
 	then
@@ -79,7 +79,7 @@ _BUILDAPKS_ () {
 	find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
 }
 
-_CT_ () {
+_CT_ () { # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell	
 	if [[ "$OAUT" != "" ]] 
 	then
 	 	curl -u "$OAUT" -r 0-2 https://api.github.com/repos/$USER/$REPO/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
