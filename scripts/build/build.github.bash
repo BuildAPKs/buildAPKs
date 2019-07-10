@@ -34,27 +34,57 @@ trap _SGTRPEXIT_ EXIT
 trap _SGTRPSIGNAL_ HUP INT TERM 
 trap _SGTRPQUIT_ QUIT 
 
-_BUILDAPKS_ () {
-		if [[ ! -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] # tests if tar file exists
+_AT_ () {
+	if [[ ! -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] # tests if tar file exists
 	then
-		printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT -o ${NAME##*/}.${COMMIT::7}.tar.gz:"
-		if [[ "$OAUT" != "" ]] 
+		printf "%s\\n" "Querying $USER $REPO:"
+		if [[ "$COMMIT" != "" ]] 
 		then
-			curl -u "$OAUT" -L "$NAME"/tarball/$COMMIT -o "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
+			printf "%s\\n" "Found last commit $COMMIT:"
+			if [[ "$OAUT" != "" ]] 
+			then
+				ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USER/$REPO/git/trees/$COMMIT?recursive=1")"
+			else
+				ISAND="$(curl -i "https://api.github.com/repos/$USER/$REPO/git/trees/$COMMIT?recursive=1")"
+			fi
+		 	if grep AndroidManifest.xml <<< $ISAND 
+			then
+				_BUILDAPKS_
+			else
+				printf "%s\\n" "Could not find an AndroidManifest.xml file in this Java language repository: NOT DOWNLOADING ${NAME##*/} tarball."
+			fi
+		elif [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]] # tests if directory exists
+		then # https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value
+			export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
+			tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
+			find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
 		else
-			curl -L "$NAME"/tarball/$COMMIT -o "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
+			find "$JDR" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
 		fi
-		export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
-		tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
-		find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
-	elif [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]] # tests if directory exists
-	# https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value
-	then 
-		export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
-		tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
-		find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
 	else
 		find "$JDR" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
+	fi
+}
+
+_BUILDAPKS_ () {
+	printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT -o ${NAME##*/}.${COMMIT::7}.tar.gz:"
+	if [[ "$OAUT" != "" ]] 
+	then
+		curl -u "$OAUT" -L "$NAME"/tarball/$COMMIT -o "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
+	else
+		curl -L "$NAME"/tarball/$COMMIT -o "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
+	fi
+	export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
+	tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
+	find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
+}
+
+_CT_ () {
+	if [[ "$OAUT" != "" ]] 
+	then
+	 	curl -u "$OAUT" -r 0-2 https://api.github.com/repos/$USER/$REPO/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
+	else
+	 	curl -r 0-2 https://api.github.com/repos/$USER/$REPO/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
 	fi
 }
 
@@ -85,37 +115,13 @@ then
 		curl -O https://api.github.com/users/"$USER"/repos 
 	fi
 fi
-JARR=($(grep -B 5 Java repos |grep svn_url|awk -v x=2 '{print $x}'|sed 's/\,//g'|sed 's/\"//g'))
+JARR=($(grep -B 5 Java repos | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g'))
 F1AR=($(find . -maxdepth 1 -type d))
 for NAME in "${JARR[@]}"
 do # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted too.  They are repopulated from the tar files.
 	REPO=$(awk -F/ '{print $NF}' <<< $NAME)
-	printf "%s\\n" "Querying $USER $REPO:"
-_CT_ () {
-	if [[ "$OAUT" != "" ]] 
-	then
-	 	curl -u "$OAUT" -r 0-2 https://api.github.com/repos/$USER/$REPO/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
-	else
-	 	curl -r 0-2 https://api.github.com/repos/$USER/$REPO/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
-	fi
-}
-COMMIT="$(_CT_)"
-if [[ "$COMMIT" != "" ]] 
-then
-	printf "%s\\n" "Found last commit $COMMIT:"
-	if [[ "$OAUT" != "" ]] 
-	then
-		ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USER/$REPO/git/trees/$COMMIT?recursive=1")"
-	else
-		ISAND="$(curl -i "https://api.github.com/repos/$USER/$REPO/git/trees/$COMMIT?recursive=1")"
-	fi
- 	if grep AndroidManifest.xml <<< $ISAND 
-	then
-		_BUILDAPKS_
-	else
-		printf "%s\\n" "Could not find an AndroidManifest.xml file in this Java language repository: NOT DOWNLOADING ${NAME##*/} tarball."
-	fi
-fi
+	COMMIT="$(_CT_)"
+	_AT_ 
 done
 
 #EOF
