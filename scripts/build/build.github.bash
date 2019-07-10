@@ -34,6 +34,25 @@ trap _SGTRPEXIT_ EXIT
 trap _SGTRPSIGNAL_ HUP INT TERM 
 trap _SGTRPQUIT_ QUIT 
 
+_BUILDAPKS_ () {
+		if [[ ! -f "${NAME##*/}.$COMMIT.tar.gz" ]] # tests if tar file exists
+	then
+		printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT -o ${NAME##*/}.$COMMIT.tar.gz:"
+		curl -L "$NAME"/tarball/$COMMIT -o "${NAME##*/}.$COMMIT.tar.gz" || printf "%s\\n\\n" "$STRING"
+		export SFX="$(tar tf "${NAME##*/}.$COMMIT.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
+		tar xvf "${NAME##*/}.$COMMIT.tar.gz" || printf "%s\\n\\n" "$STRING"
+		find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
+	elif [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]] # tests if directory exists
+	# https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value
+	then 
+		export SFX="$(tar tf "${NAME##*/}.$COMMIT.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
+		tar xvf "${NAME##*/}.$COMMIT.tar.gz" || printf "%s\\n\\n" "$STRING"
+		find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
+	else
+		find "$JDR" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
+	fi
+}
+
 export RDR="$HOME/buildAPKs"
 if [[ -z "${1:-}" ]] 
 then
@@ -55,26 +74,27 @@ if [[ ! -f "repos" ]]
 then
 	curl -O https://api.github.com/users/"$USER"/repos 
 fi
-JARR=($(grep -B 5 Java repos |grep svn_url|awk -v x=2 '{print $x}'|sed 's/\,//g'|sed 's/\"//g'|xargs))
+JARR=($(grep -B 5 Java repos |grep svn_url|awk -v x=2 '{print $x}'|sed 's/\,//g'|sed 's/\"//g'))
 F1AR=($(find . -maxdepth 1 -type d))
 for NAME in "${JARR[@]}"
 do # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted too.  They are repopulated from the tar files.
-if [[ ! -f "${NAME##*/}.tar.gz" ]] # tests if tar file exists
+	REPO=$(awk -F/ '{print $NF}' <<< $NAME)
+	printf "%s\\n" "Querying $USER $REPO:"
+_CT_ () {
+ 	curl -r 0-2 https://api.github.com/repos/$USER/$REPO/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
+}
+COMMIT="$(_CT_)"
+if [[ "$COMMIT" != "" ]] 
 then
-	printf "\\n%s\\n" "Getting $NAME/tarball/master -o ${NAME##*/}.tar.gz:"
-	curl -L "$NAME"/tarball/master -o "${NAME##*/}.tar.gz" || printf "%s\\n\\n" "$STRING"
-	export SFX="$(tar tf "${NAME##*/}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
-	tar xvf "${NAME##*/}.tar.gz" || printf "%s\\n\\n" "$STRING"
-	find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
-elif [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]] # tests if directory exists
-# https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value
-then 
-	export SFX="$(tar tf "${NAME##*/}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
-	tar xvf "${NAME##*/}.tar.gz" || printf "%s\\n\\n" "$STRING"
-	find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
+	printf "%s\\n" "Found last commit $COMMIT:"
+	ISAND="$(curl -i "https://api.github.com/repos/$USER/$REPO/git/trees/$COMMIT?recursive=1")"
+ 	if grep AndroidManifest.xml <<< $ISAND 
+	then
+		_BUILDAPKS_
+	fi
 else
-	find "$JDR" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
-fi
+	printf "%s\\n" "Could not find an AndroidManifest.xml file in this Java language repository tree: NOT downloading ${NAME##*/} tarball."
+	fi
 done
 
 #EOF
