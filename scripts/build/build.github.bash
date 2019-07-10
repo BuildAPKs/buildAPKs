@@ -112,10 +112,10 @@ then
  	if grep AndroidManifest.xml <<< $ISAND 
 	then
 		_BUILDAPKS_
+	else
+		printf "%s\\n" "Could not find an AndroidManifest.xml file in this Java language repository: NOT DOWNLOADING ${NAME##*/} tarball."
 	fi
-else
-	printf "%s\\n" "Could not find an AndroidManifest.xml file in this Java language repository tree: NOT downloading ${NAME##*/} tarball."
-	fi
+fi
 done
 
 #EOF
