@@ -50,10 +50,10 @@ touch .conf/"${NAME##*/}.${COMMIT::7}"
 			fi
 		 	if grep AndroidManifest.xml <<< $ISAND 
 			then
-echo 0 .conf/"${NAME##*/}.${COMMIT::7}"
+echo 0 > .conf/"${NAME##*/}.${COMMIT::7}"
 				_BUILDAPKS_
 			else
-echo 1  .conf/"${NAME##*/}.${COMMIT::7}"
+echo 1 > .conf/"${NAME##*/}.${COMMIT::7}"
 				printf "%s\\n" "Could not find an AndroidManifest.xml file in this Java language repository: NOT DOWNLOADING ${NAME##*/} tarball."
 			fi
 		elif [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]] # tests if directory exists
