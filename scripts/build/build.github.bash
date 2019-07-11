@@ -115,6 +115,7 @@ then
 	printf "\\n%s\\n\\n" "GitHub username must be provided;  See \`cat ~/${RDR##*/}/conf/UNAMES\` for usernames that build APKs on device with BuildAPKs!" 
 	exit 227
 fi
+export CK=0
 export USER="$1"
 export JDR="$RDR/sources/github/$USER"
 export JID="git.$USER"
