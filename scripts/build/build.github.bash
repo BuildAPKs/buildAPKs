@@ -44,7 +44,7 @@ _AT_ () {
 			if [[ "$COMMIT" != "" ]] 
 			then
 				touch "$RDR/.conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
-				if [[ "$OAUT" != "" ]] 
+				if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file 
 				then
 					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USER/$REPO/git/trees/$COMMIT?recursive=1")"
 				else
@@ -74,14 +74,12 @@ _AT_ () {
 
 _BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/	
 	printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT -o ${NAME##*/}.${COMMIT::7}.tar.gz:"
-	if [[ "$OAUT" != "" ]] 
+	if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file for information  
 	then
 		curl -u "$OAUT" -L "$NAME"/tarball/$COMMIT -o "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
 	else
 		curl -L "$NAME"/tarball/$COMMIT -o "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
 	fi
-	export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
-	tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
 	_FJDX_ 
 }
 
@@ -93,8 +91,8 @@ _CK_ () {
 }
 
 _CT_ () { # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell	
-	if [[ "$OAUT" != "" ]] 
-	then
+	if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file for information  
+	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
 	 	curl -u "$OAUT" -r 0-2 https://api.github.com/repos/$USER/$REPO/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
 	else
 	 	curl -r 0-2 https://api.github.com/repos/$USER/$REPO/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
@@ -117,7 +115,6 @@ then
 	printf "\\n%s\\n\\n" "GitHub username must be provided;  See \`cat ~/${RDR##*/}/conf/UNAMES\` for usernames that build APKs on device with BuildAPKs!" 
 	exit 227
 fi
-export CK=0
 export USER="$1"
 export JDR="$RDR/sources/github/$USER"
 export JID="git.$USER"
@@ -132,11 +129,11 @@ fi
 cd "$JDR"
 if [[ ! -d "$RDR/.conf" ]] 
 then
-mkdir -p "$RDR/.conf"
+	mkdir -p "$RDR/.conf"
 fi
 if [[ ! -f "repos" ]] 
 then
-	if [[ "$OAUT" != "" ]] 
+	if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file for information 
 	then
 		curl -u "$OAUT" -O https://api.github.com/users/"$USER"/repos 
 	else
