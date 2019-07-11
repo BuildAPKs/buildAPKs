@@ -36,11 +36,10 @@ trap _SGTRPQUIT_ QUIT
 
 _AT_ () {
 	CK=0
-	echo CK
-	echo $CK
+	REPO=$(awk -F/ '{print $NF}' <<< $NAME)
+	printf "%s\\n" "Checking $USER $REPO:"
+	COMMIT="$(_CT_)"
 	_CK_
-	echo CK
-	echo $CK
 	if [[ "$CK" != 1 ]]
 	then
 		if [[ ! -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] # tests if tar file exists
@@ -153,8 +152,6 @@ JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{
 F1AR=($(find . -maxdepth 1 -type d))
 for NAME in "${JARR[@]}"
 do # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted too.  They are repopulated from the tar files.
-	REPO=$(awk -F/ '{print $NF}' <<< $NAME)
-	COMMIT="$(_CT_)"
 	_AT_ 
 done
 
