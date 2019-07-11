@@ -37,9 +37,16 @@ trap _SGTRPQUIT_ QUIT
 _AT_ () {
 	CK=0
 	REPO=$(awk -F/ '{print $NF}' <<< $NAME)
-	printf "%s\\n" "Checking $USER $REPO for last commit:"
-	COMMIT="$(_CT_)" ||:
-	_CK_ ||:
+	if [[ -f $(find "$RDR"/.conf/github/ -name "$USER.${NAME##*/}*.???????.ck") ]]
+ 	then
+		printf "%s\\n\\n" "Loading $USER $REPO config from $(find "$RDR"/.conf/github/ -name "$USER.${NAME##*/}*.???????.ck"):"
+ 		COMMIT=$(head -n 1 "$RDR/.conf/github/$USER.${NAME##*/}"*.???????.ck)
+ 		CK=$(tail -n 1 "$RDR/.conf/github/$USER.${NAME##*/}"*.???????.ck)
+ 	else
+		printf "%s\\n" "Checking $USER $REPO for last commit:"
+ 		COMMIT="$(_CT_)" ||:
+ 		_CK_ ||:
+ 	fi
 	if [[ "$CK" != 1 ]]
 	then
 		if [[ ! -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] # tests if tar file exists
@@ -55,6 +62,7 @@ _AT_ () {
 				fi
 			 	if grep AndroidManifest.xml <<< $ISAND 
 				then
+					_AND_
 					_BUILDAPKS_
 				else
 					_NAND_
@@ -88,11 +96,11 @@ _BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/
 _CK_ () { 
 	if [[ -f "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck" ]]
 	then
-		CK=$(cat "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck")
+		CK=$(tail -n 1 "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck")
 	fi
 }
 
-_CT_ () { # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell	
+_CT_ () { # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell # get tar commits
 	if [[ "$OAUT" != "" ]] # see $RDR/conf/github/OAUTH file for information  
 	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
 	 	curl -u "$OAUT" -r 0-2 https://api.github.com/repos/$USER/$REPO/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
@@ -111,10 +119,16 @@ _FJDX_ () {
 	find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
 }
 
+_AND_ () {
+	touch "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
+	printf "%s\\n" "$COMMIT" > "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
+	printf "%s\\n" "0" >> "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
+}
 _NAND_ () {
 	touch "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
-	echo 1 > "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
-	printf "%s\\n" "Could not find an AndroidManifest.xml file in this Java language repository: NOT DOWNLOADING ${NAME##*/} tarball."
+	printf "%s\\n" "$COMMIT" > "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
+	printf "%s\\n" "1" >> "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
+	printf "%s\\n" "Could not find an AndroidManifest.xml file in Java language repository $USER ${NAME##*/}: NOT DOWNLOADING ${NAME##*/} tarball."
 }
 
 export RDR="$HOME/buildAPKs"
