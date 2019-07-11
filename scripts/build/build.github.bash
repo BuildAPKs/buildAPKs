@@ -111,7 +111,7 @@ fi
 cd "$JDR"
 if [[ ! -d "$RDR/.conf" ]] 
 then
-mkdir -p "$RDR/conf"
+mkdir -p "$RDR/.conf"
 fi
 if [[ ! -f "repos" ]] 
 then
