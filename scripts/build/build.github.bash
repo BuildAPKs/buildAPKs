@@ -91,7 +91,7 @@ _CT_ () { # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output
 export RDR="$HOME/buildAPKs"
 if [[ -z "${1:-}" ]] 
 then
-	printf "\\n%s\\n" "GitHub username must be provided;  See \`cat ~/${RDR##*/}/conf/UNAMES\` for usernames that build APKs on device with BuildAPKs!" 
+	printf "\\n%s\\n\\n" "GitHub username must be provided;  See \`cat ~/${RDR##*/}/conf/UNAMES\` for usernames that build APKs on device with BuildAPKs!" 
 	exit 227
 fi
 export USER="$1"
@@ -115,7 +115,7 @@ then
 		curl -O https://api.github.com/users/"$USER"/repos 
 	fi
 fi
-JARR=($(grep -B 5 Java repos | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g'))
+JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g'))
 F1AR=($(find . -maxdepth 1 -type d))
 for NAME in "${JARR[@]}"
 do # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted too.  They are repopulated from the tar files.
