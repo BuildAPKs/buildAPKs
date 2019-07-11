@@ -37,16 +37,32 @@ trap _SGTRPQUIT_ QUIT
 _AT_ () {
 	CK=0
 	REPO=$(awk -F/ '{print $NF}' <<< $NAME)
-	if [[ -f $(find "$RDR"/.conf/github/ -name "$USER.${NAME##*/}*.???????.ck") ]]
- 	then
-		printf "%s\\n\\n" "Loading $USER $REPO config from $(find "$RDR"/.conf/github/ -name "$USER.${NAME##*/}*.???????.ck"):"
- 		COMMIT=$(head -n 1 "$RDR/.conf/github/$USER.${NAME##*/}"*.???????.ck)
- 		CK=$(tail -n 1 "$RDR/.conf/github/$USER.${NAME##*/}"*.???????.ck)
- 	else
-		printf "%s\\n" "Checking $USER $REPO for last commit:"
+	if [[ $UR = "" ]] # config file is not  present
+	then
+		printf "%s" "Checking $USER $REPO for last commit:  " 
  		COMMIT="$(_CT_)" ||:
  		_CK_ ||:
- 	fi
+		printf "%s\\n\\n" "Continuing..."
+		_ATT_ 
+	else
+		printf "%s" "Loading $USER $REPO config from ${UR}:  "
+		COMMIT=$(head -n 1 "$UR")
+ 		CK=$(tail -n 1  "$UR")
+		_PRINTCK_
+		_ATT_ 
+	fi
+}
+
+_PRINTCK_ () {
+	if [[ "$CK" = 1 ]]
+	then
+		printf "%s\\n\\n" "WARNING AndroidManifest.xml file not found!"
+	else
+		printf "%s\\n\\n" "Continuing..."
+	fi
+}
+
+_ATT_ () {
 	if [[ "$CK" != 1 ]]
 	then
 		if [[ ! -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] # tests if tar file exists
@@ -128,7 +144,7 @@ _NAND_ () {
 	touch "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "%s\\n" "$COMMIT" > "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "%s\\n" "1" >> "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
-	printf "%s\\n" "Could not find an AndroidManifest.xml file in Java language repository $USER ${NAME##*/}: NOT DOWNLOADING ${NAME##*/} tarball."
+	printf "\\n%s\\n" "Could not find an AndroidManifest.xml file in Java language repository $USER ${NAME##*/}:  NOT DOWNLOADING ${NAME##*/} tarball."
 }
 
 export RDR="$HOME/buildAPKs"
@@ -167,6 +183,7 @@ JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{
 F1AR=($(find . -maxdepth 1 -type d)) # creates array of $JDR contents 
 for NAME in "${JARR[@]}"
 do # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted, too.  They are repopulated from the tarballs.  This creates a "blackboard" from $JDR which can be selectively reset when desired.
+	UR="$(find "$RDR"/.conf/github/ -name "$USER.${NAME##*/}.???????.ck")" ||:
 	_AT_ 
 done
 
