@@ -106,6 +106,10 @@ then
 	mkdir -p "$JDR"
 fi
 cd "$JDR"
+if [[ ! -d ".conf" ]] 
+then
+mkdir -p .conf
+fi
 if [[ ! -f "repos" ]] 
 then
 	if [[ "$OAUT" != "" ]] 
