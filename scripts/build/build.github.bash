@@ -40,8 +40,9 @@ _AT_ () {
 		printf "%s\\n" "Querying $USER $REPO:"
 		if [[ "$COMMIT" != "" ]] 
 		then
+			touch "$RDR/.conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
 			printf "%s\\n" "Found last commit $COMMIT:"
-touch "$RDR/.conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
+			printf "%s\\n" "Downloading tree for ${NAME##*/}.${COMMIT::7}:"
 			if [[ "$OAUT" != "" ]] 
 			then
 				ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USER/$REPO/git/trees/$COMMIT?recursive=1")"
@@ -50,10 +51,10 @@ touch "$RDR/.conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
 			fi
 		 	if grep AndroidManifest.xml <<< $ISAND 
 			then
-echo 0 > "$RDR/.conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
+			echo 0 > "$RDR/.conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
 				_BUILDAPKS_
 			else
-echo 1 > "$RDR/.conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
+			echo 1 > "$RDR/.conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
 				printf "%s\\n" "Could not find an AndroidManifest.xml file in this Java language repository: NOT DOWNLOADING ${NAME##*/} tarball."
 			fi
 		elif [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]] # tests if directory exists
