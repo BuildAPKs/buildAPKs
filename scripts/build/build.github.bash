@@ -41,7 +41,7 @@ _AT_ () {
 		if [[ "$COMMIT" != "" ]] 
 		then
 			printf "%s\\n" "Found last commit $COMMIT:"
-touch "$RDR"/.conf/$USER.{NAME##*/}.${COMMIT::7}"
+touch "$RDR/.conf/$USER.{NAME##*/}.${COMMIT::7}"
 			if [[ "$OAUT" != "" ]] 
 			then
 				ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USER/$REPO/git/trees/$COMMIT?recursive=1")"
