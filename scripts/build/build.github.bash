@@ -37,14 +37,14 @@ trap _SGTRPQUIT_ QUIT
 _AT_ () {
 	CK=0
 	REPO=$(awk -F/ '{print $NF}' <<< $NAME)
-	printf "%s\\n" "Checking $USER $REPO:"
-	COMMIT="$(_CT_)"
-	_CK_
+	printf "%s\\n" "Checking $USER $REPO for last commit:"
+	COMMIT="$(_CT_)" ||:
+	_CK_ ||:
 	if [[ "$CK" != 1 ]]
 	then
 		if [[ ! -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] # tests if tar file exists
 		then
-			printf "%s\\n" "Querying $USER $REPO:"
+			printf "%s\\n" "Querying $USER $REPO for AndroidManifest.xml file:"
 			if [[ "$COMMIT" != "" ]] 
 			then
 				if [[ "$OAUT" != "" ]] # see $RDR/conf/github/OAUTH file 
@@ -123,7 +123,7 @@ then
 	printf "\\n%s\\n\\n" "GitHub username must be provided;  See \`cat ~/${RDR##*/}/conf/UNAMES\` for usernames that build APKs on device with BuildAPKs!" 
 	exit 227
 fi
-export USER="$1"
+export USER="${1,,}"
 export JDR="$RDR/sources/github/$USER"
 export JID="git.$USER"
 export OAUT="$(cat $RDR/conf/OAUTH | head -n 1)"
@@ -138,6 +138,7 @@ cd "$JDR"
 if [[ ! -d "$RDR/.conf/github" ]] 
 then
 	mkdir -p "$RDR/.conf/github"
+	printf "%s\\n" "This directory contains results from query for \`AndroidManifest.xml\` files in GitHub repositores.  " > "$RDR/.conf/github/README.md" 
 fi
 if [[ ! -f "repos" ]] 
 then
@@ -148,10 +149,10 @@ then
 		curl -O https://api.github.com/users/"$USER"/repos 
 	fi
 fi
-JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g'))
-F1AR=($(find . -maxdepth 1 -type d))
+JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g')) # creates array of Java language repositories
+F1AR=($(find . -maxdepth 1 -type d)) # creates array of $JDR contents 
 for NAME in "${JARR[@]}"
-do # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted too.  They are repopulated from the tar files.
+do # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted, too.  They are repopulated from the tarballs.  This creates a "blackboard" from $JDR which can be selectively reset when desired.
 	_AT_ 
 done
 
