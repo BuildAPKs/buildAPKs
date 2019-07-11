@@ -36,7 +36,7 @@ trap _SGTRPQUIT_ QUIT
 
 _AT_ () {
 	_CK_
-	if [[ "$CK" = 0 ]]
+	if [[ "$CK" != 1 ]]
 	then
 		if [[ ! -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] # tests if tar file exists
 		then
@@ -59,16 +59,12 @@ _AT_ () {
 				fi
 			elif [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]] # tests if directory exists
 			then # https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value
-				export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
-				tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
 				_FJDX_ 
 			else
 				_FJDR_ 
 			fi
 		elif [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]] # tests if directory exists
 		then 
-			export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
-			tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
 			_FJDX_ 
 		else
 			_FJDR_ 
@@ -93,8 +89,6 @@ _CK_ () {
 	if [[ -f "$RDR/.conf/$USER.${NAME##*/}.${COMMIT::7}.ck" ]]
 	then
 		CK=$(cat "$RDR/.conf/$USER.${NAME##*/}.${COMMIT::7}.ck")
-	else 
-		 CK="0"
 	fi
 }
 
@@ -112,21 +106,23 @@ _FJDR_ () {
 }
 
 _FJDX_ () { 
+	export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
+	tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
 	find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
 }
 
-export RDR="$HOME/buildAPKs"
 export RDR="$HOME/buildAPKs"
 if [[ -z "${1:-}" ]] 
 then
 	printf "\\n%s\\n\\n" "GitHub username must be provided;  See \`cat ~/${RDR##*/}/conf/UNAMES\` for usernames that build APKs on device with BuildAPKs!" 
 	exit 227
 fi
+export CK=0
 export USER="$1"
-export JID="git.$USER"
 export JDR="$RDR/sources/github/$USER"
-export STRING="ERROR FOUND; build.github.bash:  CONTINUING... "
+export JID="git.$USER"
 export OAUT="$(cat $RDR/conf/OAUTH | head -n 1)"
+export STRING="ERROR FOUND; build.github.bash:  CONTINUING... "
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "Beginning buildAPKs with build.github.bash:"
 . "$HOME/buildAPKs/scripts/shlibs/lock.bash"
 if [[ ! -d "$JDR" ]] 
