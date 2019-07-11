@@ -41,7 +41,7 @@ _AT_ () {
 		if [[ "$COMMIT" != "" ]] 
 		then
 			printf "%s\\n" "Found last commit $COMMIT:"
-touch .conf/"${NAME##*/}.${COMMIT::7}"
+touch "$RDR"/.conf/${NAME##*/}.${COMMIT::7}"
 			if [[ "$OAUT" != "" ]] 
 			then
 				ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USER/$REPO/git/trees/$COMMIT?recursive=1")"
@@ -50,10 +50,10 @@ touch .conf/"${NAME##*/}.${COMMIT::7}"
 			fi
 		 	if grep AndroidManifest.xml <<< $ISAND 
 			then
-echo 0 > .conf/"${NAME##*/}.${COMMIT::7}"
+echo 0 > "$RDR/.conf/${NAME##*/}.${COMMIT::7}"
 				_BUILDAPKS_
 			else
-echo 1 > .conf/"${NAME##*/}.${COMMIT::7}"
+echo 1 > "$RDR/.conf/${NAME##*/}.${COMMIT::7}"
 				printf "%s\\n" "Could not find an AndroidManifest.xml file in this Java language repository: NOT DOWNLOADING ${NAME##*/} tarball."
 			fi
 		elif [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]] # tests if directory exists
@@ -109,9 +109,9 @@ then
 	mkdir -p "$JDR"
 fi
 cd "$JDR"
-if [[ ! -d ".conf" ]] 
+if [[ ! -d "$RDR/.conf" ]] 
 then
-mkdir -p .conf
+mkdir -p "$RDR.conf"
 fi
 if [[ ! -f "repos" ]] 
 then
