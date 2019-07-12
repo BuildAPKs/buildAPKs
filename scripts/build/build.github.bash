@@ -37,15 +37,15 @@ trap _SGTRPQUIT_ QUIT
 _AT_ () {
 	CK=0
 	REPO=$(awk -F/ '{print $NF}' <<< $NAME)
-	if [[ $UR = "" ]] # config file is not  present
+	if [[ $UR = "" ]] # config file is not present
 	then
-		printf "%s" "Checking $USER $REPO for last commit:  " 
+		printf "%s" "Checking $USENAME $REPO for last commit:  " 
  		COMMIT="$(_CT_)" ||:
  		_CK_ ||:
-		printf "%s\\n\\n" "Continuing..."
+		printf "%s\\n" "Continuing..."
 		_ATT_ 
-	else
-		printf "%s" "Loading $USER $REPO config from ${UR}:  "
+	else # load config file for repository
+		printf "%s" "Loading $USENAME $REPO config from ${UR}:  "
 		COMMIT=$(head -n 1 "$UR")
  		CK=$(tail -n 1  "$UR")
 		_PRINTCK_
@@ -56,9 +56,9 @@ _AT_ () {
 _PRINTCK_ () {
 	if [[ "$CK" = 1 ]]
 	then
-		printf "%s\\n\\n" "WARNING AndroidManifest.xml file not found!"
+		printf "%s\\n" "WARNING AndroidManifest.xml file not found!"
 	else
-		printf "%s\\n\\n" "Continuing..."
+		printf "%s\\n" "Continuing..."
 	fi
 }
 
@@ -67,14 +67,14 @@ _ATT_ () {
 	then
 		if [[ ! -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] # tests if tar file exists
 		then
-			printf "%s\\n" "Querying $USER $REPO for AndroidManifest.xml file:"
+			printf "%s\\n" "Querying $USENAME $REPO for AndroidManifest.xml file:"
 			if [[ "$COMMIT" != "" ]] 
 			then
 				if [[ "$OAUT" != "" ]] # see $RDR/conf/github/OAUTH file 
 				then
-					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USER/$REPO/git/trees/$COMMIT?recursive=1")"
+					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")"
 				else
-					ISAND="$(curl -i "https://api.github.com/repos/$USER/$REPO/git/trees/$COMMIT?recursive=1")"
+					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")"
 				fi
 			 	if grep AndroidManifest.xml <<< $ISAND 
 				then
@@ -154,6 +154,7 @@ then
 	exit 227
 fi
 export USER="${1,,}"
+export USENAME="$1"
 export JDR="$RDR/sources/github/$USER"
 export JID="git.$USER"
 export OAUT="$(cat $RDR/conf/OAUTH | head -n 1)"
@@ -172,6 +173,7 @@ then
 fi
 if [[ ! -f "repos" ]] 
 then
+	printf "%s\\n" "Downloading GitHub $USENAME repositories information:  "
 	if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file for information 
 	then
 		curl -u "$OAUT" -O https://api.github.com/users/"$USER"/repos 
