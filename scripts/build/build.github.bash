@@ -70,7 +70,7 @@ _ATT_ () {
 			printf "%s\\n" "Querying $USENAME $REPO for AndroidManifest.xml file:"
 			if [[ "$COMMIT" != "" ]] 
 			then
-				if [[ "$OAUT" != "" ]] # see $RDR/conf/github/OAUTH file 
+				if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file 
 				then
 					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")"
 				else
@@ -100,7 +100,7 @@ _ATT_ () {
 
 _BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/	
 	printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT -o ${NAME##*/}.${COMMIT::7}.tar.gz:"
-	if [[ "$OAUT" != "" ]] # see $RDR/conf/github/OAUTH file for information  
+	if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file for information  
 	then
 		curl -u "$OAUT" -L "$NAME"/tarball/$COMMIT -o "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
 	else
@@ -117,7 +117,7 @@ _CK_ () {
 }
 
 _CT_ () { # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell # get tar commits
-	if [[ "$OAUT" != "" ]] # see $RDR/conf/github/OAUTH file for information  
+	if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file for information  
 	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
 	 	curl -u "$OAUT" -r 0-2 https://api.github.com/repos/$USER/$REPO/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
 	else
