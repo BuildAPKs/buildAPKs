@@ -136,12 +136,10 @@ _FJDX_ () {
 }
 
 _AND_ () {
-	touch "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "%s\\n" "$COMMIT" > "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "%s\\n" "0" >> "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
 }
 _NAND_ () {
-	touch "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "%s\\n" "$COMMIT" > "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "%s\\n" "1" >> "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "\\n%s\\n" "Could not find an AndroidManifest.xml file in Java language repository $USER ${NAME##*/}:  NOT DOWNLOADING ${NAME##*/} tarball."
