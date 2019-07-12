@@ -34,31 +34,27 @@ trap _SGTRPEXIT_ EXIT
 trap _SGTRPSIGNAL_ HUP INT TERM 
 trap _SGTRPQUIT_ QUIT 
 
+_AND_ () { # write configuration file for git repository if AndroidManifest.xml file is found 
+	printf "%s\\n" "$COMMIT" > "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
+	printf "%s\\n" "0" >> "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
+}
+
 _AT_ () {
 	CK=0
 	REPO=$(awk -F/ '{print $NF}' <<< $NAME)
-	if [[ $UR = "" ]] # config file is not present
+	if [[ $UR = "" ]] # configuration file is not found
 	then
 		printf "%s" "Checking $USENAME $REPO for last commit:  " 
- 		COMMIT="$(_CT_)" ||:
- 		_CK_ ||:
+ 		COMMIT="$(_GC_)" ||:
+ 		_LRCK_ ||:
 		printf "%s\\n" "Continuing..."
 		_ATT_ 
-	else # load config file for repository
+	else # load configuration information from file 
 		printf "%s" "Loading $USENAME $REPO config from ${UR}:  "
 		COMMIT=$(head -n 1 "$UR")
  		CK=$(tail -n 1  "$UR")
 		_PRINTCK_
 		_ATT_ 
-	fi
-}
-
-_PRINTCK_ () {
-	if [[ "$CK" = 1 ]]
-	then
-		printf "%s\\n" "WARNING AndroidManifest.xml file not found!"
-	else
-		printf "%s\\n" "Continuing..."
 	fi
 }
 
@@ -109,22 +105,6 @@ _BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/
 	_FJDX_ 
 }
 
-_CK_ () { 
-	if [[ -f "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck" ]]
-	then
-		CK=$(tail -n 1 "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck")
-	fi
-}
-
-_CT_ () { # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell # get tar commits
-	if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file for information  
-	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
-	 	curl -u "$OAUT" -r 0-2 https://api.github.com/repos/$USER/$REPO/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
-	else
-	 	curl -r 0-2 https://api.github.com/repos/$USER/$REPO/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
-	fi
-}
-
 _FJDR_ () { 
 	find "$JDR" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
 }
@@ -135,14 +115,35 @@ _FJDX_ () {
 	find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
 }
 
-_AND_ () {
-	printf "%s\\n" "$COMMIT" > "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
-	printf "%s\\n" "0" >> "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
+_GC_ () { # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell 
+	if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file for information  
+	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
+	 	curl -u "$OAUT" -r 0-2 https://api.github.com/repos/$USER/$REPO/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
+	else
+	 	curl -r 0-2 https://api.github.com/repos/$USER/$REPO/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
+	fi
 }
-_NAND_ () {
+
+_LRCK_ () { # loads result of AndroidManifest.xml file check if present 
+	if [[ -f "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck" ]]
+	then
+		CK=$(tail -n 1 "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck")
+	fi
+}
+
+_NAND_ () { # write configuration file for repository if AndroidManifest.xml file is not found 
 	printf "%s\\n" "$COMMIT" > "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "%s\\n" "1" >> "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "\\n%s\\n" "Could not find an AndroidManifest.xml file in Java language repository $USER ${NAME##*/}:  NOT DOWNLOADING ${NAME##*/} tarball."
+}
+
+_PRINTCK_ () {
+	if [[ "$CK" = 1 ]]
+	then
+		printf "%s\\n" "WARNING AndroidManifest.xml file not found!"
+	else
+		printf "%s\\n" "Continuing..."
+	fi
 }
 
 export RDR="$HOME/buildAPKs"
