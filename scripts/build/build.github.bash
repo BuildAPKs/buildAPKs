@@ -185,7 +185,7 @@ JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{
 F1AR=($(find . -maxdepth 1 -type d)) # creates array of $JDR contents 
 for NAME in "${JARR[@]}"
 do # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted, too.  They are repopulated from the tarballs.  This creates a "blackboard" from $JDR which can be selectively reset when desired.
-	UR="$(find "$RDR"/.conf/github/ -name "$USER.${NAME##*/}.???????.ck")" ||:
+	UR="$(find "$RDR"/.conf/github/ -name "$USER.${NAME##*/}.???????.ck")" ||: # https://stackoverflow.com/questions/6363441/check-if-a-file-exists-with-wildcard-in-shell-script
 	_AT_ 
 done
 
