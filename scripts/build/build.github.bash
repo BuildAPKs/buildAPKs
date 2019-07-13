@@ -42,16 +42,16 @@ _AND_ () { # write configuration file for git repository tarball if AndroidManif
 _AT_ () {
 	CK=0
 	REPO=$(awk -F/ '{print $NF}' <<< "$NAME") # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell 
-	if [[ $UR = "" ]] # configuration file is not found
+	if [[ $NPCK = "" ]] # configuration file is not found
 	then
 		printf "%s" "Checking $USENAME $REPO for last commit:  " 
  		COMMIT="$(_GC_)" ||:
 		printf "%s\\n" "Continuing..."
 		_ATT_ 
 	else # load configuration information from file 
-		printf "%s" "Loading $USENAME $REPO config from $UR:  "
-		COMMIT=$(head -n 1 "$UR")
- 		CK=$(tail -n 1  "$UR")
+		printf "%s" "Loading $USENAME $REPO config from $NPCK:  "
+		COMMIT=$(head -n 1 "$NPCK")
+ 		CK=$(tail -n 1  "$NPCK")
 		_PRINTCK_
 		_ATT_ 
 	fi
@@ -149,8 +149,8 @@ export USENAME="$1"
 export JDR="$RDR/sources/github/$USER"
 export JID="git.$USER"
 export OAUT="$(cat "$RDR/conf/OAUTH" | awk 'NR==1')"
-export STRING="ERROR FOUND; build.github.bash:  CONTINUING... "
-printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "Beginning buildAPKs with build.github.bash:"
+export STRING="ERROR FOUND; build.github.bash $1:  CONTINUING... "
+printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "Beginning buildAPKs with build.github.bash $1:"
 . "$HOME/buildAPKs/scripts/shlibs/lock.bash"
 if [[ ! -d "$JDR" ]] 
 then
@@ -176,7 +176,7 @@ JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{
 F1AR=($(find . -maxdepth 1 -type d)) # creates array of $JDR contents 
 for NAME in "${JARR[@]}"
 do # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted, too.  They are repopulated from the tarballs.  This creates a "blackboard" from $JDR which can be selectively reset when desired.
-	UR="$(find "$RDR"/.conf/github/ -name "$USER.${NAME##*/}.???????.ck")" ||: # https://stackoverflow.com/questions/6363441/check-if-a-file-exists-with-wildcard-in-shell-script
+	NPCK="$(find "$RDR"/.conf/github/ -name "$USER.${NAME##*/}.???????.ck")" ||: # https://stackoverflow.com/questions/6363441/check-if-a-file-exists-with-wildcard-in-shell-script
 	_AT_ 
 done
 
