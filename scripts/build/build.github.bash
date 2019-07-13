@@ -34,23 +34,22 @@ trap _SGTRPEXIT_ EXIT
 trap _SGTRPSIGNAL_ HUP INT TERM 
 trap _SGTRPQUIT_ QUIT 
 
-_AND_ () { # write configuration file for git repository if AndroidManifest.xml file is found 
+_AND_ () { # write configuration file for git repository tarball if AndroidManifest.xml file is found in repository  
 	printf "%s\\n" "$COMMIT" > "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "%s\\n" "0" >> "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck"
 }
 
 _AT_ () {
 	CK=0
-	REPO=$(awk -F/ '{print $NF}' <<< $NAME)
+	REPO=$(awk -F/ '{print $NF}' <<< "$NAME") # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell 
 	if [[ $UR = "" ]] # configuration file is not found
 	then
 		printf "%s" "Checking $USENAME $REPO for last commit:  " 
  		COMMIT="$(_GC_)" ||:
- 		_LRCK_ ||:
 		printf "%s\\n" "Continuing..."
 		_ATT_ 
 	else # load configuration information from file 
-		printf "%s" "Loading $USENAME $REPO config from ${UR}:  "
+		printf "%s" "Loading $USENAME $REPO config from $UR:  "
 		COMMIT=$(head -n 1 "$UR")
  		CK=$(tail -n 1  "$UR")
 		_PRINTCK_
@@ -68,11 +67,11 @@ _ATT_ () {
 			then
 				if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file 
 				then
-					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")"
+					ISAND="$(curl -u "$OAUT" -r 0-200 -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")"
 				else
-					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")"
+					ISAND="$(curl -r 0-200 -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")"
 				fi
-			 	if grep AndroidManifest.xml <<< $ISAND 
+			 	if grep AndroidManifest.xml <<< "$ISAND" 
 				then
 					_AND_
 					_BUILDAPKS_
@@ -94,13 +93,13 @@ _ATT_ () {
 	fi
 }
 
-_BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/	
+_BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/
 	printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT -o ${NAME##*/}.${COMMIT::7}.tar.gz:"
-	if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file for information  
+	if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file 
 	then
-		curl -u "$OAUT" -L "$NAME"/tarball/$COMMIT -o "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
+		curl -u "$OAUT" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
 	else
-		curl -L "$NAME"/tarball/$COMMIT -o "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
+		curl -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
 	fi
 	_FJDX_ 
 }
@@ -115,19 +114,12 @@ _FJDX_ () {
 	find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
 }
 
-_GC_ () { # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell 
+_GC_ () { 
 	if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file for information  
 	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
-	 	curl -u "$OAUT" -r 0-2 https://api.github.com/repos/$USER/$REPO/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
+	 	curl -u "$OAUT" -r 0-2 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
 	else
-	 	curl -r 0-2 https://api.github.com/repos/$USER/$REPO/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
-	fi
-}
-
-_LRCK_ () { # loads result of AndroidManifest.xml file check if present 
-	if [[ -f "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck" ]]
-	then
-		CK=$(tail -n 1 "$RDR/.conf/github/$USER.${NAME##*/}.${COMMIT::7}.ck")
+	 	curl -r 0-2 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
 	fi
 }
 
@@ -156,7 +148,7 @@ export USER="${1,,}"
 export USENAME="$1"
 export JDR="$RDR/sources/github/$USER"
 export JID="git.$USER"
-export OAUT="$(cat $RDR/conf/OAUTH | head -n 1)"
+export OAUT="$(cat "$RDR/conf/OAUTH" | awk 'NR==1')"
 export STRING="ERROR FOUND; build.github.bash:  CONTINUING... "
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "Beginning buildAPKs with build.github.bash:"
 . "$HOME/buildAPKs/scripts/shlibs/lock.bash"
