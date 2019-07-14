@@ -84,9 +84,9 @@ _ATT_ () {
 			then
 				if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file 
 				then
-					ISAND="$(curl -u "$OAUT" -r 0-128 -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")"
+ 					ISAND="$(curl -u "$OAUT" -r 0-1 -s "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")"
 				else
-					ISAND="$(curl -r 0-128 -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")"
+ 					ISAND="$(curl -u "$OAUT" -r 0-1 -s "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")"
 				fi
 			 	if grep AndroidManifest.xml <<< "$ISAND" 
 				then
@@ -129,9 +129,9 @@ _FJDX_ () {
 _GC_ () { 
 	if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file for information  
 	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
-	 	curl -u "$OAUT" -r 0-2 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
+	 	curl -u "$OAUT" -r 0-1 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
 	else
-	 	curl -r 0-2 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
+	 	curl -r 0-1 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
 	fi
 }
 
@@ -150,13 +150,15 @@ then
 	printf "\\n%s\\n\\n" "GitHub username must be provided;  See \`cat ~/${RDR##*/}/conf/UNAMES\` for usernames that build APKs on device with BuildAPKs!" 
 	exit 227
 fi
-export USER="${1,,}"
-export USENAME="$1"
+export UON="${1%/}"
+export UONE="${UON##*/}"
+export USENAME="$UONE"
+export USER="${USENAME,,}"
 export JDR="$RDR/sources/github/$USER"
 export JID="git.$USER"
 export OAUT="$(cat "$RDR/conf/OAUTH" | awk 'NR==1')"
 export STRING="ERROR FOUND; build.github.bash $1:  CONTINUING... "
-printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "Beginning BuildAPKs with build.github.bash $@:"
+printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "Beginning BuildAPKs with build.github.bash $1:"
 . "$HOME/buildAPKs/scripts/shlibs/lock.bash"
 if [[ ! -d "$JDR" ]] 
 then
