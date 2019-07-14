@@ -1,15 +1,16 @@
 #!/system/bin/sh 
 
-for i in aapt ecj dx apksigner; do
-  [ -z "$(command -v $i)" ] && echo " \"$i\" not found" && notfound=1
+for CMD in aapt apksigner dx ecj 
+do
+  [ -z "$(command -v "$CMD")" ] && printf "%s\\n" " \"$CMD\" not found" && NOTFOUND=1
 done
-[ "$notfound" = "1" ] && exit
-[ "$1" ] && [ -f "$1/AndroidManifest.xml" ] && cd "$1"
+[ "$NOTFOUND" = "1" ] && exit
+[ "$1" ] && [ -f "$1/AndroidManifest.xml" ] && ( cd "$1" || _FAILED_ )
 [ -f AndroidManifest.xml ] || exit
 
-cleanup() {
-  echo "\n\nCleaning up..."
-  [ "$clean" = "1" ] && mv "bin/${PKGNAME}-signed.apk" .
+_CLEANUP_() {
+  printf "\\n\\n%s\\n" "Cleaning up..."
+  [ "$CLEAN" = "1" ] && mv "bin/$PKGNAME-signed.apk" .
   rmdir assets 2>/dev/null
   rmdir res 2>/dev/null
   rm -rf bin
@@ -17,15 +18,16 @@ cleanup() {
   rm -rf obj
 }
 
-failed() {
-  echo  "\n\n\n Unable to process\n\n\n"
-  cleanup; exit
+_FAILED_() {
+  printf "\\n\\n\\n%s\\n\\n\\n\\n"  "Unable to process"
+  _CLEANUP_
+  exit
 }
 
 PKGNAME="$(grep -o "package=.*" AndroidManifest.xml | cut -d\" -f2)"
 
 
-echo "Beginning build"
+printf "%s\\n" "Beginning build"
 [ -d assets ] || mkdir assets
 [ -d res ] || mkdir res
 mkdir bin
@@ -33,46 +35,47 @@ mkdir gen
 mkdir obj
 
 
-echo "aapt: started..."
+printf "%s\\n" "aapt: started..."
 aapt package -f -m \
     -M "AndroidManifest.xml" \
     -J "gen" \
-    -S "res" || failed
-echo "aapt: done\n"
+    -S "res" || _FAILED_
+printf "%s\\n\\n" "aapt: done"
 
 
-echo "ecj: begun..."
-for file in $(find . -type f -name "*.java"); do
-  javafiles="$javafiles $file"
+printf "%s\\n" "ecj: begun..."
+for JAVAFILE in $(find . -type f -name "*.java")
+do
+  JAVAFILES="$JAVAFILES $JAVAFILE"
 done
-ecj -d obj -sourcepath . $javafiles || failed
-echo "ecj: done\n"
+ecj -d obj -sourcepath . "$JAVAFILES" || _FAILED_
+printf "%s\\n\\n" "ecj: done"
 
 
-echo "dx: started..."
-dx --dex --output=bin/classes.dex obj || failed
-echo "dx: done\n"
+printf "%s\\n" "dx: started..."
+dx --dex --output=bin/classes.dex obj || _FAILED_
+printf "%s\\n\\n" "dx: done"
 
 
-echo "Making ${PKGNAME}.apk..."
+printf "%s\\n" "Making $PKGNAME.apk..."
 aapt package -f \
     --min-sdk-version 1 \
     --target-sdk-version 23 \
     -M AndroidManifest.xml \
     -S res \
     -A assets \
-    -F bin/"${PKGNAME}.apk" || failed
+    -F bin/"$PKGNAME.apk" || _FAILED_
 
 
-echo "\nAdding classes.dex to ${PKGNAME}.apk..."
-cd bin
-aapt add -f "${PKGNAME}.apk" classes.dex || { cd ..; failed; }
+printf "\\n%s\\n" "Adding classes.dex to $PKGNAME.apk..."
+cd bin || _FAILED_ 
+aapt add -f "$PKGNAME.apk" classes.dex || { cd ..; _FAILED_; }
 
-echo "\nSigning $PKGNAME.apk..."
-apksigner "${PKGNAME}-debug.key" "${PKGNAME}.apk" "${PKGNAME}-signed.apk" || { cd ..; failed; }
+printf "\\n%s\\n" "Signing $PKGNAME.apk..."
+apksigner "$PKGNAME-debug.key" "$PKGNAME.apk" "$PKGNAME-signed.apk" || { cd ..; _FAILED_; }
 
 cd ..
 
-clean=1
-cleanup
-echo "\n\nShare https://wiki.termux.com/wiki/Development everwhere🌎🌍🌏🌐!"
+CLEAN=1
+_CLEANUP_
+printf "\\n\\n%s\\n\\n" "Share https://wiki.termux.com/wiki/Development everwhere🌎🌍🌏🌐!"
