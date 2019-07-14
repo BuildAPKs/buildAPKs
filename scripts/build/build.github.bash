@@ -12,7 +12,6 @@ _SGTRPERROR_() { # Run on script error.
 }
 
 _SGTRPEXIT_() { # Run on exit.
-	printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "BuildAPKs build.github.bash $#:  DONE"
 	printf "\\e[?25h\\e[0m"
 	set +Eeuo pipefail 
 	exit
@@ -36,14 +35,21 @@ trap _SGTRPSIGNAL_ HUP INT TERM
 trap _SGTRPQUIT_ QUIT 
 
 _AND_ () { # write configuration file for git repository tarball if AndroidManifest.xml file is found in git repositoryr.
-	printf "%s\\n" "$COMMIT" > "$RDR/.config/github/$USENAME/$USER.${NAME##*/}.${COMMIT::7}.ck"
-	printf "%s\\n" "0" >> "$RDR/.config/github/$USENAME/$USER.${NAME##*/}.${COMMIT::7}.ck"
-	printf "\\n%s\\n" "Found AndroidManifest.xml file in Java language repository $USER ${NAME##*/}:  Downloading ${NAME##*/} tarball and writing ${RDR##*/}/.config/github/$USENAME/$USER.${NAME##*/}.${COMMIT::7}.ck file for git repository ${NAME##*/}."
+	export CK=0
+	printf "%s\\n" "$COMMIT" > "$JDR/.config/$USER.${NAME##*/}.${COMMIT::7}.ck"
+	printf "%s\\n" "0" >> "$JDR/.config/$USER.${NAME##*/}.${COMMIT::7}.ck"
+
+	if [[ -z "${1:-}" ]] 
+	then
+		printf "\\n%s\\n" "Found AndroidManifest.xml file in Java language repository $USER ${NAME##*/}:  Writing ~/${RDR##*/}/sources/github/${JDR##*/}/.config/$USER.${NAME##*/}.${COMMIT::7}.ck file for git repository ${NAME##*/}."
+	else
+		printf "\\n%s\\n" "Found AndroidManifest.xml file in Java language repository $USER ${NAME##*/}:  Downloading ${NAME##*/} tarball and writing ~/${RDR##*/}/sources/github/${JDR##*/}/.config/$USER.${NAME##*/}.${COMMIT::7}.ck file for git repository ${NAME##*/}."
+	fi
 }
 
 _NAND_ () { # write configuration file for repository if AndroidManifest.xml file is NOT found in git repository.  
-	printf "%s\\n" "$COMMIT" > "$RDR/.config/github/$USENAME/$USER.${NAME##*/}.${COMMIT::7}.ck"
-	printf "%s\\n" "1" >> "$RDR/.config/github/$USENAME/$USER.${NAME##*/}.${COMMIT::7}.ck"
+	printf "%s\\n" "$COMMIT" > "$JDR/.config/$USER.${NAME##*/}.${COMMIT::7}.ck"
+	printf "%s\\n" "1" >> "$JDR/.config/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "\\n%s\\n" "Could not find an AndroidManifest.xml file in Java language repository $USER ${NAME##*/}:  NOT downloading ${NAME##*/} tarball."
 }
 
@@ -51,7 +57,7 @@ _AT_ () {
 	CK=0
 	NPCK=""
 	REPO=$(awk -F/ '{print $NF}' <<< "$NAME") # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell 
-	NPCK="$(find "$RDR/.config/github/$USENAME/" -name "$USER.${NAME##*/}.???????.ck")" ||: # https://stackoverflow.com/questions/6363441/check-if-a-file-exists-with-wildcard-in-shell-script
+	NPCK="$(find "$JDR/.config/" -name "$USER.${NAME##*/}.???????.ck")" ||: # https://stackoverflow.com/questions/6363441/check-if-a-file-exists-with-wildcard-in-shell-script
 	for CKFILE in "$NPCK" 
 	do
  	if [[ $CKFILE = "" ]] # configuration file is not found
@@ -83,7 +89,7 @@ _ATT_ () {
 	if [[ "$CK" != 1 ]]
 	then
 		if [[ ! -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] # tar file exists
-		then
+		then # https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value
 			printf "%s\\n" "Querying $USENAME $REPO for AndroidManifest.xml file:"
 			if [[ "$COMMIT" != "" ]] 
 			then
@@ -95,22 +101,21 @@ _ATT_ () {
 				fi
 			 	if grep AndroidManifest.xml <<< "$ISAND" 
 				then
-					_AND_
+					_AND_ 0
 					_BUILDAPKS_
 				else
 					_NAND_
 				fi
-			elif [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]] # directory exists
-			then # https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value
-				_FJDX_ 
-			else
-				_FJDR_ 
 			fi
-		elif [[ -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] && [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]] # tarfile and directory exist
+		elif [[ -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] && [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]] # tarfile exists and directory does not exist
 		then
+			_AND_
 			_FJDX_ 
-		else
-			_FJDR_ 
+		elif [[ -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] && [[ "${F1AR[@]}" =~ "${NAME##*/}" ]] # tarfile and directory exist
+		then
+			_AND_
+			export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
+		  	find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
 		fi
 	fi
 }
@@ -124,10 +129,6 @@ _BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/
 		curl -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
 	fi
 	_FJDX_ 
-}
-
-_FJDR_ () { 
-	find "$JDR" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
 }
 
 _FJDX_ () { 
@@ -164,15 +165,10 @@ then
 	mkdir -p "$JDR"
 fi
 cd "$JDR"
-if [[ ! -d "$RDR/.config/github" ]] 
+if [[ ! -d "$JDR/.config" ]] 
 then
-	mkdir -p "$RDR/.config/github"
-	printf "%s\\n\\n" "This directory contains results from query for \`AndroidManifest.xml\` files in GitHub repositores.  " > "$RDR/.config/github/README.md" 
-fi
-if [[ ! -d "$RDR/.config/github/$USENAME" ]] 
-then
-	mkdir -p "$RDR/.config/github/$USENAME"
-	printf "%s\\n\\n" "This directory contains results from query for \`AndroidManifest.xml\` files in GitHub $USENAME repositores.  " > "$RDR/.config/github/$USENAME/README.md" 
+	mkdir -p "$JDR/.config"
+	printf "%s\\n\\n" "This directory contains results from query for \`AndroidManifest.xml\` files in GitHub $USENAME repositores.  " > "$JDR/.config/README.md" 
 fi
 if [[ ! -f "repos" ]] 
 then
@@ -186,9 +182,9 @@ then
 fi
 JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g')) # creates array of Java language repositories
 F1AR=($(find . -maxdepth 1 -type d)) # creates array of $JDR contents 
-for NAME in "${JARR[@]}"
-do # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted, too.  They are repopulated from the tarballs.  This creates a "blackboard" from $JDR which can be selectively reset when desired.
+for NAME in "${JARR[@]}" # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted, too.  They are repopulated from the tarballs.  
+do #  This creates a "slate" from each github/$JDR which can be selectively reset when desired.  This can be important on a slow connection.
 	_AT_ 
 done
-exit 
+
 #EOF
