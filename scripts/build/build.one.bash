@@ -8,9 +8,6 @@ shopt -s nullglob globstar
 _SBOTRPERROR_() { # run on script error
 	local RV="$?"
 	echo $RV build.one.bash  
-	echo trap '_SBOTRPERROR_ $LINENO $BASH_COMMAND $?' ERR 
-	echo $LINENO $BASH_COMMAND $?
-	echo "$1 $2 $3"
 	if [[ "$2" = ecj ]]  
 	then 
 		mkdir -p "$RDR/tmp"
@@ -169,21 +166,20 @@ then
 fi
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 aapt package -f \
-	-M ./AndroidManifest.xml \
+	-M AndroidManifest.xml \
 	-J gen \
-	-S res \
-	-m
+	-S res 
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "ecj: begun..."
 ecj -d ./obj -sourcepath . $(find . -type f -name "*.java")
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started..."
-dx --dex --output=./bin/classes.dex ./obj
+dx --dex --output=bin/classes.dex obj
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAM.apk..."
 aapt package -f \
 	--min-sdk-version 1 \
 	--target-sdk-version 23 \
-	-M ./AndroidManifest.xml \
-	-S ./res \
-	-A ./assets \
+	-M AndroidManifest.xml \
+	-S res \
+	-A assets \
 	-F bin/"$PKGNAM.apk"
 printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex to $PKGNAM.apk..."
 cd bin 
