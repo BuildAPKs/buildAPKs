@@ -5,7 +5,7 @@
 set -Eeuo pipefail
 shopt -s nullglob globstar
 
-_SBOTRPERROR_() { # Run on script error.
+_SBOTRPERROR_() { # run on script error
 	local RV="$?"
 	echo $RV build.one.bash  
 	echo trap '_SBOTRPERROR_ $LINENO $BASH_COMMAND $?' ERR 
@@ -50,7 +50,7 @@ _SBOTRPERROR_() { # Run on script error.
 	exit 160
 }
 
-_SBOTRPEXIT_() { # Run on exit.
+_SBOTRPEXIT_() { # run on exit
 	local RV="$?"
 	if [[ "$RV" != 0 ]]  
 	then 
@@ -80,12 +80,12 @@ _SBOTRPEXIT_() { # Run on exit.
 	exit 0
 }
 
-_SBOTRPSIGNAL_() { # Run on signal.
+_SBOTRPSIGNAL_() { # run on signal
 	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Signal %s received by build.one.bash!\\e[0m\\n" "${0##*/}" "$?" 
  	exit 161 
 }
 
-_SBOTRPQUIT_() { # Run on quit.
+_SBOTRPQUIT_() { # run on quit
 	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Quit signal %s received by build.one.bash!\\e[0m\\n" "${0##*/}" "$?"
  	exit 162 
 }
@@ -98,18 +98,16 @@ trap _SBOTRPQUIT_ QUIT
 _CLEANUP_ () {
 	sleep 0.32 
 	printf "\\e[1;38;5;151m%s\\n\\e[0m" "Cleaning up..."
-	rm -f *-debug.key ||: 
- 	rm -rf ./bin ||: 
-	rm -rf ./gen ||: 
- 	rm -rf ./obj ||: 
+	rm -f *-debug.key 
+ 	rm -rf ./bin 
+	rm -rf ./gen 
+ 	rm -rf ./obj 
 	find . -name R.java -exec rm {} \; ||: 
 	printf "\\e[1;38;5;151mCompleted tasks in ~/%s/.\\n\\n\\e[0m" "${PWD:33}"
 }
 
 NOW=$(date +%s)
-PKGA="$(sed -n '/package="/p' ./AndroidManifest.xml)" # http://www.theunixschool.com/2012/12/sed-10-examples-to-print-lines-from-file.html
-PKGNA="$(sed 's/^[^"]*package="//g' <<< $PKGA)" # deletes before regex
-PKGNAM="$(sed 's/\".*//g' <<< $PKGNA)" # deletes after regex
+PKGNAM="$(grep -o "package=.*" AndroidManifest.xml | cut -d\" -f2)"
 PKGNAME="$PKGNAM.$NOW"
 if [[ -z "${DAY:-}" ]] 
 then
@@ -133,7 +131,7 @@ else
 fi
 if [[ -z "${JID:-}" ]] 
 then
-	JID="${PWD##*/}"
+	JID="${PWD##*/}" # https://www.tldp.org/LDP/abs/html/parameter-substitution.html 
 fi
 if [[ -z "${NUM:-}" ]] 
 then
