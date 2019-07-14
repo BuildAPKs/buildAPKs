@@ -38,19 +38,18 @@ _AND_ () { # write configuration file for git repository tarball if AndroidManif
 	export CK=0
 	printf "%s\\n" "$COMMIT" > "$JDR/.config/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "%s\\n" "0" >> "$JDR/.config/$USER.${NAME##*/}.${COMMIT::7}.ck"
-
 	if [[ -z "${1:-}" ]] 
 	then
-		printf "\\n%s\\n" "Found AndroidManifest.xml file in Java language repository $USER ${NAME##*/}:  Writing ~/${RDR##*/}/sources/github/${JDR##*/}/.config/$USER.${NAME##*/}.${COMMIT::7}.ck file for git repository ${NAME##*/}."
+		printf "%s\\n\\n" "Found AndroidManifest.xml file in Java language repository $USER ${NAME##*/}:  Writing ~/${RDR##*/}/sources/github/${JDR##*/}/.config/$USER.${NAME##*/}.${COMMIT::7}.ck file for git repository ${NAME##*/}."
 	else
-		printf "\\n%s\\n" "Found AndroidManifest.xml file in Java language repository $USER ${NAME##*/}:  Downloading ${NAME##*/} tarball and writing ~/${RDR##*/}/sources/github/${JDR##*/}/.config/$USER.${NAME##*/}.${COMMIT::7}.ck file for git repository ${NAME##*/}."
+		printf "%s\\n\\n" "Found AndroidManifest.xml file in Java language repository $USER ${NAME##*/}:  Downloading ${NAME##*/} tarball and writing ~/${RDR##*/}/sources/github/${JDR##*/}/.config/$USER.${NAME##*/}.${COMMIT::7}.ck file for git repository ${NAME##*/}."
 	fi
 }
 
 _NAND_ () { # write configuration file for repository if AndroidManifest.xml file is NOT found in git repository.  
 	printf "%s\\n" "$COMMIT" > "$JDR/.config/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "%s\\n" "1" >> "$JDR/.config/$USER.${NAME##*/}.${COMMIT::7}.ck"
-	printf "\\n%s\\n" "Could not find an AndroidManifest.xml file in Java language repository $USER ${NAME##*/}:  NOT downloading ${NAME##*/} tarball."
+	printf "\\n%s\\n\\n" "Could not find an AndroidManifest.xml file in Java language repository $USER ${NAME##*/}:  NOT downloading ${NAME##*/} tarball."
 }
 
 _AT_ () {
@@ -139,9 +138,9 @@ _GC_ () {
 _PRINTCK_ () {
 	if [[ "$CK" = 1 ]]
 	then
-		printf "%s\\n" "WARNING AndroidManifest.xml file not found!"
+		printf "%s\\n\\n" "WARNING AndroidManifest.xml file not found!"
 	else
-		printf "%s\\n" "Continuing..."
+		printf "%s\\n\\n" "Continuing..."
 	fi
 }
 
