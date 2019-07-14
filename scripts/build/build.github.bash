@@ -40,9 +40,9 @@ _AND_ () { # write configuration file for git repository tarball if AndroidManif
 	printf "%s\\n" "0" >> "$JDR/.config/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	if [[ -z "${1:-}" ]] 
 	then
-		printf "%s\\n\\n" "Found AndroidManifest.xml file in Java language repository $USER ${NAME##*/}:  Writing ~/${RDR##*/}/sources/github/${JDR##*/}/.config/$USER.${NAME##*/}.${COMMIT::7}.ck file for git repository ${NAME##*/}."
+		printf "%s\\n" "Found AndroidManifest.xml file in Java language repository $USER ${NAME##*/}:  Writing ~/${RDR##*/}/sources/github/${JDR##*/}/.config/$USER.${NAME##*/}.${COMMIT::7}.ck file for git repository ${NAME##*/}."
 	else
-		printf "%s\\n\\n" "Found AndroidManifest.xml file in Java language repository $USER ${NAME##*/}:  Downloading ${NAME##*/} tarball and writing ~/${RDR##*/}/sources/github/${JDR##*/}/.config/$USER.${NAME##*/}.${COMMIT::7}.ck file for git repository ${NAME##*/}."
+		printf "%s\\n" "Found AndroidManifest.xml file in Java language repository $USER ${NAME##*/}:  Downloading ${NAME##*/} tarball and writing ~/${RDR##*/}/sources/github/${JDR##*/}/.config/$USER.${NAME##*/}.${COMMIT::7}.ck file for git repository ${NAME##*/}."
 	fi
 }
 
@@ -84,9 +84,9 @@ _ATT_ () {
 			then
 				if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file 
 				then
- 					ISAND="$(curl -u "$OAUT" -r 0-1 -s "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")"
+ 					ISAND="$(curl -u "$OAUT" -r 0-1 -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")"
 				else
- 					ISAND="$(curl -u "$OAUT" -r 0-1 -s "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")"
+ 					ISAND="$(curl -r 0-1 -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")"
 				fi
 			 	if grep AndroidManifest.xml <<< "$ISAND" 
 				then
