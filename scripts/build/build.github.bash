@@ -55,7 +55,6 @@ _NAND_ () { # write configuration file for repository if AndroidManifest.xml fil
 
 _AT_ () {
 	CK=0
-	NPCK=""
 	REPO=$(awk -F/ '{print $NF}' <<< "$NAME") # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell 
 	NPCK="$(find "$JDR/.config/" -name "$USER.${NAME##*/}.???????.ck")" ||: # https://stackoverflow.com/questions/6363441/check-if-a-file-exists-with-wildcard-in-shell-script
 	for CKFILE in "$NPCK" 
@@ -74,15 +73,6 @@ _AT_ () {
  		_ATT_ 
  	fi
 done
-}
-
-_PRINTCK_ () {
-	if [[ "$CK" = 1 ]]
-	then
-		printf "%s\\n" "WARNING AndroidManifest.xml file not found!"
-	else
-		printf "%s\\n" "Continuing..."
-	fi
 }
 
 _ATT_ () {
@@ -143,6 +133,15 @@ _GC_ () {
 	 	curl -u "$OAUT" -r 0-2 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
 	else
 	 	curl -r 0-2 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
+	fi
+}
+
+_PRINTCK_ () {
+	if [[ "$CK" = 1 ]]
+	then
+		printf "%s\\n" "WARNING AndroidManifest.xml file not found!"
+	else
+		printf "%s\\n" "Continuing..."
 	fi
 }
 
