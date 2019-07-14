@@ -84,9 +84,9 @@ _ATT_ () {
 			then
 				if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file 
 				then
- 					ISAND="$(curl -u "$OAUT" -r 0-1 -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")"
+ 					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 255 ||:)"
 				else
- 					ISAND="$(curl -r 0-1 -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")"
+ 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 255 ||:)"
 				fi
 			 	if grep AndroidManifest.xml <<< "$ISAND" 
 				then
@@ -129,7 +129,7 @@ _FJDX_ () {
 _GC_ () { 
 	if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file for information  
 	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
-	 	curl -u "$OAUT" -r 0-1 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
+	 	curl -u "$OAUT" https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
 	else
 	 	curl -r 0-1 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
 	fi
@@ -183,7 +183,7 @@ fi
 JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g')) # creates array of Java language repositories
 F1AR=($(find . -maxdepth 1 -type d)) # creates array of $JDR contents 
 for NAME in "${JARR[@]}" # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted, too.  They are repopulated from the tarballs.  
-do #  This creates a "slate" from each github/$JDR which can be selectively reset when desired.  This can be important on a slow connection.
+do #  This creates a "slate" within each github/$JDR that can be selectively reset when desired.  This can be important on a slow connection.
 	_AT_ 
 done
 
