@@ -38,7 +38,7 @@ trap _SINITRPQUIT_ QUIT
 export RDR="$HOME/buildAPKs"   
 if [[ -z "${JID:-}" ]] 
 then
-	. "$RDR/scripts/build/build.clocks.bash"
+	. "$RDR/scripts/bash/build/build.clocks.bash"
 	exit 0
 fi
 export DAY="$(date +%Y%m%d)"
@@ -51,12 +51,12 @@ if [[ -f .gitmodules ]]
 then
 	if grep shlibs .gitmodules 1>/dev/null
 	then
-		(git submodule update --init --recursive --remote scripts/shlibs) || (printf "\\nCANNOT UPDATE ~/%s/scripts/shlibs: Continuing...\\n\\n" "${RDR##*/}") 
+		(git submodule update --init --recursive --remote scripts/bash/shlibs) || (printf "\\nCANNOT UPDATE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}") 
 	fi
 else
-	(git submodule add https://github.com/shlibs/shlibs.bash scripts/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n\\n")
+	(git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n\\n")
 fi
 
-. "$RDR/scripts/shlibs/mod.bash"
+. "$RDR/scripts/bash/shlibs/mod.bash"
 
 #EOF

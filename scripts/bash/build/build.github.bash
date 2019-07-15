@@ -104,7 +104,7 @@ _ATT_ () {
 		then
 			_AND_
 			export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
-		  	find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
+		  	find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/bash/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
 		fi
 	fi
 }
@@ -123,7 +123,7 @@ _BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/
 _FJDX_ () { 
 	export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
   	tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
-  	find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
+  	find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/bash/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
 }
 
 _GC_ () { 
@@ -147,7 +147,7 @@ _PRINTCK_ () {
 export RDR="$HOME/buildAPKs"
 if [[ -z "${1:-}" ]] 
 then
-	printf "\\n%s\\n\\n" "GitHub username must be provided;  See \`cat ~/${RDR##*/}/conf/UNAMES\` for usernames that build APKs on device with BuildAPKs!  To build all the user names contained in this file, type, \`$ for i in \$(cat conf/UNAMES ) ; do /data/data/com.termux/files/home/buildAPKs/scripts/build/build.github.bash \$i ; done\`."
+	printf "\\n%s\\n\\n" "GitHub username must be provided;  See \`cat ~/${RDR##*/}/conf/UNAMES\` for usernames that build APKs on device with BuildAPKs!  To build all the user names contained in this file, type, \`$ for i in \$(cat conf/UNAMES ) ; do /data/data/com.termux/files/home/buildAPKs/scripts/bash/build/build.github.bash \$i ; done\`."
 	exit 227
 fi
 export UON="${1%/}"
@@ -159,7 +159,7 @@ export JID="git.$USER"
 export OAUT="$(cat "$RDR/conf/OAUTH" | awk 'NR==1')"
 export STRING="ERROR FOUND; build.github.bash $1:  CONTINUING... "
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "Beginning BuildAPKs with build.github.bash $1:"
-. "$HOME/buildAPKs/scripts/shlibs/lock.bash"
+. "$HOME/buildAPKs/scripts/bash/shlibs/lock.bash"
 if [[ ! -d "$JDR" ]] 
 then
 	mkdir -p "$JDR"

@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/bin/env bash 
 # Copyright 2017-2019 (c) all rights reserved 
 # by S D Rausty https://sdrausty.github.io
 #####################################################################
@@ -34,8 +34,8 @@ trap _SETRPEXIT_ EXIT
 trap _SETRPSIGNAL_ HUP INT TERM 
 trap _SETRPQUIT_ QUIT 
 
-export JAD=github.com/sdrausty/buildAPKsWidgets
-export JID=widgets # job id/name
-. "$HOME/buildAPKs/scripts/init/init.bash"
+export JAD=github.com/sdrausty/buildAPKsFlashlights
+export JID=flashlights	# job id/name
+. "$HOME/buildAPKs/scripts/bash/init/init.bash"
 
 #EOF

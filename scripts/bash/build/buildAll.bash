@@ -1,6 +1,6 @@
-#!/bin/env bash
-# Copyright 2019 (c) all rights reserved 
-# by BuildAPKs https://buildapks.github.io/buildAPKs/
+#!/bin/env bash 
+# Copyright 2017-2019 (c) all rights reserved 
+# by SDRausty https://sdrausty.github.io
 #####################################################################
 set -Eeuo pipefail
 shopt -s nullglob globstar
@@ -8,10 +8,11 @@ shopt -s nullglob globstar
 _SETRPERROR_() { # Run on script error.
 	local RV="$?"
 	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s ERROR:  Signal %s received!\\e[0m\\n" "${0##*/}" "$RV"
+	echo exit 201
 	exit 201
 }
 
-_SETRPEXIT_() { # Run on exit.
+_SETRPEXIT_() { # Run on exi
 	printf "\\e[?25h\\e[0m"
 	set +Eeuo pipefail 
 	exit
@@ -20,12 +21,14 @@ _SETRPEXIT_() { # Run on exit.
 _SETRPSIGNAL_() { # Run on signal.
 	local RV="$?"
 	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Signal %s received!\\e[0m\\n" "${0##*/}" "$RV"
+	echo exit 211
  	exit 211 
 }
 
 _SETRPQUIT_() { # Run on quit.
 	local RV="$?"
 	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Quit signal %s received!\\e[0m\\n" "${0##*/}" "$RV"
+	echo exit 221
  	exit 221 
 }
 
@@ -34,8 +37,8 @@ trap _SETRPEXIT_ EXIT
 trap _SETRPSIGNAL_ HUP INT TERM 
 trap _SETRPQUIT_ QUIT 
 
-export JAD=github.com/BuildAPKs/buildAPKs.games 
-export JID="games.1" # job id/name
-. "$HOME/buildAPKs/scripts/init/init.bash"
+cd "$HOME/buildAPKs/"
+./scripts/bash/init/pull.buildAPKs.modules.bash
+./scripts/bash/build/build.dir.bash ./sources/
 
 #EOF

@@ -42,20 +42,20 @@ export RDR="$HOME/buildAPKs/"
 export JDR="$RDR/sources/${JID,,}"
 export SRDR="${RDR##*/}" # search.string: string manipulation site:www.tldp.org
 cd "$RDR"
-(git pull && git submodule update --init --recursive --remote ./scripts/shlibs 2>/dev/null) || (echo ; echo "Cannot update: continuing..." ; echo) # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
-. "$RDR/scripts/shlibs/lock.bash"
+(git pull && git submodule update --init --recursive --remote ./scripts/bash/shlibs 2>/dev/null) || (echo ; echo "Cannot update: continuing..." ; echo) # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
+. "$RDR/scripts/bash/shlibs/lock.bash"
 if [[ ! -f "$RDR/sources/samples/.git" ]]
 then
 	echo
 	echo "Updating buildAPKs; \`${0##*/}\` might want to load sources from submodule repositories into buildAPKs. This may take a little while to complete. Please be patient if this script wants to download source code from https://github.com"
 	cd "$RDR"
-	(git submodule add https://github.com/sdrausty/buildAPKsSamples ./scripts/samples) || (echo; echo "Cannot update scripts/samples: continuing..."; echo)
+	(git submodule add https://github.com/sdrausty/buildAPKsSamples ./scripts/bash/samples) || (echo; echo "Cannot update scripts/bash/samples: continuing..."; echo)
 else
 	echo
 	echo "To update module ~/buildAPKs/sources/samples to the newest version remove the ~/buildAPKs/sources/samples/.git file and run ${0##*/} again."
 fi
 
 find "$RDR/sources/samples/helloWorlds" -name AndroidManifest.xml -execdir "$RDR/build.one.bash" "$JID" {} \; 2>"$RDR/log/stnderr.$JID.log"
-. "$RDR/scripts/shlibs/fa.bash" "$JID" "$JDR" ||:
+. "$RDR/scripts/bash/shlibs/fa.bash" "$JID" "$JDR" ||:
 
 #EOF
