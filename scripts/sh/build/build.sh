@@ -17,8 +17,8 @@ done
 _CLEANUP_() {
        	printf "\\n\\n%s\\n" "Cleaning up..."
        	[ "$CLEAN" = "1" ] && mv "bin/$PKGNAME-signed.apk" .
-      	rmdir assets 2>/dev/null
-       	rmdir res 2>/dev/null
+      	rmdir assets 2>/dev/null ||:
+       	rmdir res 2>/dev/null ||:
        	rm -rf bin
        	rm -rf gen
        	rm -rf obj
