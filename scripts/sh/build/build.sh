@@ -55,7 +55,7 @@ for JAVAFILE in $(find . -type f -name "*.java")
 do
        	JAVAFILES="$JAVAFILES $JAVAFILE"
 done
-ecj -d obj -sourcepath . "$JAVAFILES" || _UNTP_
+ecj -d obj -sourcepath . $JAVAFILES || _UNTP_
 printf "%s\\n\\n" "ecj: done"
 
 
