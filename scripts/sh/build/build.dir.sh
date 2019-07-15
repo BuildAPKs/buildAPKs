@@ -1,7 +1,7 @@
 #!/system/bin/env sh 
 # Copyright 2019 (c) all rights reserved 
 # by BuildAPKs https://buildapks.github.io/buildAPKs/
-# Contributeur HemanthJabalpuri @sdrausty/buildAPKs/issues/13
+# Contributeur : https://github.com/HemanthJabalpuri
 # Invocation : $HOME/buildAPKs/scripts/sh/build/build.dir.sh sources/
 #####################################################################
 set -e
