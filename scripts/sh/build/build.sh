@@ -5,7 +5,7 @@ do
   [ -z "$(command -v "$CMD")" ] && printf "%s\\n" " \"$CMD\" not found" && NOTFOUND=1
 done
 [ "$NOTFOUND" = "1" ] && exit
-[ "$1" ] && [ -f "$1/AndroidManifest.xml" ] && ( cd "$1" || _FAILED_ )
+[ "$1" ] && [ -f "$1/AndroidManifest.xml" ] && cd "$1" 
 [ -f AndroidManifest.xml ] || exit
 
 _CLEANUP_() {
