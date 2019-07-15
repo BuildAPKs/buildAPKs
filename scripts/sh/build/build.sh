@@ -22,7 +22,7 @@ _CLEANUP_() {
        	rm -rf bin
        	rm -rf gen
        	rm -rf obj
-	printf "\\n\\n%s\\n" "Share https://wiki.termux.com/wiki/Development everwhere🌎🌍🌏🌐!"
+	printf "\\n\\n%s\\n\\n" "Share https://wiki.termux.com/wiki/Development everwhere🌎🌍🌏🌐!"
 }
 
 _UNTP_() {
