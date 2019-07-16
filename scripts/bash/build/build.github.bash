@@ -147,7 +147,7 @@ _PRINTCK_ () {
 export RDR="$HOME/buildAPKs"
 if [[ -z "${1:-}" ]] 
 then
-	printf "\\n%s\\n\\n" "GitHub username must be provided;  See \`cat ~/${RDR##*/}/conf/UNAMES\` for usernames that build APKs on device with BuildAPKs!  To build all the user names contained in this file, type, \`$ for i in \$(cat conf/UNAMES ) ; do /data/data/com.termux/files/home/buildAPKs/scripts/bash/build/build.github.bash \$i ; done\`."
+	printf "\\n%s\\n\\n" "GitHub username must be provided;  See \`cat ~/${RDR##*/}/conf/UNAMES\` for usernames that build APKs on device with BuildAPKs!  To build all the user names contained in this file type, \`$ for i in \$(cat ~/${RDR##*/}/conf/UNAMES ) ; do ~/${RDR##*/}/scripts/bash/build/build.github.bash \$i ; done\`."
 	exit 227
 fi
 export UON="${1%/}"
