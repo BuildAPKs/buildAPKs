@@ -62,7 +62,7 @@ _AT_ () {
  	then
  		printf "%s" "Checking $USENAME $REPO for last commit:  " 
   		COMMIT="$(_GC_)" ||:
- 		printf "%s\\n" "Found $COMMIT; Continuing..."
+ 		printf "%s\\n" "Found ${COMMIT::7}; Continuing..."
  		_ATT_ 
  	else # load configuration information from file 
  		printf "%s" "Loading $USENAME $REPO config from $CKFILE:  "
