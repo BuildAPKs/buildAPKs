@@ -37,9 +37,9 @@ PKGNAME="$(grep -o "package=.*" AndroidManifest.xml | cut -d\" -f2)"
 printf "%s\\n" "Beginning build"
 [ -d assets ] || mkdir assets
 [ -d res ] || mkdir res
-mkdir bin
-mkdir gen
-mkdir obj
+mkdir -p bin
+mkdir -p gen
+mkdir -p obj
 
 
 printf "%s\\n" "aapt: started..."
