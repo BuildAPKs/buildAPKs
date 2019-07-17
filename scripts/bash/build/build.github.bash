@@ -147,7 +147,7 @@ _PRINTCK_ () {
 export RDR="$HOME/buildAPKs"
 if [[ -z "${1:-}" ]] 
 then
-	printf "\\n%s\\n\\n" "GitHub username must be provided;  See \`cat ~/${RDR##*/}/conf/UNAMES\` for usernames that build APKs on device with BuildAPKs!  To build all the user names contained in this file type, \`$ for i in \$(cat ~/${RDR##*/}/conf/UNAMES ) ; do ~/${RDR##*/}/scripts/bash/build/build.github.bash \$i ; done\`."
+	printf "\\e[1;7;38;5;202m\\n%s\\n\\e[0m\\n" "GitHub username must be provided;  See \`cat ~/${RDR##*/}/conf/UNAMES\` for usernames that build APKs on device with BuildAPKs!  To build all the user names contained in this file type, \`$ for i in \$(cat ~/${RDR##*/}/conf/UNAMES ) ; do ~/${RDR##*/}/scripts/bash/build/build.github.bash \$i ; done\`.  File \`conf/OAUTH\` has important information should you choose to run this command regarding bandwidth supplied by GitHub. "
 	exit 227
 fi
 export UON="${1%/}"
