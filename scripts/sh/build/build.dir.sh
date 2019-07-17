@@ -1,4 +1,4 @@
-#!/system/bin/env sh 
+#!/bin/env sh 
 # Copyright 2019 (c) all rights reserved 
 # by BuildAPKs https://buildapks.github.io/buildAPKs/
 # Contributeur : https://github.com/HemanthJabalpuri
