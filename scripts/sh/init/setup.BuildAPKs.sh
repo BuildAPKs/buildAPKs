@@ -6,16 +6,16 @@
 #####################################################################
 set -e
 
-STRING="Command \`au\` enables rollback; Available at https://github.com/sdrausty/au : Continuing..."
-STRING="Cannot update ~/buildAPKs prerequisites : Continuing..."
+STRINGA="Command \`au\` enables rollback; Available at https://github.com/sdrausty/au : Continuing..."
+STRINGC="Cannot update ~/buildAPKs prerequisites : Continuing..."
 printf "%s\\n" "Beginning buildAPKs setup:"
 for CMD in au pkg
 do
-       	[ ! -z "$(command -v "$CMD")" ] && ("$CMD" aapt apksigner curl dx ecj findutils git) || (printf "\\e[1;38;5;117m%s\\n" "$STRING2") 
+       	[ ! -z "$(command -v "$CMD")" ] && ("$CMD" aapt apksigner curl dx ecj findutils git) || (printf "\\e[1;38;5;117m%s\\n" "$STRINGA") 
 done
 cd "$HOME"
-(git clone https://github.com/BuildAPKs/buildAPKs) || (printf "%s\\n\\n" "$STRING") 
-(git clone https://github.com/BuildAPKs/buildAPKs.entertainment) || (printf "%s\\n\\n" "$STRING") 
+(git clone https://github.com/BuildAPKs/buildAPKs) || (printf "%s\\n\\n" "$STRINGC") 
+(git clone https://github.com/BuildAPKs/buildAPKs.entertainment) || (printf "%s\\n\\n" "$STRINGC") 
 "$HOME/buildAPKs/scripts/sh/build/build.dir.sh" "$HOME/buildAPKs/sources/entertainment"
 
 #EOF
