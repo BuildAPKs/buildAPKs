@@ -1,0 +1,42 @@
+usage:
+  dx --dex [--debug] [--verbose] [--positions=<style>] [--no-locals]
+  [--no-optimize] [--statistics] [--[no-]optimize-list=<file>] [--no-strict]
+  [--keep-classes] [--output=<file>] [--dump-to=<file>] [--dump-width=<n>]
+  [--dump-method=<name>[*]] [--verbose-dump] [--no-files] [--core-library]
+  [--num-threads=<n>] [--incremental] [--force-jumbo] [--no-warning]
+  [--multi-dex [--main-dex-list=<file> [--minimal-main-dex]]
+  [--input-list=<file>] [--min-sdk-version=<n>]
+  [--allow-all-interface-method-invokes]
+  [<file>.class | <file>.{zip,jar,apk} | <directory>] ...
+    Convert a set of classfiles into a dex file, optionally embedded in a
+    jar/zip. Output name must end with one of: .dex .jar .zip .apk or be a
+    directory.
+    Positions options: none, important, lines.
+    --multi-dex: allows to generate several dex files if needed. This option is
+    exclusive with --incremental, causes --num-threads to be ignored and only
+    supports folder or archive output.
+    --main-dex-list=<file>: <file> is a list of class file names, classes
+    defined by those class files are put in classes.dex.
+    --minimal-main-dex: only classes selected by --main-dex-list are to be put
+    in the main dex.
+    --input-list: <file> is a list of inputs.
+    Each line in <file> must end with one of: .class .jar .zip .apk or be a
+    directory.
+    --min-sdk-version=<n>: Enable dex file features that require at least sdk
+    version <n>.
+  dx --annotool --annotation=<class> [--element=<element types>]
+  [--print=<print types>]
+  dx --dump [--debug] [--strict] [--bytes] [--optimize]
+  [--basic-blocks | --rop-blocks | --ssa-blocks | --dot] [--ssa-step=<step>]
+  [--width=<n>] [<file>.class | <file>.txt] ...
+    Dump classfiles, or transformations thereof, in a human-oriented format.
+  dx --find-usages <file.dex> <declaring type> <member>
+    Find references and declarations to a field or method.
+    <declaring type> is a class name in internal form, like Ljava/lang/Object;
+    <member> is a field or method name, like hashCode.
+  dx -J<option> ... <arguments, in one of the above forms>
+    Pass VM-specific options to the virtual machine that runs dx.
+  dx --version
+    Print the version of this tool (1.16).
+  dx --help
+    Print this message.

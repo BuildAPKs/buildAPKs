@@ -1,0 +1,6 @@
+usage: apksigner [-p password] keystore input-apk output-apk
+Sign an input APK file using the specified keystore to produce a signed
+and zipaligned output APK. The keystore file will be created with the
+specified password if it does not exist. Options:
+ -h,--help             Display usage information.
+ -p,--password <arg>   Password for private key (default:android).
