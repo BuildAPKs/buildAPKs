@@ -8,7 +8,7 @@ set -e
 
 for APP in $(find $1 -name "AndroidManifest.xml") 
 do 
-	$HOME/buildAPKs/scripts/sh/build/build.sh ${APP%/*} 
+	$HOME/buildAPKs/scripts/zsh/build/build.zsh ${APP%/*} 
 done
 
 #EOF
