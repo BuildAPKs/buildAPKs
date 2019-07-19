@@ -2,7 +2,7 @@
 # Copyright 2019 (c) all rights reserved 
 # by BuildAPKs https://buildapks.github.io/buildAPKs/
 # Contributeur : https://github.com/SDRausty
-# Invocation : $HOME/buildAPKs/scripts/zsh/init/setup.BuildAPKs.zsh sources/
+# Invocation : $HOME/buildAPKs/scripts/zsh/init/setup.BuildAPKs.zsh  
 #####################################################################
 set -e
 
