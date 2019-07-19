@@ -4,7 +4,7 @@ BuildAPKs has [source code](https://github.com/BuildAPKs) and [scripts](https://
 
 You can try building hundreds of exciting, amazing and beautiful APKs by running [shell scripts](https://www.google.com/search?q=shell+scripts) from [this directory](https://github.com/BuildAPKs/buildAPKs/tree/master/scripts/bash/build).  It is simple!  The minimal install size to start building your first apps (6) is about 10MB!  Have fun and enjoy compiling, hacking, modifying and running these select APKs!
 
-**Cloning and updating [submodules](https://gist.github.com/gitaarik/8735255) is automated into the build\*.bash scripts.  If you recieve a history error message from `git pull`, the simplest solution is `mv ~/buildAPKs ~/b0` and then reclone into the $HOME folder.**  The `~/buildAPKs` directory can be a symbolic link to external storage space to save native space on device.  Prefix the build*.bash scripts with bash to run buildAPKs in external storage, e.g. [`$ bash buildFlashlights.bash`](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/build/buildFlashlights.bash).
+**Cloning and updating [submodules](https://gist.github.com/gitaarik/8735255) is automated into the build\*.bash scripts.  If you recieve a history error message from `git pull`, the simplest solution is `mv ~/buildAPKs ~/b0` and then reclone into the $HOME folder.**  The `~/buildAPKs/sources/` directory can be a symbolic link to external storage space to save native space on device.  Prefix the build*.bash scripts with bash to run buildAPKs in external storage, e.g. [`$ bash buildFlashlights.bash`](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/build/buildFlashlights.bash).
 
 Build Android APKs on device (smartphone and tablet).
 
