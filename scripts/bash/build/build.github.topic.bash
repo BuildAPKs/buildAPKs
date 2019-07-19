@@ -37,10 +37,11 @@ trap _SGTRPQUIT_ QUIT
 export RDR="$HOME/buildAPKs"
 if [[ -z "${1:-}" ]] 
 then
-	printf "\\e[1;7;38;5;202m\\n\\n%s\\n\\e[0m\\n" "GitHub topic must be provided;  See \`~/${RDR##*/}/conf/TNAMES\` for topics that build APKs on device with BuildAPKs!  To build all the topic names contained in this file run \`for i in \$(cat ~/${RDR##*/}/conf/TNAMES) ; do ~/${RDR##*/}/scripts/bash/build/build.github.topic.bash \$i ; done\`.  File \`conf/OAUTH\` has important information should you choose to run this command regarding bandwidth supplied by GitHub. "
+	printf "\\e[1;7;38;5;202m\\n\\n%s\\n\\e[0m\\n" "GitHub topic must be provided;  See \`~/${RDR##*/}/conf/TNAMES\` for topics that build APKs on device with BuildAPKs!  To build all the topic names contained in this file run \`for i in \$(cat ~/${RDR##*/}/conf/TNAMES) ; do ~/${RDR##*/}/scripts/bash/build/build.github.topic.bash \$i ; done\`.  File \`~/${RDR##*/}/conf/OAUTH\` has important information should you choose to run this command regarding bandwidth supplied by GitHub. "
 	exit 227
 fi
-export TOPIC="$1"
+export TOPI="${1%/}"
+export TOPIC="${TOPI##*/}"
 export TOPNAME="${TOPIC,,}"
 export JDR="$RDR/sources/github/$TOPIC"
 export JID="git.$TOPIC"
