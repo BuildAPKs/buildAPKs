@@ -11,6 +11,7 @@ android-development
 android-device
 android-sample
 android-smartphone
+animation
 apk
 awesome
 chromebook
@@ -25,11 +26,16 @@ hacks
 java
 list
 lists
+listview
 mobile
 mobile-app
 open-source
 open-source-project
 opensource
+pull-to-refresh
+pulltorefresh
+recycleview
+refreshlayout
 smartphone
 tablet
 termux
