@@ -9,8 +9,8 @@ set -e
 STRING0="Command \`au\` enables rollback; Available at https://github.com/sdrausty/au : Continuing..."
 STRING1="Cannot update ~/buildAPKs prerequisites : Continuing..."
 printf "%s\\n" "Beginning buildAPKs setup:"
-[ -z "$(command -v "au")" ] && ("$CMD" aapt apksigner curl dx ecj findutils git) || (printf "%s\\n" "$STRING0") 
-[ -z "$(command -v "pkg")" ] && ("$CMD" aapt apksigner curl dx ecj findutils git) || (printf "%s\\n" "$STRING1") 
+[ -z "$(command -v au)" ] && ("$CMD" aapt apksigner curl dx ecj findutils git) || (printf "%s\\n" "$STRING0") 
+[ -z "$(command -v pkg)" ] && ("$CMD" aapt apksigner curl dx ecj findutils git) || (printf "%s\\n" "$STRING1") 
 cd "$HOME"
 (git clone https://github.com/BuildAPKs/buildAPKs) || (printf "%s\\n\\n" "$STRING1") 
 (git clone https://github.com/BuildAPKs/buildAPKs.entertainment) || (printf "%s\\n\\n" "$STRING1") 
