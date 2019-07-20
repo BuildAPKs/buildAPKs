@@ -1,3 +1,4 @@
+all
 amazon
 android
 android-apk
@@ -11,7 +12,12 @@ android-device
 android-sample
 android-smartphone
 apk
+awesome
 chromebook
+demo
+demo
+example
+examples
 hack
 hacker
 hacking
@@ -24,10 +30,11 @@ mobile-app
 open-source
 open-source-project
 opensource
-select-apks
-smartphone-app
+smartphone
 tablet
 termux
+topic
+topics
 tutorial
 tutorials
 tutorial-sourcecode
