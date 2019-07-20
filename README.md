@@ -16,6 +16,8 @@ Have you ever wanted to build your own application? Something that you can distr
 
 See https://buildapks.github.io/docsBuildAPKs/reallyEasilyBuildAndroidAPKsOnDevice for quick setup instructions and https://sdrausty.github.io/docsBuildAPKs for the documentation website for this project.  
 
+`for i in $(cat ~/buildAPKs/conf/UNAMES) ; do ~/buildAPKs/scripts/bash/build/build.github.bash $i ; done`shall attempt to build [UNAMES](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/conf/UNAMES) while `for i in $(cat ~/buildAPKs/conf/TNAMES) ; do ~/buildAPKs/scripts/bash/build/build.github.bash $i ; done`shall attempt to build [TNAMES](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/conf/TNAMES) topics @GitHub. 
+
 ### Really Easily Build an Android APK on an Android Device (Smartphone and Tablet).
 
 Prefix these bash scripts by typing dot slash `./` on your Android smartphone and tablet in Termux, i.e. type `./b` at the prompt ($), press TAB TAB (x2).  The prompt should magically add `uild`; Then add a capitol `A`.  Press TAB TAB (x2) again.  This should build the following command on the command line [`./buildAll.bash`](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/build/buildAll.bash) for you.  Press enter (return) in `~/buildAPKs/`.  Additional CLI information at [The Linux Documentation Project.](https://duckduckgo.com/?q=command+line+beginner+site%3Atldp.org)
