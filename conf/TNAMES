@@ -3,9 +3,9 @@ amazon
 android
 android-apk
 android-app
-android-apps
 android-application
 android-applications
+android-apps
 android-demo
 android-development
 android-device
@@ -16,7 +16,6 @@ apk
 awesome
 behavior
 chromebook
-demo
 demo
 example
 examples
@@ -36,8 +35,8 @@ mobile-app
 nested-scrolling
 nestedscrollview
 open-source
-open-source-project
 opensource
+open-source-project
 overscroll
 pull-down-refresh
 pull-to-refresh
