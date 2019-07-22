@@ -15,7 +15,7 @@ _SBOTRPERROR_() { # run on script error
 		then 
 			:
 		else
-			CER="conf.$NUM.err"
+			CER="conf.$PPID.err"
 			echo "$1 $2 $3 $RV" > "$RDR/tmp/$CER" # https://stackoverflow.com/questions/11162406/open-and-write-data-to-text-file-using-bash-shell-scripting
 			printf "\\033[0;34m\\n%s\\033[1;37m\\n\\n%s\\n\\n\033[0m" "Attempting to fix https://github.com/termux/termux-packages/issues?q=is%3Aissue+ecj+error ecj error." "This may take a little while pending connection…"
 			printf '\033]2; Please wait moment…  \007'
