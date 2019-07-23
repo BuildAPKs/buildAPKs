@@ -2,7 +2,7 @@
 # Copyright 2019 (c) all rights reserved 
 # by BuildAPKs https://buildapks.github.io/buildAPKs/
 # Contributeur : https://github.com/HemanthJabalpuri
-# Invocation : $HOME/buildAPKs/scripts/sh/build/build.sh sources/
+# Invocation : $HOME/buildAPKs/scripts/sh/build/build.sh 
 #####################################################################
 set -e
 
