@@ -48,7 +48,6 @@ export JID="git.$TOPIC"
 export OAUT="$(cat "$RDR/conf/OAUTH" | awk 'NR==1')"
 export STRING="ERROR FOUND; build.github.bash $1:  CONTINUING... "
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "Beginning BuildAPKs with build.github.bash $1:"
-. "$HOME/buildAPKs/scripts/bash/shlibs/lock.bash"
 if [[ ! -d "$JDR" ]] 
 then
 	mkdir -p "$JDR"
@@ -59,20 +58,20 @@ then
 	mkdir -p "$JDR/.config"
 	printf "%s\\n\\n" "This directory contains results from query for \`AndroidManifest.xml\` files in GitHub $TOPNAME repositores.  " > "$JDR/.config/README.md" 
 fi
-if [[ ! -f "repositories.github.topic.$TOPIC+language.Java" ]] 
+if [[ ! -f "repos" ]] 
 then
 	printf "%s\\n" "Downloading GitHub $TOPNAME repositories information:  "
 	if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file for information 
 	then
-		curl -u "$OAUT" -H "Accept: application/vnd.github.mercy-preview+json" "https://api.github.com/search/repositories?q=topic:$TOPIC+language:Java" > repositories.github.topic.$TOPIC+language.Java
+		curl -u "$OAUT" -H "Accept: application/vnd.github.mercy-preview+json" "https://api.github.com/search/repositories?q=topic:$TOPIC+language:Java&per_page=15000" -o repos
 	else
-		curl -H "Accept: application/vnd.github.mercy-preview+json" "https://api.github.com/search/repositories?q=topic:$TOPIC+language:Java" > repositories.github.topic.$TOPIC+language.Java
+		curl -H "Accept: application/vnd.github.mercy-preview+json" "https://api.github.com/search/repositories?q=topic:$TOPIC+language:Java&per_page=15000" -o repos
 	fi
 fi
-TARR=($(grep -v JavaScript repositories.github.topic.$TOPIC+language.Java | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g' | sed 's/https\:\/\/github.com\///g' | cut -d\/ -f1)) # creates array of Java language repositories
+TARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g' | sed 's/https\:\/\/github.com\///g' | cut -d\/ -f1)) # creates array of Java language repositories
 for NAME in "${TARR[@]}" 
 do 
-	"$RDR"/scripts/bash/build/build.github.bash "$NAME"
+	"$RDR"/scripts/bash/build/build.github.users.bash "$NAME"
 done
 
 #EOF
