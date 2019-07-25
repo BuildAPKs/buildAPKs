@@ -50,5 +50,5 @@ Listen to [alphaV.webm](https://github.com/sdrausty/sdrausty.github.io/blob/mast
 
 `while true ; do play-audio alphaV.webm ; sleep ${RANDOM::2} ; done`
 
-As you may well know, I have been using Termux software since it arrived. After years of using (coof coof) your open source software (does it compile?) I have a firm opinion about you. If it doesn't compile, what are you feeding me? Why are you wasting my time? To get my autodrive, my bitcoins? Why doesn't it compile from the source code that you publish? 
+As you may well know, I have been using Termux software since it arrived. After years of using (coof coof) your open source software (does it compile?) I have a firm opinion about you. If it doesn't compile, what are you feeding me? Why are you wasting my time? To get into my autodrive, to my bitcoins? Why doesn't it compile from the source code that you publish? 
 
