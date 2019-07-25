@@ -4,6 +4,7 @@ BuildAPKs
 codepath
 commons-app
 connectbot
+facebook
 firebase
 futurice
 google
@@ -11,13 +12,17 @@ google-developer-training
 googlemaps
 googlesamples
 gsuitedevs
+guardian
+guardianproject
 hmkcode             
 mindorks
 MindorksOpenSource
 mobilepearls
 novoda
 quran
+Signal
 square
+stfalcon-studio
 termux
 tutorialwing
 twitterdev
