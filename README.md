@@ -44,7 +44,7 @@ Message to [@xeffyr](https://github.com/xeffyr):  DITTO without Sweden encouragi
 
 Did you want to root my device to get to my BITCOINS?  To bounce my Tesla autodrive? To read my latexed literature? You know, latex is elastic. Read my work through your Termuxed latex *.deb files? I think not Grimler91. Neo-Oli our Termux Swiss liaison can you please confirm? Or are you and your team camping far away from us in the Alpine Mountains with other people's bitcoins?
 
-<strong>You didn't like the timings, did you? I did not like them at all. Why is Termux slower? Degustamos rooted bitcoins?</strong>
+<strong>You didn't like the timings, did you? I did not like them at all. Why is Termux slower? Degustamos cracked/rooted Android device?</strong>
 
 Listen to [alphaV.webm](https://github.com/sdrausty/sdrausty.github.io/blob/master/audio/alphaV.webm?raw=true) and possibly you shall comprehend. Possibly.
 
