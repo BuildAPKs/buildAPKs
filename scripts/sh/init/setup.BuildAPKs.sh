@@ -16,6 +16,6 @@ done
 cd "$HOME"
 (git clone https://github.com/BuildAPKs/buildAPKs) || (printf "%s\\n\\n" "$STRINGC") 
 (git clone https://github.com/BuildAPKs/buildAPKs.entertainment) || (printf "%s\\n\\n" "$STRINGC") 
-"$HOME/buildAPKs/scripts/sh/build/build.dir.sh" "$HOME/buildAPKs/sources/entertainment"
+"$HOME/buildAPKs/scripts/bash/build/build.entertainment.bash"
 
 #EOF

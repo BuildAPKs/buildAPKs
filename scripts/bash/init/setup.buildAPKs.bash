@@ -61,6 +61,6 @@ else
 fi
 cd "$HOME"
 (git clone https://github.com/BuildAPKs/buildAPKs) || (printf "%s\\n\\n" "$STRING2") 
-./buildAPKs/scripts/bash/build/build.entertainment.bash
+"$HOME/buildAPKs/scripts/bash/build/build.entertainment.bash"
 
 #EOF
