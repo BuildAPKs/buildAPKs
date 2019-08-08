@@ -14,6 +14,6 @@ printf "%s\\n" "Beginning buildAPKs setup:"
 cd "$HOME"
 (git clone https://github.com/BuildAPKs/buildAPKs) || (printf "%s\\n\\n" "$STRING1") 
 (git clone https://github.com/BuildAPKs/buildAPKs.entertainment) || (printf "%s\\n\\n" "$STRING1") 
-"$HOME/buildAPKs/scripts/bash/build/build.entertainment.bash"
+bash "$HOME/buildAPKs/scripts/bash/build/build.entertainment.bash"
 
 #EOF
