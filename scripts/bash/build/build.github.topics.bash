@@ -43,7 +43,7 @@ fi
 export TOPI="${1%/}"
 export TOPIC="${TOPI##*/}"
 export TOPNAME="${TOPIC,,}"
-export JDR="$RDR/sources/github/$TOPIC"
+export JDR="$RDR/sources/github/topics/$TOPIC"
 export JID="git.$TOPIC"
 export OAUT="$(cat "$RDR/conf/OAUTH" | awk 'NR==1')"
 export STRING="ERROR FOUND; build.github.bash $1:  CONTINUING... "
