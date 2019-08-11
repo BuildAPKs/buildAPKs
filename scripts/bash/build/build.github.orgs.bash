@@ -60,12 +60,12 @@ _AT_ () {
 	do
  	if [[ $CKFILE = "" ]] # configuration file is not found
  	then
- 		printf "%s" "Checking $USENAME $REPO for last commit:  " 
+ 		printf "%s" "Checking $ONAME $REPO for last commit:  " 
   		COMMIT="$(_GC_)" ||:
  		printf "%s\\n" "Found ${COMMIT::7}; Continuing..."
  		_ATT_ 
  	else # load configuration information from file 
- 		printf "%s" "Loading $USENAME $REPO config from $CKFILE:  "
+ 		printf "%s" "Loading $ONAME $REPO config from $CKFILE:  "
  		COMMIT=$(head -n 1 "$NPCK")
   		CK=$(tail -n 1  "$NPCK")
 		_PRINTCK_ 
@@ -79,14 +79,14 @@ _ATT_ () {
 	then
 		if [[ ! -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] # tar file exists
 		then # https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value
-			printf "%s\\n" "Querying $USENAME $REPO ${COMMIT::7} for AndroidManifest.xml file:"
+			printf "%s\\n" "Querying $ONAME $REPO ${COMMIT::7} for AndroidManifest.xml file:"
 			if [[ "$COMMIT" != "" ]] 
 			then
 				if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file 
 				then
- 					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 420 ||:)"
+ 					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$ONAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 420 ||:)"
 				else
- 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 420 ||:)"
+ 					ISAND="$(curl -i "https://api.github.com/repos/$ONAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 420 ||:)"
 				fi
 			 	if grep AndroidManifest.xml <<< "$ISAND" 
 				then
@@ -167,11 +167,11 @@ cd "$JDR"
 if [[ ! -d "$JDR/.config" ]] 
 then
 	mkdir -p "$JDR/.config"
-	printf "%s\\n\\n" "This directory contains results from query for \`AndroidManifest.xml\` files in GitHub $USENAME repositores.  " > "$JDR/.config/README.md" 
+	printf "%s\\n\\n" "This directory contains results from query for \`AndroidManifest.xml\` files in GitHub $ONAME repositores.  " > "$JDR/.config/README.md" 
 fi
 if [[ ! -f "repos" ]] 
 then
-	printf "%s\\n" "Downloading GitHub $USENAME repositories information:  "
+	printf "%s\\n" "Downloading GitHub $ONAME repositories information:  "
 	if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file for information 
 	then
 		curl -u "$OAUT" "https://api.github.com/orgs/$ORG/repos?per_page=15000" > repos
