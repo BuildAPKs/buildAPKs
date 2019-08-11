@@ -158,7 +158,7 @@ export JDR="$RDR/sources/github/users/$USER"
 export JID="git.$USER"
 export OAUT="$(cat "$RDR/conf/OAUTH" | awk 'NR==1')"
 export STRING="ERROR FOUND; build.github.bash $1:  CONTINUING... "
-printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "Beginning BuildAPKs with build.github.bash $1:"
+printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build.github.users.bash $1:"
 . "$HOME/buildAPKs/scripts/bash/shlibs/lock.bash"
 if [[ ! -d "$JDR" ]] 
 then
@@ -187,4 +187,4 @@ do #  This creates a "slate" within each github/$JDR that can be selectively res
 	_AT_ 
 done
 
-#EOF
+#build.github.users.bash 

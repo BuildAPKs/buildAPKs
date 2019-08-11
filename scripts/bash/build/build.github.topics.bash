@@ -46,8 +46,8 @@ export TOPNAME="${TOPIC,,}"
 export JDR="$RDR/sources/github/topics/$TOPIC"
 export JID="git.$TOPIC"
 export OAUT="$(cat "$RDR/conf/OAUTH" | awk 'NR==1')"
-export STRING="ERROR FOUND; build.github.bash $1:  CONTINUING... "
-printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "Beginning BuildAPKs with build.github.bash $1:"
+export STRING="ERROR FOUND; build.github.topics.bash $1:  CONTINUING... "
+printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build.github.topics.bash $1:"
 if [[ ! -d "$JDR" ]] 
 then
 	mkdir -p "$JDR"
@@ -74,4 +74,4 @@ do
 	"$RDR"/scripts/bash/build/build.github.users.bash "$NAME"
 done
 
-#EOF
+#build.github.topics.bash 
