@@ -160,10 +160,6 @@ if [[ ! -d "./res" ]]
 then
 	mkdir -p ./res
 fi
-if [[ ! -d "/storage/emulated/0/Download/builtAPKs/$JID$DAY" ]]
-then
-	(mkdir -p "/storage/emulated/0/Download/builtAPKs/$JID$DAY") || (mkdir -p "$RDR/cache/builtAPKs/$JID$DAY")
-fi
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 aapt package -f \
 	-M AndroidManifest.xml \
@@ -187,6 +183,24 @@ aapt add -f "$PKGNAM.apk" classes.dex
 printf "\\e[1;38;5;114m%s\\e[1;38;5;108m\\n" "Signing $PKGNAM.apk..."
 apksigner ../"$PKGNAM-debug.key" "$PKGNAM.apk" ../"$PKGNAM.apk"
 cd ..
-(cp "$PKGNAM.apk" "/storage/emulated/0/Download/builtAPKs/$EXT$DAY/$PKGNAME.apk" && printf "\\e[1;38;5;115mCopied %s to Download/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME" && printf "\\e[1;38;5;149mThe APK %s file can be installed from Download/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME" && printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐") || (cp "$PKGNAM.apk" "$RDR/cache/builtAPKs/$EXT$DAY/$PKGNAME.apk" && printf "\\e[1;38;5;115mCopied %s to ~/${RDR:33}/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME" && printf "\\e[1;38;5;149mThe APK %s file can be installed from ~/${RDR:33}/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME" && printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐") 
+if [[ -w "/storage/emulated/0/" ]] 
+then
+	if [[ ! -d "/storage/emulated/0/Download/builtAPKs/$JID$DAY" ]]
+	then
+		mkdir -p "/storage/emulated/0/Download/builtAPKs/$JID$DAY"
+	fi
+	cp "$PKGNAM.apk" "/storage/emulated/0/Download/builtAPKs/$EXT$DAY/$PKGNAME.apk"
+	printf "\\e[1;38;5;115mCopied %s to Download/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME"
+	printf "\\e[1;38;5;149mThe APK %s file can be installed from Download/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME"
+else
+	if [[ ! -d "$RDR/cache/builtAPKs/$JID$DAY" ]]
+	then
+		mkdir -p "$RDR/cache/builtAPKs/$JID$DAY"
+	fi
+	cp "$PKGNAM.apk" "$RDR/cache/builtAPKs/$EXT$DAY/$PKGNAME.apk"
+	printf "\\e[1;38;5;120mCopied %s to ~/${RDR:33}/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME"
+	printf "\\e[1;38;5;154mThe APK %s file can be installed from ~/${RDR:33}/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME"
+fi
+printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐"
 
-#EOF
+#build.one.bash EOF
