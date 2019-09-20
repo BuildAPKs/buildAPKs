@@ -41,4 +41,4 @@ export JAD=github.com/BuildAPKs/buildAPKs.compasses
 export JID=compasses # job id/name
 . "$HOME/buildAPKs/scripts/bash/init/init.bash"
 
-#EOF
+#build.compasses.bash EOF
