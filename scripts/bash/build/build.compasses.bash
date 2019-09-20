@@ -1,6 +1,6 @@
 #!/bin/env bash 
 # Copyright 2017-2019 (c) all rights reserved 
-# by S D Rausty https://sdrausty.github.io
+# by BuildAPKs https://buildapks.github.io/buildAPKs
 #####################################################################
 set -Eeuo pipefail
 shopt -s nullglob globstar
@@ -41,4 +41,4 @@ export JAD=github.com/BuildAPKs/buildAPKs.compasses
 export JID=compasses # job id/name
 . "$HOME/buildAPKs/scripts/bash/init/init.bash"
 
-#EOF
+#build.compasses.bash EOF
