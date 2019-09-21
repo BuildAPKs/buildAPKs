@@ -5,7 +5,7 @@
 #####################################################################
 set -e
 
-STRING1="Command \`au\` enables rollback; Available at https://github.com/sdrausty/au : Continuing..."
+STRING1="Command \`au\` enables rollback; Available at https://wae.github.io/au/ : Continuing..."
 STRING2="Cannot update ~/buildAPKs prerequisites : Continuing..."
 printf "%s\\n" "Beginning buildAPKs setup:"
 [ -z "$(command -v au)" ] && ("$CMD" aapt apksigner curl dx ecj findutils git) || (printf "%s\\n" "$STRING1") 
