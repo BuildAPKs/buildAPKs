@@ -49,7 +49,7 @@ declare COMMANDR=""
 declare COMMANDIF=""
 declare STRING1=""
 declare STRING2=""
-STRING1="COMMAND \`au\` enables rollback, available at https://github.com/sdrausty/au IS NOT FOUND: Continuing... "
+STRING1="COMMAND \`au\` enables rollback, available at https://wae.github.io/au/ IS NOT FOUND: Continuing... "
 STRING2="Cannot update ~/buildAPKs prerequisites: Continuing..."
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "Beginning buildAPKs setup:"
 COMMANDR="$(command -v au)" || (printf "%s\\n\\n" "$STRING1") 
