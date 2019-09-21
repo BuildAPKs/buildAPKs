@@ -1,6 +1,6 @@
 #!/bin/env bash 
 # Copyright 2017-2019 (c) all rights reserved 
-# by buildAPKs https://sdrausty.github.io
+# by buildAPKs https://buildapks.github.io/docsBuildAPKs/
 # Update repository and update submodules.
 #####################################################################
 set -e
