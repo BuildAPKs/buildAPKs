@@ -59,4 +59,4 @@ fi
 
 . "$RDR/scripts/bash/shlibs/mod.bash"
 
-#EOF
+# init.bash EOF
