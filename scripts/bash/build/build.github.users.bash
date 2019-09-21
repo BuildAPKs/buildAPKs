@@ -104,7 +104,7 @@ _ATT_ () {
 		then
 			_AND_
 			export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
-		  	find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/bash/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
+		  	find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/bash/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.$JID.log" || printf "%s\\n\\n" "$STRING"
 		fi
 	fi
 }
@@ -123,7 +123,7 @@ _BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/
 _FJDX_ () { 
 	export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
   	tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
-  	find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/bash/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.${JID,,}.log" || printf "%s\\n\\n" "$STRING"
+  	find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/bash/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.$JID.log" || printf "%s\\n\\n" "$STRING"
 }
 
 _GC_ () { 
@@ -155,7 +155,7 @@ export UONE="${UON##*/}"
 export USENAME="$UONE"
 export USER="${USENAME,,}"
 export JDR="$RDR/sources/github/users/$USER"
-export JID="git.$USER"
+export JID="git.users.$USER"
 export OAUT="$(cat "$RDR/conf/OAUTH" | awk 'NR==1')"
 export STRING="ERROR FOUND; build.github.bash $1:  CONTINUING... "
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build.github.users.bash $1:"
@@ -187,4 +187,4 @@ do #  This creates a "slate" within each github/$JDR that can be selectively res
 	_AT_ 
 done
 
-#build.github.users.bash 
+# build.github.users.bash EOF
