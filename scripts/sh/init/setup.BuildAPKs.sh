@@ -3,7 +3,6 @@
 # by BuildAPKs https://buildapks.github.io/buildAPKs/
 # Invocation: ~/buildAPKs/scripts/sh/init/setup.BuildAPKs.sh 
 #####################################################################
-set -e
 
 STRINGA="Cannot update ~/buildAPKs prerequisites: Continuing..."
 STRINGB="Command \`au\` enables rollback; Available at https://github.com/sdrausty/au : Continuing..."
@@ -14,7 +13,6 @@ do
 done
 cd "$HOME"
 (git clone https://github.com/BuildAPKs/buildAPKs) || (printf "%s\\n\\n" "$STRINGA") 
-(git clone https://github.com/BuildAPKs/buildAPKs.entertainment) || (printf "%s\\n\\n" "$STRINGA") 
 bash "$HOME/buildAPKs/scripts/bash/build/build.entertainment.bash"
 
-#EOF
+# setup.BuildAPKs.sh EOF
