@@ -45,11 +45,11 @@ trap _SUPTRPSIGNAL_ HUP INT TERM
 trap _SUPTRPQUIT_ QUIT 
 
 declare -a ARGS="$@"
-declare COMMANDR=""
-declare COMMANDIF=""
-declare STRING1=""
-declare STRING2=""
-declare RDR=""
+declare COMMANDR
+declare COMMANDIF
+declare STRING1
+declare STRING2
+declare RDR
 export RDR="$HOME/buildAPKs"
 STRING1="COMMAND \`au\` enables rollback, available at https://wae.github.io/au/ IS NOT FOUND: Continuing... "
 STRING2="Cannot update ~/${RDR##*/} prerequisite: Continuing..."
