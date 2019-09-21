@@ -6,7 +6,6 @@
 set -e
 
 declare -A SBMS # Declare associative array for available submoldules. 
-RDR="$HOME/buildAPKs/"
 SBMS=([docs]="$HOME/buildAPKs/docs/.git" [scripts/bash/shlibs]="$HOME/buildAPKs/scripts/bash/shlibs/.git" [sources/applications]="$HOME/buildAPKs/sources/applications/.git" [sources/browsers]="$HOME/buildAPKs/sources/browsers/.git" [sources/clocks]="$HOME/buildAPKs/sources/clocks/.git" [sources/compasses]="$HOME/buildAPKs/sources/compasses/.git" [sources/entertainment]="$HOME/buildAPKs/sources/entertainment/.git" [sources/flashlights]="$HOME/buildAPKs/sources/flashlights/.git" [sources/games]="$HOME/buildAPKs/sources/games/.git" [sources/livewallpapers]="$HOME/buildAPKs/sources/livewallpapers/.git" [sources/samples]="$HOME/buildAPKs/sources/samples/.git" [sources/top10]="$HOME/buildAPKs/sources/top10/.git" [sources/tools]="$HOME/buildAPKs/sources/tools/.git" [sources/tutorials]="$HOME/buildAPKs/sources/tutorials/.git" [sources/widgets]="$HOME/buildAPKs/sources/widgets/.git")
 
 _GSU_() { # Update submodules to latest version. 
@@ -60,8 +59,8 @@ _GSMU_() {
 	_GSU_ ./sources/widgets
 }
 
-cd "$RDR"
+cd "$HOME/buildAPKs"
 _CK4MS_
 _2GSU_
 
-#EOF
+# pull.buildAPKs.modules.bash EOF
