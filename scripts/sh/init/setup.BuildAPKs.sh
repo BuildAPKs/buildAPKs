@@ -5,7 +5,7 @@
 #####################################################################
 
 STRINGA="Cannot update ~/buildAPKs prerequisites: Continuing..."
-STRINGB="Command \`au\` enables rollback; Available at https://github.com/sdrausty/au : Continuing..."
+STRINGB="Command \`au\` enables rollback; Available at https://wae.github.io/au/ : Continuing..."
 printf "%s\\n" "Beginning buildAPKs setup:"
 for CMD in au pkg
 do
