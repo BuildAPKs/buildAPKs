@@ -63,4 +63,4 @@ cd "$HOME"
 (git clone https://github.com/BuildAPKs/buildAPKs) || (printf "%s\\n\\n" "$STRING2") 
 bash "$HOME/buildAPKs/scripts/bash/build/build.entertainment.bash"
 
-#EOF
+# setup.buildAPKs.bash EOF
