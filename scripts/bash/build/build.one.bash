@@ -100,7 +100,7 @@ _CLEANUP_ () {
 	rm -rf ./gen 
  	rm -rf ./obj 
 	find . -name R.java -exec rm {} \; ||: 
-	printf "\\e[1;38;5;151mCompleted tasks in ~/%s/.\\n\\n\\e[0m" "${PWD:33}"
+	printf "\\e[1;38;5;151mCompleted tasks in %s\\n\\n\\e[0m" "$PWD"
 }
 
 NOW=$(date +%s)
