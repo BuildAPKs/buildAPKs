@@ -48,11 +48,14 @@ if [[ -z "${1:-}" ]]
 then
 	ARGS=""
 fi
-STRING="COMMAND \`au\` enables rollback, available at https://github.com/sdrausty/au IS NOT FOUND: Continuing... "
+STRING1="COMMAND \`au\` enables rollback, available at https://github.com/sdrausty/au IS NOT FOUND: Continuing... "
 STRING2="Cannot update ~/buildAPKs prerequisites: Continuing..."
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "Beginning buildAPKs setup:"
+declare COMMANDR=""
 declare COMMANDIF=""
-COMMANDIF="$(command -v au)" || (printf "%s\\n\\n" "$STRING") 
+COMMANDR="$(command -v au)" || (printf "%s\\n\\n" "$STRING1") 
+COMMANDIF="${COMMANDR##*/}"
+
 if [[ "$COMMANDIF" = au ]] 
 then 
 	(au aapt apksigner curl dx ecj findutils git) || (printf "%s\\n\\n" "$STRING2") 
