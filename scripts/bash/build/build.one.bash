@@ -139,7 +139,7 @@ then
 	echo "Cannot run in $HOME!  Signal 224 generated in $PWD."
 	exit 224
 fi
-printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in ~/%s/...\\n\\e[0m" "${PWD}"
+printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in %s\\n\\e[0m" "${PWD}"
 if [[ ! -e "./assets" ]]
 then
 	mkdir -p ./assets
@@ -198,9 +198,9 @@ else
 		mkdir -p "$RDR/cache/builtAPKs/$JID$DAY"
 	fi
 	cp "$PKGNAM.apk" "$RDR/cache/builtAPKs/$EXT$DAY/$PKGNAME.apk"
-	printf "\\e[1;38;5;120mCopied %s to ~/${RDR:33}/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME"
+	printf "\\e[1;38;5;120mCopied %s to $RDR/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME"
 	printf "\\e[1;38;5;154mThe APK %s file can be installed from ~/${RDR:33}/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME"
 fi
 printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐"
 
-#build.one.bash EOF
+# EOF build.one.bash
