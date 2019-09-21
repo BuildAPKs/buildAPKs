@@ -1,5 +1,5 @@
 #!/bin/env bash 
-# Copyright 2017-2019 (c) all rights reserved by S D Rausty 
+# Copyright 2017-2019 (c) all rights reserved by BuildAPKs 
 #####################################################################
 set -Eeuo pipefail
 shopt -s nullglob globstar
