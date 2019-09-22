@@ -38,7 +38,7 @@ trap _SPREPTRPQUIT_ QUIT
 _AF_ () { # finds and removes superfluous files
 	for name in "${FLIST[@]}" 
 	do
- 		find "$JDR/$1/" -type f -name "$name" -exec rm -f {} \;
+ 		find "$JDR/$1/" -type f -name "$name" -exec -delete
 	done
 }
 
