@@ -1,1 +1,0 @@
-../zsh/build/build.dir.zsh

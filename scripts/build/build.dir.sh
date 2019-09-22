@@ -1,1 +1,0 @@
-../sh/build/build.dir.sh

@@ -1,1 +1,0 @@
-scripts/zsh/init/setup.BuildAPKs.zsh
