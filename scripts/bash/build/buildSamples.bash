@@ -35,7 +35,7 @@ trap _SETRPSIGNAL_ HUP INT TERM
 trap _SETRPQUIT_ QUIT 
 
 export JAD=github.com/sdrausty/buildAPKsSamples
-export JID="samples" # job id/name
+export JID="samples4" # job id/name
 . "$HOME/buildAPKs/scripts/bash/init/init.bash"
 
 # buildSamples.bash EOF
