@@ -139,7 +139,7 @@ then
 	echo "Cannot run in $HOME!  Signal 224 generated in $PWD."
 	exit 224
 fi
-printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in %s\\n\\e[0m" "${PWD}"
+printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in %s\\n\\e[0m" "$PWD"
 if [[ ! -e "./assets" ]]
 then
 	mkdir -p ./assets
