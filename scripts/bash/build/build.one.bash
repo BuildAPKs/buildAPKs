@@ -203,4 +203,4 @@ else
 fi
 printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐"
 
-# EOF build.one.bash
+# build.one.bash EOF
