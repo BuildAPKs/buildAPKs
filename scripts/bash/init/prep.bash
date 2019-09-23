@@ -46,4 +46,4 @@ declare -a FLIST # declare array for all superfluous files
 FLIST=( "*.apk"  "*.aar" "*.jar" ".gitignore" "Android.kpf" "ant.properties" "build.gradle" "build.xml" ".classpath" "default.properties" "gradle-wrapper.jar" "gradle-wrapper.properties" "gradlew" "gradlew.bat" "lint.xml" "local.properties" "makefile" "makefile.linux_pc" "org.eclipse.jdt.core.prefs" "pom.xml" "proguard.cfg" "proguard-project.txt" ".project" "project.properties" "R.java" ".settings" "settings.gradle")
 _AF_ "$@" 
 
-#EOF
+# prep.bash EOF
