@@ -49,7 +49,7 @@ _GSMU_() {
 	_GSU_ ./sources/games 
 	_GSU_ ./sources/live.wallpapers
 	_GSU_ ./sources/samples4
-	_GSU_ ./sources/sams 
+	_GSU_ ./sources/samps 
 	_GSU_ ./sources/top10 
 	_GSU_ ./sources/tools 
 	_GSU_ ./sources/torches
