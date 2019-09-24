@@ -12,7 +12,7 @@ Build Android APKs on device, on your smartphone and tablet with [Termux](https:
 
 Have you ever wanted to build your own application? Something that you can distribute over the Internet, and can be used on Android smartphones and tablets worldwide.  Would you dare to try to spend some time learning something new to do so?
 
-[BuildAPKs](https://github.com/BuildAPKs/buildAPKs) is a repository of source code designed just for this purpose.  Source code is the way programs are written in a human understandable language for applications to compile and then to be run on an Android device.  These programs have been tested and were built successfully on device, a smartphone.  First successful builds on Sun May 28 2017 in [Termux](https://github.com/termux/) (Android 6.0.1 aarch64).
+[BuildAPKs](https://github.com/BuildAPKs/) is a repository of source code designed just for this purpose.  Source code is the way programs are written in a human understandable language for applications to compile and then to be run on an Android device.  These programs have been tested and were built successfully on device, a smartphone.  First successful builds on Sun May 28 2017 in [Termux](https://github.com/termux/) (Android 6.0.1 aarch64).
 
 See https://buildapks.github.io/docsBuildAPKs/reallyEasilyBuildAndroidAPKsOnDevice for quick setup instructions and https://sdrausty.github.io/docsBuildAPKs for the documentation website for this project.  
 
