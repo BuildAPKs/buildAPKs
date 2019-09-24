@@ -160,6 +160,7 @@ if [[ ! -d "./res" ]]
 then
 	mkdir -p ./res
 fi
+sleep 0.1
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 aapt package -f \
 	-M AndroidManifest.xml \
