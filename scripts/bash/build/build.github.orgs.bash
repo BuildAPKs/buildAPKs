@@ -82,7 +82,7 @@ _ATT_ () {
 			printf "%s\\n" "Querying $ONAME $REPO ${COMMIT::7} for AndroidManifest.xml file:"
 			if [[ "$COMMIT" != "" ]] 
 			then
-				if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file 
+				if [[ "$OAUT" != "" ]] # see $RDR/conf/GAUTH file 
 				then
  					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$ONAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 420 ||:)"
 				else
@@ -111,7 +111,7 @@ _ATT_ () {
 
 _BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/
 	printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT -o ${NAME##*/}.${COMMIT::7}.tar.gz:"
-	if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file 
+	if [[ "$OAUT" != "" ]] # see $RDR/conf/GAUTH file 
 	then
 		curl -u "$OAUT" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "$STRING"
 	else
@@ -127,7 +127,7 @@ _FJDX_ () {
 }
 
 _GC_ () { 
-	if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file for information  
+	if [[ "$OAUT" != "" ]] # see $RDR/conf/GAUTH file for information  
 	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
 	 	curl -u "$OAUT" https://api.github.com/repos/"$ORG/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
 	else
@@ -147,7 +147,7 @@ _PRINTCK_ () {
 export RDR="$HOME/buildAPKs"
 if [[ -z "${1:-}" ]] 
 then
-	printf "\\e[1;7;38;5;202m%s\\n\\e[0m\\n" "GitHub organisation name must be provided;  See \`~/${RDR##*/}/conf/ONAMES\` for organisation names that build APKs on device with BuildAPKs!  To build all the organisation  names contained in this file run \`for i in \$(cat ~/${RDR##*/}/conf/ONAMES) ; do ~/${RDR##*/}/scripts/bash/build/build.github.orgs.bash \$i ; done\`.  File \`~/${RDR##*/}/conf/OAUTH\` has important information should you choose to run this command regarding bandwidth supplied by GitHub. "
+	printf "\\e[1;7;38;5;202m%s\\n\\e[0m\\n" "GitHub organisation name must be provided;  See \`~/${RDR##*/}/conf/ONAMES\` for organisation names that build APKs on device with BuildAPKs!  To build all the organisation  names contained in this file run \`for i in \$(cat ~/${RDR##*/}/conf/ONAMES) ; do ~/${RDR##*/}/scripts/bash/build/build.github.orgs.bash \$i ; done\`.  File \`~/${RDR##*/}/conf/GAUTH\` has important information should you choose to run this command regarding bandwidth supplied by GitHub. "
 	exit 227
 fi
 export ON="${1%/}"
@@ -155,7 +155,7 @@ export ONAME="${ON##*/}"
 export ORG="${ONAME,,}"
 export JDR="$RDR/sources/github/orgs/$ORG"
 export JID="git.orgs.$ORG"
-export OAUT="$(cat "$RDR/conf/OAUTH" | awk 'NR==1')"
+export OAUT="$(cat "$RDR/conf/GAUTH" | awk 'NR==1')"
 export STRING="${0##*/}: ERROR FOUND; build.github.orgs.bash $1:  CONTINUING..."
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs build.github.orgs.bash $1:"
 . "$HOME/buildAPKs/scripts/bash/shlibs/lock.bash"
@@ -172,7 +172,7 @@ fi
 if [[ ! -f "repos" ]] 
 then
 	printf "%s\\n" "Downloading GitHub $ONAME repositories information:  "
-	if [[ "$OAUT" != "" ]] # see $RDR/conf/OAUTH file for information 
+	if [[ "$OAUT" != "" ]] # see $RDR/conf/GAUTH file for information 
 	then
 		curl -u "$OAUT" "https://api.github.com/orgs/$ORG/repos?per_page=15000" > repos
 	else
