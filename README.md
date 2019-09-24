@@ -6,7 +6,7 @@ You can try building hundreds of exciting, amazing and beautiful APKs by running
 
 **Cloning and updating [submodules](https://gist.github.com/gitaarik/8735255) is automated into the build\*.bash scripts.  If you recieve a history error message from `git pull`, the simplest solution is `mv ~/buildAPKs ~/b0` and then reclone into the $HOME folder.  See [CHANGE.log](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/CHANGE.log) for this git repository change history.** 
 
-The `~/buildAPKs/sources/` directory can be a symbolic link to external storage space to save native space on device.  Prefix the build*.bash scripts with bash to run buildAPKs in external storage, e.g. [`$ bash buildFlashlights.bash`](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/build/buildFlashlights.bash). Build Android APKs on device (smartphone and tablet).
+The `~/buildAPKs/sources/github` directory can be a symbolic link to external storage space to save native space on device.  Prefix the build*.bash scripts with bash to run buildAPKs in external storage, e.g. [`$ bash buildFlashlights.bash`](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/build/buildFlashlights.bash). Build Android APKs on device (smartphone and tablet).
 
 Build Android APKs on device, on your smartphone and tablet with [Termux](https://github.com/termux/); Make applications for your Android smartphone and tablet! This repository contains source code for various Android applications that have been successfully built in [Termux](https://github.com/termux/).
 
@@ -32,4 +32,4 @@ If you're confused by this page try [this link,](http://tldp.org/) and you might
 
 🛳⛴🛥🚢🚤🚣⛵
 
-<!-- README.md -->
+<!-- README.md EOF -->
