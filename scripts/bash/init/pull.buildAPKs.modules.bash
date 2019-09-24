@@ -38,7 +38,7 @@ _CK4MS_() { # ChecKs 4 ModuleS
 
 _GSMU_() {	
 	printf "\\n\\nUpdating buildAPKs; \`%s\` shall attempt to load sources from Github submodule repositories into ~/buildAPKs.  This may take a little while to complete.  Please be patient while \`%s\` downloads source code from https://github.com\\n" "${0##*/}" "${0##*/}"
-	(git pull 2>/dev/null && printf "\\nPlease wait: updating ~/buildAPKs...\\n") || (printf "\\nCannot update ~/buildAPKs: continuing...\\n")
+	(git pull 2>/dev/null && printf "\\nPlease wait; Updating ~/buildAPKs...\\n") || (printf "\\nCannot update ~/buildAPKs: Continuing...\\n")
 	_GSU_ ./scripts/bash/shlibs
 	_GSU_ ./sources/applications
 	_GSU_ ./sources/browsers 
@@ -58,7 +58,7 @@ _GSMU_() {
 }
 
 _GSU_() { # update submodules to latest version
-	(git submodule update --init --recursive --remote $1 2>/dev/null) ||  (printf "\\n\\n\\e[1;7;38;5;66m%s%s\\e[0m\\n" "Cannot update ~/buildAPKs${1:1}: continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
+	(git submodule update --init --recursive --remote $1 2>/dev/null) ||  (printf "\\n\\n\\e[1;7;38;5;66m%s%s\\e[0m\\n" "Cannot update ~/buildAPKs${1:1}: Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
 }
 
 cd "$RDR"
