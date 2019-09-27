@@ -35,7 +35,7 @@ trap _SETRPSIGNAL_ HUP INT TERM
 trap _SETRPQUIT_ QUIT 
 
 export JAD="github.com/BuildAPKs/buildAPKs.games" 
-export JID="games" # job id/name
+export JID="games4" # job id/name
 . "$HOME/buildAPKs/scripts/bash/init/init.bash"
 
 # build.games.bash EOF
