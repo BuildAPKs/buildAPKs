@@ -57,4 +57,4 @@ cd "$HOME/buildAPKs/"
 ./scripts/bash/build/buildWidgets.bash
 ./scripts/bash/build/buildAll.bash
 
-# build.it.bash EOF
+# build.buildAPKs.bash EOF
