@@ -35,7 +35,7 @@ trap _SPREPTRPEXIT_ EXIT
 trap _SPREPTRPSIGNAL_ HUP INT TERM 
 trap _SPREPTRPQUIT_ QUIT 
 
-_AF_ () { # finds and removes superfluous files
+_AFR_ () { # finds and removes superfluous files
 	printf "\\n%s\\n"
 	"Preparing directory $JDR/$1/"
 	for name in "${FLIST[@]}" 
