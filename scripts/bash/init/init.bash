@@ -56,6 +56,8 @@ else
 		if grep shlibs .gitmodules 1>/dev/null
 		then
 			(git submodule update --init --recursive --remote scripts/bash/shlibs) || (printf "\\nCANNOT UPDATE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}") 
+		else
+			(git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n\\n")
 		fi
 	else
 		(git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n\\n")
