@@ -51,14 +51,15 @@ if [[ ! -d "scripts/bash/shlibs" ]]
 then
 	(git clone https://github.com/shlibs/shlibs.bash scripts/bash/shlibs) || (printf "\\nCANNOT CLONE MODULE: Continuing...\\n\\n")
 else
-if [[ -f .gitmodules ]]
-then
-	if grep shlibs .gitmodules 1>/dev/null
+	if [[ -f .gitmodules ]]
 	then
-		(git submodule update --init --recursive --remote scripts/bash/shlibs) || (printf "\\nCANNOT UPDATE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}") 
+		if grep shlibs .gitmodules 1>/dev/null
+		then
+			(git submodule update --init --recursive --remote scripts/bash/shlibs) || (printf "\\nCANNOT UPDATE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}") 
+		fi
+	else
+		(git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n\\n")
 	fi
-else
-	(git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n\\n")
 fi
 
 . "$RDR/scripts/bash/shlibs/mod.bash"
