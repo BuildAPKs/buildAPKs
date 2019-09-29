@@ -122,7 +122,7 @@ _BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/
 
 _FJDX_ () { 
 	export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
-  	tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" | grep AndroidManifest.xml || printf "%s\\n\\n" "$STRING"
+  	tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" ; _AFR_ || printf "%s\\n\\n" "$STRING"
   	find "$JDR/$SFX" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/bash/build/build.one.bash" "$JID" "$JDR" {} \; 2>>"$HOME/buildAPKs/log/stnderr.$JID.log" || printf "%s\\n\\n" "$STRING"
 }
 
@@ -158,7 +158,8 @@ export JID="git.orgs.$ORG"
 export OAUT="$(cat "$RDR/conf/GAUTH" | awk 'NR==1')"
 export STRING="${0##*/}: ERROR FOUND; build.github.orgs.bash $1:  CONTINUING..."
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs build.github.orgs.bash $1:"
-. "$HOME/buildAPKs/scripts/bash/shlibs/lock.bash"
+. "$RDR"/scripts/bash/init/prep.bash
+. "$RDR"/scripts/bash/shlibs/lock.bash
 if [[ ! -d "$JDR" ]] 
 then
 	mkdir -p "$JDR"

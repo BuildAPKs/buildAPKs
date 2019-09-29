@@ -36,10 +36,10 @@ trap _SPREPTRPSIGNAL_ HUP INT TERM
 trap _SPREPTRPQUIT_ QUIT 
 
 _AFR_ () { # finds and removes superfluous files
-	printf "\\n%s\\n" "Preparing directory $JDR/$1/"
+	printf "\\n%s\\n" "Preparing directory $JDR/$SFX/"
 	for name in "${FLIST[@]}" 
 	do
- 		find "$JDR/$1/" -type f -name "$name" -delete
+ 		find "$JDR/$SFX/" -type f -name "$name" -delete
 	done
 }
 
