@@ -106,7 +106,7 @@ _CLEANUP_ () {
 MSDKVERSIO="$(getprop ro.build.version.min_supported_target_sdk)"
 MSDKVERSION="${MSDKVERSIO:-14}"
 TSDKVERSIO="$(getprop ro.build.version.sdk)"
-TSDKVERSION="${SDKVERSIO:-23}"
+TSDKVERSION="${TSDKVERSIO:-23}"
 sed -i "s/minSdkVersion\=\"[0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml 
 sed -i "s/minSdkVersion\=\"[0-9][0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml 
 sed -i "s/targetSdkVersion\=\"[0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" AndroidManifest.xml 
