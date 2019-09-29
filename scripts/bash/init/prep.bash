@@ -37,9 +37,9 @@ trap _SPREPTRPQUIT_ QUIT
 
 _AFR_ () { # finds and removes superfluous files
 	printf "\\n%s\\n" "Preparing directory $JDR/$SFX"
-	for name in "${FLIST[@]}" 
+	for NAME in "${FLIST[@]}" 
 	do
- 		find "$JDR/$SFX/" -type f -name "$name" -delete
+ 		find "$JDR/$SFX/" -type f -name "$NAME" -delete
 	done
 }
 
