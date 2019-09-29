@@ -5,25 +5,25 @@
 set -Eeuo pipefail
 shopt -s nullglob globstar
 
-_SGTRPERROR_() { # Run on script error.
+_SGTRPERROR_() { # run on script error
 	local RV="$?"
 	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s ERROR:  Signal %s received!\\e[0m\\n" "${0##*/}" "$RV"
 	exit 201
 }
 
-_SGTRPEXIT_() { # Run on exit.
+_SGTRPEXIT_() { # run on exit
 	printf "\\e[?25h\\e[0m"
 	set +Eeuo pipefail 
-	exit
+	exit 0
 }
 
-_SGTRPSIGNAL_() { # Run on signal.
+_SGTRPSIGNAL_() { # run on signal
 	local RV="$?"
 	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Signal %s received!\\e[0m\\n" "${0##*/}" "$RV"
  	exit 211 
 }
 
-_SGTRPQUIT_() { # Run on quit.
+_SGTRPQUIT_() { # run on quit
 	local RV="$?"
 	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Quit signal %s received!\\e[0m\\n" "${0##*/}" "$RV"
  	exit 221 
@@ -71,7 +71,13 @@ fi
 TARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g' | sed 's/https\:\/\/github.com\///g' | cut -d\/ -f1)) # creates array of Java language repositories
 for NAME in "${TARR[@]}" 
 do 
-	"$RDR"/scripts/bash/build/build.github.users.bash "$NAME"
+	TYPE="$(curl "https://api.github.com/users/$NAME/repos" -s 2>&1 | head -n 25 | tail -n 1 | grep -o Organization)"
+		if [[ "$TYPE" == Organization ]]
+		then
+		 	"$RDR"/scripts/bash/build/build.github.orgs.bash "$NAME"
+		else
+			"$RDR"/scripts/bash/build/build.github.users.bash "$NAME"
+		fi
 done
 
-#build.github.topics.bash 
+# build.github.topics.bash EOF
