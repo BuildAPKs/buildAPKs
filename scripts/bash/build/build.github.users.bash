@@ -52,7 +52,7 @@ _NAND_ () { # write configuration file for repository if AndroidManifest.xml fil
 	printf "\\n%s\\n\\n" "Could not find an AndroidManifest.xml file in Java language repository $USER ${NAME##*/} ${COMMIT::7}:  NOT downloading ${NAME##*/} tarball."
 }
 
-_AT_ () {
+_CKAT_ () {
 	CK=0
 	REPO=$(awk -F/ '{print $NF}' <<< "$NAME") # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell 
 	NPCK="$(find "$JDR/.config/" -name "$USER.${NAME##*/}.???????.ck")" ||: # https://stackoverflow.com/questions/6363441/check-if-a-file-exists-with-wildcard-in-shell-script
@@ -184,7 +184,7 @@ JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{
 F1AR=($(find . -maxdepth 1 -type d)) # creates array of $JDR contents 
 for NAME in "${JARR[@]}" # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted, too.  They are repopulated from the tarballs.  
 do #  This creates a "slate" within each github/$JDR that can be selectively reset when desired.  This can be important on a slow connection.
-	_AT_ 
+	_CKAT_ 
 done
 
 # build.github.users.bash EOF
