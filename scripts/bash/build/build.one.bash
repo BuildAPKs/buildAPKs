@@ -103,10 +103,14 @@ _CLEANUP_ () {
 	printf "\\e[1;38;5;151mCompleted tasks in %s\\n\\n\\e[0m" "$PWD"
 }
 
-BUILDVERSIO="$(getprop ro.build.version.sdk)"
-BUILDVERSION="${BUILDVERSIO:-23}"
-MBUILDVERSIO="$(getprop ro.build.version.min_supported_target_sdk)"
-MBUILDVERSION="${MBUILDVERSIO:-14}"
+MSDKVERSIO="$(getprop ro.build.version.min_supported_target_sdk)"
+MSDKVERSION="${MSDKVERSIO:-14}"
+TSDKVERSIO="$(getprop ro.build.version.sdk)"
+TSDKVERSION="${SDKVERSIO:-23}"
+sed -i "s/minSdkVersion\=\"[0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml 
+sed -i "s/minSdkVersion\=\"[0-9][0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml 
+sed -i "s/targetSdkVersion\=\"[0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" AndroidManifest.xml 
+sed -i "s/targetSdkVersion\=\"[0-9][0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" AndroidManifest.xml 
 NOW=$(date +%s)
 PKGNAM="$(grep -o "package=.*" AndroidManifest.xml | cut -d\" -f2)"
 PKGNAME="$PKGNAM.$NOW"
@@ -176,8 +180,8 @@ printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started
 dx --dex --output=bin/classes.dex obj
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAM.apk..."
 aapt package -f \
-	--min-sdk-version $MBUILDVERSION \
-	--target-sdk-version $BUILDVERSION \
+	--min-sdk-version $MSDKVERSION \
+	--target-sdk-version $TSDKVERSION \
 	-M AndroidManifest.xml \
 	-S res \
 	-A assets \
