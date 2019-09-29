@@ -71,7 +71,7 @@ fi
 TARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g' | sed 's/https\:\/\/github.com\///g' | cut -d\/ -f1)) # creates array of Java language repositories
 for NAME in "${TARR[@]}" 
 do 
-	read TYPE < <(curl "https://api.github.com/users/${NAME}/repos" -s 2>&1 | head -n 25 | tail -n 1|grep -o Organization)
+	read TYPE < <(curl "https://api.github.com/users/${NAME}/repos" -s 2>&1 | head -n 25 | tail -n 1 | grep -o Organization) # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell/
 		if [[ "$TYPE" == Organization ]]
 		then
 		 	"$RDR"/scripts/bash/build/build.github.orgs.bash "$NAME"
