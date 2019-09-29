@@ -47,6 +47,10 @@ export SRDR="${RDR##*/}" # search: string manipulation site:www.tldp.org
 export JDR="$RDR/sources/$JID"
 cd "$RDR"
 (git pull) || (printf "\\nCANNOT UPDATE ~/%s: Continuing...\\n\\n" "${RDR##*/}") 
+if [[ ! -d "scripts/bash/shlibs" ]] 
+then
+	(git clone https://github.com/shlibs/shlibs.bash scripts/bash/shlibs) || (printf "\\nCANNOT CLONE MODULE: Continuing...\\n\\n")
+else
 if [[ -f .gitmodules ]]
 then
 	if grep shlibs .gitmodules 1>/dev/null
@@ -54,12 +58,7 @@ then
 		(git submodule update --init --recursive --remote scripts/bash/shlibs) || (printf "\\nCANNOT UPDATE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}") 
 	fi
 else
-	if [[ ! -d "scripts/bash/shlibs" ]] 
-	then
-		(git clone https://github.com/shlibs/shlibs.bash scripts/bash/shlibs) || (printf "\\nCANNOT CLONE MODULE: Continuing...\\n\\n")
-	else
-		(git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n\\n")
-	fi
+	(git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n\\n")
 fi
 
 . "$RDR/scripts/bash/shlibs/mod.bash"
