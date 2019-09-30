@@ -36,7 +36,7 @@ trap _SPREPTRPSIGNAL_ HUP INT TERM
 trap _SPREPTRPQUIT_ QUIT 
 
 _AFR_ () { # finds and removes superfluous files
-	printf "\\n%s\\n" "Preparing directory $JDR/$SFX"
+	printf "\\n%s\\n" "Purging excess elements in directory $JDR/$SFX;  Please wait a moment..."
 	for NAME in "${DLIST[@]}" 
 	do
  		find "$JDR/$SFX" -type d -name "$NAME" -exec rm -rf {} \; 2>/dev/null
