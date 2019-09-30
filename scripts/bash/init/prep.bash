@@ -37,6 +37,10 @@ trap _SPREPTRPQUIT_ QUIT
 
 _AFR_ () { # finds and removes superfluous files
 	printf "\\n%s\\n" "Preparing directory $JDR/$SFX"
+	for NAME in "${DLIST[@]}" 
+	do
+ 		find "$JDR/$SFX/" -type d -name "$NAME" -exec rm -rf {} \;
+	done
 	for NAME in "${FLIST[@]}" 
 	do
  		find "$JDR/$SFX/" -type f -name "$NAME" -delete
@@ -44,7 +48,9 @@ _AFR_ () { # finds and removes superfluous files
 	find  "$JDR/$SFX/" -type d -empty -delete
 }
 
+declare -a DLIST # declare array for all superfluous directories
 declare -a FLIST # declare array for all superfluous files
-FLIST=( "*.apk"  "*.aar" "*.jar" ".gitignore" "Android.kpf" "ant.properties" "build.gradle" "build.xml" ".classpath" "default.properties" "gradle-wrapper.properties" "gradlew" "gradlew.bat" "gradle.properties" "gradle.xml" "lint.xml" "local.properties" "makefile" "makefile.linux_pc" "org.eclipse.jdt.core.prefs" "pom.xml" "proguard.cfg" "proguard-project.txt" ".project" "project.properties" "R.java" ".settings" "settings.gradle")
+DLIST=(".idea" "gradle")
+FLIST=("*.apk"  "*.aar" "*.jar" ".gitignore" "Android.kpf" "ant.properties" "build.gradle" "build.xml" ".classpath" "default.properties" "gradle-wrapper.properties" "gradlew" "gradlew.bat" "gradle.properties" "gradle.xml" "lint.xml" "local.properties" "makefile" "makefile.linux_pc" "org.eclipse.jdt.core.prefs" "pom.xml" "proguard.cfg" "proguard-project.txt" ".project" "project.properties" "R.java" ".settings" "settings.gradle" "WebRTCSample.iml")
 
 # prep.bash EOF
