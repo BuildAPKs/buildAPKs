@@ -64,5 +64,6 @@ _GSU_() { # update submodules to latest version
 cd "$RDR"
 _CK4MS_
 _2GSU_
+printf "\\nBuildAPKs %s: DONE!\\n\\n" "${0##*/}"
 
 # pull.buildAPKs.modules.bash EOF
