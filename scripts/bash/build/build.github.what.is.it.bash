@@ -9,7 +9,6 @@ _SITRPERROR_() { # run on script error
 	local RV="$?"
 	printf "\\e[?25h\\e[1;7;38;5;0mBuildAPKs build.github.what.is.it.bash %s WARNING:  Error %s received!\\e[0m\\n" "${0##*/}" "$RV"
 	printf "\\e[?25h\\n\\e[1;48;5;138mBuildAPKs build.github.what.is.it.bash %s %s ERROR:  Generated script error %s near or at line number %s by \`%s\`!\\e[0m\\n" "${0##*/}" "${PWD##*/}" "${1:-UNDEF}" "${2:-LINENO}" "${3:-BASH_COMMAND}"
-	_WAKEUNLOCK_
 	exit 147
 }
 
@@ -23,7 +22,6 @@ _SITRPSIGNAL_() { # run on signal
 	local RV="$?"
 	printf "\\e[?25h\\e[1;7;38;5;0mBuildAPKs build.github.what.is.it.bash %s WARNING:  Signal %s received!\\e[0m\\n" "${0##*/}" "$RV"
         printf "\\e[?25h\\n\\e[1;48;5;138mBuildAPKs build.github.what.is.it.bash %s WARNING:  Signal %s received near or at line number %s by \`%s\`!\\e[0m\\n" "${0##*/}" "${1:-UNDEFINED}" "${2:-LINENO}" "${3:-BASH_COMMAND}"
-	_WAKEUNLOCK_
  	exit 148 
 }
 
@@ -31,7 +29,6 @@ _SITRPQuIT_() { # run on quit
 	local RV="$?"
 	printf "\\e[?25h\\e[1;7;38;5;0mBuildAPKs build.github.what.is.it.bash %s WARNING:  Quit signal %s received!\\e[0m\\n" "${0##*/}" "$RV"
         printf "\\e[?25h\\n\\e[1;48;5;138mBuildAPKs build.github.what.is.it.bash %s WARNING:  Quit signal %s received near or at line number %s by \`%s\`!\\e[0m\\n" "${0##*/}" "${1:-UNDEFINED}" "${2:-LINENO}" "${3:-BASH_COMMAND}"
-	_WAKEUNLOCK_
  	exit 149 
 }
 

@@ -35,7 +35,7 @@ trap _SPREPTRPEXIT_ EXIT
 trap _SPREPTRPSIGNAL_ HUP INT TERM 
 trap _SPREPTRPQUIT_ QUIT 
 
-_AFR_ () { # finds and removes superfluous files
+_AFR_ () { # finds and removes superfluous directories and files
 	printf "\\n%s\\n" "Purging excess elements in directory $JDR/$SFX;  Please wait a moment..."
 	for NAME in "${DLIST[@]}" 
 	do
