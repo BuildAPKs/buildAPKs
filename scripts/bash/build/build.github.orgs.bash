@@ -175,9 +175,9 @@ then
 	printf "%s\\n" "Downloading GitHub $ONAME repositories information:  "
 	if [[ "$OAUT" != "" ]] # see $RDR/conf/GAUTH file for information 
 	then
-		curl -u "$OAUT" "https://api.github.com/orgs/$ORG/repos?per_page=15000" > repos
+		curl -u "$OAUT" "https://api.github.com/orgs/$ORG/repos" > repos
 	else
-		curl "https://api.github.com/orgs/$ORG/repos?per_page=15000" > repos 
+		curl "https://api.github.com/orgs/$ORG/repos" > repos 
 	fi
 fi
 JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g')) # creates array of Java language repositories
