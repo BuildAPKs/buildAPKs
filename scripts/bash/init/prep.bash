@@ -39,13 +39,13 @@ _AFR_ () { # finds and removes superfluous files
 	printf "\\n%s\\n" "Preparing directory $JDR/$SFX"
 	for NAME in "${DLIST[@]}" 
 	do
- 		find "$JDR/$SFX/" -type d -name "$NAME" -exec rm -rf {} \;
+ 		find "$JDR/$SFX" -type d -name "$NAME" -exec rm -rf {} \; 2>/dev/null
 	done
 	for NAME in "${FLIST[@]}" 
 	do
- 		find "$JDR/$SFX/" -type f -name "$NAME" -delete
+ 		find "$JDR/$SFX" -type f -name "$NAME" -delete
 	done
-	find  "$JDR/$SFX/" -type d -empty -delete
+	find  "$JDR/$SFX" -type d -empty -delete
 }
 
 declare -a DLIST # declare array for all superfluous directories
