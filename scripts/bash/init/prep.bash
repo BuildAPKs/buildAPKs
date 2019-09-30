@@ -41,6 +41,7 @@ _AFR_ () { # finds and removes superfluous files
 	do
  		find "$JDR/$SFX/" -type f -name "$NAME" -delete
 	done
+	find  "$JDR/$SFX/" -type d -empty -delete
 }
 
 declare -a FLIST # declare array for all superfluous files
