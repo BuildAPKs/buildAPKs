@@ -40,6 +40,7 @@ trap _SITRPEXIT_ EXIT
 trap '_SITRPSIGNAL_ $? $LINENO $BASH_COMMAND'  HUP INT TERM
 trap '_SITRPQuIT_ $? $LINENO $BASH_COMMAND' QUIT 
 
+export RDR="$HOME/buildAPKs"
 if [[ -z "${1:-}" ]] 
 then
 	printf "\\e[1;7;38;5;204m%s\\n\\e[0m\\n" "GitHub name must be provided;  See \`~/${RDR##*/}/conf/UNAMES\` for usernames that build APKs on device with BuildAPKs!  To build all the user names contained in this file run \`for i in \$(cat ~/${RDR##*/}/conf/UNAMES) ; do ~/${RDR##*/}/scripts/bash/build/${0##*/} \$i ; done\`.  File \`~/${RDR##*/}/conf/GAUTH\` has important information should you choose to run this command regarding bandwidth supplied by GitHub. "
