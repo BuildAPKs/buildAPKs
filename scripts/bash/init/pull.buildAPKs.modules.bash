@@ -12,11 +12,11 @@ SBMS=([scripts/frags]="$RDR/scripts/frags/.git" [scripts/bash/shlibs]="$RDR/scri
 _2GSU_() {
 	if [[ "$SBMI" = "" ]] 
 	then
- 		printf "\\nTo update the modules in ~/${RDR##*} to the newest version remove these .git files:\\n\\n"
+ 		printf "\\nTo update the modules in ~/buildAPKs to the newest version remove these .git files:\\n\\n"
 	 	sleep 1.28
  		find "$RDR" -type f -name .git
- 		printf "\\n\\nYou can use \`find\` to update the modules in ~/${RDR##*}sources to the newest version:\\n\\n"
- 		printf "	$ find ~/${RDR##*} -type f -name .git -delete"
+ 		printf "\\n\\nYou can use \`find\` to update the modules in ~/buildAPKs/sources to the newest version:\\n\\n"
+ 		printf "	$ find ~/buildAPKs -type f -name .git -delete"
  		printf "\\n\\nThen execute %s again, and %s shall attempt to update all of them.\\n\\n" "${0##*/}" "${0##*/}"
 	 	sleep 1.28
 	else
@@ -37,8 +37,8 @@ _CK4MS_() { # ChecKs 4 ModuleS
 }
 
 _GSMU_() {	
-	printf "\\nUpdating ${RDR##*}; \`%s\` shall attempt to load sources from Github submodule repositories into ~/${RDR##*}.  This may take a little while to complete.  Please be patient while \`%s\` downloads source code from https://github.com\\n" "${0##*/}" "${0##*/}"
-	(git pull 2>/dev/null && printf "\\nPlease wait; Updating ~/${RDR##*}...\\n") || (printf "\\nCannot update ~/${RDR##*}: Continuing...\\n")
+	printf "\\nUpdating buildAPKs; \`%s\` shall attempt to load sources from Github submodule repositories into ~/buildAPKs.  This may take a little while to complete.  Please be patient while \`%s\` downloads source code from https://github.com\\n" "${0##*/}" "${0##*/}"
+	(git pull 2>/dev/null && printf "\\nPlease wait; Updating ~/buildAPKs...\\n") || (printf "\\nCannot update ~/buildAPKs: Continuing...\\n")
 	_GSU_ ./scripts/bash/shlibs
 	_GSU_ ./sources/applications
 	_GSU_ ./sources/browsers 
@@ -58,7 +58,7 @@ _GSMU_() {
 }
 
 _GSU_() { # update submodules to latest version
-	(git submodule update --init --recursive --remote $1 2>/dev/null) ||  (printf "\\n\\n\\e[1;7;38;5;66m%s%s\\e[0m\\n" "Cannot update ~/${RDR##*}${1:1}: Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
+	(git submodule update --init --recursive --remote $1 2>/dev/null) ||  (printf "\\n\\n\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs${1:1}: Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
 }
 
 cd "$RDR"
