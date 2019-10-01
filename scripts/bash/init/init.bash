@@ -50,7 +50,6 @@ export NUM="$(date +%s)"
 export SRDR="${RDR##*/}" # search: string manipulation site:www.tldp.org
 export JDR="$RDR/sources/$JID"
 cd "$RDR"
-touch .gitmodules 
 (git pull) || (printf "\\nCANNOT UPDATE ~/%s: Continuing...\\n\\n" "${RDR##*/}") 
 if [[ ! -d "scripts/bash/shlibs" ]] 
 then
