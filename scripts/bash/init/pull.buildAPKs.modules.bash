@@ -13,8 +13,7 @@ _2GSU_() {
 	if [[ "$SBMI" = "" ]] 
 	then
  		printf "\\nTo update the modules in ~/buildAPKs to the newest version remove these .git files:\\n\\n"
-	 	sleep 1.28
- 		find "$RDR" -type f -name .git
+ 		find "$RDR" -type f -name .git | sort
  		printf "\\n\\nYou can use \`find\` to update the modules in ~/buildAPKs/sources to the newest version:\\n\\n"
  		printf "	$ find ~/buildAPKs/sources -type f -name .git -delete"
  		printf "\\n\\nThen execute %s again, and %s shall attempt to update all of them.\\n\\n" "${0##*/}" "${0##*/}"
