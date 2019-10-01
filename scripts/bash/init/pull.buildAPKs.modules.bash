@@ -12,17 +12,18 @@ SBMS=([scripts/bash/shlibs]="$RDR/scripts/bash/shlibs/.git" [sources/application
 _2GSU_() {
 	if [[ "$SBMI" = "" ]] 
 	then
- 		printf "\\nTo update the modules in ~/buildAPKs to the newest version remove these .git files:\\n\\n"
+ 		printf "To update the modules in ~/buildAPKs to the newest version remove these .git files:\\n\\n"
 		for GLOC in "${SBMS[@]}" 
 		do
 			printf "%s\\n" "$GLOC" 
 		done
- 		printf "\\n\\nUse find to update the modules in ~/buildAPKs/sources to the newest version:\\n\\n"
+ 		printf "\\nUse find to update the modules in ~/buildAPKs/sources/ to the newest version:\\n\\n"
  		printf "	$ find ~/buildAPKs/sources/ -type f -name .git -delete"
- 		printf "\\n\\nThen run %s again, and %s shall attempt to update all of them.\\n\\n" "${0##*/}" "${0##*/}"
+ 		printf "\\n\\nThen run %s again, and %s shall attempt to update all of them.\\n" "${0##*/}" "${0##*/}"
 	else
 		_GSMU_
 	fi
+	printf "\\nBuildAPKs %s: DONE!\\n" "${0##*/}"
 }
 
 _CK4MS_() { # ChecKs 4 ModuleS 
@@ -53,6 +54,5 @@ _GSU_() { # update submodules to latest version
 cd "$RDR/"
 _CK4MS_
 _2GSU_
-printf "\\nBuildAPKs %s: DONE!\\n\\n" "${0##*/}"
 
 # pull.buildAPKs.modules.bash EOF
