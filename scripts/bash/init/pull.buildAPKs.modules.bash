@@ -16,7 +16,7 @@ _2GSU_() {
 	 	sleep 1.28
  		find "$RDR" -type f -name .git
  		printf "\\n\\nYou can use \`find\` to update the modules in ~/buildAPKs/sources to the newest version:\\n\\n"
- 		printf "	$ find ~/buildAPKs -type f -name .git -delete"
+ 		printf "	$ find ~/buildAPKs/sources -type f -name .git -delete"
  		printf "\\n\\nThen execute %s again, and %s shall attempt to update all of them.\\n\\n" "${0##*/}" "${0##*/}"
 	 	sleep 1.28
 	else
