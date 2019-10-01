@@ -38,7 +38,7 @@ trap _SETRPSIGNAL_ HUP INT TERM
 trap _SETRPQUIT_ QUIT 
 
 export RDR="$HOME/buildAPKs"
-declare -a LIST # declare array for all superfluous files
+declare -a LIST # declare array for all build scripts 
 LIST=("$RDR/scripts/bash/build/build.apps.bash" "$RDR/scripts/bash/build/build.clocks.bash" "$RDR/scripts/bash/build/build.compasses.bash" "$RDR/scripts/bash/build/build.developers.tools.bash" "$RDR/scripts/bash/build/build.entertainment.bash" "$RDR/scripts/bash/build/build.flashlights.bash" "$RDR/scripts/bash/build/build.games.bash" "$RDR/scripts/bash/build/build.live.wallpapers.bash" "$RDR/scripts/bash/build/build.samples.bash" "$RDR/scripts/bash/build/buildApplications.bash" "$RDR/scripts/bash/build/buildBrowsers.bash" "$RDR/scripts/bash/build/buildFlashlights.bash" "$RDR/scripts/bash/build/buildGames.bash" "$RDR/scripts/bash/build/buildSamples.bash" "$RDR/scripts/bash/build/buildTop10.bash" "$RDR/scripts/bash/build/buildTutorials.bash" "$RDR/scripts/bash/build/buildWidgets.bash" "$RDR/scripts/bash/build/buildAll.bash")
 for NAME in "${LIST[@]}"
 do
