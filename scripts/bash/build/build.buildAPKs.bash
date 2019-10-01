@@ -37,24 +37,12 @@ trap _SETRPEXIT_ EXIT
 trap _SETRPSIGNAL_ HUP INT TERM 
 trap _SETRPQUIT_ QUIT 
 
-cd "$HOME/buildAPKs/"
-./scripts/bash/build/build.apps.bash
-./scripts/bash/build/build.clocks.bash
-./scripts/bash/build/build.compasses.bash
-./scripts/bash/build/build.developers.tools.bash
-./scripts/bash/build/build.entertainment.bash
-./scripts/bash/build/build.flashlights.bash
-./scripts/bash/build/build.games.bash
-./scripts/bash/build/build.live.wallpapers.bash
-./scripts/bash/build/build.samples.bash
-./scripts/bash/build/buildApplications.bash
-./scripts/bash/build/buildBrowsers.bash
-./scripts/bash/build/buildFlashlights.bash
-./scripts/bash/build/buildGames.bash
-./scripts/bash/build/buildSamples.bash
-./scripts/bash/build/buildTop10.bash
-./scripts/bash/build/buildTutorials.bash
-./scripts/bash/build/buildWidgets.bash
-./scripts/bash/build/buildAll.bash
+export RDR="$HOME/buildAPKs"
+declare -a LIST # declare array for all superfluous files
+LIST=("$RDR/scripts/bash/build/build.apps.bash" "$RDR/scripts/bash/build/build.clocks.bash" "$RDR/scripts/bash/build/build.compasses.bash" "$RDR/scripts/bash/build/build.developers.tools.bash" "$RDR/scripts/bash/build/build.entertainment.bash" "$RDR/scripts/bash/build/build.flashlights.bash" "$RDR/scripts/bash/build/build.games.bash" "$RDR/scripts/bash/build/build.live.wallpapers.bash" "$RDR/scripts/bash/build/build.samples.bash" "$RDR/scripts/bash/build/buildApplications.bash" "$RDR/scripts/bash/build/buildBrowsers.bash" "$RDR/scripts/bash/build/buildFlashlights.bash" "$RDR/scripts/bash/build/buildGames.bash" "$RDR/scripts/bash/build/buildSamples.bash" "$RDR/scripts/bash/build/buildTop10.bash" "$RDR/scripts/bash/build/buildTutorials.bash" "$RDR/scripts/bash/build/buildWidgets.bash" "$RDR/scripts/bash/build/buildAll.bash")
+for NAME in "${LIST[@]}"
+do
+	"$NAME"
+done
 
 # build.buildAPKs.bash EOF
