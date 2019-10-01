@@ -1,0 +1,3 @@
+[submodule "scripts/frags"]
+	path = scripts/frags
+	url = https://github.com/shlibs/frags.bash
