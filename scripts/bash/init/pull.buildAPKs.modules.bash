@@ -73,7 +73,7 @@ _CK4MS_() { # ChecKs 4 ModuleS
 
 _GSMU_() {	
 	printf "\\nUpdating buildAPKs; \`%s\` shall attempt to load sources from Github submodule repositories into ~/buildAPKs.  This may take a little while to complete.  Please be patient while \`%s\` downloads source code from https://github.com\\n" "${0##*/}" "${0##*/}"
-	(git pull  && printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs...") ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs:  Continuing..."
+	(git pull  && printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs...") ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs:  Continuing...")
 	for LOC in "${!SBMS[@]}" 
 	do
 		_GSU_ $LOC
