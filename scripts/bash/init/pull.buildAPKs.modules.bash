@@ -81,7 +81,7 @@ _GSMU_() {
 }
 
 _GSU_() { # update submodules to latest version
-	(git submodule update --init --recursive --remote $1) ||  (printf "\\n\\n\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs/$1:  Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
+	(git submodule update --init --recursive --remote $1) ||  (printf "\\n\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs/$1:  Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
 }
 
 cd "$RDR/"
