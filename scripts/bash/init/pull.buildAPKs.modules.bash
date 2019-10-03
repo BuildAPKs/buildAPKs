@@ -81,6 +81,10 @@ _GSMU_() {
 	done
 }
 
+_GSA_() { # update submodules to latest version
+	(git submodule add ${!LOC} && printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding ~/buildAPKs/...") ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot add ~/buildAPKs/:  Continuing...") 
+}
+
 _GSU_() { # update submodules to latest version
 	(git submodule update --init --recursive --remote $LOC && printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/$LOC...") ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs/$LOC:  Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
 }
