@@ -39,17 +39,15 @@ trap '_SPTRPSIGNAL_ $? $LINENO $BASH_COMMAND'  HUP INT TERM
 trap '_SPTRPQuIT_ $? $LINENO $BASH_COMMAND' QUIT 
 
 declare -A GBMS # declare associative array for available submoldules
-declare -A SBMS # declare associative array for available submoldules
 RDR="$HOME/buildAPKs"
-SAD="https://github.com"
-GBMS=([scripts/bash/shlibs]="shlibs/shlibs.bash" [sources/applications]="SDRausty/buildAPKsApps"  [sources/apps]="BuildAPKs/buildAPKs.apps" [sources/browsers]="SDRausty/buildAPKsBrowsers" [sources/clocks]="BuildAPKs/buildAPKs.clocks" [sources/compasses]="BuildAPKs/buildAPKs.compasses" [sources/entertainment]="BuildAPKs/buildAPKs.entertainment" [sources/flashlights4]="BuildAPKs/buildAPKs.flashlights" [sources/gamez]="BuildAPKs/buildAPKs.games"  [sources/gaming]="SDRausty/buildAPKsGames" [sources/live.wallpapers]="BuildAPKs/buildAPKs.live.wallpapers" [sources/samples4]="SDRausty/buildAPKsSamples" [sources/samps]="BuildAPKs/buildAPKs.samples" [sources/top10]="github.com/sdrausty/buildAPKsTop10" [sources/tools]="BuildAPKs/buildAPKs.developers.tools" [sources/torches]="SDRausty/buildAPKsFlashlights" [sources/tutorials]="github.com/sdrausty/buildAPKsTutorials" [sources/widgets]="github.com/sdrausty/buildAPKsWidgets")
-SBMS=([scripts/bash/shlibs]="$RDR/scripts/bash/shlibs/.git" [sources/applications]="$RDR/sources/applications/.git"  [sources/apps]="$RDR/sources/apps/.git" [sources/browsers]="$RDR/sources/browsers/.git" [sources/clocks]="$RDR/sources/clocks/.git" [sources/compasses]="$RDR/sources/compasses/.git" [sources/entertainment]="$RDR/sources/entertainment/.git" [sources/flashlights4]="$RDR/sources/flashlights4/.git" [sources/gamez]="$RDR/sources/gamez/.git"  [sources/gaming]="$RDR/sources/gaming/.git" [sources/live.wallpapers]="$RDR/sources/live.wallpapers/.git" [sources/samples4]="$RDR/sources/samples4/.git" [sources/samps]="$RDR/sources/samps/.git" [sources/top10]="$RDR/sources/top10/.git" [sources/tools]="$RDR/sources/tools/.git" [sources/torches]="$RDR/sources/torches/.git" [sources/tutorials]="$RDR/sources/tutorials/.git" [sources/widgets]="$RDR/sources/widgets/.git")
+SADD="https://github.com"
+GBMS=([scripts/bash/shlibs]="$RDR/scripts/bash/shlibs/.git" [sources/applications]="$RDR/sources/applications/.git"  [sources/apps]="$RDR/sources/apps/.git" [sources/browsers]="$RDR/sources/browsers/.git" [sources/clocks]="$RDR/sources/clocks/.git" [sources/compasses]="$RDR/sources/compasses/.git" [sources/entertainment]="$RDR/sources/entertainment/.git" [sources/flashlights4]="$RDR/sources/flashlights4/.git" [sources/gamez]="$RDR/sources/gamez/.git"  [sources/gaming]="$RDR/sources/gaming/.git" [sources/live.wallpapers]="$RDR/sources/live.wallpapers/.git" [sources/samples4]="$RDR/sources/samples4/.git" [sources/samps]="$RDR/sources/samps/.git" [sources/top10]="$RDR/sources/top10/.git" [sources/tools]="$RDR/sources/tools/.git" [sources/torches]="$RDR/sources/torches/.git" [sources/tutorials]="$RDR/sources/tutorials/.git" [sources/widgets]="$RDR/sources/widgets/.git")
 
 _2GSU_() {
 	if [[ "$SBMI" = "" ]] 
 	then
  		printf "To update the modules in ~/buildAPKs to the newest version remove these .git files:\\n\\n"
-		for GLOC in "${SBMS[@]}" 
+		for GLOC in "${GBMS[@]}" 
 		do
 			printf "%s\\n" "$GLOC" 
 		done
@@ -64,9 +62,9 @@ _2GSU_() {
 
 _CK4MS_() { # ChecKs 4 ModuleS 
 	SBMI=""
-	for LOC in "${!SBMS[@]}" 
+	for LOC in "${!GBMS[@]}" 
 	do
-		if [[ ! -f "${SBMS[$LOC]}" ]] 
+		if [[ ! -f "${GBMS[$LOC]}" ]] 
 		then
 			SBMI=1
 			break
@@ -77,7 +75,7 @@ _CK4MS_() { # ChecKs 4 ModuleS
 _GSMU_() {	
 	printf "Updating buildAPKs; \`%s\` shall attempt to load sources from Github submodule repositories into ~/buildAPKs.  This may take a little while to complete.  Please be patient while \`%s\` downloads source code from https://github.com\\n\\n" "${0##*/}" "${0##*/}"
 	(git pull && printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs...") ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs:  Continuing...")
-	for LOC in "${!SBMS[@]}" 
+	for LOC in "${!GBMS[@]}" 
 	do
 		_GSU_ $LOC
 	done
