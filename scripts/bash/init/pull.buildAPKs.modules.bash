@@ -77,25 +77,23 @@ _GSMU_() {
 # 	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs..." && git pull) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs:  Continuing...")
 	for LOC in "${!GBMS[@]}" 
 	do
-		echo "\${GBMS[@]}"
-# 		echo "${GBMS[@]}"
-echo "https://github.com/${GBMS[$LOC]} $LOC"
-echo echo
-		echo "${GBMS[$LOC]}"
 		_GSU_ 
 	done
 }
 
 _GSA_() { # update submodules to latest version
-	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding https://github.com/${GBMS[$LOC]} to ~/buildAPKs/$LOC..." && git submodule add "https://github.com/${GBMS[$LOC]}") ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot add ~/buildAPKs/$LOC:  Continuing...") 
-# 	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding ~/buildAPKs/$LOC..." && git submodule add https://github.com/$LOC) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot add ~/buildAPKs/$LOC:  Continuing...") 
+	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding https://github.com/${GBMS[$LOC]} to ~/buildAPKs/$LOC..." && git submodule add https://github.com/${GBMS[$LOC]} $LOC) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot add ~/buildAPKs/$LOC:  Continuing...") 
 }
 
 _GSU_() { # update submodules to latest version
-	((printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/$LOC..." && git submodule update --init --recursive --remote $LOC ) || ( _GSA_ )) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs/$LOC:  Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
+	( (printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/$LOC..." && git submodule update --init --recursive --remote $LOC ) || ( _GSA_ ) ) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs/$LOC:  Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
 }
 
 cd "$RDR/"
+if [[ ! -d "$RDR/sources" ]]
+then
+	mkdir -p "$RDR/sources"
+fi
 _CK4MS_
 _2GSU_
 
