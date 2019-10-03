@@ -38,6 +38,7 @@ trap _SPTRPEXIT_ EXIT
 trap '_SPTRPSIGNAL_ $? $LINENO $BASH_COMMAND'  HUP INT TERM
 trap '_SPTRPQuIT_ $? $LINENO $BASH_COMMAND' QUIT 
 
+declare -A GBMS # declare associative array for available submoldules
 declare -A SBMS # declare associative array for available submoldules
 RDR="$HOME/buildAPKs"
 SAD="https://github.com"
