@@ -41,7 +41,7 @@ trap '_SPTRPQuIT_ $? $LINENO $BASH_COMMAND' QUIT
 declare -A GBMS # declare associative array for available submoldules
 RDR="$HOME/buildAPKs"
 SADD="https://github.com"
-GBMS=([scripts/bash/shlibs]="$RDR/scripts/bash/shlibs/.git" [sources/applications]="$RDR/sources/applications/.git"  [sources/apps]="$RDR/sources/apps/.git" [sources/browsers]="$RDR/sources/browsers/.git" [sources/clocks]="$RDR/sources/clocks/.git" [sources/compasses]="$RDR/sources/compasses/.git" [sources/entertainment]="$RDR/sources/entertainment/.git" [sources/flashlights4]="$RDR/sources/flashlights4/.git" [sources/gamez]="$RDR/sources/gamez/.git"  [sources/gaming]="$RDR/sources/gaming/.git" [sources/live.wallpapers]="$RDR/sources/live.wallpapers/.git" [sources/samples4]="$RDR/sources/samples4/.git" [sources/samps]="$RDR/sources/samps/.git" [sources/top10]="$RDR/sources/top10/.git" [sources/tools]="$RDR/sources/tools/.git" [sources/torches]="$RDR/sources/torches/.git" [sources/tutorials]="$RDR/sources/tutorials/.git" [sources/widgets]="$RDR/sources/widgets/.git")
+GBMS=([scripts/bash/shlibs]="shlibs/shlibs.bash" [sources/applications]="SDRausty/buildAPKsApps"  [sources/apps]="BuildAPKs/buildAPKs.apps" [sources/browsers]="SDRausty/buildAPKsBrowsers" [sources/clocks]="BuildAPKs/buildAPKs.clocks" [sources/compasses]="BuildAPKs/buildAPKs.compasses" [sources/entertainment]="BuildAPKs/buildAPKs.entertainment" [sources/flashlights4]="BuildAPKs/buildAPKs.flashlights" [sources/gamez]="BuildAPKs/buildAPKs.games"  [sources/gaming]="SDRausty/buildAPKsGames" [sources/live.wallpapers]="BuildAPKs/buildAPKs.live.wallpapers" [sources/samples4]="SDRausty/buildAPKsSamples" [sources/samps]="BuildAPKs/buildAPKs.samples" [sources/top10]="SDRausty/buildAPKsTop10" [sources/tools]="BuildAPKs/buildAPKs.developers.tools" [sources/torches]="SDRausty/buildAPKsFlashlights" [sources/tutorials]="SDRausty/buildAPKsTutorials" [sources/widgets]="SDRausty/buildAPKsWidgets")
 
 _2GSU_() {
 	if [[ "$SBMI" = "" ]] 
@@ -77,16 +77,22 @@ _GSMU_() {
 # 	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs..." && git pull) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs:  Continuing...")
 	for LOC in "${!GBMS[@]}" 
 	do
+		echo "\${GBMS[@]}"
+# 		echo "${GBMS[@]}"
+echo "https://github.com/${GBMS[$LOC]} $LOC"
+echo echo
+		echo "${GBMS[$LOC]}"
 		_GSU_ 
 	done
 }
 
 _GSA_() { # update submodules to latest version
-	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding ~/buildAPKs/..." && git submodule add ${!LOC}) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot add ~/buildAPKs/:  Continuing...") 
+	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding https://github.com/${GBMS[$LOC]} to ~/buildAPKs/$LOC..." && git submodule add "https://github.com/${GBMS[$LOC]}") ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot add ~/buildAPKs/$LOC:  Continuing...") 
+# 	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding ~/buildAPKs/$LOC..." && git submodule add https://github.com/$LOC) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot add ~/buildAPKs/$LOC:  Continuing...") 
 }
 
 _GSU_() { # update submodules to latest version
-	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/$LOC..." && git submodule update --init --recursive --remote $LOC) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs/$LOC:  Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
+	((printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/$LOC..." && git submodule update --init --recursive --remote $LOC ) || ( _GSA_ )) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs/$LOC:  Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
 }
 
 cd "$RDR/"
