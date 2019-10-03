@@ -47,9 +47,9 @@ _2GSU_() {
 	if [[ "$SBMI" = "" ]] 
 	then
  		printf "To update the modules in ~/buildAPKs to the newest version remove these .git files:\\n\\n"
-		for GLOC in "${GBMS[@]}" 
+		for GLOC in "${!GBMS[@]}" 
 		do
-			printf "%s\\n" "$GLOC" 
+			printf "%s\\n" "~/${RDR##*/}/$GLOC/.git" 
 		done
  		printf "\\nUse find to update the modules in ~/buildAPKs/sources/ to the newest version:\\n\\n"
  		printf "	$ find ~/buildAPKs/sources/ -type f -name .git -delete"
@@ -62,9 +62,9 @@ _2GSU_() {
 
 _CK4MS_() { # ChecKs 4 ModuleS 
 	SBMI=""
-	for LOC in "${!GBMS[@]}" 
+	for ALOC in "${!GBMS[@]}" 
 	do
-		if [[ ! -f "${GBMS[$LOC]}" ]] 
+		if [[ ! -f "${RDR}/$ALOC/.git" ]] 
 		then
 			SBMI=1
 			break
