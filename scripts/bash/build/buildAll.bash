@@ -39,8 +39,9 @@ trap _SETRPQUIT_ QUIT
 
 cd "$HOME/buildAPKs/"
 ./scripts/bash/init/pull.buildAPKs.modules.bash
+find ./sources/ -type f -name .git -delete
 ./scripts/bash/init/pull.buildAPKs.modules.bash
 ./scripts/bash/init/pull.buildAPKs.modules.bash
 ./scripts/bash/build/build.dir.bash ./sources/
 
-#EOF
+# buildAll.bash EOF
