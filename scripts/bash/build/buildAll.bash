@@ -37,11 +37,12 @@ trap _SETRPEXIT_ EXIT
 trap _SETRPSIGNAL_ HUP INT TERM 
 trap _SETRPQUIT_ QUIT 
 
-cd "$HOME/buildAPKs/"
-./scripts/bash/init/pull.buildAPKs.modules.bash
+RDR="$HOME/buildAPKs"
+"$RDR/scripts/bash/init/pull.buildAPKs.modules.bash"
 find ./sources/ -type f -name .git -delete
-./scripts/bash/init/pull.buildAPKs.modules.bash
-./scripts/bash/init/pull.buildAPKs.modules.bash
-./scripts/bash/build/build.dir.bash ./sources/
+"$RDR/scripts/bash/init/pull.buildAPKs.modules.bash"
+"$RDR/scripts/bash/init/pull.buildAPKs.modules.bash"
+cd "$RDR/sources/"
+"$RDR/scripts/bash/build/build.dir.bash"
 
 # buildAll.bash EOF
