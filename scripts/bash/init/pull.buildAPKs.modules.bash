@@ -77,12 +77,12 @@ _GSMU_() {
 	(git pull && printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs...") ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs:  Continuing...")
 	for LOC in "${!GBMS[@]}" 
 	do
-		_GSU_ $LOC
+		_GSU_ 
 	done
 }
 
 _GSU_() { # update submodules to latest version
-	(git submodule update --init --recursive --remote $1 && printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/$1...") ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs/$1:  Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
+	(git submodule update --init --recursive --remote $LOC && printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/$LOC...") ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs/$LOC:  Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
 }
 
 cd "$RDR/"
