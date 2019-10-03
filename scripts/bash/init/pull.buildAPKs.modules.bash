@@ -74,7 +74,7 @@ _CK4MS_() { # ChecKs 4 ModuleS
 
 _GSMU_() {	
 	printf "Updating buildAPKs; \`%s\` shall attempt to load sources from Github submodule repositories into ~/buildAPKs.  This may take a little while to complete.  Please be patient while \`%s\` downloads source code from https://github.com\\n\\n" "${0##*/}" "${0##*/}"
-	(git pull && printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs...") ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs:  Continuing...")
+# 	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs..." && git pull) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs:  Continuing...")
 	for LOC in "${!GBMS[@]}" 
 	do
 		_GSU_ 
@@ -82,11 +82,11 @@ _GSMU_() {
 }
 
 _GSA_() { # update submodules to latest version
-	(git submodule add ${!LOC} && printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding ~/buildAPKs/...") ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot add ~/buildAPKs/:  Continuing...") 
+	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding ~/buildAPKs/..." && git submodule add ${!LOC}) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot add ~/buildAPKs/:  Continuing...") 
 }
 
 _GSU_() { # update submodules to latest version
-	(git submodule update --init --recursive --remote $LOC && printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/$LOC...") ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs/$LOC:  Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
+	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/$LOC..." && git submodule update --init --recursive --remote $LOC) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs/$LOC:  Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
 }
 
 cd "$RDR/"
