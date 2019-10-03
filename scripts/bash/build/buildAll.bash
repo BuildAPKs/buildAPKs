@@ -39,6 +39,8 @@ trap _SETRPQUIT_ QUIT
 
 cd "$HOME/buildAPKs/"
 ./scripts/bash/init/pull.buildAPKs.modules.bash
+./scripts/bash/init/pull.buildAPKs.modules.bash
+./scripts/bash/init/pull.buildAPKs.modules.bash
 ./scripts/bash/build/build.dir.bash ./sources/
 
 #EOF
