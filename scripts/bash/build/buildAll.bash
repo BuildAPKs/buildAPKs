@@ -39,10 +39,6 @@ trap _SETRPQUIT_ QUIT
 
 RDR="$HOME/buildAPKs"
 "$RDR/scripts/bash/init/pull.buildAPKs.modules.bash"
-find ./sources/ -type f -name .git -delete
-"$RDR/scripts/bash/init/pull.buildAPKs.modules.bash"
-"$RDR/scripts/bash/init/pull.buildAPKs.modules.bash"
 cd "$RDR/sources/"
 "$RDR/scripts/bash/build/build.dir.bash"
-
 # buildAll.bash EOF
