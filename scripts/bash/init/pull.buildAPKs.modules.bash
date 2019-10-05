@@ -52,7 +52,7 @@ _2GSU_() {
 	else
 		_GSMU_
 	fi
-	printf "\\nBuildAPKs %s: DONE!\\n" "${0##*/}"
+	printf "\\nBuildAPKs %s: DONE!\\n" "${0##*/} pull.buildAPKs.modules.bash"
 }
 
 _CK4MS_() { # ChecKs 4 ModuleS 
@@ -77,7 +77,10 @@ _GSMU_() {
 	for LOC in "${!GBMS[@]}" 
 	do
 		_GSU_ 
-		_IAR_ "$RDR/$LOC/"
+		if [[ -f "$RDR/$LOC/.gitmodules" ]] || [[ -f "$RDR/$LOC/ma.bash" ]]
+		then
+			_IAR_ "$RDR/$LOC/"
+		fi
 	done
 }
 
