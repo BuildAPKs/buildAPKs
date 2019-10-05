@@ -52,7 +52,7 @@ _2GSU_() {
 			printf "%s\\n" "~/${RDR##*/}/$GLOC/.git" 
 		done
  		printf "\\nUse find to update the modules in ~/buildAPKs/sources/ to the newest version:\\n\\n"
- 		printf "	find ~/buildAPKs/sources/ -type f -name .git -delete"
+ 		printf "	find ~/buildAPKs/ -type f -name .git -delete"
  		printf "\\n\\nThen run %s again, and %s shall attempt to update them all.\\n" "${0##*/}" "${0##*/}"
 	else
 		_GSMU_
