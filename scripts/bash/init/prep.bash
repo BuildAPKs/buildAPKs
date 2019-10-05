@@ -13,7 +13,7 @@ _SPREPTRPERROR_() { # run on script error
 }
 
 _SPREPTRPEXIT_() { # run on exit
-	printf "\\e[?25h\\n\\e[1;48;5;112mBuildAPKs %s\\e[0m\\n" "${0##*/} DONE!"
+	printf "\\e[?25h\\n\\e[1;48;5;112mBuildAPKs %s\\e[0m\\n" "${0##*/}: DONE!"
 	set +Eeuo pipefail
 	exit
 }
@@ -56,7 +56,7 @@ _AFR_ () { # finds and removes superfluous directories and files
  		find "$WDIR" -type f -name "$NAME" -delete
 	done
 	find  "$WDIR" -type d -empty -delete
-	printf "\\e[?25h\\n\\e[1;48;5;108mBuildAPKs %s\\e[0m\\n" "${0##*/} prep.bash DONE!"
+	printf "\\e[?25h\\n\\e[1;48;5;108mBuildAPKs %s\\e[0m\\n" "${0##*/} prep.bash: DONE!"
 }
 
 declare -a DLIST # declare array for all superfluous directories
