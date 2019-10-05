@@ -1,5 +1,5 @@
 #!/bin/env bash
-# Copyright 2019 (c) all rights reserved 
+# Copyright 2019 (c) all rights reserved
 # by BuildAPKs https://buildapks.github.io/buildAPKs/
 #####################################################################
 set -Eeuo pipefail
@@ -14,45 +14,42 @@ _SPREPTRPERROR_() { # run on script error
 
 _SPREPTRPEXIT_() { # run on exit
 	printf "\\e[?25h\\e[0m"
-	set +Eeuo pipefail 
+	set +Eeuo pipefail
 	exit
 }
 
 _SPREPTRPSIGNAL_() { # run on signal
 	local RV="$?"
 	printf "\\e[?25h\\e[1;7;38;5;0mBuildAPKs %s WARNING:  Signal %s received!\\e[0m\\n" "prep.bash" "$RV"
- 	exit 145 
+ 	exit 145
 }
 
 _SPREPTRPQUIT_() { # run on quit
 	local RV="$?"
 	printf "\\e[?25h\\e[1;7;38;5;0mBuildAPKs %s WARNING:  Quit signal %s received!\\e[0m\\n" "prep.bash" "$RV"
- 	exit 146 
+ 	exit 146
 }
 
-trap '_SPREPTRPERROR_ $? $LINENO $BASH_COMMAND' ERR 
+trap '_SPREPTRPERROR_ $? $LINENO $BASH_COMMAND' ERR
 trap _SPREPTRPEXIT_ EXIT
-trap _SPREPTRPSIGNAL_ HUP INT TERM 
-trap _SPREPTRPQUIT_ QUIT 
-
-PRLOC="$JDR/$SFX"
+trap _SPREPTRPSIGNAL_ HUP INT TERM
+trap _SPREPTRPQUIT_ QUIT
 
 _AFR_ () { # finds and removes superfluous directories and files
-	printf "\\n%s\\n" "Purging excess elements from directory $PRLOC;  Please wait a moment..."
-	for NAME in "${DLIST[@]}" 
+	printf "\\n%s\\n" "Purging excess elements from directory $JDR/$SFX;  Please wait a moment..."
+	for NAME in "${DLIST[@]}"
 	do
- 		find "$PRLOC" -type d -name "$NAME" -exec rm -rf {} \; 2>/dev/null
+ 		find "$JDR/$SFX" -type d -name "$NAME" -exec rm -rf {} \; 2>/dev/null
 	done
-	for NAME in "${FLIST[@]}" 
+	for NAME in "${FLIST[@]}"
 	do
- 		find "$PRLOC" -type f -name "$NAME" -delete
+ 		find "$JDR/$SFX" -type f -name "$NAME" -delete
 	done
-	find  "$PRLOC" -type d -empty -delete
+	find  "$JDR/$SFX" -type d -empty -delete
 }
 
 declare -a DLIST # declare array for all superfluous directories
 declare -a FLIST # declare array for all superfluous files
 DLIST=(".idea" "gradle")
 FLIST=("*.apk"  "*.aar" "*.jar" ".gitignore" "Android.kpf" "ant.properties" "build.gradle" "build.xml" ".classpath" "default.properties" "gradle-wrapper.properties" "gradlew" "gradlew.bat" "gradle.properties" "gradle.xml" "lint.xml" "local.properties" "makefile" "makefile.linux_pc" "org.eclipse.jdt.core.prefs" "pom.xml" "proguard.cfg" "proguard-project.txt" ".project" "project.properties" "R.java" ".settings" "settings.gradle" "WebRTCSample.iml")
-
 # prep.bash EOF
