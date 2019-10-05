@@ -68,11 +68,11 @@ _CK4MS_() { # ChecKs 4 ModuleS
 }
 
 _GSA_() { # update submodules to latest version
-	((printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding $SIAD/${GBMS[$LOC]} to ~/buildAPKs/$LOC..." && git submodule add "$SIAD/${GBMS[$LOC]}" "$LOC") && (printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/$LOC..." && git submodule update --init --recursive --remote "$LOC" )) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot add and update ~/buildAPKs/$LOC:  Continuing...") 
+	((printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding $SIAD/${GBMS[$LOC]} to ~/buildAPKs/$LOC..." && git submodule add "$SIAD/${GBMS[$LOC]}" "$LOC" && _IAR_ "$RDR/$LOC/") && (printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/${RDR##*/}/$LOC..." && git submodule update --init --recursive --remote "$LOC" &&  _IAR_ "$RDR/$LOC/")) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot add and update ~/${RDR##*/}/$LOC:  Continuing...") 
 }
 
 _GSMU_() {	
-	printf "Updating buildAPKs; \`%s\` shall attempt to load sources from Github submodule repositories into ~/buildAPKs.  This may take a little while to complete.  Please be patient while \`%s\` downloads source code from %s\\n\\n" "${0##*/}" "${0##*/}" "$SIAD"
+	printf "Updating buildAPKs; \`%s\` shall attempt to load sources from Github submodule repositories into ~/%s.  This may take a little while to complete.  Please be patient while \`%s\` downloads source code from %s\\n\\n" "${0##*/}" "${RDR##*/}" "${0##*/}" "$SIAD"
  	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs..." && git pull && _GSUSHLIBS_ ) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs:  Continuing...")
 	for LOC in "${!GBMS[@]}" 
 	do
@@ -96,7 +96,6 @@ declare -A GBMS # declare associative array for available submoldules
 GBMS=([sources/applications]="SDRausty/buildAPKsApps"  [sources/apps]="BuildAPKs/buildAPKs.apps" [sources/browsers]="SDRausty/buildAPKsBrowsers" [sources/clocks]="BuildAPKs/buildAPKs.clocks" [sources/compasses]="BuildAPKs/buildAPKs.compasses" [sources/entertainment]="BuildAPKs/buildAPKs.entertainment" [sources/flashlights4]="BuildAPKs/buildAPKs.flashlights" [sources/gamez]="BuildAPKs/buildAPKs.games"  [sources/gaming]="SDRausty/buildAPKsGames" [sources/live.wallpapers]="BuildAPKs/buildAPKs.live.wallpapers" [sources/samples4]="SDRausty/buildAPKsSamples" [sources/samps]="BuildAPKs/buildAPKs.samples" [sources/top10]="SDRausty/buildAPKsTop10" [sources/tools]="BuildAPKs/buildAPKs.developers.tools" [sources/torches]="SDRausty/buildAPKsFlashlights" [sources/tutorials]="SDRausty/buildAPKsTutorials" [sources/widgets]="SDRausty/buildAPKsWidgets")
 RDR="$HOME/buildAPKs"
 SIAD="https://github.com"
-
 . "$RDR"/scripts/bash/init/prep.bash
 cd "$RDR/"
 if [[ ! -d "$RDR/sources" ]]
@@ -105,5 +104,4 @@ then
 fi
 _CK4MS_
 _2GSU_
-
-# pull.buildAPKs.modules.bash EOF
+EOF pull.buildAPKs.modules.bash 
