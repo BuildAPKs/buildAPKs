@@ -71,8 +71,9 @@ _CK4MS_() { # ChecKs 4 ModuleS
 		fi
 	done
 }
+
 _GSUSHLIBS_() {	
-	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/scripts/bash/shlibs..." && git submodule update scripts/bash/shlibs) || (printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding ~/buildAPKs/scripts/bash/shlibs..." && git submodule add "$SIAD"/shlibs/shlibs.bash scripts/bash/shlibs)
+	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/scripts/bash/shlibs..." && git submodule update --init --recursive --remote scripts/bash/shlibs) || (printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding ~/buildAPKs/scripts/bash/shlibs..." && git submodule add "$SIAD"/shlibs/shlibs.bash scripts/bash/shlibs)
 }
 _GSMU_() {	
 	printf "Updating buildAPKs; \`%s\` shall attempt to load sources from Github submodule repositories into ~/buildAPKs.  This may take a little while to complete.  Please be patient while \`%s\` downloads source code from %s\\n\\n" "${0##*/}" "${0##*/}" "$SIAD"
