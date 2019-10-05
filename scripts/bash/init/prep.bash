@@ -35,17 +35,26 @@ trap _SPREPTRPEXIT_ EXIT
 trap _SPREPTRPSIGNAL_ HUP INT TERM
 trap _SPREPTRPQUIT_ QUIT
 
+_IAR_ () { 
+	if [[ -z "${1:-}" ]] ; then
+	then
+		WDIR="$JDR/$SFX"
+	else
+		WDIR="$1"
+	fi
+}
+
 _AFR_ () { # finds and removes superfluous directories and files
-	printf "\\n%s\\n" "Purging excess elements from directory $JDR/$SFX;  Please wait a moment..."
+	printf "\\n%s\\n" "Purging excess elements from directory $WDIR;  Please wait a moment..."
 	for NAME in "${DLIST[@]}"
 	do
- 		find "$JDR/$SFX" -type d -name "$NAME" -exec rm -rf {} \; 2>/dev/null
+ 		find "$WDIR" -type d -name "$NAME" -exec rm -rf {} \; 2>/dev/null
 	done
 	for NAME in "${FLIST[@]}"
 	do
- 		find "$JDR/$SFX" -type f -name "$NAME" -delete
+ 		find "$WDIR" -type f -name "$NAME" -delete
 	done
-	find  "$JDR/$SFX" -type d -empty -delete
+	find  "$WDIR" -type d -empty -delete
 }
 
 declare -a DLIST # declare array for all superfluous directories
