@@ -46,7 +46,7 @@ _IAR_ () {
 }
 
 _AFR_ () { # finds and removes superfluous directories and files
-	printf "\\e[?25h\\n\\e[1;48;5;109mBuildAPKs %s\\e[0m\\n" "${0##*/} prep.bash Purging excess elements from directory $WDIR;  Please wait a moment..."
+	printf "\\e[?25h\\n\\e[1;48;5;109mBuildAPKs %s\\e[0m\\n" "${0##*/} prep.bash: Purging excess elements from directory $WDIR;  Please wait a moment..."
 	for NAME in "${DLIST[@]}"
 	do
  		find "$WDIR" -type d -name "$NAME" -exec rm -rf {} \; 2>/dev/null
