@@ -42,4 +42,4 @@ for NAME in "${LIST[@]}"
 do
 	"$NAME"
 done
-EOF build.buildAPKs.bash 
+# build.buildAPKs.bash EOF
