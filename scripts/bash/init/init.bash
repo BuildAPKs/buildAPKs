@@ -74,7 +74,6 @@ else
 	fi
 fi
 
-. "$RDR/scripts/bash/init/prep.bash"
 . "$RDR/scripts/bash/shlibs/mod.bash"
 
 # init.bash EOF
