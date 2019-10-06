@@ -41,4 +41,4 @@ RDR="$HOME/buildAPKs"
 "$RDR/scripts/bash/init/pull.buildAPKs.modules.bash"
 cd "$RDR/sources/"
 "$RDR/scripts/bash/build/build.dir.bash"
-# buildAll.bash EOF
+EOF buildAll.bash 
