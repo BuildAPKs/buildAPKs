@@ -54,14 +54,7 @@ if [[ ! -f .gitmodules ]]
 then
 	touch .gitmodules
 fi
-if [[ ! -f .git ]] 
-then
-	(git pull) || (printf "\\nCANNOT UPDATE ~/%s: Continuing...\\n\\n" "${RDR##*/}") 
-fi
-if [[ ! -f .git ]] 
-then
-	touch .git
-fi
+(git pull) || (printf "\\nCANNOT UPDATE ~/%s: Continuing...\\n\\n" "${RDR##*/}") 
 if [[ ! -d "scripts/bash/shlibs" ]] 
 then
 	(git clone https://github.com/shlibs/shlibs.bash scripts/bash/shlibs) || (printf "\\nCANNOT CLONE MODULE: Continuing...\\n\\n")
