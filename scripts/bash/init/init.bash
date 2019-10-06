@@ -55,18 +55,15 @@ then
 	touch .gitmodules
 fi
 (git pull) || (printf "\\nCANNOT UPDATE ~/%s: Continuing...\\n\\n" "${RDR##*/}") 
+if grep shlibs .gitmodules 1>/dev/null
+then
+	(git submodule update --init --recursive --remote scripts/bash/shlibs) || (printf "\\nCANNOT UPDATE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}") 
+else
+	(git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs && git submodule update --init --recursive --remote scripts/bash/shlibs) || (printf "\\nCANNOT ADD AND UPDATE MODULE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}")
+fi
 if [[ ! -d "scripts/bash/shlibs" ]] 
 then
-	(git clone https://github.com/shlibs/shlibs.bash scripts/bash/shlibs) || (printf "\\nCANNOT CLONE MODULE: Continuing...\\n\\n")
-else
-	if grep shlibs .gitmodules 1>/dev/null
-	then
-		(git submodule update --init --recursive --remote scripts/bash/shlibs) || (printf "\\nCANNOT UPDATE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}") 
-	else
-		(git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs) || (printf "\\nCANNOT ADD MODULE: Continuing...\\n\\n")
-	fi
+	(git clone https://github.com/shlibs/shlibs.bash scripts/bash/shlibs && git clone https://github.com/shlibs/shlibs.buildAPKs.bash scripts/bash/shlibs/buildAPKs) || (printf "\\nCANNOT CLONE MODULES %s AND %s INTO~/%s/scripts/bash/shlibs AND ~/%s/scripts/bash/shlibs/buildAPKs: Continuing...\\n\\n" "https://github.com/shlibs/shlibs.bash" "https://github.com/shlibs/shlibs.buildAPKs.bash" "${RDR##*/}" "${RDR##*/}")
 fi
-
 . "$RDR/scripts/bash/shlibs/mod.bash"
-
 # init.bash EOF
