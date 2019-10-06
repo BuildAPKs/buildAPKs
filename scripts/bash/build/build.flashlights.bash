@@ -37,5 +37,4 @@ trap _SETRPQUIT_ QUIT
 export JAD=github.com/BuildAPKs/buildAPKs.flashlights
 export JID="torches" # job id/name
 . "$HOME/buildAPKs/scripts/bash/init/init.bash"
-
 # build.flashlights.bash EOF

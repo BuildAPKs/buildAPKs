@@ -187,5 +187,4 @@ for NAME in "${JARR[@]}" # lets you delete partial downloads and repopulates fro
 do #  This creates a "slate" within each github/$JDR that can be selectively reset when desired.  This can be important on a slow connection.
 	_CKAT_ 
 done
-
 # build.github.users.bash EOF
