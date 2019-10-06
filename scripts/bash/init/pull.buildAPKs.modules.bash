@@ -41,7 +41,7 @@ trap '_SPTRPQuIT_ $? $LINENO $BASH_COMMAND' QUIT
 _2GSU_() {
 	if [[ "$SBMI" = "" ]] 
 	then
- 		printf "To update the modules in ~/buildAPKs to the newest version remove these .git files:\\n\\n"
+ 		printf "To update the modules in ~/%s to the newest version remove these .git files:\\n\\n~/%s/scripts/bash/shlibs/.git\\n" "${RDR##*/}" "${RDR##*/}"
 		for GLOC in "${!GBMS[@]}" 
 		do
 			printf "%s\\n" "~/${RDR##*/}/$GLOC/.git" 
