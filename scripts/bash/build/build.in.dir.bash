@@ -53,5 +53,4 @@ JDR="$PWD"
 find "$@" -name AndroidManifest.xml -execdir /bin/bash "$HOME/buildAPKs/scripts/bash/build/build.one.bash" "$JID" "$JDR" {} \; 2>> "$HOME/buildAPKs/log/stnderr.${JID##*/}.log"
 #	search.string: lowercase bash variable pattern replacement substitution site:tldp.org
 #	http://www.tldp.org/LDP/abs/html/bashver4.html#CASEMODPARAMSUB
-
-# build.dir.bash EOF
+# build.in.dir.bash EOF

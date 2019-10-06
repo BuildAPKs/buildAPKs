@@ -52,5 +52,4 @@ then
 else
 	"$RDR"/scripts/bash/build/build.github.users.bash "$UIT"
 fi
-
-# build.github.what.is.it.bash OEF
+# build.github.bash OEF

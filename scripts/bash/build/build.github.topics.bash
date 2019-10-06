@@ -79,5 +79,4 @@ do
 			"$RDR"/scripts/bash/build/build.github.users.bash "$NAME"
 		fi
 done
-
 # build.github.topics.bash EOF
