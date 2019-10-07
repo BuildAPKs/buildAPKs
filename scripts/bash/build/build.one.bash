@@ -125,8 +125,6 @@ fi
 if [[ -z "${2:-}" ]] 
 then
 	JDR="$PWD"
-else
-	JDR="$2"
 fi
 if [[ -z "${JID:-}" ]] 
 then
