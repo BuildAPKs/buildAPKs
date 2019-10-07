@@ -184,13 +184,24 @@ aapt add -f "$PKGNAM.apk" classes.dex
 printf "\\e[1;38;5;114m%s\\e[1;38;5;108m\\n" "Signing $PKGNAM.apk..."
 apksigner ../"$PKGNAM-debug.key" "$PKGNAM.apk" ../"$PKGNAM.apk"
 cd ..
-if [[ -w "/storage/emulated/0/" ]] 
+if [[ -w "/storage/emulated/0/" ]] ||  [[ -w "/storage/emulated/legacy/" ]]  
 then
-	if [[ ! -d "/storage/emulated/0/Download/builtAPKs/$JID$DAY" ]]
+	if [[ -w "/storage/emulated/0/" ]] 
 	then
-		mkdir -p "/storage/emulated/0/Download/builtAPKs/$JID$DAY"
+		if [[ ! -d "/storage/emulated/0/Download/builtAPKs/$JID$DAY" ]]
+		then
+			mkdir -p "/storage/emulated/0/Download/builtAPKs/$JID$DAY"
+		fi
+		cp "$PKGNAM.apk" "/storage/emulated/0/Download/builtAPKs/$JID$DAY/$PKGNAME.apk"
 	fi
-	cp "$PKGNAM.apk" "/storage/emulated/0/Download/builtAPKs/$JID$DAY/$PKGNAME.apk"
+	if [[ -w "/storage/emulated/legacy/" ]]  
+	then
+		if [[ ! -d "/storage/emulated/legacy/Download/builtAPKs/$JID$DAY" ]]
+		then
+			mkdir -p "/storage/emulated/legacy/Download/builtAPKs/$JID$DAY"
+		fi
+		cp "$PKGNAM.apk" "/storage/emulated/legacy/Download/builtAPKs/$JID$DAY/$PKGNAME.apk"
+	fi
 	printf "\\e[1;38;5;115mCopied %s to Download/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$JID$DAY" "$PKGNAME"
 	printf "\\e[1;38;5;149mThe APK %s file can be installed from Download/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$JID$DAY" "$PKGNAME"
 else
