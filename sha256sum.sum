@@ -31,7 +31,7 @@ fc957b5a6839982bd7dbf66c8b8aa11bd82d908d327015129d0020d0548efee0  ./scripts/bash
 11e062a4ce3372b006e2e5ff23554f37a66d05ea17f5e038ce020b84f8a6296d  ./scripts/bash/build/buildWidgets.bash
 86a65913bbb84fab70e806ee5da16d87e4a9774814756eac7c0c696fb877319b  ./scripts/bash/init/ecjtdebs/fix.ecj.error.bash
 7d741763e0c0daf5dddb22e32ef6146c4860d809a1e55e5fce349e97072f06d0  ./scripts/bash/init/ecjtdebs/fix.ecj4.6.error.bash
-5ac219083d1ec64137c4d90bb503d9ca8d298ff085869e40cd438234df90411a  ./scripts/bash/init/init.bash
+83f89cf1eb722153542836d3ee443467ebc327c91e5bb01a6a6c82ccf08f9578  ./scripts/bash/init/init.bash
 7328798d4f54d31b1cc76697218bd324b651432326c987be97465299f6d5ddf2  ./scripts/bash/init/prep.bash
 453f72499f3bc00c062069f530b0ad501db28dcb69c0979a93956fca78945964  ./scripts/bash/init/pull.buildAPKs.modules.bash
 d7918ef1a41fa1b63a39aa9166c4510bbac5b50b7fb839f27b58a2e6d16f418e  ./scripts/bash/init/setup.buildAPKs.bash
