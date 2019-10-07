@@ -41,14 +41,6 @@ then
 	. "$RDR/scripts/bash/build/build.entertainment.bash"
 	exit 0
 fi
-if [[ ! -d "$RDR"/cache/tarballs ]]
-then
-	mkdir -p "$RDR"/cache/tarballs
-fi
-export DAY="$(date +%Y%m%d)"
-export NUM="$(date +%s)"
-export SRDR="${RDR##*/}" # search: string manipulation site:www.tldp.org
-export JDR="$RDR/sources/$JID"
 cd "$RDR"
 if [[ ! -f scripts/bash/shlibs/.git ]] 
 then
