@@ -16,7 +16,7 @@ e7ea063d622f8a09ef85d928650d1da150f5434b  ./scripts/bash/build/build.clocks.bash
 f763887699622a12a82d558987b6784500a9cad7  ./scripts/bash/build/build.entertainment.bash
 fff938d4ad7812a02cba86f0a9cb98f780a6536a  ./scripts/bash/build/build.flashlights.bash
 68df908cd4406030b1618322c15bd1a3ba7bda2d  ./scripts/bash/build/build.games.bash
-eb13f8c5560a7796e829268d4dddd2319c03cdb3  ./scripts/bash/build/build.in.dir.bash
+f524002e1e49610d5f5b4229a3f9a13fa4b93467  ./scripts/bash/build/build.in.dir.bash
 a64dba5579ccb834b3e52e49b9d5d20aa118ce12  ./scripts/bash/build/build.live.wallpapers.bash
 89eb7f09bae5ece2552736c09862d4cdc908fbf3  ./scripts/bash/build/build.one.bash
 5a4228ec9c9632efbe296d6856ce9274c21b6652  ./scripts/bash/build/build.samples.bash
@@ -31,7 +31,7 @@ c5def8a5dad75fc0ec6e900221a44237c85197da  ./scripts/bash/build/buildTutorials.ba
 78b1e76293ee735467bb8842496d57710067da43  ./scripts/bash/build/buildWidgets.bash
 271d0d378df52af27c80659c91ff0f6192487e46  ./scripts/bash/init/ecjtdebs/fix.ecj.error.bash
 7a5173ebd7f4f12a228e45d4f5ba10de2d4bd696  ./scripts/bash/init/ecjtdebs/fix.ecj4.6.error.bash
-8e246e0160cc86784ead2879a03a3f719d40e4ef  ./scripts/bash/init/init.bash
+5106f241c03369b022bbe15f2f4c24553328457a  ./scripts/bash/init/init.bash
 1afd4de03b33605f542b2058c2ff3928fecb748a  ./scripts/bash/init/prep.bash
 3c1852eec32c2bcaa0dee13f619c1dbc2bfe3ea9  ./scripts/bash/init/pull.buildAPKs.modules.bash
 14cb0af54e07a9aa15bb0336cee51bd80caba4c7  ./scripts/bash/init/setup.buildAPKs.bash

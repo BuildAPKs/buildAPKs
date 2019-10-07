@@ -16,7 +16,7 @@ d61b91e6559145fa5d89baf5e3fff7dc6ce0ba7714a1854b596ba9ac55250bc8  ./scripts/bash
 b9b73e16f6c0c843dab9d2b95515bcc1ad893bae5739b96be8c05b748b2c9b49  ./scripts/bash/build/build.entertainment.bash
 86f78bb29c5600acd19c736f92b1956f0cca8ed0f951f1535998c2a419c491ae  ./scripts/bash/build/build.flashlights.bash
 4b4714e80c10a89aef5924107c4e22a3e692a8f79a90c9844f1b46b184cf7c1d  ./scripts/bash/build/build.games.bash
-557d02082a81d8ce391402c6306a4b0b9fb03331bbdddd605b9907c9996af633  ./scripts/bash/build/build.in.dir.bash
+cc90c4d4afd4b38066f16ea3dfb20818eb2d6a683826a8c4f9f13e8eee4662d2  ./scripts/bash/build/build.in.dir.bash
 3801913b9b7d05a349b7bc60bf92cc10efc2cddaae5b4e48d941ba498991a7cc  ./scripts/bash/build/build.live.wallpapers.bash
 85e15edbc8a7901756765996b7e90278ae34f7ecf35e9e0267ca2f7b279b79b6  ./scripts/bash/build/build.one.bash
 a518eea98c3482289266c9a06ef6392e663f11abe3be190c5979cef1e45d758a  ./scripts/bash/build/build.samples.bash
@@ -31,7 +31,7 @@ fc957b5a6839982bd7dbf66c8b8aa11bd82d908d327015129d0020d0548efee0  ./scripts/bash
 11e062a4ce3372b006e2e5ff23554f37a66d05ea17f5e038ce020b84f8a6296d  ./scripts/bash/build/buildWidgets.bash
 86a65913bbb84fab70e806ee5da16d87e4a9774814756eac7c0c696fb877319b  ./scripts/bash/init/ecjtdebs/fix.ecj.error.bash
 7d741763e0c0daf5dddb22e32ef6146c4860d809a1e55e5fce349e97072f06d0  ./scripts/bash/init/ecjtdebs/fix.ecj4.6.error.bash
-c8874eedaa5563c9429208110d75a0fa6ae37fc07ce20581646c53dd008ab5f6  ./scripts/bash/init/init.bash
+84dfe066dba6fe09166e0472fc9949a92de7b9d9abacb93d111eeb4a38c02007  ./scripts/bash/init/init.bash
 3dba9267b33baaf8cb36636fd60fe519897b2b728c0f9015e8b5a68c23048a63  ./scripts/bash/init/prep.bash
 453f72499f3bc00c062069f530b0ad501db28dcb69c0979a93956fca78945964  ./scripts/bash/init/pull.buildAPKs.modules.bash
 d7918ef1a41fa1b63a39aa9166c4510bbac5b50b7fb839f27b58a2e6d16f418e  ./scripts/bash/init/setup.buildAPKs.bash

@@ -38,7 +38,7 @@ trap _SINITRPQUIT_ QUIT
 export RDR="$HOME/buildAPKs"   
 if [[ -z "${JID:-}" ]] 
 then
-	. "$RDR/scripts/bash/build/build.entertainment.bash"
+	. "$RDR"/scripts/bash/build/build.entertainment.bash
 	exit 0
 fi
 cd "$RDR"
@@ -60,6 +60,6 @@ if [[ ! -d "scripts/bash/shlibs" ]]
 then
 	(git clone https://github.com/shlibs/shlibs.bash scripts/bash/shlibs && git clone https://github.com/shlibs/shlibs.buildAPKs.bash scripts/bash/shlibs/buildAPKs) || (printf "\\nCANNOT CLONE MODULES %s AND %s INTO~/%s/scripts/bash/shlibs AND ~/%s/scripts/bash/shlibs/buildAPKs: Continuing...\\n\\n" "https://github.com/shlibs/shlibs.bash" "https://github.com/shlibs/shlibs.buildAPKs.bash" "${RDR##*/}" "${RDR##*/}")
 fi
-. "$RDR/scripts/bash/init/prep.bash"
-. "$RDR/scripts/bash/shlibs/mod.bash"
+. "$RDR"/scripts/bash/init/prep.bash
+. "$RDR"/scripts/bash/shlibs/buildAPKs/mod.bash
 # init.bash EOF
