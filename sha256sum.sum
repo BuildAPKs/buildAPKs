@@ -16,7 +16,7 @@ d61b91e6559145fa5d89baf5e3fff7dc6ce0ba7714a1854b596ba9ac55250bc8  ./scripts/bash
 b9b73e16f6c0c843dab9d2b95515bcc1ad893bae5739b96be8c05b748b2c9b49  ./scripts/bash/build/build.entertainment.bash
 86f78bb29c5600acd19c736f92b1956f0cca8ed0f951f1535998c2a419c491ae  ./scripts/bash/build/build.flashlights.bash
 4b4714e80c10a89aef5924107c4e22a3e692a8f79a90c9844f1b46b184cf7c1d  ./scripts/bash/build/build.games.bash
-cc90c4d4afd4b38066f16ea3dfb20818eb2d6a683826a8c4f9f13e8eee4662d2  ./scripts/bash/build/build.in.dir.bash
+ad6a2a59981f0d9abda49b064a11d7a7c0b7087992c8ae3a713aeda7bf87eb2b  ./scripts/bash/build/build.in.dir.bash
 3801913b9b7d05a349b7bc60bf92cc10efc2cddaae5b4e48d941ba498991a7cc  ./scripts/bash/build/build.live.wallpapers.bash
 04e68ae7632cafa42a41f3a552fb84fc721570e02d495ccef53904bae4b04af5  ./scripts/bash/build/build.one.bash
 a518eea98c3482289266c9a06ef6392e663f11abe3be190c5979cef1e45d758a  ./scripts/bash/build/build.samples.bash

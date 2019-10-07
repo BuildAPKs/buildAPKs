@@ -16,7 +16,7 @@ d8a02446b5079a5df8c38b173955e69a  ./scripts/bash/build/build.compasses.bash
 ac6a8cadf44d530425aee6271c69d55e  ./scripts/bash/build/build.entertainment.bash
 9a8dfb6b78b6e926ba9a87c9c0393f5b  ./scripts/bash/build/build.flashlights.bash
 a81fa495680353a3e60b765a2053b8fc  ./scripts/bash/build/build.games.bash
-0bd9986f52f1c8100e509f1ac0f9ed2c  ./scripts/bash/build/build.in.dir.bash
+322126f58635c3f7a1dd499a81f4600c  ./scripts/bash/build/build.in.dir.bash
 7b6f13f6f64026a5bf554c75f61f3575  ./scripts/bash/build/build.live.wallpapers.bash
 146d5bb42b5f488f5e30c966f9d35822  ./scripts/bash/build/build.one.bash
 a15f08642a289d965d45d1ac09ae4465  ./scripts/bash/build/build.samples.bash
