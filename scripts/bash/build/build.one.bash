@@ -122,12 +122,6 @@ if [[ -z "${RDR:-}" ]]
 then
 	RDR="${PWD##*/}" # https://stackoverflow.com/questions/1371261/get-current-directory-name-without-full-path-in-a-bash-script
 fi
-if [[ -z "${1:-}" ]] 
-then
-	export EXT=""
-else
-	export EXT="$1"
-fi
 if [[ -z "${2:-}" ]] 
 then
 	JDR="$PWD"
@@ -198,17 +192,17 @@ then
 	then
 		mkdir -p "/storage/emulated/0/Download/builtAPKs/$JID$DAY"
 	fi
-	cp "$PKGNAM.apk" "/storage/emulated/0/Download/builtAPKs/$EXT$DAY/$PKGNAME.apk"
-	printf "\\e[1;38;5;115mCopied %s to Download/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME"
-	printf "\\e[1;38;5;149mThe APK %s file can be installed from Download/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME"
+	cp "$PKGNAM.apk" "/storage/emulated/0/Download/builtAPKs/$JID$DAY/$PKGNAME.apk"
+	printf "\\e[1;38;5;115mCopied %s to Download/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$JID$DAY" "$PKGNAME"
+	printf "\\e[1;38;5;149mThe APK %s file can be installed from Download/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$JID$DAY" "$PKGNAME"
 else
 	if [[ ! -d "$RDR/cache/builtAPKs/$JID$DAY" ]]
 	then
 		mkdir -p "$RDR/cache/builtAPKs/$JID$DAY"
 	fi
-	cp "$PKGNAM.apk" "$RDR/cache/builtAPKs/$EXT$DAY/$PKGNAME.apk"
-	printf "\\e[1;38;5;120mCopied %s to $RDR/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME"
-	printf "\\e[1;38;5;154mThe APK %s file can be installed from ~/${RDR:33}/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$EXT$DAY" "$PKGNAME"
+	cp "$PKGNAM.apk" "$RDR/cache/builtAPKs/$JID$DAY/$PKGNAME.apk"
+	printf "\\e[1;38;5;120mCopied %s to $RDR/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$JID$DAY" "$PKGNAME"
+	printf "\\e[1;38;5;154mThe APK %s file can be installed from ~/${RDR:33}/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$JID$DAY" "$PKGNAME"
 fi
 printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐"
 # build.one.bash EOF
