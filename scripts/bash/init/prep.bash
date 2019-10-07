@@ -39,7 +39,7 @@ _IAR_ () {
 	if [[ -z "${1:-}" ]]
 	then
 		WDIR="$JDR/$SFX"
-	els#e
+	else
 		WDIR="$1"
 	fi
 	_AFR_ || printf "%s ERROR: Continuing...\\n" "${0##*/}"
