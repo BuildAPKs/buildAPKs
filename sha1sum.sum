@@ -18,7 +18,7 @@ fff938d4ad7812a02cba86f0a9cb98f780a6536a  ./scripts/bash/build/build.flashlights
 68df908cd4406030b1618322c15bd1a3ba7bda2d  ./scripts/bash/build/build.games.bash
 f524002e1e49610d5f5b4229a3f9a13fa4b93467  ./scripts/bash/build/build.in.dir.bash
 a64dba5579ccb834b3e52e49b9d5d20aa118ce12  ./scripts/bash/build/build.live.wallpapers.bash
-ff336d761d24c4d89c487e3e6ee2fd88de7b93d9  ./scripts/bash/build/build.one.bash
+79f559be1c949a522d56b48da3c8b975e5af9505  ./scripts/bash/build/build.one.bash
 5a4228ec9c9632efbe296d6856ce9274c21b6652  ./scripts/bash/build/build.samples.bash
 4a588142d2fbea1a241e4e617b51cca95aab5f5a  ./scripts/bash/build/buildAll.bash
 688cb0109feb60b09c6b2d8923ba54962297c3b5  ./scripts/bash/build/buildApplications.bash
