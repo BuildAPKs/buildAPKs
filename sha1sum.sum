@@ -6,7 +6,7 @@ f44f92ec7b88639245791a22ed229f188c43cdf3  ./README.md
 f027c7e35204ec55bff3fa115a60c86388b0c410  ./conf/ONAMES
 c22ebb7c69b04dcbe2627adde6a3b0ee355028a0  ./conf/TNAMES
 310f16807c07a2acf6e91b498ea3d05d4f056337  ./conf/UNAMES
-83488998ab62d9ffcefef768ee9c4ff4cff122bd  ./conf/VERSIONID
+94bf35576019974cab27a591bbb12ad84639d61c  ./conf/VERSIONID
 874f02111dc723abe431ee6485244f3f491498b1  ./make.sums.bash
 c1789e5c6681aba796651c6595010ccaf183a857  ./scripts/bash/build/build.apps.bash
 c9f398c44c7901c145c5ca53a81bcc614df31125  ./scripts/bash/build/build.buildAPKs.bash
