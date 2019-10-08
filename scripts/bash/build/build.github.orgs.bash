@@ -46,34 +46,6 @@ _AND_ () { # write configuration file for git repository tarball if AndroidManif
 	fi
 }
 
-_NAND_ () { # write configuration file for repository if AndroidManifest.xml file is NOT found in git repository.  
-	printf "%s\\n" "$COMMIT" > "$JDR/.config/$ORG.${NAME##*/}.${COMMIT::7}.ck"
-	printf "%s\\n" "1" >> "$JDR/.config/$ORG.${NAME##*/}.${COMMIT::7}.ck"
-	printf "\\n%s\\n\\n" "Could not find an AndroidManifest.xml file in Java language repository $ORG ${NAME##*/} ${COMMIT::7}:  NOT downloading ${NAME##*/} tarball."
-}
-
-_CKAT_ () {
-	CK=0
-	REPO=$(awk -F/ '{print $NF}' <<< "$NAME") # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell 
-	NPCK="$(find "$JDR/.config/" -name "$ORG.${NAME##*/}.???????.ck")" ||: # https://stackoverflow.com/questions/6363441/check-if-a-file-exists-with-wildcard-in-shell-script
-	for CKFILE in "$NPCK" 
-	do
- 	if [[ $CKFILE = "" ]] # configuration file is not found
- 	then
- 		printf "%s" "Checking $ONAME $REPO for last commit:  " 
-  		COMMIT="$(_GC_)" ||:
- 		printf "%s\\n" "Found ${COMMIT::7}; Continuing..."
- 		_ATT_ 
- 	else # load configuration information from file 
- 		printf "%s" "Loading $ONAME $REPO config from $CKFILE:  "
- 		COMMIT=$(head -n 1 "$NPCK")
-  		CK=$(tail -n 1  "$NPCK")
-		_PRINTCK_ 
- 		_ATT_ 
- 	fi
-done
-}
-
 _ATT_ () {
 	if [[ "$CK" != 1 ]]
 	then
@@ -120,10 +92,33 @@ _BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/
 	_FJDX_ 
 }
 
+_CKAT_ () {
+	CK=0
+	REPO=$(awk -F/ '{print $NF}' <<< "$NAME") # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell 
+	NPCK="$(find "$JDR/.config/" -name "$ORG.${NAME##*/}.???????.ck")" ||: # https://stackoverflow.com/questions/6363441/check-if-a-file-exists-with-wildcard-in-shell-script
+	for CKFILE in "$NPCK" 
+	do
+ 	if [[ $CKFILE = "" ]] # configuration file is not found
+ 	then
+ 		printf "%s" "Checking $ONAME $REPO for last commit:  " 
+  		COMMIT="$(_GC_)" ||:
+ 		printf "%s\\n" "Found ${COMMIT::7}; Continuing..."
+ 		_ATT_ 
+ 	else # load configuration information from file 
+ 		printf "%s" "Loading $ONAME $REPO config from $CKFILE:  "
+ 		COMMIT=$(head -n 1 "$NPCK")
+  		CK=$(tail -n 1  "$NPCK")
+		_PRINTCK_ 
+ 		_ATT_ 
+ 	fi
+done
+}
+
 _FJDX_ () { 
 	export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
 	(tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" | grep AndroidManifest.xml); _IAR_ "$JDR/$SFX/" || printf "%s\\n\\n" "$STRING"
 	_ANDB_ "$JDR/$SFX" 
+	cd "$JDR"
 }
 
 _GC_ () { 
@@ -133,6 +128,12 @@ _GC_ () {
 	else
 	 	curl -r 0-1 https://api.github.com/repos/"$ORG/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' ||:
 	fi
+}
+
+_NAND_ () { # write configuration file for repository if AndroidManifest.xml file is NOT found in git repository.  
+	printf "%s\\n" "$COMMIT" > "$JDR/.config/$ORG.${NAME##*/}.${COMMIT::7}.ck"
+	printf "%s\\n" "1" >> "$JDR/.config/$ORG.${NAME##*/}.${COMMIT::7}.ck"
+	printf "\\n%s\\n\\n" "Could not find an AndroidManifest.xml file in Java language repository $ORG ${NAME##*/} ${COMMIT::7}:  NOT downloading ${NAME##*/} tarball."
 }
 
 _PRINTCK_ () {

@@ -10,7 +10,7 @@ for FILE in "${FILELIST[@]}"
 do
 	for SCHECK in "${CHECKLIST[@]}"
 	do
-		printf "%s\\n" "Creating $SCHECK for $FILE..."
+ 		printf "%s\\n" "Creating $SCHECK for $FILE..."
 		$SCHECK $FILE >> $SCHECK.sum
 	done
 done
