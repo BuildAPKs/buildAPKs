@@ -9,7 +9,7 @@ c22ebb7c69b04dcbe2627adde6a3b0ee355028a0  ./conf/TNAMES
 1e3a2df6ced9899aa2c959a6031e0f6d1391e704  ./conf/VERSIONID
 874f02111dc723abe431ee6485244f3f491498b1  ./make.sums.bash
 c1789e5c6681aba796651c6595010ccaf183a857  ./scripts/bash/build/build.apps.bash
-c9f398c44c7901c145c5ca53a81bcc614df31125  ./scripts/bash/build/build.buildAPKs.bash
+5bc08629072b3bba2e37ad8647a5656d8894fcb0  ./scripts/bash/build/build.buildAPKs.bash
 e7ea063d622f8a09ef85d928650d1da150f5434b  ./scripts/bash/build/build.clocks.bash
 4825f2c60d89da15c0c2d9ced40f1726fe278195  ./scripts/bash/build/build.compasses.bash
 0ec33e76894179bd38a5970303a7cc27a2edf107  ./scripts/bash/build/build.developers.tools.bash

@@ -40,6 +40,12 @@ declare -a LIST # declare array for all build scripts
 LIST=("$RDR$SDR/build.apps.bash" "$RDR$SDR/build.clocks.bash" "$RDR$SDR/build.compasses.bash" "$RDR$SDR/build.developers.tools.bash" "$RDR$SDR/build.entertainment.bash" "$RDR$SDR/build.flashlights.bash" "$RDR$SDR/build.games.bash" "$RDR$SDR/build.live.wallpapers.bash" "$RDR$SDR/build.samples.bash" "$RDR$SDR/buildApplications.bash" "$RDR$SDR/buildBrowsers.bash" "$RDR$SDR/buildFlashlights.bash" "$RDR$SDR/buildGames.bash" "$RDR$SDR/buildSamples.bash" "$RDR$SDR/buildTop10.bash" "$RDR$SDR/buildTutorials.bash" "$RDR$SDR/buildWidgets.bash" "$RDR$SDR/buildAll.bash")
 for NAME in "${LIST[@]}"
 do
-	"$NAME"
+	if [[ "$NAME" == "$RDR$SDR/buildAll.bash" ]]
+	then
+		find "$RDR" -type f -name .git -delete
+		"$NAME"
+	else
+		"$NAME"
+	fi
 done
 # build.buildAPKs.bash EOF

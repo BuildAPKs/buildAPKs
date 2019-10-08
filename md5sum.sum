@@ -9,7 +9,7 @@ ad3fa2e4afdcb549e789586526b067b7  ./conf/UNAMES
 13576bc3e3669133c8228e7a538857e0  ./conf/VERSIONID
 6d6e8a96a2057259f642c718da3419db  ./make.sums.bash
 f007b0c706f5dbcc7115cc6d39edad06  ./scripts/bash/build/build.apps.bash
-5d7606baf2fb0b532d792cf8fdf1e260  ./scripts/bash/build/build.buildAPKs.bash
+50bb1aa4fc3e3b562eeb2827e817e664  ./scripts/bash/build/build.buildAPKs.bash
 cc24e9184f6edc517a8e457dff790e1a  ./scripts/bash/build/build.clocks.bash
 d8a02446b5079a5df8c38b173955e69a  ./scripts/bash/build/build.compasses.bash
 017904569c7e8b0d25318ad88093cd4a  ./scripts/bash/build/build.developers.tools.bash
