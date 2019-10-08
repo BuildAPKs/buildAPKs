@@ -6,7 +6,7 @@ f937d9366c49d26cb04008e46e3758fe140a00d084db1d42a9db292f79ae1282  ./conf/NUNAMES
 7280fb10af763bd6f8156507089c2a094fbb26f01f939ee76d4fb697f924e6d3  ./conf/ONAMES
 ad037a985c7cd8bb37d26b5ab0036ebafa7f32159f3e50ffd285cac1c014cd93  ./conf/TNAMES
 ad72b52f444903e3720b6c7dafa92d655f6332691b392104c5df8fcb3cf2adcb  ./conf/UNAMES
-58a293dc26f42953783124e177925f80e74fc064ccd0f1575763692d693df10a  ./conf/VERSIONID
+ae53e4b1516e261d5ff76c3935f1a4e6883becabee7194fffe093685e3bb83bd  ./conf/VERSIONID
 094675cd93bb8ee95417b023577e729741718f574e33698232eaf08ae7e10fe0  ./make.sums.bash
 574fca292659c14869891bf44e845fd31bcb389089b7326f83caa4367cd98ea3  ./scripts/bash/build/build.apps.bash
 f391af8554af96dc16514acdd65a40e502ae0dac9b40c280023fdd981838e6d2  ./scripts/bash/build/build.buildAPKs.bash
@@ -32,7 +32,7 @@ fc957b5a6839982bd7dbf66c8b8aa11bd82d908d327015129d0020d0548efee0  ./scripts/bash
 86a65913bbb84fab70e806ee5da16d87e4a9774814756eac7c0c696fb877319b  ./scripts/bash/init/ecjtdebs/fix.ecj.error.bash
 7d741763e0c0daf5dddb22e32ef6146c4860d809a1e55e5fce349e97072f06d0  ./scripts/bash/init/ecjtdebs/fix.ecj4.6.error.bash
 89a244575f3d3d18f16ab1f49c60242b9f60dc7a63e428ff9e3d67b49732080d  ./scripts/bash/init/init.bash
-1b171058c9f860a6eabbf25f7657fb087f09fc73e292ddc380086a77ebf3f16a  ./scripts/bash/init/pull.buildAPKs.modules.bash
+e3219869afaac172bbd9080ea43c9d9fa7d148d10f162598639e6d36a46edb14  ./scripts/bash/init/pull.buildAPKs.modules.bash
 d7918ef1a41fa1b63a39aa9166c4510bbac5b50b7fb839f27b58a2e6d16f418e  ./scripts/bash/init/setup.buildAPKs.bash
 8e08bec63fa66e3fed5b7b840781c84bc91cdbd5c1e9bb5d563eafae131f0821  ./scripts/sh/build/build.dir.sh
 bf30c8e10fd5d176282a4b75a62148bf312b4bc46229cd8950474783254c1092  ./scripts/sh/build/build.sh
