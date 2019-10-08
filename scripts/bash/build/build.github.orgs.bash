@@ -76,7 +76,6 @@ _ATT_ () {
 		then
 			_AND_
 			export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
-			_ANDB_ "$JDR/$SFX" 
 		fi
 	fi
 }
