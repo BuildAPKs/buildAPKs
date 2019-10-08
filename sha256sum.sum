@@ -32,7 +32,7 @@ fc957b5a6839982bd7dbf66c8b8aa11bd82d908d327015129d0020d0548efee0  ./scripts/bash
 86a65913bbb84fab70e806ee5da16d87e4a9774814756eac7c0c696fb877319b  ./scripts/bash/init/ecjtdebs/fix.ecj.error.bash
 7d741763e0c0daf5dddb22e32ef6146c4860d809a1e55e5fce349e97072f06d0  ./scripts/bash/init/ecjtdebs/fix.ecj4.6.error.bash
 89a244575f3d3d18f16ab1f49c60242b9f60dc7a63e428ff9e3d67b49732080d  ./scripts/bash/init/init.bash
-42b10bef5d21106794fad0a2a71ddcc32b6aaa6111d1728ad6b6aaa2c3df72ff  ./scripts/bash/init/pull.buildAPKs.modules.bash
+d6ebf4ccefd331b3e480636194c12e3addbdbaec3cb366edfe721c362126845b  ./scripts/bash/init/pull.buildAPKs.modules.bash
 d7918ef1a41fa1b63a39aa9166c4510bbac5b50b7fb839f27b58a2e6d16f418e  ./scripts/bash/init/setup.buildAPKs.bash
 8e08bec63fa66e3fed5b7b840781c84bc91cdbd5c1e9bb5d563eafae131f0821  ./scripts/sh/build/build.dir.sh
 bf30c8e10fd5d176282a4b75a62148bf312b4bc46229cd8950474783254c1092  ./scripts/sh/build/build.sh

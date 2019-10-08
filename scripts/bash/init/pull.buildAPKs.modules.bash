@@ -8,8 +8,8 @@ shopt -s nullglob globstar
 
 _SPTRPERROR_() { # run on script error
 	local RV="$?"
-	printf "\\e[?25h\\e[1;7;38;5;0mBuildAPKs pull.buildAPKs.modules.bash %s WARNING:  Error %s received!\\e[0m\\n" "${0##*/}" "$RV"
-	printf "\\e[?25h\\n\\e[1;48;5;138mBuildAPKs pull.buildAPKs.modules.bash %s %s ERROR:  Generated script error %s near or at line number %s by \`%s\`!\\e[0m\\n" "${0##*/}" "${PWD##*/}" "${1:-UNDEF}" "${2:-LINENO}" "${3:-BASH_COMMAND}"
+	printf "\\e[?25h\\e[1;7;38;5;0mBuildAPKs pull.buildAPKs.modules.bash %s WARNING: Error %s received!\\e[0m\\n" "${0##*/}" "$RV"
+	printf "\\e[?25h\\n\\e[1;48;5;138mBuildAPKs pull.buildAPKs.modules.bash %s %s ERROR: Generated script error %s near or at line number %s by \`%s\`!\\e[0m\\n" "${0##*/}" "${PWD##*/}" "${1:-UNDEF}" "${2:-LINENO}" "${3:-BASH_COMMAND}"
 	exit 147
 }
 
@@ -21,15 +21,15 @@ _SPTRPEXIT_() { # run on exit
 
 _SPTRPSIGNAL_() { # run on signal
 	local RV="$?"
-	printf "\\e[?25h\\e[1;7;38;5;0mBuildAPKs pull.buildAPKs.modules.bash %s WARNING:  Signal %s received!\\e[0m\\n" "${0##*/}" "$RV"
-        printf "\\e[?25h\\n\\e[1;48;5;138mBuildAPKs pull.buildAPKs.modules.bash %s WARNING:  Signal %s received near or at line number %s by \`%s\`!\\e[0m\\n" "${0##*/}" "${1:-UNDEFINED}" "${2:-LINENO}" "${3:-BASH_COMMAND}"
+	printf "\\e[?25h\\e[1;7;38;5;0mBuildAPKs pull.buildAPKs.modules.bash %s WARNING: Signal %s received!\\e[0m\\n" "${0##*/}" "$RV"
+        printf "\\e[?25h\\n\\e[1;48;5;138mBuildAPKs pull.buildAPKs.modules.bash %s WARNING: Signal %s received near or at line number %s by \`%s\`!\\e[0m\\n" "${0##*/}" "${1:-UNDEFINED}" "${2:-LINENO}" "${3:-BASH_COMMAND}"
  	exit 148 
 }
 
 _SPTRPQuIT_() { # run on quit
 	local RV="$?"
-	printf "\\e[?25h\\e[1;7;38;5;0mBuildAPKs pull.buildAPKs.modules.bash %s WARNING:  Quit signal %s received!\\e[0m\\n" "${0##*/}" "$RV"
-        printf "\\e[?25h\\n\\e[1;48;5;138mBuildAPKs pull.buildAPKs.modules.bash %s WARNING:  Quit signal %s received near or at line number %s by \`%s\`!\\e[0m\\n" "${0##*/}" "${1:-UNDEFINED}" "${2:-LINENO}" "${3:-BASH_COMMAND}"
+	printf "\\e[?25h\\e[1;7;38;5;0mBuildAPKs pull.buildAPKs.modules.bash %s WARNING: Quit signal %s received!\\e[0m\\n" "${0##*/}" "$RV"
+        printf "\\e[?25h\\n\\e[1;48;5;138mBuildAPKs pull.buildAPKs.modules.bash %s WARNING: Quit signal %s received near or at line number %s by \`%s\`!\\e[0m\\n" "${0##*/}" "${1:-UNDEFINED}" "${2:-LINENO}" "${3:-BASH_COMMAND}"
  	exit 149 
 }
 
@@ -67,12 +67,11 @@ _CK4MS_() { # ChecKs 4 ModuleS
 }
 
 _GSA_() { # update submodules to latest version
-	((printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding $SIAD/${GBMS[$LOC]} to ~/buildAPKs/$LOC..." && git submodule add "$SIAD/${GBMS[$LOC]}" "$LOC") && (printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/${RDR##*/}/$LOC..." && git submodule update --init --recursive --remote "$LOC")) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot add and update ~/${RDR##*/}/$LOC:  Continuing...") 
+	((printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding $SIAD/${GBMS[$LOC]} to ~/buildAPKs/$LOC..." && git submodule add "$SIAD/${GBMS[$LOC]}" "$LOC") && (printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/${RDR##*/}/$LOC..." && git submodule update --init --recursive --remote "$LOC")) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot add and update ~/${RDR##*/}/$LOC: Continuing...") 
 }
 
 _GSMU_() {	
 	printf "Updating buildAPKs; \`%s\` shall attempt to load sources from Github submodule repositories into ~/%s.  This may take a little while to complete.  Please be patient while \`%s\` downloads source code from %s\\n\\n" "${0##*/}" "${RDR##*/}" "${0##*/}" "$SIAD"
- 	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs..." && git pull && _GSUSHLIBS_ ) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs:  Continuing...")
 	for LOC in "${!GBMS[@]}" 
 	do
 		_GSU_ 
@@ -84,7 +83,7 @@ _GSMU_() {
 }
 
 _GSU_() { # update submodules to latest version
-	((printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/$LOC..." && git submodule update --init --recursive --remote "$LOC" ) || ( _GSA_ )) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs/$LOC:  Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
+	((printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/$LOC..." && git submodule update --init --recursive --remote "$LOC" ) || ( _GSA_ )) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs/$LOC: Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
 }
 
 _GSUSHLIBS_() {	
@@ -95,8 +94,12 @@ declare -A GBMS # declare associative array for available submoldules
 GBMS=([sources/applications]="SDRausty/buildAPKsApps"  [sources/apps]="BuildAPKs/buildAPKs.apps" [sources/browsers]="SDRausty/buildAPKsBrowsers" [sources/clocks]="BuildAPKs/buildAPKs.clocks" [sources/compasses]="BuildAPKs/buildAPKs.compasses" [sources/entertainment]="BuildAPKs/buildAPKs.entertainment" [sources/flashlights4]="BuildAPKs/buildAPKs.flashlights" [sources/gamez]="BuildAPKs/buildAPKs.games"  [sources/gaming]="SDRausty/buildAPKsGames" [sources/live.wallpapers]="BuildAPKs/buildAPKs.live.wallpapers" [sources/samples4]="SDRausty/buildAPKsSamples" [sources/samps]="BuildAPKs/buildAPKs.samples" [sources/top10]="SDRausty/buildAPKsTop10" [sources/tools]="BuildAPKs/buildAPKs.developers.tools" [sources/torches]="SDRausty/buildAPKsFlashlights" [sources/tutorials]="SDRausty/buildAPKsTutorials" [sources/widgets]="SDRausty/buildAPKsWidgets")
 RDR="$HOME/buildAPKs"
 SIAD="https://github.com"
-. "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
 cd "$RDR/"
+if [[ ! -f "$RDR/scripts/bash/shlibs/.git" ]]
+then
+	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/$RDR, ~/$RDR/scripts/bash/shlibs and ~/$RDR/scripts/bash/shlibs/buildAPKs..." && git pull && git submodule add "$SIAD"/shlibs/shlibs.bash scripts/bash/shlibs && _GSUSHLIBS_ ) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/$RDR, ~/$RDR/scripts/bash/shlibs and ~/$RDR/scripts/bash/shlibs/buildAPKs: Continuing...")
+fi
+. "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
 if [[ ! -d "$RDR/sources" ]]
 then
 	mkdir -p "$RDR/sources"
