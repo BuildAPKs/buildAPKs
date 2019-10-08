@@ -117,8 +117,6 @@ done
 _FJDX_ () { 
 	export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
   	(tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" | grep AndroidManifest.xml);  _IAR_ "$JDR/$SFX/" || printf "%s\\n\\n" "$STRING"
-	_ANDB_ "$JDR/$SFX" 
-	cd "$JDR"
 }
 
 _GC_ () { 
@@ -189,4 +187,5 @@ for NAME in "${JARR[@]}" # lets you delete partial downloads and repopulates fro
 do #  This creates a "slate" within each github/$JDR that can be selectively reset when desired.  This can be important on a slow connection.
 	_CKAT_ 
 done
+_ANDB_ "$JDR" 
 # build.github.users.bash EOF
