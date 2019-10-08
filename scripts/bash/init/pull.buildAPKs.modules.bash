@@ -52,7 +52,6 @@ _2GSU_() {
 	else
 		_GSMU_
 	fi
-	printf "\\nBuildAPKs %s: DONE!\\n" "${0##*/} pull.buildAPKs.modules.bash"
 }
 
 _CK4MS_() { # ChecKs 4 ModuleS 
