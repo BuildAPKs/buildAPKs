@@ -18,7 +18,7 @@ caa8083adcb1d2a808c768cb07710f0f1b6e0084f445fabff6ec1bc7  ./scripts/bash/build/b
 bd1b4cce2bab837d65958a8801c33117746f57efb6b9e14bdba353a7  ./scripts/bash/build/build.games.bash
 c5f24b3767326fe862d8a2547baab48a38d307156f04e37348886b23  ./scripts/bash/build/build.in.dir.bash
 d14072396deb56ce8db6db896a14fabeacbff4547f423159d403d723  ./scripts/bash/build/build.live.wallpapers.bash
-1928704536b2922c16fb9ca395ea034f7c2ba297d51e0eeb9bb1e99c  ./scripts/bash/build/build.one.bash
+ddacd69f418a4ec6f99c0d2013724474180fc4eb51b27d339bfc947e  ./scripts/bash/build/build.one.bash
 edc7ba11a710450945bb95e411000fbb49316ab770913219ade45130  ./scripts/bash/build/build.samples.bash
 0a98963e832cad7608576a9b3772bd94d82918a6a79bda922472a1e1  ./scripts/bash/build/buildAll.bash
 43aa50409dd70443abf66700d19383611de9b4133706f17e3af73cd9  ./scripts/bash/build/buildApplications.bash

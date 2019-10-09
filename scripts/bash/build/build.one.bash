@@ -172,12 +172,12 @@ printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started
 dx --dex --output=bin/classes.dex obj
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAM.apk..."
 aapt package -f \
-	--min-sdk-version $MSDKVERSION \
-	--target-sdk-version $TSDKVERSION \
+	--min-sdk-version "$MSDKVERSION" \
+	--target-sdk-version "$TSDKVERSION" \
 	-M AndroidManifest.xml \
 	-S res \
 	-A assets \
-	-F bin/"$PKGNAM.apk"
+	-F bin/"$PKGNAM".apk
 printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex to $PKGNAM.apk..."
 cd bin 
 aapt add -f "$PKGNAM.apk" classes.dex
