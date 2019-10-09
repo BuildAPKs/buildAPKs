@@ -105,6 +105,7 @@ then
 	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/${RDR##*/}, ~/${RDR##*/}/scripts/bash/shlibs and ~/${RDR##*/}/scripts/bash/shlibs/buildAPKs..." && git pull && _GSUSHLIBS_ ) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/${RDR##*/}, ~/${RDR##*/}/scripts/bash/shlibs and ~/${RDR##*/}/scripts/bash/shlibs/buildAPKs: Continuing...")
 fi
 . "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
+. "$RDR"/scripts/bash/shlibs/lock.bash
 if [[ ! -d "$RDR/sources" ]]
 then
 	mkdir -p "$RDR/sources"
