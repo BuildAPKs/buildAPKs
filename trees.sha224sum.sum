@@ -32,7 +32,7 @@ e2385bed52b2304ee8b06aa336e56250b11246d05b6d9177ab8f39d3  ./scripts/bash/build/b
 c18e499383e68984e91f6897c7b532d9a88b77cf3d2ac52707cc67f7  ./scripts/bash/init/ecjtdebs/fix.ecj.error.bash
 8432cbadda4130f5b3d7d43104823009ad6671b2ae37b71feffde3c4  ./scripts/bash/init/ecjtdebs/fix.ecj4.6.error.bash
 6fa11622d531e650ca295a1e1acf6dc87286d44e329a9b3cff05a436  ./scripts/bash/init/init.bash
-8c4356e4a2f87d57648712024626f5b27924e472f92a30587c42fde6  ./scripts/bash/init/pull.buildAPKs.modules.bash
+28f9d2337f246cf12607bc134955e5d69d85d803d42914986e9f0934  ./scripts/bash/init/pull.buildAPKs.modules.bash
 96b4a27c8cb2256418146844219453ba2503bc35e89d78d3ba1cfaa4  ./scripts/bash/init/setup.buildAPKs.bash
 9a3540e935abd90a4faafd27591842ea6b6a9d929c1ef3dff591393d  ./scripts/sh/build/build.dir.sh
 a416675674003f3a90dcc06e0347bb97b3801d471d2e17d832a797cc  ./scripts/sh/build/build.sh
