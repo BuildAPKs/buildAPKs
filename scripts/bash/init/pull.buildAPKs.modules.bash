@@ -66,7 +66,7 @@ _CK4MS_() { # ChecKs 4 ModuleS
 	done
 }
 
-_GSA_() { # update submodules to latest version
+_GSA_() { # add and update submodules to latest version
 	((printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding $SIAD/${GBMS[$LOC]} to ~/buildAPKs/$LOC..." && git submodule add "$SIAD/${GBMS[$LOC]}" "$LOC") && (printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/${RDR##*/}/$LOC..." && git submodule update --init --recursive --remote "$LOC")) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot add and update ~/${RDR##*/}/$LOC: Continuing...") 
 }
 
@@ -75,6 +75,10 @@ _GSMU_() {
 	for LOC in "${!GBMS[@]}" 
 	do
 		_GSU_ 
+		if [[ -f "$RDR/$LOC/ma.bash" ]]
+		then
+			 "$RDR/$LOC/ma.bash"
+		fi
 		if [[ -f "$RDR/$LOC/.gitmodules" ]] || [[ -f "$RDR/$LOC/ma.bash" ]]
 		then
 			_IAR_ "$RDR/$LOC/"
@@ -82,12 +86,12 @@ _GSMU_() {
 	done
 }
 
-_GSU_() { # update submodules to latest version
+_GSU_() { # update or add and upate submodules to latest version
 	((printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/$LOC..." && git submodule update --init --recursive --remote "$LOC" ) || ( _GSA_ )) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs/$LOC: Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
 }
 
 _GSUSHLIBS_() {	
-	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/scripts/bash/shlibs..." && git submodule update --init --recursive --remote scripts/bash/shlibs) || (printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding ~/buildAPKs/scripts/bash/shlibs..." && git submodule add "$SIAD"/shlibs/shlibs.bash scripts/bash/shlibs)
+	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding ~/buildAPKs/scripts/bash/shlibs..." && git submodule add "$SIAD"/shlibs/shlibs.bash scripts/bash/shlibs && git submodule update --init --recursive --remote scripts/bash/shlibs) || (printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/scripts/bash/shlibs..." && git submodule update --init --recursive --remote scripts/bash/shlibs)
 }
 
 declare -A GBMS # declare associative array for available submoldules
@@ -97,7 +101,7 @@ SIAD="https://github.com"
 cd "$RDR/"
 if [[ ! -f "$RDR/scripts/bash/shlibs/.git" ]]
 then
-	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/$RDR, ~/$RDR/scripts/bash/shlibs and ~/$RDR/scripts/bash/shlibs/buildAPKs..." && git pull && git submodule add "$SIAD"/shlibs/shlibs.bash scripts/bash/shlibs && _GSUSHLIBS_ ) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/$RDR, ~/$RDR/scripts/bash/shlibs and ~/$RDR/scripts/bash/shlibs/buildAPKs: Continuing...")
+	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/$RDR, ~/$RDR/scripts/bash/shlibs and ~/$RDR/scripts/bash/shlibs/buildAPKs..." && git pull && _GSUSHLIBS_ ) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/$RDR, ~/$RDR/scripts/bash/shlibs and ~/$RDR/scripts/bash/shlibs/buildAPKs: Continuing...")
 fi
 . "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
 if [[ ! -d "$RDR/sources" ]]
