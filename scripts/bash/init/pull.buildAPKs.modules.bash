@@ -71,13 +71,13 @@ _GSA_() { # add and update submodules to latest version
 }
 
 _GSMU_() {	
-	printf "Updating buildAPKs; \`%s\` shall attempt to load sources from Github submodule repositories into ~/%s.  This may take a little while to complete.  Please be patient while \`%s\` downloads source code from %s\\n\\n" "${0##*/}" "${RDR##*/}" "${0##*/}" "$SIAD"
+	printf "\\e[1;7;38;5;96mUpdating buildAPKs; \`%s\` shall attempt to load sources from Github submodule repositories into ~/%s.  This may take a little while to complete.  Please be patient while \`%s\` downloads source code from %s\\e[0m\\n" "${0##*/}" "${RDR##*/}" "${0##*/}" "$SIAD"
 	for LOC in "${!GBMS[@]}" 
 	do
 		_GSU_ 
 		if [[ -f "$RDR/$LOC/ma.bash" ]]
 		then
-			JDR="$RDR/$LOC/"
+			export JDR="$RDR/$LOC/"
 			bash "$RDR/$LOC/ma.bash"
 		fi
 		if [[ -f "$RDR/$LOC/.gitmodules" ]] || [[ -f "$RDR/$LOC/ma.bash" ]]
@@ -102,7 +102,7 @@ SIAD="https://github.com"
 cd "$RDR/"
 if [[ ! -f "$RDR/scripts/bash/shlibs/.git" ]]
 then
-	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/$RDR, ~/$RDR/scripts/bash/shlibs and ~/$RDR/scripts/bash/shlibs/buildAPKs..." && git pull && _GSUSHLIBS_ ) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/$RDR, ~/$RDR/scripts/bash/shlibs and ~/$RDR/scripts/bash/shlibs/buildAPKs: Continuing...")
+	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/${RDR##*/}, ~/${RDR##*/}/scripts/bash/shlibs and ~/${RDR##*/}/scripts/bash/shlibs/buildAPKs..." && git pull && _GSUSHLIBS_ ) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/${RDR##*/}, ~/${RDR##*/}/scripts/bash/shlibs and ~/${RDR##*/}/scripts/bash/shlibs/buildAPKs: Continuing...")
 fi
 . "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
 if [[ ! -d "$RDR/sources" ]]
