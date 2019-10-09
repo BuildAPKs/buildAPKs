@@ -1,8 +1,8 @@
 #!/bin/env bash
 # Copyright 2019 (c) all rights reserved
 # by S D Rausty https://sdrausty.github.io
-# Checks sha512sum files: sha512sum -c trees.sha512sum.sum
-# Creates trees.*.sum files: ./do.trees.bash
+# Checks sha512sum files: sha512sum -c ztrees.ha512sum.sum
+# Creates ztree.*.sum files: ./do.trees.bash
 #####################################################################
 set -eu
 rm -f *.sum
@@ -13,13 +13,13 @@ do
 	for FILE in "${FILELIST[@]}"
 	do
  		printf "%s\\n" "Creating $SCHECK for $FILE..."
-		"$SCHECK" "$FILE" >> trees."$SCHECK".sum
+		"$SCHECK" "$FILE" >> ztree."$SCHECK".sum
 	done
 done
 for SRCHECK in  "${CHECKLIST[@]}"
 do
 	printf "\\nChecking $SRCHECK...\\n"
-	"$SRCHECK" -c trees."$SRCHECK".sum
+	"$SRCHECK" -c ztree."$SRCHECK".sum
 done
 git add .
 git commit
