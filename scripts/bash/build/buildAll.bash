@@ -38,7 +38,7 @@ trap _SETRPSIGNAL_ HUP INT TERM
 trap _SETRPQUIT_ QUIT 
 
 RDR="$HOME/buildAPKs"
-"$RDR/scripts/bash/init/pull.buildAPKs.modules.bash"
+"$RDR/scripts/bash/init/buildAPKs/pull.buildAPKs.modules.bash"
 cd "$RDR/sources/"
 "$RDR/scripts/bash/build/build.in.dir.bash"
 # buildAll.bash EOF

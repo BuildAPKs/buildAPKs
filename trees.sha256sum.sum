@@ -20,7 +20,7 @@ ad6a2a59981f0d9abda49b064a11d7a7c0b7087992c8ae3a713aeda7bf87eb2b  ./scripts/bash
 3801913b9b7d05a349b7bc60bf92cc10efc2cddaae5b4e48d941ba498991a7cc  ./scripts/bash/build/build.live.wallpapers.bash
 27d352d518478102136d76c8a751002d203f0ce8b0fcae5e20dd88e868eeab0f  ./scripts/bash/build/build.one.bash
 a518eea98c3482289266c9a06ef6392e663f11abe3be190c5979cef1e45d758a  ./scripts/bash/build/build.samples.bash
-daba8901044a60e756324eec664ec6b30285ed7a40e2f530abc524cf2d78eaa6  ./scripts/bash/build/buildAll.bash
+4824180f5f994bf6bc406cd1c618a7c0085992d2b193746cba828abe3d656225  ./scripts/bash/build/buildAll.bash
 4c98781e4c47ab55144fc08d72b633acc38c7d662f64f5c102aa5747ba685e31  ./scripts/bash/build/buildApplications.bash
 58f0c0b0758cf01050aaa581ca16a45a49ac9be9d65caf6383a8be1432e5f31b  ./scripts/bash/build/buildBrowsers.bash
 acd2b0b1ca93de39f17b3362a376011a44905ab119bf67b0bc8b40dd36537f8d  ./scripts/bash/build/buildFlashlights.bash
@@ -32,7 +32,6 @@ fc957b5a6839982bd7dbf66c8b8aa11bd82d908d327015129d0020d0548efee0  ./scripts/bash
 86a65913bbb84fab70e806ee5da16d87e4a9774814756eac7c0c696fb877319b  ./scripts/bash/init/ecjtdebs/fix.ecj.error.bash
 7d741763e0c0daf5dddb22e32ef6146c4860d809a1e55e5fce349e97072f06d0  ./scripts/bash/init/ecjtdebs/fix.ecj4.6.error.bash
 89a244575f3d3d18f16ab1f49c60242b9f60dc7a63e428ff9e3d67b49732080d  ./scripts/bash/init/init.bash
-f9fd1f2a9dd1721d0cbaac6a0b660f810042e7d29b3e440c6cff68cdb1518a93  ./scripts/bash/init/pull.buildAPKs.modules.bash
 d7918ef1a41fa1b63a39aa9166c4510bbac5b50b7fb839f27b58a2e6d16f418e  ./scripts/bash/init/setup.buildAPKs.bash
 8e08bec63fa66e3fed5b7b840781c84bc91cdbd5c1e9bb5d563eafae131f0821  ./scripts/sh/build/build.dir.sh
 bf30c8e10fd5d176282a4b75a62148bf312b4bc46229cd8950474783254c1092  ./scripts/sh/build/build.sh
