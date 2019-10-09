@@ -21,4 +21,7 @@ do
 	printf "\\nChecking $SRCHECK...\\n"
 	"$SRCHECK" -c trees."$SRCHECK".sum
 done
+git add .
+git commit
+git push
 # do.trees.sh EOF
