@@ -2,7 +2,7 @@
 # Copyright 2019 (c) all rights reserved
 # by S D Rausty https://sdrausty.github.io
 # Checks sha512sum files: sha512sum -c trees.sha512sum.sum
-# Creates trees.*.sum files: ./do.sums.bash
+# Creates trees.*.sum files: ./do.trees.bash
 #####################################################################
 set -eu
 rm -f *.sum
@@ -21,4 +21,4 @@ do
 	printf "\\nChecking $SRCHECK...\\n"
 	"$SRCHECK" -c trees."$SRCHECK".sum
 done
-# do.sums.sh EOF
+# do.trees.sh EOF
