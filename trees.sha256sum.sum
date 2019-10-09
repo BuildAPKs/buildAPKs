@@ -20,7 +20,7 @@ ad6a2a59981f0d9abda49b064a11d7a7c0b7087992c8ae3a713aeda7bf87eb2b  ./scripts/bash
 3801913b9b7d05a349b7bc60bf92cc10efc2cddaae5b4e48d941ba498991a7cc  ./scripts/bash/build/build.live.wallpapers.bash
 27d352d518478102136d76c8a751002d203f0ce8b0fcae5e20dd88e868eeab0f  ./scripts/bash/build/build.one.bash
 a518eea98c3482289266c9a06ef6392e663f11abe3be190c5979cef1e45d758a  ./scripts/bash/build/build.samples.bash
-945bc715e236f2fd2c14cfc0eee36dffc6c2ad8dbd3d3319a7091789b8d5d56b  ./scripts/bash/build/buildAll.bash
+0f43b9d6a5d2ac323311722cc4cf62551a0e6491683cfbd0381361c8333d9ef6  ./scripts/bash/build/buildAll.bash
 4c98781e4c47ab55144fc08d72b633acc38c7d662f64f5c102aa5747ba685e31  ./scripts/bash/build/buildApplications.bash
 58f0c0b0758cf01050aaa581ca16a45a49ac9be9d65caf6383a8be1432e5f31b  ./scripts/bash/build/buildBrowsers.bash
 acd2b0b1ca93de39f17b3362a376011a44905ab119bf67b0bc8b40dd36537f8d  ./scripts/bash/build/buildFlashlights.bash

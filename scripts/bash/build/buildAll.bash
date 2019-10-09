@@ -38,6 +38,11 @@ trap _SETRPSIGNAL_ HUP INT TERM
 trap _SETRPQUIT_ QUIT 
 
 RDR="$HOME/buildAPKs"
+if [[ ! -f "$RDR"/scripts/bash/shlibs/.git ]]
+then
+	cd "$RDR/"
+	(printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding ~/buildAPKs/scripts/bash/shlibs..." && git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs && git submodule update --init --recursive --remote scripts/bash/shlibs) || (printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/scripts/bash/shlibs..." && git submodule update --init --recursive --remote scripts/bash/shlibs)
+fi
 "$RDR/scripts/bash/shlibs/buildAPKs/pull.buildAPKs.modules.bash"
 cd "$RDR/sources/"
 "$RDR/scripts/bash/build/build.in.dir.bash"
