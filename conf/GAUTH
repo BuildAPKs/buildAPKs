@@ -1,0 +1,8 @@
+
+The first line is intentionally blank.  Insert OAuth token in the first line of this file to enable OAuth authentication, i.e. user:token  
+
+For more information see https://developer.github.com/v3/auth/#basic-authentication
+
+As `build.github.*.bash` may stall for unauthenticated users of GitHub, enabling OAuth increases the rate limit for authenticated users.  To create an OAuth token, you can use https://github.com/settings/tokens  
+
+# GAUTH EOF
