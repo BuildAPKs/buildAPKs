@@ -24,5 +24,5 @@ done
 git add .
 git commit
 git push
-ls -al
+ls -ao
 # do.sums.sh EOF

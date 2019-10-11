@@ -7,7 +7,7 @@ c8e7b463f082e5fb598bea62403a74ba5142973816ac7e933a6e56c5  ./conf/ONAMES
 6b926ccd8e7bf42826e014674b899040c05b9ab1cb8e2258804a8c02  ./conf/TNAMES
 a88e10361912f470db446c1025aec103acbe12e5ef5460688a07f587  ./conf/UNAMES
 e69fce39c4b1d77d652a813256a4fbd5c4f931231a087c2a4da55101  ./conf/VERSIONID
-d6d5ef7c2ae4862e5b831fc7c6754ba9febe6118c9bace1d8411b970  ./do.sums.bash
+9bb0a9ec94b693415595e16280022806ffeb9fd9891b4b84478ff6fa  ./do.sums.bash
 758317c6be7f0440a182c4c93a2ab32945b3a55693c323f3fede6734  ./scripts/bash/build/build.apps.bash
 e06f3f0bb07340192432569a7eefdbd596dc121e7a31bd6443c3f36c  ./scripts/bash/build/build.buildAPKs.bash
 47b0a35d015ae41d5b50cc4e75022d0f9f406083ed98338cff58eca7  ./scripts/bash/build/build.clocks.bash
