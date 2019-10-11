@@ -36,6 +36,7 @@ trap _SINITRPSIGNAL_ HUP INT TERM
 trap _SINITRPQUIT_ QUIT 
 
 export RDR="$HOME/buildAPKs"   
+cd "$RDR"
 if [[ -z "${JID:-}" ]] 
 then
 	. "$RDR"/scripts/bash/build/build.entertainment.bash
@@ -49,7 +50,6 @@ if [[ ! -f "$RDR"/.gitmodules ]]
 then
 	touch "$RDR"/.gitmodules
 fi
-cd "$RDR"
 if grep shlibs .gitmodules 1>/dev/null
 then
 	git submodule update --init --recursive --remote scripts/bash/shlibs || printf "\\nCANNOT UPDATE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
