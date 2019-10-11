@@ -32,10 +32,10 @@ ee446b00aa5afabb14e09e5dc04ae8e3  ./scripts/bash/build/buildTutorials.bash
 36af77cf26026e247c11bce40740ff6b  ./scripts/bash/init/ecjtdebs/fix.ecj.error.bash
 9a8f0f84ce376071ce5f1c909f8dcba0  ./scripts/bash/init/ecjtdebs/fix.ecj4.6.error.bash
 997083efa8952e85db08896465f32da0  ./scripts/bash/init/init.bash
-6bb921ad06518793ce9bcd65eac307ff  ./scripts/bash/init/setup.buildAPKs.bash
+1d3cd0f0ac0c7f9929ddf3573746dca2  ./scripts/bash/init/setup.buildAPKs.bash
 eec5383ba114c03d760a0551940f8ea8  ./scripts/sh/build/build.dir.sh
 84c962f8374b7f665640788f3bf10d67  ./scripts/sh/build/build.sh
-c9ffe829d30ed6a17f0698bc50a1f5e5  ./scripts/sh/init/setup.buildAPKs.sh
+0b573fc0dce15a5f2cb9c411ffc1b198  ./scripts/sh/init/setup.buildAPKs.sh
 694cd99aeae959b6c368fcbf7696cd68  ./scripts/zsh/build/build.dir.zsh
 e2566063b0b9d458d0b8c4e55f6f0267  ./scripts/zsh/build/build.zsh
-d14d8c93c34736949d1d4d9a32c9ddc3  ./scripts/zsh/init/setup.buildAPKs.zsh
+eea4e9adef65d083b5d73b0ca4c6746c  ./scripts/zsh/init/setup.buildAPKs.zsh

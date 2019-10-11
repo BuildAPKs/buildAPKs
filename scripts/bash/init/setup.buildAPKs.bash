@@ -53,7 +53,7 @@ declare RDR
 export RDR="$HOME/buildAPKs"
 STRING1="COMMAND \`au\` enables rollback, available at https://wae.github.io/au/ IS NOT FOUND: Continuing... "
 STRING2="Cannot update ~/${RDR##*/} prerequisite: Continuing..."
-printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "Beginning buildAPKs setup:"
+printf "\\e[1;38;5;115m%s\\e[0m\\n" "Beginning buildAPKs setup:"
 COMMANDR="$(command -v au)" || (printf "%s\\n\\n" "$STRING1") 
 COMMANDIF="${COMMANDR##*/}"
 if [[ -z "${1:-}" ]]
@@ -62,11 +62,11 @@ then
 fi
 if [[ "$COMMANDIF" = au ]] 
 then 
-	(au aapt apksigner curl dx ecj git) || (printf "%s\\n\\n" "$STRING2") 
+	au aapt apksigner curl dx ecj git || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
 else
-	(pkg install aapt apksigner curl dx ecj git) || (printf "%s\\n\\n" "$STRING2") 
+	pkg install aapt apksigner curl dx ecj git || printf "\\e[1;37;5;116m%s\\e[0m\\n" "$STRING2"
 fi
 cd "$HOME"
-(git clone https://github.com/BuildAPKs/buildAPKs) || (printf "%s\\n\\n" "$STRING2") 
+git clone https://github.com/BuildAPKs/buildAPKs || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
 bash "$RDR/scripts/bash/build/build.entertainment.bash"
 # setup.buildAPKs.bash EOF
