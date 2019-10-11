@@ -38,7 +38,7 @@ trap _SETRPSIGNAL_ HUP INT TERM
 trap _SETRPQUIT_ QUIT 
 
 RDR="$HOME/buildAPKs"
-"$RDR"/scripts/bash/init/ushlibs.bash
+. "$RDR"/scripts/bash/init/ushlibs.bash
 "$RDR"/scripts/bash/shlibs/buildAPKs/pull.buildAPKs.modules.bash
 cd "$RDR"/sources/
 "$RDR"/scripts/bash/build/build.in.dir.bash
