@@ -1,8 +1,8 @@
 #!/bin/env bash
 # Copyright 2019 (c) all rights reserved by S D Rausty; see LICENSE  
 # https://sdrausty.github.io courtesy https://pages.github.com
+# To check sha512sum file use; sha512sum -c ztree.sha512.sum
 # To create checksum files and commit use; ./do.sums.bash
-# To check md5sum file use; md5sum -c ztree.sha512.sum
 #####################################################################
 set -eu
 rm -f *.sum
