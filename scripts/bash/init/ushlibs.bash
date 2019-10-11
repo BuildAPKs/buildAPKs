@@ -38,9 +38,9 @@ trap _SRSTRPQUIT_ QUIT
 _UFSHLIBS_() { 
 	if grep shlibs .gitmodules 1>/dev/null
 	then
-		git submodule update --init --recursive --remote scripts/bash/shlibs || printf "\\nCANNOT UPDATE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
+		printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/scripts/bash/shlibs..." && git submodule update --init --recursive --remote scripts/bash/shlibs || printf "\\nCannot update ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
 	else
-		git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs && git submodule update --init --recursive --remote scripts/bash/shlibs || printf "\\nCANNOT ADD AND UPDATE MODULE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
+		printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding and updating ~/buildAPKs/scripts/bash/shlibs..." && git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs && git submodule update --init --recursive --remote scripts/bash/shlibs || printf "\\nCannot add and update module ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
 	fi
 }
 
