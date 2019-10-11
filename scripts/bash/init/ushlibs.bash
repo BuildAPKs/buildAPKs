@@ -35,10 +35,12 @@ trap _SRSTRPEXIT_ EXIT
 trap _SRSTRPSIGNAL_ HUP INT TERM 
 trap _SRSTRPQUIT_ QUIT 
 
-_IFSHLIBS_() { 
-	if [[ ! -d "$RDR"/scripts/bash/shlibs ]] 
+_UFSHLIBS_() { 
+	if grep shlibs .gitmodules 1>/dev/null
 	then
-		git clone https://github.com/shlibs/shlibs.bash scripts/bash/shlibs && git clone https://github.com/shlibs/shlibs.buildAPKs.bash scripts/bash/shlibs/buildAPKs || printf "\\nCannot clone modules %s and %s into~/%s/scripts/bash/shlibs and ~/%s/scripts/bash/shlibs/buildAPKs: Continuing...\\n\\n" "https://github.com/shlibs/shlibs.bash" "https://github.com/shlibs/shlibs.buildAPKs.bash" "${RDR##*/}" "${RDR##*/}"
+		git submodule update --init --recursive --remote scripts/bash/shlibs || printf "\\nCANNOT UPDATE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
+	else
+		git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs && git submodule update --init --recursive --remote scripts/bash/shlibs || printf "\\nCANNOT ADD AND UPDATE MODULE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
 	fi
 }
 
@@ -48,5 +50,5 @@ then
 	cd "$RDR"
 	git pull || printf "\\nCannot update ~/%s: Continuing...\\n\\n" "${RDR##*/}"
 fi
-_IFSHLIBS_
-# rshlibs.bash EOF
+_UFSHLIBS_
+# ushlibs.bash EOF

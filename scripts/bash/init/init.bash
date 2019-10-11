@@ -50,12 +50,7 @@ if [[ ! -f "$RDR"/.gitmodules ]]
 then
 	touch "$RDR"/.gitmodules
 fi
-if grep shlibs .gitmodules 1>/dev/null
-then
-	git submodule update --init --recursive --remote scripts/bash/shlibs || printf "\\nCANNOT UPDATE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
-else
-	git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs && git submodule update --init --recursive --remote scripts/bash/shlibs || printf "\\nCANNOT ADD AND UPDATE MODULE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
-fi
+. "$RDR"/scripts/bash/init/ushlibs.bash 
 . "$RDR"/scripts/bash/init/rshlibs.bash 
 . "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
 . "$RDR"/scripts/bash/shlibs/buildAPKs/mod.bash
