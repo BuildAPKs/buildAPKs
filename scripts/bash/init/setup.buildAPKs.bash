@@ -62,12 +62,11 @@ then
 fi
 if [[ "$COMMANDIF" = au ]] 
 then 
-	(au aapt apksigner curl dx ecj findutils git) || (printf "%s\\n\\n" "$STRING2") 
+	(au aapt apksigner curl dx ecj git) || (printf "%s\\n\\n" "$STRING2") 
 else
-	(pkg install aapt apksigner curl dx ecj findutils git) || (printf "%s\\n\\n" "$STRING2") 
+	(pkg install aapt apksigner curl dx ecj git) || (printf "%s\\n\\n" "$STRING2") 
 fi
 cd "$HOME"
 (git clone https://github.com/BuildAPKs/buildAPKs) || (printf "%s\\n\\n" "$STRING2") 
 bash "$RDR/scripts/bash/build/build.entertainment.bash"
-
 # setup.buildAPKs.bash EOF
