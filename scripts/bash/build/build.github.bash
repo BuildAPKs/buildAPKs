@@ -48,8 +48,8 @@ export UIT="${UI##*/}"
 read TYPE < <(curl "https://api.github.com/users/$UIT/repos" -s 2>&1 | head -n 25 | tail -n 1 | grep -o Organization) # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell/
 if [[ "$TYPE" == Organization ]]
 then
-	"$RDR"/scripts/bash/build/build.github.orgs.bash "$UIT"
+	"$RDR"/scripts/bash/components/build.github.orgs.bash "$UIT"
 else
-	"$RDR"/scripts/bash/build/build.github.users.bash "$UIT"
+	"$RDR"/scripts/bash/components/build.github.users.bash "$UIT"
 fi
 # build.github.bash OEF

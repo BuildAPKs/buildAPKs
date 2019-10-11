@@ -74,9 +74,9 @@ do
 	read TYPE < <(curl "https://api.github.com/users/${NAME}/repos" -s 2>&1 | head -n 25 | tail -n 1 | grep -o Organization) # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell/
 		if [[ "$TYPE" == Organization ]]
 		then
-		 	"$RDR"/scripts/bash/build/build.github.orgs.bash "$NAME"
+		 	"$RDR"/scripts/bash/components/build.github.orgs.bash "$NAME"
 		else
-			"$RDR"/scripts/bash/build/build.github.users.bash "$NAME"
+			"$RDR"/scripts/bash/components/build.github.users.bash "$NAME"
 		fi
 done
 # build.github.topics.bash EOF
