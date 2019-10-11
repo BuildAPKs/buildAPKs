@@ -36,9 +36,9 @@ trap _SINITRPSIGNAL_ HUP INT TERM
 trap _SINITRPQUIT_ QUIT 
 
 _IFSHLIBS_() { 
-	if [[ ! -d "scripts/bash/shlibs" ]] 
+	if [[ ! -d "$RDR"/scripts/bash/shlibs ]] 
 	then
-		(git clone https://github.com/shlibs/shlibs.bash scripts/bash/shlibs && git clone https://github.com/shlibs/shlibs.buildAPKs.bash scripts/bash/shlibs/buildAPKs) || (printf "\\nCANNOT CLONE MODULES %s AND %s INTO~/%s/scripts/bash/shlibs AND ~/%s/scripts/bash/shlibs/buildAPKs: Continuing...\\n\\n" "https://github.com/shlibs/shlibs.bash" "https://github.com/shlibs/shlibs.buildAPKs.bash" "${RDR##*/}" "${RDR##*/}")
+		git clone https://github.com/shlibs/shlibs.bash scripts/bash/shlibs && git clone https://github.com/shlibs/shlibs.buildAPKs.bash scripts/bash/shlibs/buildAPKs || printf "\\nCANNOT CLONE MODULES %s AND %s INTO~/%s/scripts/bash/shlibs AND ~/%s/scripts/bash/shlibs/buildAPKs: Continuing...\\n\\n" "https://github.com/shlibs/shlibs.bash" "https://github.com/shlibs/shlibs.buildAPKs.bash" "${RDR##*/}" "${RDR##*/}"
 	fi
 }
 
@@ -48,20 +48,20 @@ then
 	. "$RDR"/scripts/bash/build/build.entertainment.bash
 	exit 0
 fi
+if [[ ! -f "$RDR"/scripts/bash/shlibs/.git ]] 
+then
+	git pull || printf "\\nCANNOT UPDATE ~/%s: Continuing...\\n\\n" "${RDR##*/}"
+fi
+if [[ ! -f "$RDR"/.gitmodules ]] 
+then
+	touch "$RDR"/.gitmodules
+fi
 cd "$RDR"
-if [[ ! -f scripts/bash/shlibs/.git ]] 
-then
-	(git pull) || (printf "\\nCANNOT UPDATE ~/%s: Continuing...\\n\\n" "${RDR##*/}")
-fi
-if [[ ! -f .gitmodules ]] 
-then
-	touch .gitmodules
-fi
 if grep shlibs .gitmodules 1>/dev/null
 then
-	(git submodule update --init --recursive --remote scripts/bash/shlibs) || (printf "\\nCANNOT UPDATE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}") 
+	git submodule update --init --recursive --remote scripts/bash/shlibs || printf "\\nCANNOT UPDATE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
 else
-	(git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs && git submodule update --init --recursive --remote scripts/bash/shlibs) || (printf "\\nCANNOT ADD AND UPDATE MODULE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}")
+	git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs && git submodule update --init --recursive --remote scripts/bash/shlibs || printf "\\nCANNOT ADD AND UPDATE MODULE ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
 fi
 _IFSHLIBS_
 . "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
