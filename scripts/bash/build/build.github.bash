@@ -46,6 +46,8 @@ fi
 export UI="${1%/}"
 export UIT="${UI##*/}"
 read TYPE < <(curl "https://api.github.com/users/$UIT/repos" -s 2>&1 | head -n 25 | tail -n 1 | grep -o Organization) # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell/
+. "$RDR"/scripts/bash/init/init.bash
+_IFSHLIBS_
 if [[ "$TYPE" == Organization ]]
 then
 	"$RDR"/scripts/bash/components/build.github.orgs.bash "$UIT"
