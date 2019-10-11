@@ -26,4 +26,5 @@ git add .
 git commit
 git push
 ls -og
+printf "%s\\n" "$PWD"
 # do.sums.sh EOF
