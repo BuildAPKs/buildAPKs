@@ -1,8 +1,8 @@
 #!/bin/env bash
-# Copyright 2019 (c) all rights reserved by S D Rausty 
-# To check md5sum file use; md5sum -c ztree.sha512.sum
-# To create checksum files and commit use; ./do.trees.bash
+# Copyright 2019 (c) all rights reserved by S D Rausty; see LICENSE  
 # https://sdrausty.github.io courtesy https://pages.github.com
+# To create checksum files and commit use; ./do.sums.bash
+# To check md5sum file use; md5sum -c ztree.sha512.sum
 #####################################################################
 set -eu
 rm -f *.sum
@@ -25,4 +25,4 @@ git add .
 git commit
 git push
 ls -al
-# do.trees.sh EOF
+# do.sums.sh EOF
