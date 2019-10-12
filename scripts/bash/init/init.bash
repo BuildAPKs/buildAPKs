@@ -53,5 +53,5 @@ fi
 . "$RDR"/scripts/bash/init/ushlibs.bash 
 . "$RDR"/scripts/bash/init/rshlibs.bash 
 . "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
-. "$RDR"/scripts/bash/shlibs/buildAPKs/mod.bash
+. "$RDR"/scripts/bash/shlibs/buildAPKs/init/mod.bash
 # init.bash EOF
