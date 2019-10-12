@@ -49,6 +49,6 @@ then
 	exit 224
 fi
 JDR="$PWD"
-. "$RDR"/scripts/bash/shlibs/buildAPKs/build.andm.bash 
+. "$RDR"/scripts/bash/shlibs/buildAPKs/fandm.bash 
 _ANDB_ "$JDR"
 # build.in.dir.bash EOF

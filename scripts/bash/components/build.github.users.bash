@@ -157,7 +157,7 @@ export JID="git.users.$USER"
 export OAUT="$(cat "$RDR/conf/GAUTH" | awk 'NR==1')"
 export STRING="ERROR FOUND; build.github.bash $1:  CONTINUING... "
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build.github.users.bash $1:"
-. "$RDR"/scripts/bash/shlibs/buildAPKs/build.andm.bash
+. "$RDR"/scripts/bash/shlibs/buildAPKs/fandm.bash
 . "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
 . "$RDR"/scripts/bash/shlibs/lock.bash
 if [[ ! -d "$JDR" ]] 
