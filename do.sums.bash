@@ -16,6 +16,7 @@ do
 	do
 		$SCHECK "$FILE" >> ztree.${SCHECK::-3}.sum
 	done
+	chmod 444 ztree.${SCHECK::-3}.sum
 done
 for SCHECK in  ${CHECKLIST[@]}
 do
