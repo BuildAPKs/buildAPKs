@@ -8,37 +8,7 @@ shopt -s nullglob globstar
 _SBOTRPERROR_() { # run on script error
 	local RV="$?"
 	echo $RV build.one.bash  
-	if [[ "$2" = ecj ]]  
-	then 
-		mkdir -p "$RDR/tmp"
-		if [[ -n $(find "$RDR/tmp" -name "*.err") ]] # https://unix.stackexchange.com/questions/46541/how-can-i-use-bashs-if-test-and-find-commands-together
-		then 
-			:
-		else
-			CER="conf.$PPID.err"
-			echo "$1 $2 $3 $RV" > "$RDR/tmp/$CER" # https://stackoverflow.com/questions/11162406/open-and-write-data-to-text-file-using-bash-shell-scripting
-			printf "\\033[0;34m\\n%s\\033[1;37m\\n\\n%s\\n\\n\033[0m" "Attempting to fix https://github.com/termux/termux-packages/issues?q=is%3Aissue+ecj+error ecj error." "This may take a little while pending connection…"
-			printf '\033]2; Please wait moment…  \007'
-			sleep 0.64
-			if [[ "$(command getprop ro.build.version.sdk)" -gt 26 ]] 
-			then
-				echo Installing package ecj_4.7.2-1_all.deb...
- 				. "$RDR/scripts/bash/init/ecjtdebs/fix.ecj.error.bash"
-				echo "Package ecj_4.7.2-1_all.deb installed; Continuing..."
-			else
-				echo "Installing package ecj4.6_4.6.2_all.deb..." 
- 				. "$RDR/scripts/bash/init/ecjtdebs/fix.ecj4.6.error.bash"
-				echo "Package ecj4.6_4.6.2_all.deb installed; Continuing..."
-			fi
-		fi
-	else
-		printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s ERROR:  Signal %s received!  More information in \`%s/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "$RV" "$RDR" "$JID" 
-	fi
-	if [[ "$RV" = 1 ]] 
-	then 
-		printf "\\e[?25h\\e[1;7;38;5;0mOn Signal 1 try running %s again; This error can be resolved by running %s in a directory that has the \`AndroidManifest.xml\` file.  More information in \`%s/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "${0##*/}" "$RDR" "$JID" 
-		ls
-	fi
+	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s build.one.bash ERROR:  Signal %s received!  More information in \`%s/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "$RV" "$RDR" "$JID" 
 	if [[ "$RV" = 255 ]]
 	then 
 		printf "\\e[?25h\\e[1;7;38;5;0mOn Signal 255 try running %s again if the error includes R.java and similar; This error might have been corrected by clean up.  More information in \`%s/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "$RDR" "$JID" 
