@@ -63,7 +63,7 @@ trap _SBOTRPSIGNAL_ HUP INT TERM
 trap _SBOTRPQUIT_ QUIT 
 
 _CLEANUP_ () {
-	sleep 0.32 
+	sleep 0.032 
 	printf "\\e[1;38;5;151m%s\\n\\e[0m" "Cleaning up..."
 	rm -f *-debug.key 
  	rm -rf ./bin 
