@@ -42,11 +42,5 @@ _IFSHLIBS_() {
 	fi
 }
 
-export RDR="$HOME/buildAPKs"   
-cd "$RDR"
-if [[ ! -f "$RDR"/scripts/bash/shlibs/.git ]] 
-then
-	git pull || printf "\\nCannot update ~/%s: Continuing...\\n\\n" "${RDR##*/}"
-fi
 _IFSHLIBS_
 # rshlibs.bash EOF

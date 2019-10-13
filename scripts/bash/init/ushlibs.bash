@@ -44,10 +44,8 @@ _UFSHLIBS_() {
 	fi
 }
 
-export RDR="$HOME/buildAPKs"   
 if [[ ! -f "$RDR"/scripts/bash/shlibs/.git ]] 
 then
-	cd "$RDR"
 	git pull || printf "\\nCannot update ~/%s: Continuing...\\n\\n" "${RDR##*/}"
 	_UFSHLIBS_
 fi
