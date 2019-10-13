@@ -1,0 +1,1 @@
+scripts/bash/build/build.apps.bash

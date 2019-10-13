@@ -1,0 +1,1 @@
+scripts/bash/build/build.flashlights.bash
