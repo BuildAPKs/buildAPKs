@@ -23,6 +23,7 @@ do
 	printf  "\\n%s\\n" "Checking $SCHECK..."
 	$SCHECK -c ztree.${SCHECK::-3}.sum
 done
+git pull
 git add .
 git commit
 git push
