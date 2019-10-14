@@ -72,7 +72,8 @@ then
 fi
 for PKG in "${PKGS[@]}"
 do
-	COMMANDP="$(command -v $PKG)" || printf "Command not found: Continuing...\\n"
+	COMMANDP="$(command -v $PKG)" || printf "Command %s not found: Continuing...\\n"
+"$PKG"
 	COMMANDPF="${COMMANDP##*/}"
 	if [[ "$COMMANDPF" != "$PKG" ]] 
 	then 
