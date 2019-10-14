@@ -80,6 +80,9 @@ do
 	fi
 done
 cd "$HOME"
-git clone https://github.com/BuildAPKs/buildAPKs || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
+if [[ ! -d "$RDR" ]]
+then
+	git clone https://github.com/BuildAPKs/buildAPKs || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
+fi
 bash "$RDR/scripts/bash/build/build.entertainment.bash"
 # setup.buildAPKs.bash EOF
