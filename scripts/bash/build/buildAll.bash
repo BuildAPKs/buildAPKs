@@ -39,8 +39,10 @@ trap _SETRPQUIT_ QUIT
 
 RDR="$HOME/buildAPKs"
 cd "$RDR"
+. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
 . "$RDR"/scripts/bash/init/ushlibs.bash
 . "$RDR"/scripts/bash/init/rshlibs.bash
 "$RDR"/scripts/bash/shlibs/buildAPKs/pull.buildAPKs.modules.bash
 "$RDR"/scripts/bash/build/build.in.dir.bash
+. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 
 # buildAll.bash EOF

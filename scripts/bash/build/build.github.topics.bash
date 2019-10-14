@@ -40,6 +40,8 @@ then
 	printf "\\e[1;7;38;5;203m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;203m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;203m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;203m%s\\n\\e[0m\\n" "GitHub topic name must be provided;  See " "~/${RDR##*/}/conf/TNAMES " "for topic names that build APKs on device with BuildAPKs!  To build all the topic names contained in this file run " "for NAME in \$(cat ~/${RDR##*/}/conf/TNAMES) ; do ~/${RDR##*/}/scripts/bash/build/${0##*/} \$NAME ; done.  " "File " "~/${RDR##*/}/conf/GAUTH " "has important information should you choose to run this command regarding bandwidth supplied by GitHub. "
 	exit 227
 fi
+. "$RDR"/scripts/bash/init/ushlibs.bash
+. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
 export TOPI="${1%/}"
 export TOPIC="${TOPI##*/}"
 export TOPNAME="${TOPIC,,}"
@@ -71,12 +73,7 @@ fi
 TARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g' | sed 's/https\:\/\/github.com\///g' | cut -d\/ -f1)) # creates array of Java language repositories
 for NAME in "${TARR[@]}" 
 do 
-	read TYPE < <(curl "https://api.github.com/users/${NAME}/repos" -s 2>&1 | head -n 25 | tail -n 1 | grep -o Organization) # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell/
-		if [[ "$TYPE" == Organization ]]
-		then
-		 	"$RDR"/scripts/bash/components/build.github.orgs.bash "$NAME"
-		else
-			"$RDR"/scripts/bash/components/build.github.users.bash "$NAME"
-		fi
+ 	"$RDR"/scripts/bash/build/build.github.bash "$NAME"
 done
+. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 
 # build.github.topics.bash EOF

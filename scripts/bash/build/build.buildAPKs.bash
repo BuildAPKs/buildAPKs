@@ -38,6 +38,7 @@ export RDR="$HOME/buildAPKs"
 export SDR="/scripts/bash/build"
 declare -a LIST # declare array for all build scripts 
 LIST=("$RDR$SDR/build.apps.bash" "$RDR$SDR/build.clocks.bash" "$RDR$SDR/build.compasses.bash" "$RDR$SDR/build.developers.tools.bash" "$RDR$SDR/build.entertainment.bash" "$RDR$SDR/build.flashlights.bash" "$RDR$SDR/build.games.bash" "$RDR$SDR/build.live.wallpapers.bash" "$RDR$SDR/build.samples.bash" "$RDR$SDR/buildApplications.bash" "$RDR$SDR/buildBrowsers.bash" "$RDR$SDR/buildFlashlights.bash" "$RDR$SDR/buildGames.bash" "$RDR$SDR/buildSamples.bash" "$RDR$SDR/buildTop10.bash" "$RDR$SDR/buildTutorials.bash" "$RDR$SDR/buildWidgets.bash" "$RDR$SDR/buildAll.bash")
+. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
 for NAME in "${LIST[@]}"
 do
 	if [[ "$NAME" == "$RDR$SDR/buildAll.bash" ]]
@@ -48,4 +49,5 @@ do
 		"$NAME"
 	fi
 done
+. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 
 # build.buildAPKs.bash EOF
