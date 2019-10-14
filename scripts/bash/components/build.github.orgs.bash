@@ -145,7 +145,7 @@ _PRINTCK_ () {
 export RDR="$HOME/buildAPKs"
 if [[ -z "${1:-}" ]] 
 then
-	printf "\\e[1;7;38;5;202m%s\\e[1;7;38;5;200m%s\\e[1;7;38;5;202m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;202m%s\\e[1;7;38;5;200m%s\\e[1;7;38;5;202m%s\\n\\e[0m\\n" "GitHub organisation name must be provided;  See " "~/${RDR##*/}/conf/ONAMES " "for organisation names that build APKs on device with BuildAPKs!  To build all the organisation names contained in this file run " "for NAME in \$(cat ~/${RDR##*/}/conf/ONAMES) ; do ~/${RDR##*/}/scripts/bash/build/${0##*/} \$NAME ; done.  " "File " "~/${RDR##*/}/conf/GAUTH " "has important information should you choose to run this command regarding bandwidth supplied by GitHub. "
+	printf "\\e[1;7;38;5;202m%s\\e[1;7;38;5;200m%s\\e[1;7;38;5;202m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;202m%s\\e[1;7;38;5;200m%s\\e[1;7;38;5;202m%s\\n\\e[0m\\n" "GitHub organisation name must be provided;  See " "~/${RDR##*/}/conf/ONAMES" " for organisation names that build APKs on device with BuildAPKs!  To build all the organisation names contained in this file run " "for NAME in \$(cat ~/${RDR##*/}/conf/ONAMES) ; do ~/${RDR##*/}/scripts/bash/build/${0##*/} \$NAME ; done" ".  File " "~/${RDR##*/}/conf/GAUTH" " has important information should you choose to run this command regarding bandwidth supplied by GitHub. "
 	exit 227
 fi
 export ON="${1%/}"
