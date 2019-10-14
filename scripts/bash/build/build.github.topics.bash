@@ -45,7 +45,9 @@ then
 	export NUM="$(date +%s)"
 fi
 . "$RDR"/scripts/bash/init/ushlibs.bash
+. "$RDR"/scripts/bash/shlibs/lock.bash wake.start
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
+export NUM="$(date +%s)"
 export TOPI="${1%/}"
 export TOPIC="${TOPI##*/}"
 export TOPNAME="${TOPIC,,}"
@@ -77,7 +79,14 @@ fi
 TARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g' | sed 's/https\:\/\/github.com\///g' | cut -d\/ -f1)) # creates array of Java language repositories
 for NAME in "${TARR[@]}" 
 do 
- 	"$RDR"/scripts/bash/build/build.github.bash "$NAME"
+	read TYPE < <(curl "https://api.github.com/users/$NAME/repos" -s 2>&1 | head -n 25 | tail -n 1 | grep -o Organization) # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell/
+	if [[ "$TYPE" == Organization ]]
+	then
+		"$RDR"/scripts/bash/components/build.github.orgs.bash "$NAME"
+	else
+		"$RDR"/scripts/bash/components/build.github.users.bash "$NAME"
+	fi
 done
+. "$RDR"/scripts/bash/shlibs/lock.bash wake.stop
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 
 # build.github.topics.bash EOF

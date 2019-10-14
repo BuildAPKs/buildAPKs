@@ -48,7 +48,9 @@ then
 	export NUM="$(date +%s)"
 fi
 . "$RDR"/scripts/bash/init/ushlibs.bash
+. "$RDR"/scripts/bash/shlibs/lock.bash wake.start
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
+export NUM="$(date +%s)"
 export UI="${1%/}"
 export UIT="${UI##*/}"
 read TYPE < <(curl "https://api.github.com/users/$UIT/repos" -s 2>&1 | head -n 25 | tail -n 1 | grep -o Organization) # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell/
@@ -58,5 +60,6 @@ then
 else
 	"$RDR"/scripts/bash/components/build.github.users.bash "$UIT"
 fi
+. "$RDR"/scripts/bash/shlibs/lock.bash wake.stop
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 
 # build.github.bash OEF

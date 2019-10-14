@@ -37,12 +37,15 @@ trap _SETRPEXIT_ EXIT
 trap _SETRPSIGNAL_ HUP INT TERM 
 trap _SETRPQUIT_ QUIT 
 
+export NUM="$(date +%s)"
 RDR="$HOME/buildAPKs"
 cd "$RDR"
+. "$RDR"/scripts/bash/shlibs/lock.bash wake.start
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
 . "$RDR"/scripts/bash/init/ushlibs.bash
 . "$RDR"/scripts/bash/init/rshlibs.bash
 "$RDR"/scripts/bash/shlibs/buildAPKs/pull.buildAPKs.modules.bash
 "$RDR"/scripts/bash/build/build.in.dir.bash
+. "$RDR"/scripts/bash/shlibs/lock.bash wake.stop
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 
 # buildAll.bash EOF
