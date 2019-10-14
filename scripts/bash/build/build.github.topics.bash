@@ -89,4 +89,5 @@ do
 done
 . "$RDR"/scripts/bash/shlibs/lock.bash wake.stop
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 
+_WAKEUNLOCK_
 # build.github.topics.bash EOF
