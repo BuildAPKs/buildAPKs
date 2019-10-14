@@ -44,6 +44,15 @@ trap _SUPTRPEXIT_ EXIT
 trap _SUPTRPSIGNAL_ HUP INT TERM 
 trap _SUPTRPQUIT_ QUIT 
 
+_INPKGS_() {
+	if [[ "$COMMANDIF" = au ]] 
+	then 
+		au $(echo ${PKGS[@]}) || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
+	else
+		pkg install $(echo ${PKGS[@]}) || printf "\\e[1;37;5;116m%s\\e[0m\\n" "$STRING2"
+	fi
+}
+
 declare -a ARGS="$@"
 declare COMMANDR
 declare COMMANDIF
@@ -56,16 +65,20 @@ STRING2="Cannot update ~/${RDR##*/} prerequisite: Continuing..."
 printf "\\e[1;38;5;115m%s\\e[0m\\n" "Beginning buildAPKs setup:"
 COMMANDR="$(command -v au)" || (printf "%s\\n\\n" "$STRING1") 
 COMMANDIF="${COMMANDR##*/}"
+PKGS=(aapt apksigner curl dx ecj git)
 if [[ -z "${1:-}" ]]
 then
 	ARGS=""
 fi
-if [[ "$COMMANDIF" = au ]] 
-then 
-	au aapt apksigner curl dx ecj git || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
-else
-	pkg install aapt apksigner curl dx ecj git || printf "\\e[1;37;5;116m%s\\e[0m\\n" "$STRING2"
-fi
+for PKG in "${PKGS[@]}"
+do
+	COMMANDP="$(command -v $PKG)" || printf "Command not found: Continuing...\\n"
+	COMMANDPF="${COMMANDP##*/}"
+	if [[ "$COMMANDPF" != "$PKG" ]] 
+	then 
+		_INPKGS_
+	fi
+done
 cd "$HOME"
 git clone https://github.com/BuildAPKs/buildAPKs || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
 bash "$RDR/scripts/bash/build/build.entertainment.bash"
