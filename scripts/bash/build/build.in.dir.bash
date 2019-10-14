@@ -54,5 +54,6 @@ fi
 . "$RDR"/scripts/bash/shlibs/buildAPKs/fandm.bash 
 JDR="$PWD"
 _ANDB_ "$JDR"
+_WAKEUNLOCK_
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 
 # build.in.dir.bash EOF
