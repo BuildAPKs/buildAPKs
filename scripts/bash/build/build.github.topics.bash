@@ -40,6 +40,10 @@ then
 	printf "\\e[1;7;38;5;203m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;203m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;203m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;203m%s\\n\\e[0m\\n" "GitHub topic name must be provided;  See " "~/${RDR##*/}/conf/TNAMES " "for topic names that build APKs on device with BuildAPKs!  To build all the topic names contained in this file run " "for NAME in \$(cat ~/${RDR##*/}/conf/TNAMES) ; do ~/${RDR##*/}/scripts/bash/build/${0##*/} \$NAME ; done.  " "File " "~/${RDR##*/}/conf/GAUTH " "has important information should you choose to run this command regarding bandwidth supplied by GitHub. "
 	exit 227
 fi
+if [[ -z "${NUM:-}" ]] 
+then
+	export NUM="$(date +%s)"
+fi
 . "$RDR"/scripts/bash/init/ushlibs.bash
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
 export TOPI="${1%/}"
