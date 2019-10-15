@@ -64,7 +64,7 @@ trap _SBOTRPQUIT_ QUIT
 
 _CLEANUP_ () {
 	sleep 0.032 
-	printf "\\e[1;38;5;151m%s\\n\\e[0m" "Cleaning up..."
+	printf "\\e[1;38;5;151m%s\\n\\e[0m" "Completing tasks..."
 	rm -f *-debug.key 
  	rm -rf ./bin 
 	rm -rf ./gen 

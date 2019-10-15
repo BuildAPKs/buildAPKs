@@ -15,7 +15,7 @@ done
 [ -f AndroidManifest.xml ] || exit
 
 _CLEANUP_() {
-       	printf "\\n\\n%s\\n" "Cleaning up..."
+       	printf "\\n\\n%s\\n" "Completing tasks..."
        	[ "$CLEAN" = "1" ] && mv "bin/$PKGNAME-signed.apk" .
       	rmdir assets 2>/dev/null ||:
        	rmdir res 2>/dev/null ||:
