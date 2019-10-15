@@ -26,7 +26,7 @@ _CLEANUP_() {
 }
 
 _UNTP_() {
-       	printf "\\n\\n%s\\n\\n\\n""Unable to process"
+       	printf "\\n\\n%s\\n\\n\\n""Unable to parse..."
        	_CLEANUP_
        	exit
 }
