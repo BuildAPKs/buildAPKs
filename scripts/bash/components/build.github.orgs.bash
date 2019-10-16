@@ -115,7 +115,7 @@ done
 
 _FJDX_ () { 
 	export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
-	(tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" | grep AndroidManifest.xml); _IAR_ "$JDR/$SFX/" || printf "%s\\n\\n" "$STRING"
+	(tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" | grep AndroidManifest.xml); _IAR_ "$JDR/$SFX" || printf "%s\\n\\n" "$STRING"
 }
 
 _GC_ () { 
