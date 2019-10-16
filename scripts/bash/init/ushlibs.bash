@@ -35,6 +35,17 @@ trap _SRSTRPEXIT_ EXIT
 trap _SRSTRPSIGNAL_ HUP INT TERM 
 trap _SRSTRPQUIT_ QUIT 
 
+_AFSHLIBS_() { # https://stackoverflow.com/questions/53977052/how-to-properly-initialize-a-remote-git-repository 
+	if [[ ! -d "$RDR"/.git ]] 
+	then
+		cd "$RDR"
+		local USER="BuildAPKs"
+		local HOSTIP="github.com"
+		local PROJECT="buildAPKs"
+		git init ; git remote add origin ssh://${USER}@${HOSTIP}${PROJECT}.git
+	fi
+}
+
 _UFSHLIBS_() { 
 	if grep shlibs .gitmodules 1>/dev/null
 	then
@@ -44,6 +55,7 @@ _UFSHLIBS_() {
 	fi
 }
 
+_AFSHLIBS_
 if [[ ! -f "$RDR"/scripts/bash/shlibs/.git ]] 
 then
 	git pull || printf "\\nCannot update ~/%s: Continuing...\\n\\n" "${RDR##*/}"
