@@ -7,7 +7,7 @@
 #####################################################################
 set -eu
 rm -f *.sum
-FILELIST=( $(find . -type f | grep -v .git | sort) )
+FILELIST=( $(find . -type f | grep -vw .git | sort) )
 CHECKLIST=(sha512sum)
 for SCHECK in ${CHECKLIST[@]}
 do
