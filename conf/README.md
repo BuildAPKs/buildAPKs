@@ -24,7 +24,6 @@ The following files are located in ~/buildAPKs/conf/:
 | --------- | --------- |
 | GAUTH     | OATH token file |
 | NUNAMES   | Names with possible new APKs that might migrate to ONAMES, UNAMES and ma.bash. |
-| NWNAMES   | Names with possible new APKs that might migrate to ONAMES, UNAMES and ma.bash. |
 | ONAMES    | Organizations whose APKs build in buildAPKs on device. |
 | README.md | This file |
 | TNAMES    | Topics that have APK projects which build with buildAPKs on device. |
