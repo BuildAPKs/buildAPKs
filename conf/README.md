@@ -14,11 +14,18 @@ For the curious, the _AT_ function is located in: grep -r _AT_ ~/buildAPKs/scrip
 These files are located in ~/buildAPKs/conf/:
 
 GAUTH		OATH token file
+
 NUNAMES		Possible new APKs that may migrate to ONAMES, UNAMES and ma.bash.
+
 NWNAMES		Possible new APKs that may migrate to ONAMES, UNAMES and ma.bash.
+
 ONAMES		Organizations that build APKs with buildAPKs on device.
+
 README.md	This file
+
 TNAMES		Topics that build APKs with buildAPKs on device.
+
 UNAMES		Users that build APKs with buildAPKs on device.
+
 VERSIONID	buildAPKs version
 <!-- README.md EOF -->
