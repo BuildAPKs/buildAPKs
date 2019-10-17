@@ -1,1 +1,0 @@
-scripts/bash/build/build.compasses.bash
