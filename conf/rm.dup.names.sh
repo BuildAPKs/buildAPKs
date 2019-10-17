@@ -9,3 +9,4 @@ do
 	grep -iv "$NAME" NUNAMES > TEMP.FILE
 	mv TEMP.FILE NUNAMES
 done
+# rm.dup.names.sh EOF
