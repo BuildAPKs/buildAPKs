@@ -21,4 +21,4 @@ README.md	This file
 TNAMES		Topics that build APKs with buildAPKs on device.
 UNAMES		Users that build APKs with buildAPKs on device.
 VERSIONID	buildAPKs version
-<!-- README.md -->
+<!-- README.md EOF -->
