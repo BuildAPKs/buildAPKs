@@ -1,0 +1,1 @@
+scripts/bash/build/buildAll.bash
