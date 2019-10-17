@@ -6,11 +6,11 @@
 set -e
 for NAME in $(cat UNAMES)
 do
-	grep -iv "$NAME" NUNAMES > temp.file
-	mv temp.file NUNAMES
+	grep -iv "$NAME" NUNAMES > TEMP.FILE
+	mv TEMP.FILE NUNAMES
 done
 for NAME in $(cat ONAMES)
 do
-	grep -iv "$NAME" NUNAMES > temp.file
-	mv temp.file NUNAMES
+	grep -iv "$NAME" NUNAMES > TEMP.FILE
+	mv TEMP.FILE NUNAMES
 done
