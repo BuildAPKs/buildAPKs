@@ -31,4 +31,7 @@ The following files are located in ~/buildAPKs/conf/:
 | UNAMES    | Users whose APKs build in buildAPKs on device. |
 | VERSIONID | Current buildAPKs Version |
 | ZNAMES    | Names that do not currently have APK source code that builds in buildAPKs on device. |
+
+Source Pages:
+   * https://github.com/Trinea/android-open-project
 <!-- README.md EOF -->
