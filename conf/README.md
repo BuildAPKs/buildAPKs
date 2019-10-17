@@ -33,5 +33,8 @@ The following files are located in ~/buildAPKs/conf/:
 | ZNAMES    | Names that do not currently have APK source code that builds in buildAPKs on device. |
 
 Source Pages:
+   * https://github.com/amitshekhariitbhu/awesome-android-complete-reference
+   * https://github.com/wasabeef/awesome-android-ui
+   * https://github.com/JStumpp/awesome-android 
    * https://github.com/Trinea/android-open-project
 <!-- README.md EOF -->
