@@ -4,12 +4,7 @@
 # Deletes duplicate names from NUNAME file.
 #####################################################################
 set -e
-for NAME in $(cat UNAMES)
-do
-	grep -iv "$NAME" NUNAMES > TEMP.FILE
-	mv TEMP.FILE NUNAMES
-done
-for NAME in $(cat ONAMES)
+for NAME in $(cat [OU]NAMES | sort | uniq)
 do
 	grep -iv "$NAME" NUNAMES > TEMP.FILE
 	mv TEMP.FILE NUNAMES
