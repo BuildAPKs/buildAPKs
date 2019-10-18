@@ -30,6 +30,6 @@ Contribute to this project through both [the issues page](https://github.com/Bui
 
 If you're confused by this page try [this link,](http://tldp.org/) and you might want to try [this one.](https://www.debian.org/doc/) Post your what you have found at [the wiki](https://github.com/BuildAPKs/buildAPKs/wiki).
 
-🛳⛴🛥🚢🚤🚣⛵
+🚢🚤🚣⛵
 
 <!-- README.md EOF -->
