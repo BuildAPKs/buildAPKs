@@ -18,21 +18,23 @@ find ~/buildAPKs/sources/ -type f -name ma.bash -exec cat {} \; | grep _AT_
 Adding information to ONAMES, UNAMES and the corresponding ma.bash file will enhance this progect and its' user experience.  The file ~/buildAPKs/.gitmodules has information about the repository associated with any particular ma.bash file.  For the curious, the `_AT_` function is located in `grep -r _AT_ ~/buildAPKs/scripts/` after the first APKs have been built, and the corresponding submodules have been cloned.
 
 
-The following files are located in ~/buildAPKs/conf/:
+The only file that contains duplicate names is ENAMES in the following file list.  See do.sum.bash for more info:  These files are located in ~/buildAPKs/conf/:
 
-| File Name | Purpose   |
-| --------- | --------- |
-| GAUTH     | OATH token file |
-| NUNAMES   | Names with possible new APKs that might migrate to ONAMES, UNAMES and ma.bash. |
-| ONAMES    | Organizations whose APKs build in buildAPKs on device. |
-| PNAMES    | Pending names that might transition to ONAMES, UNAMES and ma.bash. |
-| README.md | This file |
-| TNAMES    | Topics that have APK projects which build with buildAPKs on device. |
-| UNAMES    | Users whose APKs build in buildAPKs on device. |
-| VERSIONID | Current buildAPKs Version |
-| ZNAMES    | Names that do not currently have APK source code that builds in buildAPKs on device. |
+| File Name   | Purpose   |
+| ----------- | --------- |
+| rm.dups.bash | parses [OU]NAMES for duplicate names in UNAMES |
+| ENAMES      | exceptional APK projects that build with buildAPKs on device |
+| GAUTH       | OATH token file |
+| NUNAMES     | names with possible new APKs that might migrate to ONAMES, UNAMES and ma.bash |
+| ONAMES      | organization names whose APKs build in buildAPKs on device |
+| PNAMES      | pending names that might transition to ONAMES, UNAMES and ma.bash |
+| README.md   | this file |
+| TNAMES      | topics that have APK projects that build with buildAPKs on device |
+| UNAMES      | user names whose APKs build in buildAPKs on device |
+| VERSIONID   | current buildAPKs Version |
+| ZNAMES      | names that do not currently build in buildAPKs on device |
 
-Source Pages:
+Some source pages:
    * https://github.com/amitshekhariitbhu/awesome-android-complete-reference
    * https://github.com/wasabeef/awesome-android-ui
    * https://github.com/JStumpp/awesome-android 
