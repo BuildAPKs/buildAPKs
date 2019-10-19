@@ -34,9 +34,13 @@ The only file that contains duplicate names is ENAMES in the following file list
 | VERSIONID   | current buildAPKs Version |
 | ZNAMES      | names that do not currently build in buildAPKs on device |
 
-Some source pages:
-   * https://github.com/amitshekhariitbhu/awesome-android-complete-reference
-   * https://github.com/wasabeef/awesome-android-ui
-   * https://github.com/JStumpp/awesome-android 
-   * https://github.com/Trinea/android-open-project
+##### Some source pages:
+   * [https://github.com/amitshekhariitbhu/awesome-android-complete-reference](https://github.com/amitshekhariitbhu/awesome-android-complete-reference)
+   * [https://github.com/wasabeef/awesome-android-ui](https://github.com/wasabeef/awesome-android-ui)
+   * [https://github.com/JStumpp/awesome-android](https://github.com/JStumpp/awesome-android)
+   * [https://github.com/Trinea/android-open-project](https://github.com/Trinea/android-open-project)
+
+##### Information about shells:
+   * [https://developer.ibm.com/tutorials/l-linux-shells/](https://developer.ibm.com/tutorials/l-linux-shells/)
+   * [http://tldp.org/guides.html](http://tldp.org/guides.html)
 <!-- README.md EOF -->
