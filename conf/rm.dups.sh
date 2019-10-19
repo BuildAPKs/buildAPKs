@@ -5,8 +5,8 @@
 # All names that build are: cat ONAMES UNAMES
 #####################################################################
 set -e
-printf "Removing duplicate names from NUNAMES.  Please wait..."
-for NAME in $(cat [POUZ]NAMES | sort | uniq)
+printf "Proccessing duplicate names in NUNAMES.  Please wait..."
+for NAME in $(cat [CEOPUZ]NAMES | sort | uniq)
 do
 	grep -iv "$NAME" NUNAMES > TEMP.FILE
 	mv TEMP.FILE NUNAMES
