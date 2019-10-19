@@ -23,6 +23,7 @@ The only file that contains duplicate names is ENAMES in the following file list
 | File Name   | Purpose   |
 | ----------- | --------- |
 | rm.dups.bash | parses [OU]NAMES for duplicate names in UNAMES |
+| CNAMES      | checked names |
 | ENAMES      | exceptional APK projects that build with buildAPKs on device |
 | GAUTH       | OATH token file |
 | NUNAMES     | names with possible new APKs that might migrate to ONAMES, UNAMES and ma.bash |
