@@ -24,16 +24,15 @@ The only file that contains duplicate names is ENAMES in the following file list
 | ----------- | --------- |
 | rm.dups.bash | parses [OU]NAMES for duplicate names in UNAMES |
 | CNAMES      | checked names |
-| ENAMES      | exceptional APK projects that build with buildAPKs on device |
+| ENAMES      | names with exceptional APK projects |
 | GAUTH       | OATH token file |
 | NUNAMES     | names with possible new APKs that might migrate to ONAMES, UNAMES and ma.bash |
 | ONAMES      | organization names whose APKs build in buildAPKs on device |
 | PNAMES      | pending names that might transition to ONAMES, UNAMES and ma.bash |
 | README.md   | this file |
-| TNAMES      | topics that have APK projects that build with buildAPKs on device |
+| TNAMES      | topics that build with buildAPKs on device |
 | UNAMES      | user names whose APKs build in buildAPKs on device |
 | VERSIONID   | current buildAPKs Version |
-| ZNAMES      | names that do not currently build in buildAPKs on device |
 
 ##### Some source pages:
    * [https://github.com/amitshekhariitbhu/awesome-android-complete-reference](https://github.com/amitshekhariitbhu/awesome-android-complete-reference)
