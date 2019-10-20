@@ -41,7 +41,7 @@ ee446b00aa5afabb14e09e5dc04ae8e3  ./scripts/bash/build/buildTutorials.bash
 92bc1e1a178f8503449effafa5f1cca8  ./scripts/bash/components/build.github.users.bash
 946ff307bb64881ecc6ee9da253e7c89  ./scripts/bash/init/init.bash
 dacb6be7ce931ebae7c8b90f48455261  ./scripts/bash/init/rshlibs.bash
-efe09741dfe6e88ee84f3ae7be6ac363  ./scripts/bash/init/setup.buildAPKs.bash
+e5a5182fcbe8229f7770beecb15fdb76  ./scripts/bash/init/setup.buildAPKs.bash
 557b7329f35dff2bf46e419c225ab214  ./scripts/bash/init/ushlibs.bash
 eec5383ba114c03d760a0551940f8ea8  ./scripts/sh/build/build.dir.sh
 9393940db9856e211309e2ce090c379a  ./scripts/sh/build/build.sh

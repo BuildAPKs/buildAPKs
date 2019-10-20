@@ -66,6 +66,7 @@ printf "\\e[1;38;5;115m%s\\e[0m\\n" "Beginning buildAPKs setup:"
 COMMANDR="$(command -v au)" || (printf "%s\\n\\n" "$STRING1") 
 COMMANDIF="${COMMANDR##*/}"
 PKGS=(aapt apksigner curl dx ecj git)
+PKGS1=(aapt apksigner curl dx ecj findutils git)
 if [[ -z "${1:-}" ]]
 then
 	ARGS=""
@@ -82,7 +83,7 @@ done
 cd "$HOME"
 if [[ ! -d "$RDR" ]]
 then
-	git clone https://github.com/SDRausty/buildAPKs || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
+	git clone https://github.com/BuildAPKs/buildAPKs || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
 fi
 bash "$RDR/scripts/bash/build/build.entertainment.bash"
 # setup.buildAPKs.bash EOF
