@@ -7,7 +7,7 @@ find ~/buildAPKs/sources/ -type f -name ma.bash -exec cat {} \;
 
 2) The line of interest in ma.bash is: 
 ```
-find ~/buildAPKs/sources/ -type f -name ma.bash -exec cat {} \; | grep _AT_
+find ~/buildAPKs/sources/ -type f -name ma.bash -exec grep -H _AT_ {} \; 
 ```
 
 	Usage: `_AT_ org/repo commit`
@@ -22,7 +22,7 @@ The only file that contains duplicate names is ENAMES in the following file list
 
 | File Name   | Purpose   |
 | ----------- | --------- |
-| rm.dups.bash | parses [OU]NAMES for duplicate names in UNAMES |
+| rm.dups.bash | parses [OU]NAMES for duplicate names in NUNAMES |
 | CNAMES      | checked names |
 | ENAMES      | names with exceptional APK projects |
 | GAUTH       | OATH token file |

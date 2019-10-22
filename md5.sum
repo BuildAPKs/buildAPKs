@@ -7,7 +7,7 @@ c1c6928a7e5bb9f23b400073f0236ed4  ./CHANGE.log
 65105a1883bffcd161f91268eb65a9fe  ./conf/NUNAMES
 e4c96ac9b3658c5e94ec0214cb644887  ./conf/ONAMES
 03ce49c0501dc7183c1719506c3295b9  ./conf/PNAMES
-29401bc55d7d18c5b5e64639f5d4bfaf  ./conf/README.md
+99894643d39feb581d44f34dfa167306  ./conf/README.md
 34c3c36b228e8e5d578874def40a5a74  ./conf/TNAMES
 5bc6410f7847c3e9880800b9a488bc13  ./conf/UNAMES
 b9e02ff06f24ae534450ab73587dd50e  ./conf/VERSIONID
@@ -22,7 +22,7 @@ d8a02446b5079a5df8c38b173955e69a  ./scripts/bash/build/build.compasses.bash
 e36f1eb806625438df87a922918fe58c  ./scripts/bash/build/build.entertainment.bash
 9a8dfb6b78b6e926ba9a87c9c0393f5b  ./scripts/bash/build/build.flashlights.bash
 a81fa495680353a3e60b765a2053b8fc  ./scripts/bash/build/build.games.bash
-8cd4630a15dca033e462b24ab28ea4ad  ./scripts/bash/build/build.github.bash
+41730c6308b344450291e967668c0a36  ./scripts/bash/build/build.github.bash
 9b861a8b886288c22a9878d4e2cf7f3e  ./scripts/bash/build/build.github.topics.bash
 3024686cc2a9da3b11aedb242fe2ab3d  ./scripts/bash/build/build.in.dir.bash
 7b6f13f6f64026a5bf554c75f61f3575  ./scripts/bash/build/build.live.wallpapers.bash

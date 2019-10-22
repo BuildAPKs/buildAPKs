@@ -37,6 +37,18 @@ trap _SITRPEXIT_ EXIT
 trap '_SITRPSIGNAL_ $? $LINENO $BASH_COMMAND'  HUP INT TERM
 trap '_SITRPQuIT_ $? $LINENO $BASH_COMMAND' QUIT 
 
+_CUTE_ () { # chech whether username is an organization
+	. "$RDR"/scripts/bash/shlibs/lock.bash wake.start
+	. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
+	read TYPE < <(curl "https://api.github.com/users/$UIT/repos" -s 2>&1 | head -n 25 | tail -n 1 | grep -o Organization) # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell/
+	if [[ "$TYPE" == Organization ]]
+	then
+		"$RDR"/scripts/bash/components/build.github.orgs.bash "$UIT"
+	else
+		"$RDR"/scripts/bash/components/build.github.users.bash "$UIT"
+	fi
+}
+
 export RDR="$HOME/buildAPKs"
 if [[ -z "${1:-}" ]] 
 then
@@ -48,17 +60,17 @@ then
 	export NUM="$(date +%s)"
 fi
 . "$RDR"/scripts/bash/init/ushlibs.bash
-. "$RDR"/scripts/bash/shlibs/lock.bash wake.start
-. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
 export NUM="$(date +%s)"
 export UI="${1%/}"
 export UIT="${UI##*/}"
-read TYPE < <(curl "https://api.github.com/users/$UIT/repos" -s 2>&1 | head -n 25 | tail -n 1 | grep -o Organization) # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell/
-if [[ "$TYPE" == Organization ]]
+export JDR="$RDR/sources/github/users/$UIT"
+if grep "$UIT" "$RDR"/conf/PNAMES
 then
-	"$RDR"/scripts/bash/components/build.github.orgs.bash "$UIT"
+	mkdir -p "$JDR"
+	touch "$JDR"/repos
+	exit 0
 else
-	"$RDR"/scripts/bash/components/build.github.users.bash "$UIT"
+	_CUTE_
 fi
 . "$RDR"/scripts/bash/shlibs/lock.bash wake.stop
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 
