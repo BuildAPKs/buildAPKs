@@ -56,9 +56,9 @@ _ATT_ () {
 			then
 				if [[ "$OAUT" != "" ]] # see $RDR/conf/GAUTH file 
 				then
- 					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 4096 || printf "%s\\n" "Error found; Continuing...")"
+ 					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 16384 || printf "%s\\n" "Error found; Continuing...")"
 				else
- 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 4096 || printf "%s\\n" "Error found; Continuing...")"
+ 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 16384 || printf "%s\\n" "Error found; Continuing...")"
 				fi
 			 	if grep AndroidManifest.xml <<< "$ISAND" 
 				then
@@ -115,7 +115,7 @@ done
 
 _FJDX_ () { 
 	export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "$STRING"
-  	(tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" | grep AndroidManifest.xml);  _IAR_ "$JDR/$SFX" || printf "%s\\n\\n" "$STRING"
+  	(tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" | grep AndroidManifest.xml) ; _IAR_ "$JDR/$SFX" || printf "%s\\n\\n" "$STRING"
 }
 
 _GC_ () { 

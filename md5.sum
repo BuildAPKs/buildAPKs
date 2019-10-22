@@ -1,7 +1,7 @@
 c1c6928a7e5bb9f23b400073f0236ed4  ./CHANGE.log
 12f1af2721e192fd5acd09bc8b7337bd  ./LICENSE
 03a93c1307a8a72f155375368af0956a  ./README.md
-3daa5b2dd8e364c78ffea5eec3aa3c51  ./conf/CNAMES
+50ba6038309a931c58d885e2155bb5d0  ./conf/CNAMES
 91d2efad08b8aa2c5c2ae650e061ab73  ./conf/ENAMES
 88fb30cafaa9fd7d9722b34fcba2e694  ./conf/GAUTH
 65105a1883bffcd161f91268eb65a9fe  ./conf/NUNAMES
@@ -9,7 +9,7 @@ e4c96ac9b3658c5e94ec0214cb644887  ./conf/ONAMES
 f3904200e50ab1f94d89c0492342cacc  ./conf/PNAMES
 29401bc55d7d18c5b5e64639f5d4bfaf  ./conf/README.md
 34c3c36b228e8e5d578874def40a5a74  ./conf/TNAMES
-4859ff73b8f84ab177d215461cdef900  ./conf/UNAMES
+96f6ae740ed4884f879011189c3978b7  ./conf/UNAMES
 b9e02ff06f24ae534450ab73587dd50e  ./conf/VERSIONID
 daff00aab8f7398798e7b33e8d237ec0  ./conf/ZNAMES
 ce2e769c7457a79a1018051c1886a041  ./conf/rm.dups.sh
@@ -37,8 +37,8 @@ ea2898bc09ea6f0312377a4822862f2f  ./scripts/bash/build/buildFlashlights.bash
 c3e01c95922fe75b919dbe93b51541d0  ./scripts/bash/build/buildTop10.bash
 ee446b00aa5afabb14e09e5dc04ae8e3  ./scripts/bash/build/buildTutorials.bash
 44ae44a2f61a23f3ac735b8bb4d069fa  ./scripts/bash/build/buildWidgets.bash
-9be0f426a3119d77fe005fb9d1c65d17  ./scripts/bash/components/build.github.orgs.bash
-92bc1e1a178f8503449effafa5f1cca8  ./scripts/bash/components/build.github.users.bash
+3c5faac71a0a2d07f860e01e75757411  ./scripts/bash/components/build.github.orgs.bash
+48ac9ec94235108018ad215984ee28b2  ./scripts/bash/components/build.github.users.bash
 946ff307bb64881ecc6ee9da253e7c89  ./scripts/bash/init/init.bash
 dacb6be7ce931ebae7c8b90f48455261  ./scripts/bash/init/rshlibs.bash
 e5a5182fcbe8229f7770beecb15fdb76  ./scripts/bash/init/setup.buildAPKs.bash
