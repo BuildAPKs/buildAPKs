@@ -15,14 +15,14 @@ do
  	printf "%s\\n" "Creating $SCHECK file: Please wait a moment..."
 	for FILE in "${FILELIST[@]}"
 	do
-		$SCHECK "$FILE" >> z.${SCHECK::-3}.sum
+		$SCHECK "$FILE" >> .${SCHECK::-3}.sum
 	done
-	chmod 400 z.${SCHECK::-3}.sum
+	chmod 400 .${SCHECK::-3}.sum
 done
 for SCHECK in  ${CHECKLIST[@]}
 do
 	printf  "\\n%s\\n" "Checking $SCHECK..."
-	$SCHECK -c z.${SCHECK::-3}.sum
+	$SCHECK -c .${SCHECK::-3}.sum
 done
 git add .
 git commit
