@@ -64,10 +64,11 @@ export NUM="$(date +%s)"
 export UI="${1%/}"
 export UIT="${UI##*/}"
 export JDR="$RDR/sources/github/users/$UIT"
-if grep "$UIT" "$RDR"/conf/PNAMES
+if grep -iw "$UIT" "$RDR"/conf/PNAMES
 then
 	mkdir -p "$JDR"
 	touch "$JDR"/repos
+	printf "Username %s is found in %s: Not processing username %s!  File %s has more information.\\e[0m\\n" "$UIT" "~/${RDR##*/}/conf/PNAMES" "$UIT" "~/${RDR##*/}/conf/README.md" | tee "$JDR"/README.md
 	exit 0
 else
 	_CUTE_
