@@ -2,7 +2,7 @@
 # Copyright 2019 (c) all rights reserved 
 # by BuildAPKs https://buildapks.github.io/buildAPKs/
 # Contributeur : https://github.com/HemanthJabalpuri
-# Invocation : $HOME/buildAPKs/scripts/sh/build/build.sh 
+# Invocation : ~/buildAPKs/scripts/sh/build/build.sh 
 #####################################################################
 set -e
 
@@ -85,5 +85,4 @@ cd ..
 
 CLEAN=1
 _CLEANUP_
-
-#EOF
+# build.sh EOF
