@@ -42,7 +42,7 @@ RDR="$HOME/buildAPKs"
 cd "$RDR"
 . "$RDR"/scripts/bash/shlibs/lock.bash wake.start
 . "$RDR"/scripts/bash/init/ushlibs.bash
-. "$RDR"/scripts/bash/shlibs/buildAPKs/init/pull.buildAPKs.modules.bash
+. "$RDR"/scripts/bash/shlibs/buildAPKs/init/build.buildAPKs.modules.bash
 . "$RDR"/scripts/bash/build/build.in.dir.bash
 . "$RDR"/scripts/bash/shlibs/lock.bash wake.stop
 # buildAll.bash EOF
