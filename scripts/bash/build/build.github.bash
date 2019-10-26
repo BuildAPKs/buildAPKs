@@ -147,6 +147,7 @@ printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build
 . "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
 if grep -iw "$USENAME" "$RDR"/var/conf/PNAMES
 then
+	JDR="$RDR/sources/github/users/$USER"
 	mkdir -p "$JDR"
 	touch "$JDR"/repos
 	printf "Username %s is found in %s: Not processing username %s!  File %s has more information.\\e[0m\\n" "$USENAME" "~/${RDR##*/}/var/conf/PNAMES" "$USENAME" "~/${RDR##*/}/var/conf/README.md" | tee "$JDR"/README.md
