@@ -90,7 +90,7 @@ done
 _CUTE_ () { # check whether username is an organization
 	. "$RDR"/scripts/bash/shlibs/lock.bash 
 	. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
-	read TYPE < <(curl "https://api.github.com/users/$UONE/repos" -s 2>&1 | head -n 25 | tail -n 1 | grep -o Organization) # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell/
+	read TYPE < <(curl "https://api.github.com/users/$USENAME/repos" -s 2>&1 | head -n 25 | tail -n 1 | grep -o Organization) # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell/
 	if [[ "$TYPE" == Organization ]]
 	then
 		export ISUSER=orgs
@@ -137,20 +137,19 @@ if [[ -z "${NUM:-}" ]]
 then
 	export NUM="$(date +%s)"
 fi
-export UON="${1%/}"
-export UONE="${UON##*/}"
-export USENAME="$UONE"
+export UONE="${1%/}"
+export USENAME="${UON##*/}"
 export USER="${USENAME,,}"
 export OAUT="$(cat "$RDR/var/conf/GAUTH" | awk 'NR==1')"
 export STRING="ERROR FOUND; ${0##*/} $1:  CONTINUING... "
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build.github.bash $1:"
 . "$RDR"/scripts/bash/shlibs/buildAPKs/fandm.bash
 . "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
-if grep -iw "$UONE" "$RDR"/var/conf/PNAMES
+if grep -iw "$USENAME" "$RDR"/var/conf/PNAMES
 then
 	mkdir -p "$JDR"
 	touch "$JDR"/repos
-	printf "Username %s is found in %s: Not processing username %s!  File %s has more information.\\e[0m\\n" "$UONE" "~/${RDR##*/}/var/conf/PNAMES" "$UONE" "~/${RDR##*/}/var/conf/README.md" | tee "$JDR"/README.md
+	printf "Username %s is found in %s: Not processing username %s!  File %s has more information.\\e[0m\\n" "$USENAME" "~/${RDR##*/}/var/conf/PNAMES" "$USENAME" "~/${RDR##*/}/var/conf/README.md" | tee "$JDR"/README.md
 	exit 0
 else
 	_CUTE_
