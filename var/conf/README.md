@@ -18,7 +18,7 @@ find ~/buildAPKs/sources/ -type f -name ma.bash -exec grep -H _AT_ {} \;
 Adding information to ONAMES, UNAMES and the corresponding ma.bash file will enhance this progect and its' user experience.  The file ~/buildAPKs/.gitmodules has information about the repository associated with any particular ma.bash file.  For the curious, the `_AT_` function is located in `grep -r _AT_ ~/buildAPKs/scripts/` after the first APKs have been built, and the corresponding submodules have been cloned.
 
 
-The only file that contains duplicate names is ENAMES in the following file list.  See do.sum.bash for more info:  These files are located in ~/buildAPKs/conf/:
+The only file that contains duplicate names is ENAMES in the following file list.  See do.sum.bash for more info:  These files are located in ~/buildAPKs/var/conf/:
 
 | File Name   | Purpose   |
 | ----------- | --------- |
