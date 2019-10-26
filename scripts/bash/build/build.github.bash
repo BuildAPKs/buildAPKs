@@ -30,9 +30,9 @@ _ATT_ () {
 			then
 				if [[ "$OAUT" != "" ]] # see $RDR/conf/GAUTH file 
 				then
-					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -256)" || printf "%s\\n" "Error in ISAND found; Continuing..."
+					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -256)" || printf "%s\\n" "Error in ISAND _ATT_ ${0##*/} found; Continuing..."
 				else
- 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -256 )" || printf "%s\\n" "Error in ISAND found; Continuing..."
+ 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -256 )" || printf "%s\\n" "Error in ISAND _ATT_ ${0##*/} found; Continuing..."
 				fi
 			 	if grep AndroidManifest.xml <<< "$ISAND" 
 				then
@@ -128,7 +128,6 @@ _PRINTCK_ () {
 	fi
 }
 
-# build.github.bash OEF
 if [[ -z "${1:-}" ]] 
 then
 	printf "\\e[1;7;38;5;204m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;204m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;204m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;204m%s\\n\\e[0m\\n" "GitHub username must be provided;  See " "~/${RDR##*/}/conf/UNAMES" " for usernames that build APKs on device with BuildAPKs!  To build all the usernames contained in this file run " "for NAME in \$(cat ~/${RDR##*/}/conf/UNAMES) ; do ~/${RDR##*/}/scripts/bash/build/${0##*/} \$NAME ; done" ".  File " "~/${RDR##*/}/conf/GAUTH" " has important information should you choose to run this command regarding bandwidth supplied by GitHub. "
@@ -187,4 +186,4 @@ done
 _ANDB_ "$JDR" 
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 
 _WAKEUNLOCK_
-# build.github.users.bash EOF
+# build.github.bash OEF
