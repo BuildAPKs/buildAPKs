@@ -32,7 +32,6 @@ The only file that contains duplicate names is ENAMES in the following file list
 | README.md   | this file |
 | TNAMES      | topics that build with buildAPKs on device |
 | UNAMES      | user names whose APKs build in buildAPKs on device |
-| VERSIONID   | current buildAPKs Version |
 
 ##### Some source pages:
    * [https://github.com/amitshekhariitbhu/awesome-android-complete-reference](https://github.com/amitshekhariitbhu/awesome-android-complete-reference)
