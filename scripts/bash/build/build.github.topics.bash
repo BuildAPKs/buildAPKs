@@ -37,7 +37,7 @@ trap _SGTRPQUIT_ QUIT
 export RDR="$HOME/buildAPKs"
 if [[ -z "${1:-}" ]] 
 then
-	printf "\\e[1;7;38;5;203m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;203m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;203m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;203m%s\\n\\e[0m\\n" "GitHub topic name must be provided;  See " "~/${RDR##*/}/conf/TNAMES" " for topic names that build APKs on device with BuildAPKs!  To build all the topic names contained in this file run " "for NAME in \$(cat ~/${RDR##*/}/conf/TNAMES) ; do ~/${RDR##*/}/scripts/bash/build/${0##*/} \$NAME ; done" ".  File " "~/${RDR##*/}/conf/GAUTH" " has important information should you choose to run this command regarding bandwidth supplied by GitHub. "
+	printf "\\e[1;7;38;5;203m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;203m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;203m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;203m%s\\n\\e[0m\\n" "GitHub topic name must be provided;  See " "~/${RDR##*/}/var/conf/TNAMES" " for topic names that build APKs on device with BuildAPKs!  To build all the topic names contained in this file run " "for NAME in \$(cat ~/${RDR##*/}/var/conf/TNAMES) ; do ~/${RDR##*/}/scripts/bash/build/${0##*/} \$NAME ; done" ".  File " "~/${RDR##*/}/var/conf/GAUTH" " has important information should you choose to run this command regarding bandwidth supplied by GitHub. "
 	exit 227
 fi
 if [[ -z "${NUM:-}" ]] 
@@ -53,7 +53,7 @@ export TOPIC="${TOPI##*/}"
 export TOPNAME="${TOPIC,,}"
 export JDR="$RDR/sources/github/topics/$TOPIC"
 export JID="git.$TOPIC"
-export OAUT="$(cat "$RDR/conf/GAUTH" | awk 'NR==1')"
+export OAUT="$(cat "$RDR/var/conf/GAUTH" | awk 'NR==1')"
 export STRING="ERROR FOUND; build.github.topics.bash $1:  CONTINUING... "
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build.github.topics.bash $1:"
 if [[ ! -d "$JDR" ]] 
@@ -69,7 +69,7 @@ fi
 if [[ ! -f "repos" ]] 
 then
 	printf "%s\\n" "Downloading GitHub $TOPNAME repositories information:  "
-	if [[ "$OAUT" != "" ]] # see $RDR/conf/GAUTH file for information 
+	if [[ "$OAUT" != "" ]] # see $RDR/var/conf/GAUTH file for information 
 	then
 		curl -u "$OAUT" -H "Accept: application/vnd.github.mercy-preview+json" "https://api.github.com/search/repositories?q=topic:$TOPIC+language:Java" -o repos
 	else

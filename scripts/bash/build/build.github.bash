@@ -28,7 +28,7 @@ _ATT_ () {
 			printf "%s\\n" "Querying $USENAME $REPO ${COMMIT::7} for AndroidManifest.xml file:"
 			if [[ "$COMMIT" != "" ]] 
 			then
-				if [[ "$OAUT" != "" ]] # see $RDR/conf/GAUTH file 
+				if [[ "$OAUT" != "" ]] # see $RDR/var/conf/GAUTH file 
 				then
 					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -256)" || printf "%s\\n" "Error in ISAND _ATT_ ${0##*/} found; Continuing..."
 				else
@@ -56,7 +56,7 @@ _ATT_ () {
 
 _BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/
 	printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT -o ${NAME##*/}.${COMMIT::7}.tar.gz:"
-	if [[ "$OAUT" != "" ]] # see $RDR/conf/GAUTH file 
+	if [[ "$OAUT" != "" ]] # see $RDR/var/conf/GAUTH file 
 	then
 		curl -u "$OAUT" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "131 $STRING"
 	else
@@ -105,7 +105,7 @@ _FJDX_ () {
 }
 
 _GC_ () { 
-	if [[ "$OAUT" != "" ]] # see $RDR/conf/GAUTH file for information  
+	if [[ "$OAUT" != "" ]] # see $RDR/var/conf/GAUTH file for information  
 	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
 	 	curl -u "$OAUT" https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
 	else
@@ -130,7 +130,7 @@ _PRINTCK_ () {
 
 if [[ -z "${1:-}" ]] 
 then
-	printf "\\e[1;7;38;5;204m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;204m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;204m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;204m%s\\n\\e[0m\\n" "GitHub username must be provided;  See " "~/${RDR##*/}/conf/UNAMES" " for usernames that build APKs on device with BuildAPKs!  To build all the usernames contained in this file run " "for NAME in \$(cat ~/${RDR##*/}/conf/UNAMES) ; do ~/${RDR##*/}/scripts/bash/build/${0##*/} \$NAME ; done" ".  File " "~/${RDR##*/}/conf/GAUTH" " has important information should you choose to run this command regarding bandwidth supplied by GitHub. "
+	printf "\\e[1;7;38;5;204m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;204m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;204m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;204m%s\\n\\e[0m\\n" "GitHub username must be provided;  See " "~/${RDR##*/}/var/conf/UNAMES" " for usernames that build APKs on device with BuildAPKs!  To build all the usernames contained in this file run " "for NAME in \$(cat ~/${RDR##*/}/var/conf/UNAMES) ; do ~/${RDR##*/}/scripts/bash/build/${0##*/} \$NAME ; done" ".  File " "~/${RDR##*/}/var/conf/GAUTH" " has important information should you choose to run this command regarding bandwidth supplied by GitHub. "
 	exit 72
 fi
 if [[ -z "${NUM:-}" ]] 
@@ -141,16 +141,16 @@ export UON="${1%/}"
 export UONE="${UON##*/}"
 export USENAME="$UONE"
 export USER="${USENAME,,}"
-export OAUT="$(cat "$RDR/conf/GAUTH" | awk 'NR==1')"
+export OAUT="$(cat "$RDR/var/conf/GAUTH" | awk 'NR==1')"
 export STRING="ERROR FOUND; ${0##*/} $1:  CONTINUING... "
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build.github.bash $1:"
 . "$RDR"/scripts/bash/shlibs/buildAPKs/fandm.bash
 . "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
-if grep -iw "$UONE" "$RDR"/conf/PNAMES
+if grep -iw "$UONE" "$RDR"/var/conf/PNAMES
 then
 	mkdir -p "$JDR"
 	touch "$JDR"/repos
-	printf "Username %s is found in %s: Not processing username %s!  File %s has more information.\\e[0m\\n" "$UONE" "~/${RDR##*/}/conf/PNAMES" "$UONE" "~/${RDR##*/}/conf/README.md" | tee "$JDR"/README.md
+	printf "Username %s is found in %s: Not processing username %s!  File %s has more information.\\e[0m\\n" "$UONE" "~/${RDR##*/}/var/conf/PNAMES" "$UONE" "~/${RDR##*/}/var/conf/README.md" | tee "$JDR"/README.md
 	exit 0
 else
 	_CUTE_
@@ -170,7 +170,7 @@ cd "$JDR"
 if [[ ! -f "repos" ]] 
 then
 	printf "%s\\n" "Downloading GitHub $USENAME repositories information:  "
-	if [[ "$OAUT" != "" ]] # see $RDR/conf/GAUTH file for information 
+	if [[ "$OAUT" != "" ]] # see $RDR/var/conf/GAUTH file for information 
 	then
 		curl -u "$OAUT" "https://api.github.com/$ISUSER/$USER/repos" > repos
 	else
