@@ -138,7 +138,7 @@ then
 	export NUM="$(date +%s)"
 fi
 export UONE="${1%/}"
-export USENAME="${UON##*/}"
+export USENAME="${UONE##*/}"
 export USER="${USENAME,,}"
 export OAUT="$(cat "$RDR/var/conf/GAUTH" | awk 'NR==1')"
 export STRING="ERROR FOUND; ${0##*/} $1:  CONTINUING... "
