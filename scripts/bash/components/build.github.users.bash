@@ -56,9 +56,9 @@ _ATT_ () {
 			then
 				if [[ "$OAUT" != "" ]] # see $RDR/conf/GAUTH file 
 				then
- 					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 16384 || printf "%s\\n" "Error found; Continuing...")"
+ 					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 64 || printf "%s\\n" "Error found; Continuing...")"
 				else
- 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 16384 || printf "%s\\n" "Error found; Continuing...")"
+ 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 64 || printf "%s\\n" "Error found; Continuing...")"
 				fi
 			 	if grep AndroidManifest.xml <<< "$ISAND" 
 				then
@@ -100,7 +100,7 @@ _CKAT_ () {
  	if [[ $CKFILE = "" ]] # configuration file is not found
  	then
  		printf "%s" "Checking $USENAME $REPO for last commit:  " 
-  		COMMIT="$(_GC_)" || printf "%s\\n\\n" "$STRING"
+  		COMMIT="$(_GC_)" ||:
  		printf "%s\\n" "Found ${COMMIT::7}; Continuing..."
  		_ATT_ 
  	else # load configuration information from file 
