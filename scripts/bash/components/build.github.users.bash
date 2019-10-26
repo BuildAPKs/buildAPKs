@@ -56,9 +56,9 @@ _ATT_ () {
 			then
 				if [[ "$OAUT" != "" ]] # see $RDR/conf/GAUTH file 
 				then
- 					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 64 || printf "%s\\n" "Error found; Continuing...")"
+ 					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -256 || printf "%s\\n" "Error found; Continuing...")"
 				else
- 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 64 || printf "%s\\n" "Error found; Continuing...")"
+ 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -256 printf "%s\\n" "Error found; Continuing...")"
 				fi
 			 	if grep AndroidManifest.xml <<< "$ISAND" 
 				then
@@ -155,7 +155,7 @@ export USER="${USENAME,,}"
 export JDR="$RDR/sources/github/users/$USER"
 export JID="git.users.$USER"
 export OAUT="$(cat "$RDR/conf/GAUTH" | awk 'NR==1')"
-export STRING="ERROR FOUND; build.github.bash $1:  CONTINUING... "
+export STRING="ERROR FOUND; ${0##*/} $1:  CONTINUING... "
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build.github.users.bash $1:"
 . "$RDR"/scripts/bash/shlibs/buildAPKs/fandm.bash
 . "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
