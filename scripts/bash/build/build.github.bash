@@ -145,12 +145,12 @@ export STRING="ERROR FOUND; ${0##*/} $1:  CONTINUING... "
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build.github.bash $1:"
 . "$RDR"/scripts/bash/shlibs/buildAPKs/fandm.bash
 . "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
-if grep -iw "$USENAME" "$RDR"/var/conf/PNAMES
+if grep -iw "$USENAME" "$RDR"/var/conf/[PZ]NAMES
 then
 	JDR="$RDR/sources/github/users/$USER"
 	mkdir -p "$JDR"
 	touch "$JDR"/repos
-	printf "Username %s is found in %s: Not processing username %s!  File %s has more information.\\e[0m\\n" "$USENAME" "~/${RDR##*/}/var/conf/PNAMES" "$USENAME" "~/${RDR##*/}/var/conf/README.md" | tee "$JDR"/README.md
+	printf "Username %s is found in %s: Not processing username %s!  File %s has more information.\\e[0m\\n" "$USENAME" "~/${RDR##*/}/var/conf/[PZ]NAMES" "$USENAME" "~/${RDR##*/}/var/conf/README.md" | tee "$JDR"/README.md
 	exit 0
 else
 	_CUTE_
