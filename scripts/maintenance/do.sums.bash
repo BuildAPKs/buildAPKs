@@ -7,6 +7,7 @@
 #####################################################################
 set -eu
 git pull
+./scripts/maintenance/vgen.sh
 rm -f *.sum
 FILELIST=( $(find . -type f | grep -v .git | sort) )
 CHECKLIST=(sha512sum)
