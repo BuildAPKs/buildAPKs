@@ -30,9 +30,9 @@ _ATT_ () {
 			then
 				if [[ "$OAUT" != "" ]] # see $RDR/conf/GAUTH file 
 				then
- 					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -256 || printf "%s\\n" "Error found; Continuing...")"
+					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -256)" || printf "%s\\n" "Error in ISAND found; Continuing..."
 				else
- 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -256 printf "%s\\n" "Error found; Continuing...")"
+ 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -256 )" || printf "%s\\n" "Error in ISAND found; Continuing..."
 				fi
 			 	if grep AndroidManifest.xml <<< "$ISAND" 
 				then
