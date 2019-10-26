@@ -100,7 +100,7 @@ _CKAT_ () {
  	if [[ $CKFILE = "" ]] # configuration file is not found
  	then
  		printf "%s" "Checking $ONAME $REPO for last commit:  " 
-  		COMMIT="$(_GC_)" ||:
+  		COMMIT="$(_GC_)" || printf "%s\\n\\n" "$STRING"
  		printf "%s\\n" "Found ${COMMIT::7}; Continuing..."
  		_ATT_ 
  	else # load configuration information from file 
@@ -121,9 +121,9 @@ _FJDX_ () {
 _GC_ () { 
 	if [[ "$OAUT" != "" ]] # see $RDR/conf/GAUTH file for information  
 	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
-	 	curl -u "$OAUT" https://api.github.com/repos/"$ORG/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' || printf "%s\\n\\n" "$STRING"
+	 	curl -u "$OAUT" https://api.github.com/repos/"$ORG/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
 	else
-	 	curl -r 0-1 https://api.github.com/repos/"$ORG/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' || printf "%s\\n\\n" "$STRING"
+	 	curl -r 0-1 https://api.github.com/repos/"$ORG/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
 	fi
 }
 

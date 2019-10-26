@@ -4,8 +4,8 @@
 #####################################################################
 set -eu
 IVIDV=$(cat ./conf/VERSIONID)
-PVIDV=$(echo $IVIDV | cut -d. -f1-2)
-SVIDV=$(echo $IVIDV | cut -d. -f3)
+PVIDV=${IVIDV%.*} # http://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Parameter-Expansion 
+SVIDV=${IVIDV##*.} 
 NSVIDV=$((SVIDV + 1))
 echo $PVIDV.$NSVIDV > ./conf/VERSIONID 
 cat ./conf/VERSIONID 
