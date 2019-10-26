@@ -8,10 +8,10 @@ shopt -s nullglob globstar
 _SBOTRPERROR_() { # run on script error
 	local RV="$?"
 	echo $RV build.one.bash  
-	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s build.one.bash ERROR:  Signal %s received!  More information in \`%s/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "$RV" "$RDR" "$JID" 
+	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s build.one.bash ERROR:  Signal %s received!  More information in \`%s/var/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "$RV" "$RDR" "$JID" 
 	if [[ "$RV" = 255 ]]
 	then 
-		printf "\\e[?25h\\e[1;7;38;5;0mOn Signal 255 try running %s again if the error includes R.java and similar; This error might have been corrected by clean up.  More information in \`%s/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "$RDR" "$JID" 
+		printf "\\e[?25h\\e[1;7;38;5;0mOn Signal 255 try running %s again if the error includes R.java and similar; This error might have been corrected by clean up.  More information in \`%s/var/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "$RDR" "$JID" 
 	fi
 	_CLEANUP_
 	exit 160
@@ -21,10 +21,10 @@ _SBOTRPEXIT_() { # run on exit
 	local RV="$?"
 	if [[ "$RV" != 0 ]]  
 	then 
-		printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs signal %s received by %s in %s by build.one.bash.  More information in \`%s/log/stnderr.%s.log\` file.\\e[0m\\n\\n" "$RV" "${0##*/}" "$PWD" "$RDR" "$JID" 
-		echo "Running: tail -n 16 $RDR/log/stnderr.$JID.log"
+		printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs signal %s received by %s in %s by build.one.bash.  More information in \`%s/var/log/stnderr.%s.log\` file.\\e[0m\\n\\n" "$RV" "${0##*/}" "$PWD" "$RDR" "$JID" 
+		echo "Running: tail -n 16 $RDR/var/log/stnderr.$JID.log"
 		echo 
-		tail -n 16 "$RDR/log/stnderr.$JID.log"
+		tail -n 16 "$RDR/var/log/stnderr.$JID.log"
 		printf "\\e[0m\\n\\n" 
 	fi
 	if [[ "$RV" = 220 ]]  
