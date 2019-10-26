@@ -146,6 +146,7 @@ export STRING="ERROR FOUND; ${0##*/} $1:  CONTINUING... "
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build.github.bash $1:"
 . "$RDR"/scripts/bash/shlibs/buildAPKs/fandm.bash
 . "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
+. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 
 if grep -iw "$UONE" "$RDR"/var/conf/PNAMES
 then
 	mkdir -p "$JDR"
@@ -184,6 +185,5 @@ do #  This creates a "slate" within each github/$JDR that can be selectively res
 	_CKAT_ 
 done
 _ANDB_ "$JDR" 
-. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 
 _WAKEUNLOCK_
 # build.github.bash OEF
