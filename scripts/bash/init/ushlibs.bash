@@ -38,7 +38,6 @@ trap _SRSTRPQUIT_ QUIT
 _AFSHLIBS_() { # https://stackoverflow.com/questions/53977052/how-to-properly-initialize-a-remote-git-repository 
 	if [[ ! -d "$RDR"/.git ]] 
 	then
-		cd "$RDR"
 		local USER="BuildAPKs"
 		local HOSTIP="github.com"
 		local PROJECT="buildAPKs"
@@ -55,6 +54,7 @@ _UFSHLIBS_() {
 	fi
 }
 
+cd "$RDR"
 _AFSHLIBS_
 if [[ ! -f "$RDR"/scripts/bash/shlibs/.git ]] 
 then
