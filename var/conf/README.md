@@ -23,12 +23,12 @@ These files contain duplicate names: CNAMES, ENAMES, ONAMES and ZNAMES.  See do.
 | ----------- | --------- |
 | CNAMES      | checked names |
 | ENAMES      | names with exceptional APK projects |
-| GAUTH       | OATH token file |
+| GAUTH       | OATH token file:  Enabling OAuth increases the rate limit for authenticated users.  To create an OAuth token, you can use https://github.com/settings/tokens and insert this token into the first line in GAUTH.  File GAUTH has more information. |
 | NUNAMES     | names with possible new APKs that might migrate to ONAMES, UNAMES and ma.bash |
 | ONAMES      | organization names whose APKs build in buildAPKs on device |
 | PNAMES      | pending names that might transition to ONAMES, UNAMES and ma.bash |
 | README.md   | this file |
-| TNAMES      | topics that build with buildAPKs on device |
+| TNAMES      | GitHub topics that build with buildAPKs on device |
 | UNAMES      | user names whose APKs build in buildAPKs on device |
 | ZNAMES      | user names who have zero APK projects |
 | rm.dups.bash | parses files for duplicate names |
