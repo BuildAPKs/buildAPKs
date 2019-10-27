@@ -150,7 +150,8 @@ then
 	JDR="$RDR/sources/github/users/$USER"
 	mkdir -p "$JDR"
 	touch "$JDR"/repos
-	printf "Username %s is found in %s: Not processing username %s!  File %s has more information.\\e[0m\\n" "$USENAME" "~/${RDR##*/}/var/conf/[PZ]NAMES" "$USENAME" "~/${RDR##*/}/var/conf/README.md" | tee "$JDR"/README.md
+	printf "\\e[7;38;5;208mUsername %s is found in %s: Not processing username %s!  Remove the username from the corresponding file(s) to proccess %s.  File %s has more information:\\e[0m\\n" "$USENAME" "~/${RDR##*/}/var/conf/[PZ]NAMES" "$USENAME" "$USENAME" "~/${RDR##*/}/var/conf/README.md" | tee "$JDR"/README.md
+	cat "$RDR/var/conf/README.md" 
 	exit 0
 else
 	_CUTE_
