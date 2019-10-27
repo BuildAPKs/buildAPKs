@@ -30,9 +30,9 @@ _ATT_ () {
 			then
 				if [[ "$OAUT" != "" ]] # see $RDR/var/conf/GAUTH file 
 				then
-					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -1024)" || printf "%s\\n" "ERROR FOUND in ISAND _ATT_ ${0##*/}; Continuing..."
+					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -1024)" || printf "\\e[2;2;38;5;208m%s\\e[0m\\n" "ERROR FOUND in _ATT_ ISAND ${0##*/}; Continuing..."
 				else
- 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -1024)" || printf "%s\\n" "ERROR FOUND in ISAND _ATT_ ${0##*/}; Continuing..."
+ 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -1024)" || printf "\\e[2;2;38;5;208m%s\\e[0m\\n" "ERROR FOUND in _ATT_ ISAND ${0##*/}; Continuing..."
 				fi
 			 	if grep AndroidManifest.xml <<< "$ISAND" 
 				then

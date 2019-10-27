@@ -15,14 +15,12 @@ find ~/buildAPKs/sources/ -type f -name ma.bash -exec grep -H _AT_ {} \;
 	Usage: `_AT_ user/repo commit`
 
 
-Adding information to ONAMES, UNAMES and the corresponding ma.bash file will enhance this progect and its' user experience.  The file ~/buildAPKs/.gitmodules has information about the repository associated with any particular ma.bash file.  For the curious, the `_AT_` function is located in `grep -r _AT_ ~/buildAPKs/scripts/` after the first APKs have been built, and the corresponding submodules have been cloned.
+Adding information to ONAMES, UNAMES and the corresponding ma.bash file will enhance this progect.  The file ~/buildAPKs/.gitmodules has information about the repository associated with any particular ma.bash file.  For the curious, the `_AT_` function is located in `grep -r _AT_ ~/buildAPKs/scripts/` after the first APKs have been built and the corresponding submodules have been cloned.
 
-
-The only file that contains duplicate names is ENAMES in the following file list.  See do.sum.bash for more info:  These files are located in ~/buildAPKs/var/conf/:
+These files contain duplicate names: CNAMES, ENAMES, ONAMES and ZNAMES.  See do.sum.bash for more info:  The following files are located in ~/buildAPKs/var/conf/:
 
 | File Name   | Purpose   |
 | ----------- | --------- |
-| rm.dups.bash | parses [OU]NAMES for duplicate names in NUNAMES |
 | CNAMES      | checked names |
 | ENAMES      | names with exceptional APK projects |
 | GAUTH       | OATH token file |
@@ -32,7 +30,8 @@ The only file that contains duplicate names is ENAMES in the following file list
 | README.md   | this file |
 | TNAMES      | topics that build with buildAPKs on device |
 | UNAMES      | user names whose APKs build in buildAPKs on device |
-| ZNAMES      | user names whose APKs do not build in buildAPKs on device |
+| ZNAMES      | user names who have zero APK projects |
+| rm.dups.bash | parses files for duplicate names |
 
 ##### Some source pages:
    * [https://github.com/amitshekhariitbhu/awesome-android-complete-reference](https://github.com/amitshekhariitbhu/awesome-android-complete-reference)
