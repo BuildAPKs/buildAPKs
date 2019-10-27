@@ -93,9 +93,11 @@ _CUTE_ () { # check whether username is an organization
 	read TYPE < <(curl "https://api.github.com/users/$USENAME/repos" -s 2>&1 | head -n 25 | tail -n 1 | grep -o Organization) # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell/
 	if [[ "$TYPE" == Organization ]]
 	then
-		export ISUSER=orgs
+		export ISUSER=users
+		export ISOTUR=orgs
 	else
 		export ISUSER=users
+		export ISOTUR=users
 	fi
 }
 
@@ -157,8 +159,8 @@ then
 else
 	_CUTE_
 fi
-export JDR="$RDR/sources/github/$ISUSER/$USER"
-export JID="git.$ISUSER.$USER"
+export JDR="$RDR/sources/github/$ISOTUR/$USER"
+export JID="git.$ISOTUR.$USER"
 if [[ ! -d "$JDR" ]] 
 then
 	mkdir -p "$JDR"
