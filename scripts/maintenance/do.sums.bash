@@ -6,7 +6,12 @@
 # To check the files use; sha512sum -c sha512.sum
 #####################################################################
 set -eu
-git pull
+MTIME="$(ls -l --time-style=+"%s" .git/ORIG_HEAD | awk '{print $6}')"
+TIME="$(date +%s)"
+if [[ $(($TIME - $MTIME)) -gt 43200 ]]
+then
+	git pull
+fi
 ./scripts/maintenance/vgen.sh
 rm -f *.sum
 FILELIST=( $(find . -type f | grep -v .git | sort) )
