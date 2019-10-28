@@ -1,6 +1,5 @@
 BuildAPKs
 MindorksOpenSource
-Signal
 VelbazhdSoftwareLLC
 android
 anysoftkeyboard
@@ -12,7 +11,6 @@ cyanogenmod
 aosp-mirror
 apriorit
 codepath
-commons-app
 droidplanner
 dworks
 facebook
@@ -20,10 +18,7 @@ firebase
 futurice
 gdg-korea
 google
-google-developer-training
-googlemaps
 googlesamples
-gsuitedevs
 guardian
 guardianproject
 hackplan
