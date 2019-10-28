@@ -1,4 +1,6 @@
-Should you find a username with APKs that build in the NUNAMES file, start a [pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) in https://github.com/BuildAPKs/buildAPKs/pulls by adding to ONAMES, UNAMES, and possibly to an appropriate ma.bash file with the desired APK source code commit reference.  This means that two very simple pull requests can be submitted:  One in buildAPKs, by adding a name to the corresponding ONAMES and UNAMES file, just one word.  The second pull request in an appropriate https://github.com/BuildAPKs module repository by adding an `_AT_` line in the suitable ma.bash file. 
+Should you find a username with APKs that build in the NUNAMES file, start a [pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) in https://github.com/BuildAPKs/buildAPKs/pulls by adding to ONAMES, UNAMES, and possibly to an appropriate ma.bash file with the desired APK source code commit reference.  
+
+This means that two very simple pull requests can be submitted:  One in buildAPKs, by adding a name to the corresponding ONAMES and UNAMES file, just one word in the corresponding file.  The second pull request in an appropriate https://github.com/BuildAPKs module repository by adding an `_AT_` line in the suitable ma.bash file.   
 
 1) To see the available ma.bash files you can use: 
 ```
@@ -15,9 +17,9 @@ find ~/buildAPKs/sources/ -type f -name ma.bash -exec grep -H _AT_ {} \;
 	Usage: `_AT_ user/repo commit`
 
 
-Adding information to ONAMES, UNAMES and the corresponding ma.bash file will enhance this progect.  The file ~/buildAPKs/.gitmodules has information about the repository associated with any particular ma.bash file.  For the curious, the `_AT_` function is located in `grep -r _AT_ ~/buildAPKs/scripts/` after the first APKs have been built and the corresponding submodules have been cloned.
+Adding information to CNAMES, ONAMES, UNAMES and the corresponding ma.bash file will enhance this project.  The file ~/buildAPKs/.gitmodules has information about the repository associated with any particular ma.bash file.  For the curious, the `_AT_` function is located in `grep -r _AT_ ~/buildAPKs/scripts/` after the first APKs have been built and the corresponding submodules have been cloned.
 
-These files contain duplicate names: CNAMES, ENAMES, ONAMES and ZNAMES.  See do.sum.bash for more info:  The following files are located in ~/buildAPKs/var/conf/:
+These files contain duplicate names: CNAMES, ENAMES, ONAMES, UNAMES and ZNAMES.  File rm.dups.bash has more information.  The following files are located in ~/buildAPKs/var/conf/ and their purpose is listed below:
 
 | File Name   | Purpose   |
 | ----------- | --------- |
