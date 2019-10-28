@@ -154,7 +154,7 @@ then
 	touch "$JDR"/repos
 	printf "\\e[7;38;5;208mUsername %s is found in %s: See preceeding output.  Not processing username %s!  Remove the username from the corresponding file(s) and the user's build directory in %s to proccess %s.  File %s has more information:\\n\\n\\e[0m" "$USENAME" "~/${RDR##*/}/var/conf/[PZ]NAMES" "$USENAME" "~/${RDR##*/}/sources/github/{orgs,users}" "$USENAME" "~/${RDR##*/}/var/conf/README.md" | tee "$JDR"/README.md
 	cat "$RDR/var/conf/README.md" 
-	printf "\\e[7;38;5;208m\\nUsername %s is found in %s: Not processing username %s!  Remove the username from the corresponding file(s) and the user's build directory in %s to proccess %s.  Scroll up to read the %s file.\\e[0m\\n" "$USENAME" "~/${RDR##*/}/var/conf/[PZ]NAMES" "$USENAME" "~/${RDR##*/}/sources/github/{orgs,users}" "$USENAME" "~/${RDR##*/}/var/conf/README.md" | tee "$JDR"/README.md
+	printf "\\e[7;38;5;208m\\nUsername %s is found in %s: Not processing username %s!  Remove the username from the corresponding file(s) and the user's build directory in %s to proccess %s.  Then run %s again to build %s.  Scroll up to read the %s file.\\e[0m\\n" "$USENAME" "~/${RDR##*/}/var/conf/[PZ]NAMES" "$USENAME" "~/${RDR##*/}/sources/github/{orgs,users}" "$USENAME" "${0##*/}" "$USENAME" "~/${RDR##*/}/var/conf/README.md" | tee "$JDR"/README.md
 	exit 0
 else
 	_CUTE_
