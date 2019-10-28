@@ -1,24 +1,21 @@
-Github \*NAMES README.md
+Github `*NAMES` README.md
 
-When you find a GitHub username with APKs that builds with buildAPKs, concider adding to this project by submitting a [pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) at https://github.com/BuildAPKs/buildAPKs/pulls by adding to CNAMES, ONAMES and/or UNAMES, and possibly to appropriate ma.bash files with the desired APK project(s) source code GitHub commit reference(s). 
-This means that two very simple pull requests can be submitted:  One in buildAPKs, by adding a name to the corresponding CNAMES, ONAMES and/or UNAMES files, just one word in the corresponding files per GitHub login.  The second pull request can be added in an appropriate https://github.com/BuildAPKs module repository by adding an `_AT_` line in the suitable ma.bash file, one per project.  This means that if a GitHub login has many interesting projects, multiple buildAPKs can recieve pull requests regarding the same user.    
+When you find a GitHub username with APKs that builds with buildAPKs, consider adding to this project by submitting a [pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) at https://github.com/BuildAPKs/buildAPKs/pulls by adding to one or more of the `*NAMES` files, and possibly to appropriate ma.bash files with the desired APK project(s) source code GitHub commit reference(s). 
 
 #### The NUNAMES file should be a good starting point in fullfilling this desire.
 
+This means that two very simple pull requests can be submitted:  One in buildAPKs, by adding a name to the corresponding `*NAMES` file or files, just one login name in each corresponding file per GitHub login.  The second pull request can be added in an appropriate https://github.com/BuildAPKs module repository by adding an `_AT_` line in the suitable ma.bash file, one per project.  This means that if a GitHub login has many interesting projects, multiple buildAPKs module repositories can recieve pull requests regarding the same user's projects.    
+
 1) To see the available ma.bash files you can use: 
-```
-find ~/buildAPKs/sources/ -type f -name ma.bash -exec cat {} \;
-```
+` find ~/buildAPKs/sources/ -type f -name ma.bash -exec cat {} \; `
 
 2) The line of interest in ma.bash is: 
-```
-find ~/buildAPKs/sources/ -type f -name ma.bash -exec grep -H _AT_ {} \; 
-```
+` find ~/buildAPKs/sources/ -type f -name ma.bash -exec grep -H _AT_ {} \; `
 Usage: `_AT_ login/repo commit`
 
-Adding information to CNAMES, ONAMES and/or UNAMES and the corresponding ma.bash file shall enhance this project.  The file ~/buildAPKs/.gitmodules has information about the repository associated with any particular ma.bash file.  The `_AT_` function is located in `grep -r _AT_ ~/buildAPKs/scripts/` after the first APKs have been built and the corresponding submodules have been cloned.
+The file ~/buildAPKs/.gitmodules has information about each submodule repository.  The submodules located in ~/buildAPKs/sources/ contain each particular ma.bash file.  Running ~/buildAPKs/build.buildAPKs.modules.bash will populate the `.gitmodules` file and the submodules.  The `_AT_` function itself is located in ` grep -r _AT_ ~/buildAPKs/scripts/ ` after the corresponding submodules have been cloned into the ~/buildAPKs/ directory.
 
-These files contain duplicate names: CNAMES, ENAMES, ONAMES, UNAMES and ZNAMES.  File rm.dups.bash has more information.  The following files are located in ~/buildAPKs/var/conf/ and their purpose is listed below:
+These files may contain duplicate names: CNAMES, ENAMES, ONAMES, UNAMES and ZNAMES.  File rm.dups.bash has more information.  The following files are located in ~/buildAPKs/var/conf/ and their purpose is outlined below:
 
 | File Name   | Purpose   |
 | ----------- | --------- |
