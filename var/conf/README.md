@@ -1,4 +1,6 @@
-Should you find a username with APKs that build in the NUNAMES file, start a [pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) in https://github.com/BuildAPKs/buildAPKs/pulls by adding to CNAMES, ONAMES, UNAMES, and possibly to an appropriate ma.bash file with the desired APK source code commit reference.  
+Github \*NAMES README.md
+
+When you find a username with APKs that build in the NUNAMES file, start a [pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) in https://github.com/BuildAPKs/buildAPKs/pulls by adding to CNAMES, ONAMES, UNAMES, and possibly to an appropriate ma.bash file with the desired APK source code commit reference.  
 
 This means that two very simple pull requests can be submitted:  One in buildAPKs, by adding a name to the corresponding CNAMES, ONAMES and UNAMES file, just one word in the corresponding file.  The second pull request in an appropriate https://github.com/BuildAPKs module repository by adding an `_AT_` line in the suitable ma.bash file.   
 
@@ -11,11 +13,7 @@ find ~/buildAPKs/sources/ -type f -name ma.bash -exec cat {} \;
 ```
 find ~/buildAPKs/sources/ -type f -name ma.bash -exec grep -H _AT_ {} \; 
 ```
-
-	Usage: `_AT_ org/repo commit`
-
-	Usage: `_AT_ user/repo commit`
-
+	Usage: `_AT_ login/repo commit`
 
 Adding information to CNAMES, ONAMES, UNAMES and the corresponding ma.bash file shall enhance this project.  The file ~/buildAPKs/.gitmodules has information about the repository associated with any particular ma.bash file.  The `_AT_` function is located in `grep -r _AT_ ~/buildAPKs/scripts/` after the first APKs have been built and the corresponding submodules have been cloned.
 
