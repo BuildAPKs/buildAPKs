@@ -17,7 +17,7 @@ find ~/buildAPKs/sources/ -type f -name ma.bash -exec grep -H _AT_ {} \;
 	Usage: `_AT_ user/repo commit`
 
 
-Adding information to CNAMES, ONAMES, UNAMES and the corresponding ma.bash file will enhance this project.  The file ~/buildAPKs/.gitmodules has information about the repository associated with any particular ma.bash file.  For the curious, the `_AT_` function is located in `grep -r _AT_ ~/buildAPKs/scripts/` after the first APKs have been built and the corresponding submodules have been cloned.
+Adding information to CNAMES, ONAMES, UNAMES and the corresponding ma.bash file shall enhance this project.  The file ~/buildAPKs/.gitmodules has information about the repository associated with any particular ma.bash file.  The `_AT_` function is located in `grep -r _AT_ ~/buildAPKs/scripts/` after the first APKs have been built and the corresponding submodules have been cloned.
 
 These files contain duplicate names: CNAMES, ENAMES, ONAMES, UNAMES and ZNAMES.  File rm.dups.bash has more information.  The following files are located in ~/buildAPKs/var/conf/ and their purpose is listed below:
 
