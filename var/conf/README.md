@@ -13,7 +13,7 @@ find ~/buildAPKs/sources/ -type f -name ma.bash -exec cat {} \;
 ```
 find ~/buildAPKs/sources/ -type f -name ma.bash -exec grep -H _AT_ {} \; 
 ```
-	Usage: `_AT_ login/repo commit`
+Usage: `_AT_ login/repo commit`
 
 Adding information to CNAMES, ONAMES, UNAMES and the corresponding ma.bash file shall enhance this project.  The file ~/buildAPKs/.gitmodules has information about the repository associated with any particular ma.bash file.  The `_AT_` function is located in `grep -r _AT_ ~/buildAPKs/scripts/` after the first APKs have been built and the corresponding submodules have been cloned.
 
