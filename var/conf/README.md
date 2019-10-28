@@ -1,6 +1,6 @@
-Should you find a username with APKs that build in the NUNAMES file, start a [pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) in https://github.com/BuildAPKs/buildAPKs/pulls by adding to ONAMES, UNAMES, and possibly to an appropriate ma.bash file with the desired APK source code commit reference.  
+Should you find a username with APKs that build in the NUNAMES file, start a [pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) in https://github.com/BuildAPKs/buildAPKs/pulls by adding to CNAMES, ONAMES, UNAMES, and possibly to an appropriate ma.bash file with the desired APK source code commit reference.  
 
-This means that two very simple pull requests can be submitted:  One in buildAPKs, by adding a name to the corresponding ONAMES and UNAMES file, just one word in the corresponding file.  The second pull request in an appropriate https://github.com/BuildAPKs module repository by adding an `_AT_` line in the suitable ma.bash file.   
+This means that two very simple pull requests can be submitted:  One in buildAPKs, by adding a name to the corresponding CNAMES, ONAMES and UNAMES file, just one word in the corresponding file.  The second pull request in an appropriate https://github.com/BuildAPKs module repository by adding an `_AT_` line in the suitable ma.bash file.   
 
 1) To see the available ma.bash files you can use: 
 ```
