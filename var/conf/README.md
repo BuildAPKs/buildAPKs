@@ -1,4 +1,4 @@
-Github `*NAMES` README.md
+GitHub `*NAMES` README.md
 
 When you find a GitHub username with APKs that builds with buildAPKs, consider adding to this project by submitting a [pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) at https://github.com/BuildAPKs/buildAPKs/pulls by adding to one or more of the `*NAMES` files, and possibly to appropriate ma.bash files with the desired APK project(s) source code GitHub commit reference(s). 
 
