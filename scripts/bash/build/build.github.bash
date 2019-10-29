@@ -207,9 +207,10 @@ _PRINTJS_
 JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g')) # creates array of Java language repositories	
 _PRINTJD_
 if [[ "${JARR[@]}" == *ERROR* ]]
-then
+then 
+	_SIGNAL_ "404" "JARR"
 	_NAMESMAINBLOCK_ CNAMES ZNAMES
-	exit 0
+	exit 4
 fi
 F1AR=($(find . -maxdepth 1 -type d)) # creates array of $JDR contents 
 for NAME in "${JARR[@]}" # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted, too.  They are repopulated from the tarballs.  
