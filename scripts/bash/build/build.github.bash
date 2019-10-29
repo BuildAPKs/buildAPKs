@@ -18,6 +18,7 @@ _AND_ () { # write configuration file for git repository tarball if AndroidManif
 	else
 		printf "%s\\n" "Found AndroidManifest.xml file in Java language repository $USER ${NAME##*/} ${COMMIT::7}:  Downloading ${NAME##*/} tarball and writing ~/${RDR##*/}/sources/github/${JDR##*/}/conf/$USER.${NAME##*/}.${COMMIT::7}.ck file for git repository ${NAME##*/}."
 	fi
+	_NAMESMAINBLOCK_ CNAMES QNAMES
 }
 
 _ATT_ () {
@@ -186,7 +187,7 @@ fi
 if [[ ! -d "$JDR/conf" ]] 
 then
 	mkdir -p "$JDR/conf"
-	printf "%s\\n\\n" "This directory contains results from query for \`AndroidManifest.xml\` files in GitHub $USENAME repositores.  " > "$JDR/conf/README.md" 
+	printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  " > "$JDR/conf/README.md" 
 fi
 cd "$JDR"
 printf "%s" "${TYPE[@]}" > profile
