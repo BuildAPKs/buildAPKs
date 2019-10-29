@@ -25,11 +25,14 @@ These files may contain duplicate names: CNAMES, ENAMES, ONAMES, UNAMES and ZNAM
 | NUNAMES     | names with possible new APKs that might migrate to ONAMES, UNAMES and ma.bash |
 | ONAMES      | organization names whose APKs build in buildAPKs on device |
 | PNAMES      | pending names that might transition to ONAMES, UNAMES and ma.bash |
+| QNAMES  ∆   | pending names that might transition to PNAMES, ONAMES, UNAMES and ma.bash |
 | README.md   | this file |
 | TNAMES      | GitHub topics that build with buildAPKs on device |
 | UNAMES      | user names whose APKs build in buildAPKs on device |
 | ZNAMES      | user names who have zero APK projects |
 | rm.dups.bash | parses files for duplicate names |
+
+∆ *system file* 
 
 ##### Some source pages for NUNAMES:
    * [https://github.com/amitshekhariitbhu/awesome-android-complete-reference](https://github.com/amitshekhariitbhu/awesome-android-complete-reference)
@@ -39,5 +42,6 @@ These files may contain duplicate names: CNAMES, ENAMES, ONAMES, UNAMES and ZNAM
 
 ##### Information about shells:
    * [https://developer.ibm.com/tutorials/l-linux-shells/](https://developer.ibm.com/tutorials/l-linux-shells/)
+   * [https://www.gnu.org/software/bash/manual/bash.html](https://www.gnu.org/software/bash/manual/bash.html)
    * [http://tldp.org/guides.html](http://tldp.org/guides.html)
 <!-- README.md EOF -->
