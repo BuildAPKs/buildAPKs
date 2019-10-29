@@ -131,7 +131,7 @@ _PRINTCK_ () {
 }
 
 _SIGNAL_ () {
-	STRING="SIGNAL $1 found in $2 ${0##*/}:  Continuing...  "
+	STRING="SIGNAL $1 found in $2 ${0##*/}!"
 	printf "\\e[2;2;38;5;208m%s\\e[0m\\n\\n" "$STRING" 
 }
 
