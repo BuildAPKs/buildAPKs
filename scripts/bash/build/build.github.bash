@@ -130,6 +130,14 @@ _PRINTCK_ () {
 	fi
 }
 
+_PRINTJD_() {
+	printf "\\e[1;32mDONE\\e[0m\\n"
+}
+
+_PRINTJS_() {
+	printf "\\n\\e[1;34mSearching for Java language repositories: "'\033]2;Searching for Java language repositories: OK\007'
+}
+
 _SIGNAL_ () {
 	STRING="SIGNAL $1 found in $2 ${0##*/}!"
 	printf "\\e[2;2;38;5;208m%s\\e[0m\\n\\n" "$STRING" 
@@ -144,10 +152,10 @@ if [[ -z "${NUM:-}" ]]
 then
 	export NUM="$(date +%s)"
 fi
-export UONE="${1%/}"
+export UONE="${1%/}" # https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion
 export USENAME="${UONE##*/}"
 export USER="${USENAME,,}"
-export OAUT="$(cat "$RDR/var/conf/GAUTH" | awk 'NR==1')" # loads login:token key
+export OAUT="$(cat "$RDR/var/conf/GAUTH" | awk 'NR==1')" # loads login:token key from GAUTH file
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build.github.bash $1:"
 . "$RDR"/scripts/bash/shlibs/buildAPKs/fandm.bash
 . "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
@@ -190,7 +198,9 @@ then
 		curl "https://api.github.com/$ISUSER/$USER/repos" > repos 
 	fi
 fi
-JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g')) || _SIGNAL_ "100" "JARR" ; exit 0 # creates array of Java language repositories
+_PRINTJS_
+JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g')) || _SIGNAL_ "100" "JARR" ; _PRINTJD_ ; exit 0 # creates array of Java language repositories
+_PRINTJD_
 F1AR=($(find . -maxdepth 1 -type d)) # creates array of $JDR contents 
 for NAME in "${JARR[@]}" # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted, too.  They are repopulated from the tarballs.  
 do #  This creates a "slate" within each github/$JDR that can be selectively reset when desired.  This can be important on a slow connection.
