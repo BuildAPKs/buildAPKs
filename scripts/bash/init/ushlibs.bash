@@ -50,7 +50,7 @@ _UFSHLIBS_() {
 	then
 		printf "\\e[1;7;38;5;96mUpdating ~/%s/scripts/bash/shlibs...\\e[0m\\n" "${RDR##*/}" ; git submodule update --recursive --remote scripts/bash/shlibs || printf "\\nCannot update module ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
 	else
-		printf "\\e[1;7;38;5;96mAdding ~/%s/scripts/bash/shlibs...\\e[0m\\n" "${RDR##*/}" ;  git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs && git submodule add https://github.com/shlibs/shlibs.sh scripts/sh/shlibs || printf "\\nCannot add modules ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
+		printf "\\e[1;7;38;5;96mAdding ~/%s/scripts/bash/shlibs...\\e[0m\\n" "${RDR##*/}" ;  git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs ; git submodule add https://github.com/shlibs/shlibs.sh scripts/sh/shlibs || printf "\\nCannot add modules ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
 	fi
 }
 
