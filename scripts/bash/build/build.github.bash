@@ -10,13 +10,13 @@ export RDR="$HOME/buildAPKs"
 
 _AND_ () { # write configuration file for git repository tarball if AndroidManifest.xml file is found in git repositoryr.
 	export CK=0
-	printf "%s\\n" "$COMMIT" > "$JDR/.config/$USER.${NAME##*/}.${COMMIT::7}.ck"
-	printf "%s\\n" "0" >> "$JDR/.config/$USER.${NAME##*/}.${COMMIT::7}.ck"
+	printf "%s\\n" "$COMMIT" > "$JDR/conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
+	printf "%s\\n" "0" >> "$JDR/conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	if [[ -z "${1:-}" ]] 
 	then
-		printf "%s\\n" "Found AndroidManifest.xml file in Java language repository $USER ${NAME##*/} ${COMMIT::7}:  Writing ~/${RDR##*/}/sources/github/${JDR##*/}/.config/$USER.${NAME##*/}.${COMMIT::7}.ck file for git repository ${NAME##*/}."
+		printf "%s\\n" "Found AndroidManifest.xml file in Java language repository $USER ${NAME##*/} ${COMMIT::7}:  Writing ~/${RDR##*/}/sources/github/${JDR##*/}/conf/$USER.${NAME##*/}.${COMMIT::7}.ck file for git repository ${NAME##*/}."
 	else
-		printf "%s\\n" "Found AndroidManifest.xml file in Java language repository $USER ${NAME##*/} ${COMMIT::7}:  Downloading ${NAME##*/} tarball and writing ~/${RDR##*/}/sources/github/${JDR##*/}/.config/$USER.${NAME##*/}.${COMMIT::7}.ck file for git repository ${NAME##*/}."
+		printf "%s\\n" "Found AndroidManifest.xml file in Java language repository $USER ${NAME##*/} ${COMMIT::7}:  Downloading ${NAME##*/} tarball and writing ~/${RDR##*/}/sources/github/${JDR##*/}/conf/$USER.${NAME##*/}.${COMMIT::7}.ck file for git repository ${NAME##*/}."
 	fi
 }
 
@@ -68,7 +68,7 @@ _BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/
 _CKAT_ () {
 	CK=0
 	REPO=$(awk -F/ '{print $NF}' <<< "$NAME") # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell 
-	NPCK="$(find "$JDR/.config/" -name "$USER.${NAME##*/}.???????.ck")" ||: # https://stackoverflow.com/questions/6363441/check-if-a-file-exists-with-wildcard-in-shell-script
+	NPCK="$(find "$JDR/conf/" -name "$USER.${NAME##*/}.???????.ck")" ||: # https://stackoverflow.com/questions/6363441/check-if-a-file-exists-with-wildcard-in-shell-script
 	for CKFILE in "$NPCK" 
 	do
  	if [[ $CKFILE = "" ]] # configuration file is not found
@@ -116,8 +116,8 @@ _GC_ () {
 }
 
 _NAND_ () { # write configuration file for repository if AndroidManifest.xml file is NOT found in git repository.  
-	printf "%s\\n" "$COMMIT" > "$JDR/.config/$USER.${NAME##*/}.${COMMIT::7}.ck"
-	printf "%s\\n" "1" >> "$JDR/.config/$USER.${NAME##*/}.${COMMIT::7}.ck"
+	printf "%s\\n" "$COMMIT" > "$JDR/conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
+	printf "%s\\n" "1" >> "$JDR/conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "\\n%s\\n\\n" "Could not find an AndroidManifest.xml file in Java language repository $USER ${NAME##*/} ${COMMIT::7}:  NOT downloading ${NAME##*/} tarball."
 }
 
@@ -183,10 +183,10 @@ if [[ ! -d "$JDR" ]]
 then
 	mkdir -p "$JDR"
 fi
-if [[ ! -d "$JDR/.config" ]] 
+if [[ ! -d "$JDR/conf" ]] 
 then
-	mkdir -p "$JDR/.config"
-	printf "%s\\n\\n" "This directory contains results from query for \`AndroidManifest.xml\` files in GitHub $USENAME repositores.  " > "$JDR/.config/README.md" 
+	mkdir -p "$JDR/conf"
+	printf "%s\\n\\n" "This directory contains results from query for \`AndroidManifest.xml\` files in GitHub $USENAME repositores.  " > "$JDR/conf/README.md" 
 fi
 cd "$JDR"
 printf "%s" "${TYPE[@]}" > profile
