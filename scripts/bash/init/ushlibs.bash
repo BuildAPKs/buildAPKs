@@ -1,6 +1,7 @@
 #!/bin/env bash
 # Copyright 2017-2019 (c) all rights reserved 
 # by S D Rausty https://sdrausty.github.io
+# installs and updates submodules from https://github.com/shlibs
 #####################################################################
 set -Eeuo pipefail
 shopt -s nullglob globstar
@@ -8,7 +9,7 @@ shopt -s nullglob globstar
 _SRSTRPERROR_() { # run on script error
 	local RV="$?"
 	echo "$RV" init.bash
-	printf "\\e[?25h\\n\\e[1;48;5;138mBuildAPKs %s ERROR:  Generated script error %s near or at line number %s by \`%s\`!\\e[0m\\n" "${PWD##*/}" "${1:-UNDEF}" "${2:-LINENO}" "${3:-BASH_COMMAND}"
+	printf "\\e[?25h\\e[1;48;5;138mBuildAPKs %s ERROR:  Generated script error %s near or at line number %s by \`%s\`!\\e[0m\\n" "${PWD##*/}" "${1:-UNDEF}" "${2:-LINENO}" "${3:-BASH_COMMAND}"
 	exit 147
 }
 
@@ -43,21 +44,21 @@ _IRGR_() { # https://stackoverflow.com/questions/53977052/how-to-properly-initia
 		git remote add origin ssh://${USER}@${HOSTIP}${PROJECT}.git
 }
 
-_UFSHLIBS_() { 
-	declare -A ARSHLIBS # declare associative array for available submoldules
+_UFSHLIBS_() { # add and update submodules 
+	declare -A ARSHLIBS # declare associative array for available submodules
 	ARSHLIBS=([bash/shlibs]="shlibs/shlibs.bash" [sh/shlibs]="shlibs/shlibs.sh")
 	for MLOC in "${!ARSHLIBS[@]}" 
 	do
 		if ! grep "${ARSHLIBS[$MLOC]}" .gitmodules 1>/dev/null  
 		then
- 			printf "\\e[1;7;38;5;96mAdding ~/%s/scripts/%s...\\e[0m\\n" "${RDR##*/}" "$MLOC" ; git submodule add https://github.com/${ARSHLIBS[$MLOC]} scripts/$MLOC || printf "\\nCannot add submodule ~/%s/scripts/%s: Continuing...\\n\\n" "${RDR##*/}" "$MLOC"
+ 			printf "\\e[1;7;38;5;96mAdding ~/%s/scripts/%s...\\e[0m\\n" "${RDR##*/}" "$MLOC" ; git submodule add https://github.com/${ARSHLIBS[$MLOC]} scripts/$MLOC || printf "Cannot add submodule ~/%s/scripts/%s: Continuing...\\n" "${RDR##*/}" "$MLOC"
 		fi
 	done
 	for MLOC in "${!ARSHLIBS[@]}" 
 	do
 		if grep "${ARSHLIBS[$MLOC]}" .gitmodules 1>/dev/null  
 		then
- 		printf "\\e[1;7;38;5;96mUpdating ~/%s/scripts/%s...\\e[0m\\n" "${RDR##*/}" "$MLOC" ; git submodule update --recursive --remote scripts/bash/shlibs || printf "\\nCannot update module ~/%s/scripts/%s: Continuing...\\n\\n" "${RDR##*/}" "$MLOC"
+ 		printf "\\e[1;7;38;5;96mUpdating ~/%s/scripts/%s...\\e[0m\\n" "${RDR##*/}" "$MLOC" ; git submodule update --recursive --remote scripts/bash/shlibs || printf "Cannot update module ~/%s/scripts/%s: Continuing...\\n" "${RDR##*/}" "$MLOC"
 		fi
 	done
 }
