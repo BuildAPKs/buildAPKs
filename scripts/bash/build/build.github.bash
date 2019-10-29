@@ -90,7 +90,11 @@ done
 _CUTE_ () { # check whether username is an organization
 	. "$RDR"/scripts/bash/shlibs/lock.bash 
 	. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
-	read TYPE < <(curl "https://api.github.com/users/$USENAME/repos" -s 2>&1 | head -n 25 | tail -n 1 | grep -o Organization) # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell/
+	if [[ ! -f "profile" ]] 
+	then
+		curl "https://api.github.com/users/$USER" > profile 
+	fi
+	read TYPE < <(head -25 profile | tail -1 | grep -o Organization) # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell/
 	if [[ "$TYPE" == Organization ]]
 	then
 		export ISUSER=users
@@ -159,6 +163,7 @@ export OAUT="$(cat "$RDR/var/conf/GAUTH" | awk 'NR==1')" # loads login:token key
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build.github.bash $1:"
 . "$RDR"/scripts/bash/shlibs/buildAPKs/fandm.bash
 . "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
+. "$RDR"/scripts/sh/shlibs/buildAPKs/names.sh
 if grep -iw "$USENAME" "$RDR"/var/conf/[PZ]NAMES
 then	# create null directory, repos file and exit
 	if grep -iw "$USENAME" "$RDR"/var/conf/ONAMES
@@ -199,7 +204,7 @@ then
 	fi
 fi
 _PRINTJS_
-JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g')) || _SIGNAL_ "100" "JARR" ; _PRINTJD_ ; exit 0 # creates array of Java language repositories
+JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g')) || _NAMESMAINBLOCK_ CNAMES ZNAMES ; _SIGNAL_ "100" "JARR" ; _PRINTJD_ ; exit 0 # creates array of Java language repositories
 _PRINTJD_
 F1AR=($(find . -maxdepth 1 -type d)) # creates array of $JDR contents 
 for NAME in "${JARR[@]}" # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted, too.  They are repopulated from the tarballs.  
