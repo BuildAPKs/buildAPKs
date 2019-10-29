@@ -30,9 +30,9 @@ _ATT_ () {
 			then
 				if [[ "$OAUT" != "" ]] # see $RDR/var/conf/GAUTH file 
 				then
-					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -1024)" || _SIGNAL_ "20" "_ATT_ ISAND"
+					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -1024)" || _SIGNAL_ "200" "_ATT_ ISAND"
 				else
- 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -1024)" ||  _SIGNAL_ "22" "_ATT_ ISAND"
+ 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -1024)" ||  _SIGNAL_ "202" "_ATT_ ISAND"
 				fi
 			 	if grep AndroidManifest.xml <<< "$ISAND" 
 				then
@@ -90,12 +90,8 @@ done
 _CUTE_ () { # check whether username is an organization
 	. "$RDR"/scripts/bash/shlibs/lock.bash 
 	. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
-	if [[ ! -f "profile" ]] 
-	then
-		curl "https://api.github.com/users/$USER" > profile 
-	fi
-	read TYPE < <(head -25 profile | tail -1 | grep -o Organization) # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell/
-	if [[ "$TYPE" == Organization ]]
+	mapfile -t TYPE < <(curl "https://api.github.com/users/$USER")
+	if [[ "${TYPE[@]}" == *Organization* ]]
 	then
 		export ISUSER=users
 		export ISOTUR=orgs
@@ -193,6 +189,7 @@ then
 	printf "%s\\n\\n" "This directory contains results from query for \`AndroidManifest.xml\` files in GitHub $USENAME repositores.  " > "$JDR/.config/README.md" 
 fi
 cd "$JDR"
+printf "%s" "${TYPE[@]}" > profile
 if [[ ! -f "repos" ]] 
 then
 	printf "%s\\n" "Downloading GitHub $USENAME repositories information:  "
@@ -207,10 +204,9 @@ _PRINTJS_
 JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g')) # creates array of Java language repositories	
 _PRINTJD_
 if [[ "${JARR[@]}" == *ERROR* ]]
-then 
-	_SIGNAL_ "404" "JARR"
+then
 	_NAMESMAINBLOCK_ CNAMES ZNAMES
-	exit 4
+	exit 0
 fi
 F1AR=($(find . -maxdepth 1 -type d)) # creates array of $JDR contents 
 for NAME in "${JARR[@]}" # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted, too.  They are repopulated from the tarballs.  
