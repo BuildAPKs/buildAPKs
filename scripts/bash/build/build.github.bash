@@ -148,15 +148,20 @@ printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build
 . "$RDR"/scripts/bash/shlibs/buildAPKs/fandm.bash
 . "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
 if grep -iw "$USENAME" "$RDR"/var/conf/[PZ]NAMES
-then
-	JDR="$RDR/sources/github/users/$USER"
+then	# create null directory, repos file and exit
+	if grep -iw "$USENAME" "$RDR"/var/conf/ONAMES
+	then
+		JDR="$RDR/sources/github/orgs/$USER"
+	else
+		JDR="$RDR/sources/github/users/$USER"
+	fi
 	mkdir -p "$JDR"
 	touch "$JDR"/repos
 	printf "\\e[7;38;5;208mUsername %s is found in %s: See preceeding output.  Not processing username %s!  Remove the username from the corresponding file(s) and the user's build directory in %s to proccess %s.  File %s has more information:\\n\\n\\e[0m" "$USENAME" "~/${RDR##*/}/var/conf/[PZ]NAMES" "$USENAME" "~/${RDR##*/}/sources/github/{orgs,users}" "$USENAME" "~/${RDR##*/}/var/conf/README.md" 
 	cat "$RDR/var/conf/README.md" | grep -v \<\!
 	printf "\\e[7;38;5;208m\\nUsername %s is found in %s: Not processing username %s!  Remove the username from the corresponding file(s) and the user's build directory in %s to proccess %s.  Then run %s again to build %s.  Scroll up to read the %s file.\\e[0m\\n" "$USENAME" "~/${RDR##*/}/var/conf/[PZ]NAMES" "$USENAME" "~/${RDR##*/}/sources/github/{orgs,users}" "$USENAME" "${0##*/}" "$USENAME" "~/${RDR##*/}/var/conf/README.md" 
-	exit 0
-else
+	exit 4
+else	# check whether login is a user or an organization.
 	_CUTE_
 fi
 export JDR="$RDR/sources/github/$ISOTUR/$USER"
