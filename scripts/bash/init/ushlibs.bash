@@ -46,17 +46,17 @@ _AFSHLIBS_() { # https://stackoverflow.com/questions/53977052/how-to-properly-in
 }
 
 _UFSHLIBS_() { 
-	if grep shlibs .gitmodules 1>/dev/null
+	if grep shlibs.bash .gitmodules 1>/dev/null && grep shlibs.sh  .gitmodules 1>/dev/null
 	then
 		printf "\\e[1;7;38;5;96mUpdating ~/%s/scripts/bash/shlibs...\\e[0m\\n" "${RDR##*/}" ; git submodule update --recursive --remote scripts/bash/shlibs || printf "\\nCannot update module ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
 	else
-		printf "\\e[1;7;38;5;96mAdding ~/%s/scripts/bash/shlibs...\\e[0m\\n" "${RDR##*/}" ; git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs || printf "\\nCannot add modules ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
+		printf "\\e[1;7;38;5;96mAdding ~/%s/scripts/bash/shlibs...\\e[0m\\n" "${RDR##*/}" ;  git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs && git submodule add https://github.com/shlibs/shlibs.sh scripts/sh/shlibs || printf "\\nCannot add modules ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
 	fi
 }
 
 cd "$RDR"
 _AFSHLIBS_
-if [[ ! -f "$RDR"/scripts/bash/shlibs/.git ]] 
+if [[ ! -f "$RDR"/scripts/bash/shlibs/.git ]] || [[ ! -f "$RDR"/scripts/sh/shlibs/.git ]] 
 then
 	git pull || printf "\\nCannot update ~/%s: Continuing...\\n\\n" "${RDR##*/}"
 	_UFSHLIBS_
