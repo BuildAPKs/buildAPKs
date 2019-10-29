@@ -35,27 +35,38 @@ trap _SRSTRPEXIT_ EXIT
 trap _SRSTRPSIGNAL_ HUP INT TERM 
 trap _SRSTRPQUIT_ QUIT 
 
-_AFSHLIBS_() { # https://stackoverflow.com/questions/53977052/how-to-properly-initialize-a-remote-git-repository 
-	if [[ ! -d "$RDR"/.git ]] 
-	then
+_IRGR_() { # https://stackoverflow.com/questions/53977052/how-to-properly-initialize-a-remote-git-repository 
 		local USER="BuildAPKs"
 		local HOSTIP="github.com"
 		local PROJECT="buildAPKs"
-		git init ; git remote add origin ssh://${USER}@${HOSTIP}${PROJECT}.git
-	fi
+		git init 
+		git remote add origin ssh://${USER}@${HOSTIP}${PROJECT}.git
 }
 
 _UFSHLIBS_() { 
-	if grep shlibs.bash .gitmodules 1>/dev/null && grep shlibs.sh  .gitmodules 1>/dev/null
-	then
-		printf "\\e[1;7;38;5;96mUpdating ~/%s/scripts/bash/shlibs...\\e[0m\\n" "${RDR##*/}" ; git submodule update --recursive --remote scripts/bash/shlibs || printf "\\nCannot update module ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
-	else
-		printf "\\e[1;7;38;5;96mAdding ~/%s/scripts/bash/shlibs...\\e[0m\\n" "${RDR##*/}" ;  git submodule add https://github.com/shlibs/shlibs.bash scripts/bash/shlibs ; git submodule add https://github.com/shlibs/shlibs.sh scripts/sh/shlibs || printf "\\nCannot add modules ~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "${RDR##*/}"
-	fi
+	declare -A ARSHLIBS # declare associative array for available submoldules
+	ARSHLIBS=([bash/shlibs]="shlibs/shlibs.bash" [sh/shlibs]="shlibs/shlibs.sh")
+	for MLOC in "${!ARSHLIBS[@]}" 
+	do
+		if ! grep "${ARSHLIBS[$MLOC]}" .gitmodules 1>/dev/null  
+		then
+ 			printf "\\e[1;7;38;5;96mAdding ~/%s/scripts/%s...\\e[0m\\n" "${RDR##*/}" "$MLOC" ; git submodule add https://github.com/${ARSHLIBS[$MLOC]} scripts/$MLOC || printf "\\nCannot add submodule ~/%s/scripts/%s: Continuing...\\n\\n" "${RDR##*/}" "$MLOC"
+		fi
+	done
+	for MLOC in "${!ARSHLIBS[@]}" 
+	do
+		if grep "${ARSHLIBS[$MLOC]}" .gitmodules 1>/dev/null  
+		then
+ 		printf "\\e[1;7;38;5;96mUpdating ~/%s/scripts/%s...\\e[0m\\n" "${RDR##*/}" "$MLOC" ; git submodule update --recursive --remote scripts/bash/shlibs || printf "\\nCannot update module ~/%s/scripts/%s: Continuing...\\n\\n" "${RDR##*/}" "$MLOC"
+		fi
+	done
 }
 
 cd "$RDR"
-_AFSHLIBS_
+if [[ ! -d "$RDR"/.git ]] 
+then
+	_IRGR_
+fi
 if [[ ! -f "$RDR"/scripts/bash/shlibs/.git ]] || [[ ! -f "$RDR"/scripts/sh/shlibs/.git ]] 
 then
 	git pull || printf "\\nCannot update ~/%s: Continuing...\\n\\n" "${RDR##*/}"
