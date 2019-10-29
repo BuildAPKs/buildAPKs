@@ -30,9 +30,9 @@ _ATT_ () {
 			then
 				if [[ "$OAUT" != "" ]] # see $RDR/var/conf/GAUTH file 
 				then
-					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -1024)" || printf "\\e[2;2;38;5;208m%s\\e[0m\\n" "ERROR FOUND in _ATT_ ISAND ${0##*/}; Continuing..."
+					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -1024)" || _SIGNAL_ "20" "_ATT_ ISAND"
 				else
- 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -1024)" || printf "\\e[2;2;38;5;208m%s\\e[0m\\n" "ERROR FOUND in _ATT_ ISAND ${0##*/}; Continuing..."
+ 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -1024)" ||  _SIGNAL_ "22" "_ATT_ ISAND"
 				fi
 			 	if grep AndroidManifest.xml <<< "$ISAND" 
 				then
@@ -49,7 +49,7 @@ _ATT_ () {
 		elif [[ -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] && [[ "${F1AR[@]}" =~ "${NAME##*/}" ]] # tarfile and directory exist
 		then
 			_AND_
-			export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "130 $STRING"
+			export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || _SIGNAL_ "24" "_ATT_ SFX"
 		fi
 	fi
 }
@@ -58,9 +58,9 @@ _BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/
 	printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT -o ${NAME##*/}.${COMMIT::7}.tar.gz:"
 	if [[ "$OAUT" != "" ]] # see $RDR/var/conf/GAUTH file 
 	then
-		curl -u "$OAUT" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "131 $STRING"
+		curl -u "$OAUT" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "40" "_BUILDAPKS_"
 	else
-		curl -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || printf "%s\\n\\n" "132 $STRING"
+		curl -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "42" "_BUILDAPKS_"
 	fi
 	_FJDX_ 
 }
@@ -74,13 +74,13 @@ _CKAT_ () {
  	if [[ $CKFILE = "" ]] # configuration file is not found
  	then
  		printf "%s" "Checking $USENAME $REPO for last commit:  " 
-  		COMMIT="$(_GC_)" ||:
+  		COMMIT="$(_GC_)" || _SIGNAL_ "60" "_CKAT_ COMMIT"
  		printf "%s\\n" "Found ${COMMIT::7}; Continuing..."
  		_ATT_ 
  	else # load configuration information from file 
  		printf "%s" "Loading $USENAME $REPO config from $CKFILE:  "
- 		COMMIT=$(head -n 1 "$NPCK")
-  		CK=$(tail -n 1  "$NPCK")
+ 		COMMIT=$(head -n 1 "$NPCK") || _SIGNAL_ "62" "_CKAT_ COMMIT"
+  		CK=$(tail -n 1  "$NPCK") || _SIGNAL_ "64" "_CKAT_ CK"
 		_PRINTCK_ 
  		_ATT_ 
  	fi
@@ -102,8 +102,8 @@ _CUTE_ () { # check whether username is an organization
 }
 
 _FJDX_ () { 
-	export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || printf "%s\\n\\n" "133 $STRING"
-	(tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" | grep AndroidManifest.xml || printf "%s\\n\\n" "134 $STRING") ; _IAR_ "$JDR/$SFX" || printf "%s\\n\\n" "135 $STRING"
+	export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || _SIGNAL_ "82" "_FJDX_"
+	(tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" | grep AndroidManifest.xml || _SIGNAL_ "84" "_FJDX_") ; _IAR_ "$JDR/$SFX" || _SIGNAL_ "86" "_FJDX_"
 }
 
 _GC_ () { 
@@ -130,6 +130,11 @@ _PRINTCK_ () {
 	fi
 }
 
+_SIGNAL_ () {
+	STRING="SIGNAL $1 found in $2 ${0##*/}:  Continuing...  "
+	printf "\\e[2;2;38;5;208m%s\\e[0m\\n\\n" "$STRING" 
+}
+
 if [[ -z "${1:-}" ]] 
 then
 	printf "\\e[1;7;38;5;204m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;204m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;204m%s\\e[1;7;38;5;201m%s\\e[1;7;38;5;204m%s\\n\\e[0m\\n" "GitHub username must be provided;  See " "~/${RDR##*/}/var/conf/UNAMES" " for usernames that build APKs on device with BuildAPKs!  To build all the usernames contained in this file run " "for NAME in \$(cat ~/${RDR##*/}/var/conf/UNAMES) ; do ~/${RDR##*/}/scripts/bash/build/${0##*/} \$NAME ; done" ".  File " "~/${RDR##*/}/var/conf/GAUTH" " has important information should you choose to run this command regarding bandwidth supplied by GitHub. "
@@ -142,8 +147,7 @@ fi
 export UONE="${1%/}"
 export USENAME="${UONE##*/}"
 export USER="${USENAME,,}"
-export OAUT="$(cat "$RDR/var/conf/GAUTH" | awk 'NR==1')"
-export STRING="ERROR FOUND; ${0##*/} $1:  CONTINUING... "
+export OAUT="$(cat "$RDR/var/conf/GAUTH" | awk 'NR==1')" # loads login:token key
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build.github.bash $1:"
 . "$RDR"/scripts/bash/shlibs/buildAPKs/fandm.bash
 . "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
@@ -186,7 +190,7 @@ then
 		curl "https://api.github.com/$ISUSER/$USER/repos" > repos 
 	fi
 fi
-JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g')) # creates array of Java language repositories
+JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g')) || _SIGNAL_ "100" "JARR" # creates array of Java language repositories
 F1AR=($(find . -maxdepth 1 -type d)) # creates array of $JDR contents 
 for NAME in "${JARR[@]}" # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted, too.  They are repopulated from the tarballs.  
 do #  This creates a "slate" within each github/$JDR that can be selectively reset when desired.  This can be important on a slow connection.
