@@ -32,6 +32,8 @@ These files may contain duplicate names: CNAMES, ENAMES, ONAMES, UNAMES and ZNAM
 
 ∆ *system created file* 
 
+Use ` grep NAMES var/db/README.md | tail -12 ` to just view the ?NAMES files table.
+
 NOTE:  Add a token username pair to ~/buildAPKs/.conf/GAUTH to use this OATH token file:  Enabling OAuth increases the rate limit for authenticated users.  To create an OAuth token, you can use https://github.com/settings/tokens and insert this token into the first line in GAUTH.  File [GAUTH](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/.conf/GAUTH) has more information.  
 
 ##### Some source pages for NUNAMES:
