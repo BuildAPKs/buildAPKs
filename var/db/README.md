@@ -2,8 +2,6 @@ GitHub `*NAMES` README.md
 
 The build.github*.bash commands use this directory.  The [build.github.bash](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/build/build.github.bash) command can build all the APK projects in a GitHub account on device today!  When you find a GitHub username that builds with buildAPKs, consider adding to this project by submitting a [pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) at https://github.com/BuildAPKs/buildAPKs/pulls by adding to one or more of the `*NAMES` files, and possibly to appropriate ma.bash files with the desired APK project(s) source code GitHub commit reference(s). 
 
-#### The NUNAMES file should be a good starting point in fullfilling this desire.
-
 This means that two very simple pull requests can be submitted:  One in buildAPKs, by adding a name to the corresponding `*NAMES` file or files, just one login name in each corresponding file per GitHub login.  The second pull request can be added in an appropriate https://github.com/BuildAPKs module repository by adding an `_AT_` line in the suitable ma.bash file, one per project.  This means that if a GitHub login has many interesting projects, multiple buildAPKs module repositories can recieve pull requests regarding the same user's projects.    
 
 1) To see the available ma.bash files you can use: 
