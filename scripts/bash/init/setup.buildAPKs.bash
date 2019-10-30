@@ -66,7 +66,6 @@ printf "\\e[1;38;5;115m%s\\e[0m\\n" "Beginning buildAPKs setup:"
 COMMANDR="$(command -v au)" || (printf "%s\\n\\n" "$STRING1") 
 COMMANDIF="${COMMANDR##*/}"
 PKGS=(aapt apksigner curl dx ecj git)
-PKGS1=(aapt apksigner curl dx ecj findutils git)
 if [[ -z "${1:-}" ]]
 then
 	ARGS=""
