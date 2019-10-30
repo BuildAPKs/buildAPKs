@@ -21,7 +21,6 @@ These files may contain duplicate names: CNAMES, ENAMES, ONAMES, UNAMES and ZNAM
 | ----------- | --------- |
 | CNAMES      | checked names |
 | ENAMES      | names with exceptional APK projects |
-| GAUTH       | OATH token file:  Enabling OAuth increases the rate limit for authenticated users.  To create an OAuth token, you can use https://github.com/settings/tokens and insert this token into the first line in GAUTH.  File GAUTH has more information. |
 | NUNAMES     | names with possible new APKs that might migrate to ONAMES, UNAMES and ma.bash |
 | ONAMES      | organization names whose APKs build in buildAPKs on device |
 | PNAMES      | pending names that might transition to ONAMES, UNAMES and ma.bash |
