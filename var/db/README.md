@@ -33,6 +33,8 @@ These files may contain duplicate names: CNAMES, ENAMES, ONAMES, UNAMES and ZNAM
 
 ∆ *system file* 
 
+NOTE:  Add a token username pair to ~/buildAPKs/.conf/GAUTH to use this OATH token file:  Enabling OAuth increases the rate limit for authenticated users.  To create an OAuth token, you can use https://github.com/settings/tokens and insert this token into the first line in GAUTH.  File [GAUTH](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/.conf/GAUTH) has more information.  
+
 ##### Some source pages for NUNAMES:
    * [https://github.com/amitshekhariitbhu/awesome-android-complete-reference](https://github.com/amitshekhariitbhu/awesome-android-complete-reference)
    * [https://github.com/wasabeef/awesome-android-ui](https://github.com/wasabeef/awesome-android-ui)
@@ -43,6 +45,4 @@ These files may contain duplicate names: CNAMES, ENAMES, ONAMES, UNAMES and ZNAM
    * [https://developer.ibm.com/tutorials/l-linux-shells/](https://developer.ibm.com/tutorials/l-linux-shells/)
    * [https://www.gnu.org/software/bash/manual/bash.html](https://www.gnu.org/software/bash/manual/bash.html)
    * [http://tldp.org/guides.html](http://tldp.org/guides.html)
-
-### NOTE:  Add a token username pair to GAUTH to use the OATH token file:  Enabling OAuth increases the rate limit for authenticated users.  To create an OAuth token, you can use https://github.com/settings/tokens and insert this token into the first line in GAUTH.  File GAUTH has more information.  
 <!-- README.md EOF -->
