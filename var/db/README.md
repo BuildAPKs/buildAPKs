@@ -15,7 +15,7 @@ Usage: `_AT_ login/repo commit`
 
 The file ~/buildAPKs/.gitmodules has information about each submodule repository.  The submodules located in ~/buildAPKs/sources/ contain each particular ma.bash file.  Running ~/buildAPKs/build.buildAPKs.modules.bash will populate the `.gitmodules` file and the submodules.  The `_AT_` function itself is located in ` grep -r _AT_ ~/buildAPKs/scripts/ ` after the corresponding submodules have been cloned into the ~/buildAPKs/ directory.
 
-These files may contain duplicate names: CNAMES, ENAMES, ONAMES, UNAMES and ZNAMES.  File rm.dups.bash has more information.  The following files are located in ~/buildAPKs/var/conf/ and their purpose is outlined below:
+These files may contain duplicate names: CNAMES, ENAMES, ONAMES, UNAMES and ZNAMES.  File rm.dups.bash has more information.  The following files are located in ~/buildAPKs/var/db/ and their purpose is outlined below:
 
 | File Name   | Purpose   |
 | ----------- | --------- |
