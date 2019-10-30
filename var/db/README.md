@@ -17,16 +17,17 @@ These files may contain duplicate names: CNAMES, ENAMES, ONAMES, UNAMES and ZNAM
 
 | File Name   | Purpose   |
 | ----------- | --------- |
+| BNAMES  ∆   | names that build APKs with buildAPKs on device |
 | CNAMES      | checked names |
 | ENAMES      | names with exceptional APK projects |
 | NUNAMES     | names with possible new APKs that might migrate to ONAMES, UNAMES and ma.bash |
 | ONAMES      | organization names whose APKs build in buildAPKs on device |
 | PNAMES      | pending names that might transition to ONAMES, UNAMES and ma.bash |
-| QNAMES  ∆   | pending names that might transition to PNAMES, ONAMES, UNAMES and ma.bash |
+| QNAMES  ∆   | names that have an AndroidManifest.xml file |
 | README.md   | this file |
 | TNAMES      | GitHub topics that build with buildAPKs on device |
-| UNAMES      | user names whose APKs build in buildAPKs on device |
-| ZNAMES      | user names who have zero APK projects |
+| UNAMES      | names whose APKs build in buildAPKs on device |
+| ZNAMES      | names who have zero APK projects |
 | rm.dups.bash | parses files for duplicate names |
 
 ∆ *system created file* 
