@@ -1,6 +1,6 @@
 GitHub `*NAMES` README.md
 
-The build.github*.bash commands use this directoty.  Try  When you find a GitHub username with APKs that builds with buildAPKs, consider adding to this project by submitting a [pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) at https://github.com/BuildAPKs/buildAPKs/pulls by adding to one or more of the `*NAMES` files, and possibly to appropriate ma.bash files with the desired APK project(s) source code GitHub commit reference(s). 
+The build.github*.bash commands use this directory.  The [build.github.bash](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/build/build.github.bash) command can build a GitHub account on device.  Today!  When you find a GitHub username with APKs that builds with buildAPKs, consider adding to this project by submitting a [pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) at https://github.com/BuildAPKs/buildAPKs/pulls by adding to one or more of the `*NAMES` files, and possibly to appropriate ma.bash files with the desired APK project(s) source code GitHub commit reference(s). 
 
 #### The NUNAMES file should be a good starting point in fullfilling this desire.
 
