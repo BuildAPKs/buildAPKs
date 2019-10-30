@@ -1,9 +1,9 @@
 
-The first line of this file is intentionally left blank.  Insert an OAuth username token pair in the first line of this file to enable OAuth authentication, i.e. user:token  As the ` build.github*.bash ` scripts may stall for unauthenticated users of GitHub, enabling OAuth increases the rate limit for authenticated GitHub users.
+The first line of this file is intentionally left blank.  Insert an OAuth username token pair in the first line of this file to enable OAuth authentication, i.e. user:token  As the ` build.github*.bash ` scripts can stall for unauthenticated users of GitHub due to the high bandwith they consume when conducting multiple queries.  Enabling OAuth authentication increases the rate limit for authenticated GitHub users.
 
-You can use https://github.com/settings/tokens to create an OAuth token.  Information about authentication can be viewed at this https://developer.github.com/v3/auth/#basic-authentication address.  
+This https://github.com/settings/tokens link creates OAuth tokens easily.  Information about GitHub authentication can be viewed at this https://developer.github.com/v3/auth/#basic-authentication address.  
 
 This command ` grep -C 4 -hr AUT ~/buildAPKs/scripts/ ` shows how the user token combination is used in the buildAPKs scripts to access the increased rate limit for authenticated GitHub users.  
 
-If there is a "Please commit your changes or stash them before you merge" message after ` git pull ` a solution is ` mv ~/buildAPKs/.config/GAUTH ~/buildAPKs/cache/stash/GAUTH ` to clear this message.  Remember to add the user:token to the new GAUTH file after updating. 
+If there is a "Please commit your changes or stash them before you merge" message after ` git pull ` a solution is ` mv ~/buildAPKs/.config/GAUTH ~/buildAPKs/cache/stash/GAUTH ` to clear this message.  Remember to add the user:token to the new GAUTH file after updating this file. 
 # GAUTH EOF

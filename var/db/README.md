@@ -32,7 +32,9 @@ These files may contain duplicate names: CNAMES, ENAMES, ONAMES, UNAMES and ZNAM
 
 ∆ *system created file* 
 
-NOTE:  Add a token username pair to ~/buildAPKs/.conf/GAUTH to use this OATH token file:  Enabling OAuth increases the rate limit for authenticated users.  To create an OAuth token, you can use https://github.com/settings/tokens and insert this token into the first line in GAUTH.  File [GAUTH](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/.conf/GAUTH) has more information.  
+Grep can be used ` grep NAMES ~/buildAPKs/var/db/README.md | tail -12 ` to view only the ?NAMES files table in this file.
+
+NOTE:  Adding a username token pair to ~/buildAPKs/.conf/GAUTH will increase the rate limit for authenticated users of GitHub.  Use this OATH token file to enable OAuth authentication.  To create an OAuth token, you can use https://github.com/settings/tokens and insert this token into the first line in GAUTH.  File [GAUTH](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/.conf/GAUTH) has more information.  
 
 ##### Some source pages for NUNAMES:
    * [https://github.com/amitshekhariitbhu/awesome-android-complete-reference](https://github.com/amitshekhariitbhu/awesome-android-complete-reference)
