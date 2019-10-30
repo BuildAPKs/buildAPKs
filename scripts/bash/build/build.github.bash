@@ -158,9 +158,10 @@ export USENAME="${UONE##*/}"
 export USER="${USENAME,,}"
 export OAUT="$(cat "$RDR/.conf/GAUTH" | awk 'NR==1')" # loads login:token key from GAUTH file
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build.github.bash $1:"
-. "$RDR"/scripts/bash/shlibs/buildAPKs/fandm.bash
-. "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
-. "$RDR"/scripts/sh/shlibs/buildAPKs/names.sh
+. "$RDR/scripts/bash/shlibs/buildAPKs/fandm.bash"
+. "$RDR/scripts/bash/shlibs/buildAPKs/prep.bash"
+. "$RDR/scripts/sh/shlibs/buildAPKs/fapks.sh"
+. "$RDR/scripts/sh/shlibs/buildAPKs/names.sh"
 if grep -iw "$USENAME" "$RDR"/var/db/[PZ]NAMES
 then	# create null directory, repos file and exit
 	if grep -iw "$USENAME" "$RDR"/var/db/ONAMES
@@ -215,7 +216,8 @@ for NAME in "${JARR[@]}" # lets you delete partial downloads and repopulates fro
 do #  This creates a "slate" within each github/$JDR that can be selectively reset when desired.  This can be important on a slow connection.
 	_CKAT_ 
 done
-_ANDB_ "$JDR" 
+_ANDB_ 
+_APKBC_
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 
 _WAKEUNLOCK_
 # build.github.bash OEF
