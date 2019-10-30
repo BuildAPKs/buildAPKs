@@ -184,9 +184,9 @@ if [[ ! -d "$JDR" ]]
 then
 	mkdir -p "$JDR"
 fi
-if [[ ! -d "$JDR/conf" ]] 
+if [[ ! -d "$JDR/.conf" ]] 
 then
-	mkdir -p "$JDR/conf"
+	mkdir -p "$JDR/.conf"
 	printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  " > "$JDR/.conf/README.md" 
 fi
 cd "$JDR"
