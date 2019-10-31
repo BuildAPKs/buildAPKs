@@ -216,20 +216,20 @@ if [[ ! -f profile ]]
 then
 printf "%s\\n" "${TYPE[@]}" > profile
 fi
-grep "\"login\"" profile
-grep "\"id\"" profile
-grep "\"type\"" profile
-grep "\"name\"" profile
-grep "\"company\"" profile
-grep "\"blog\"" profile
-grep "\"location\"" profile
-grep "\"hireable\"" profile
-grep "\"bio\"" profile
-grep "\"public_repos\"" profile
-grep "\"public_gists\"" profile
-grep "\"followers\"" profile
-grep "\"following\"" profile
-grep "\"created_at\"" profile
+grep "\"login\"" profile | sed 's/\,//g' | sed 's/\"//g'
+grep "\"id\"" profile | sed 's/\,//g' | sed 's/\"//g'
+grep "\"type\"" profile | sed 's/\,//g' | sed 's/\"//g'
+grep "\"name\"" profile | sed 's/\,//g' | sed 's/\"//g'
+grep "\"company\"" profile | sed 's/\,//g' | sed 's/\"//g'
+grep "\"blog\"" profile | sed 's/\,//g' | sed 's/\"//g'
+grep "\"location\"" profile | sed 's/\,//g' | sed 's/\"//g'
+grep "\"hireable\"" profile | sed 's/\,//g' | sed 's/\"//g'
+grep "\"bio\"" profile | sed 's/\,//g' | sed 's/\"//g'
+grep "\"public_repos\"" profile | sed 's/\,//g' | sed 's/\"//g'
+grep "\"public_gists\"" profile | sed 's/\,//g' | sed 's/\"//g'
+grep "\"followers\"" profile | sed 's/\,//g' | sed 's/\"//g'
+grep "\"following\"" profile | sed 's/\,//g' | sed 's/\"//g'
+grep "\"created_at\"" profile | sed 's/\,//g' | sed 's/\"//g'
 if [[ ! -f "repos" ]] 
 then
 	printf "%s\\n" "Downloading GitHub $USENAME repositories information:  "
