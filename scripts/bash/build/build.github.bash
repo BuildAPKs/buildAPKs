@@ -89,27 +89,36 @@ done
 }
 
 _CUTE_ () { # checks if USENAME is found in [OU]NAMES and if it is an organization
-	. "$RDR/scripts/bash/shlibs/lock.bash" 
-	. "$RDR/scripts/bash/shlibs/buildAPKs/bnchn.bash" bch.st 
-	if grep -iw "$USENAME" "$RDR/var/db/ONAMES" 
-	then 
-		export ISUSER=users
-		export ISOTUR=orgs
-	elif grep -iw "$USENAME" "$RDR/var/db/UNAMES" 
+	if [[ $(grep -iw "$USENAME" "$RDR/var/db/GNAMES" |awk '{print $1}') == User ]]
 	then 
 		export ISUSER=users
 		export ISOTUR=users
+	elif [[ $(grep -iw "$USENAME" "$RDR/var/db/GNAMES" |awk '{print $1}') == Organization ]]
+	then 
+		export ISUSER=users
+		export ISOTUR=orgs
 	else
-		mapfile -t TYPE < <(curl "https://api.github.com/users/$USER")
-		if [[ "${TYPE[@]}" == *Organization* ]]
+		mapfile -t TYPE < <(curl "https://api.github.com/users/$USENAME")
+		if [[ "${TYPE[1]}" == *\"message\":\ \"Not\ Found\"* ]]
+		then
+			printf "\\n%s\\n\\n" "Could not find a GitHub login with $USENAME:  Exiting..."
+			exit 4
+		fi
+		NAMES=GNAMES
+		NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')"
+		USENAME="$(printf "%s" "${TYPE[1]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')"
+		_NAMESLOG_ 
+		if [[ "${TYPE[17]}" == *User* ]]
 		then
 			export ISUSER=users
-			export ISOTUR=orgs
+			export ISOTUR=users
 		else
 			export ISUSER=users
-			export ISOTUR=users
+			export ISOTUR=orgs
 		fi
 	fi
+	. "$RDR/scripts/bash/shlibs/lock.bash" 
+	. "$RDR/scripts/bash/shlibs/buildAPKs/bnchn.bash" bch.st 
 }
 
 _FJDX_ () { 
@@ -201,7 +210,7 @@ then
 	printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  " > "$JDR/.conf/README.md" 
 fi
 cd "$JDR"
-printf "%s\\n" "${TYPE[*]}" > profile
+printf "%s\\n" "${TYPE[@]}" > profile
 if [[ ! -f "repos" ]] 
 then
 	printf "%s\\n" "Downloading GitHub $USENAME repositories information:  "
