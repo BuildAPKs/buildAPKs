@@ -88,17 +88,27 @@ _CKAT_ () {
 done
 }
 
-_CUTE_ () { # check whether username is an organization
-	. "$RDR"/scripts/bash/shlibs/lock.bash 
-	. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
-	mapfile -t TYPE < <(curl "https://api.github.com/users/$USER")
-	if [[ "${TYPE[@]}" == *Organization* ]]
-	then
+_CUTE_ () { # checks if USENAME is found in [OU]NAMES and if it is an organization
+	. "$RDR/scripts/bash/shlibs/lock.bash" 
+	. "$RDR/scripts/bash/shlibs/buildAPKs/bnchn.bash" bch.st 
+	if grep -iw "$USENAME" "$RDR/var/db/ONAMES" 
+	then 
 		export ISUSER=users
 		export ISOTUR=orgs
-	else
+	elif grep -iw "$USENAME" "$RDR/var/db/UNAMES" 
+	then 
 		export ISUSER=users
 		export ISOTUR=users
+	else
+		mapfile -t TYPE < <(curl "https://api.github.com/users/$USER")
+		if [[ "${TYPE[@]}" == *Organization* ]]
+		then
+			export ISUSER=users
+			export ISOTUR=orgs
+		else
+			export ISUSER=users
+			export ISOTUR=users
+		fi
 	fi
 }
 
