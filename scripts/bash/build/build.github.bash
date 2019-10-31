@@ -223,7 +223,7 @@ grep "\"name\"" profile
 grep "\"company\"" profile
 grep "\"blog\"" profile
 grep "\"location\"" profile
-grep "\"hirable\"" profile
+grep "\"hireable\"" profile
 grep "\"bio\"" profile
 grep "\"public_repos\"" profile
 grep "\"public_gists\"" profile
