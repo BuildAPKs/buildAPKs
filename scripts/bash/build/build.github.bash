@@ -216,6 +216,7 @@ if [[ ! -f profile ]]
 then
 printf "%s\\n" "${TYPE[@]}" > profile
 fi
+printf "%s\\n" "Processing $USENAME:"
 grep "\"login\"" profile | sed 's/\,//g' | sed 's/\"//g'
 grep "\"id\"" profile | sed 's/\,//g' | sed 's/\"//g'
 grep "\"type\"" profile | sed 's/\,//g' | sed 's/\"//g'
