@@ -16,7 +16,7 @@ Have you ever wanted to build your own application? Something that you can distr
 
 See https://buildapks.github.io/docsBuildAPKs/reallyEasilyBuildAndroidAPKsOnDevice for quick setup instructions and https://buildapks.github.io/docsBuildAPKs for the documentation website for this project.  
 
-This command: `for i in $(cat ~/buildAPKs/conf/UNAMES) ; do ~/buildAPKs/scripts/bash/build/build.github.bash $i ; done`shall attempt to build [UNAMES](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/conf/UNAMES), all known GitHub usernames, while: `for i in $(cat ~/buildAPKs/conf/TNAMES) ; do ~/buildAPKs/scripts/bash/build/build.github.bash $i ; done`shall attempt to build [TNAMES](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/conf/TNAMES), all known GitHub topics @GitHub.  Please submit a [pull request](https://github.com/BuildAPKs/buildAPKs/pulls) if you want a name added to these listings.
+This command: `for i in $(cat ~/buildAPKs/conf/UNAMES) ; do ~/buildAPKs/scripts/bash/build/build.github.bash $i ; done`shall attempt to build [UNAMES](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/conf/UNAMES), all known GitHub usernames, while: `for i in $(cat ~/buildAPKs/var/db/TNAMES) ; do ~/buildAPKs/scripts/bash/build/build.github.bash $i ; done`shall attempt to build [TNAMES](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/var/db/TNAMES), all known GitHub topics @GitHub.  Please submit a [pull request](https://github.com/BuildAPKs/buildAPKs/pulls) if you want a name added to these listings.
 
 ### Really Easily Build an Android APK on an Android Device (Smartphone and Tablet).
 
