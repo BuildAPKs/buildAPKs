@@ -31,7 +31,8 @@ do
 	$SCHECK -c ${SCHECK::-3}.sum
 done
 git add .
-git commit -m sn.sh
+SN="$(sn.sh)"
+git commit -m "$SN"
 git push
 ls
 printf "\\e[1;38;5;112m%s\\e[0m\\n" "$PWD"
