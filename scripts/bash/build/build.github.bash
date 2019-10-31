@@ -191,7 +191,7 @@ then
 	printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  " > "$JDR/.conf/README.md" 
 fi
 cd "$JDR"
-printf "%s" "${TYPE[@]}" > profile
+printf "%s\\n" "${TYPE[*]}" > profile
 if [[ ! -f "repos" ]] 
 then
 	printf "%s\\n" "Downloading GitHub $USENAME repositories information:  "
