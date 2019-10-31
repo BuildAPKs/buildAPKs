@@ -88,23 +88,25 @@ _CKAT_ () {
 done
 }
 
-_CUTE_ () { # checks if USENAME is found in [OU]NAMES and if it is an organization
-	if [[ $(grep -iw "$USENAME" "$RDR/var/db/GNAMES" |awk '{print $1}') == User ]]
+_CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization or a user
+	if [[ $(grep -iw "$USENAME" "$RDR/var/db/GNAMES" | awk '{print $2}') == User ]]
 	then 
 		export ISUSER=users
 		export ISOTUR=users
-	elif [[ $(grep -iw "$USENAME" "$RDR/var/db/GNAMES" |awk '{print $1}') == Organization ]]
+		export USENAME="$(grep -iw "$USENAME" "$RDR/var/db/GNAMES" | awk '{print $1}')"
+	elif [[ $(grep -iw "$USENAME" "$RDR/var/db/GNAMES" | awk '{print $2}') == Organization ]]
 	then 
 		export ISUSER=users
 		export ISOTUR=orgs
-	else
+		export USENAME="$(grep -iw "$USENAME" "$RDR/var/db/GNAMES" | awk '{print $1}')"
+	else	# get USENAME and type of USENAME from GitHub
 		mapfile -t TYPE < <(curl "https://api.github.com/users/$USENAME")
 		if [[ "${TYPE[1]}" == *\"message\":\ \"Not\ Found\"* ]]
 		then
 			printf "\\n%s\\n\\n" "Could not find a GitHub login with $USENAME:  Exiting..."
 			exit 144
 		fi
-		NAMES=GNAMES
+		NAMES=GNAMES # sets file name for _NAMESLOG_ 
 		local NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "73" "_CUTE_ NAPKS"
 		local USENAME="$(printf "%s" "${TYPE[1]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "74" "_CUTE_ USENAME"
 		_NAMESLOG_ 
