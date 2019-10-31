@@ -228,7 +228,7 @@ JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{
 _PRINTJD_
 if [[ "${JARR[@]}" == *ERROR* ]]
 then
-	_SIGNAL_ "404" "search for Java language repository"
+	_SIGNAL_ "404" "search for Java language repositories"
 	_NAMESMAINBLOCK_ CNAMES ZNAMES
 	exit 0
 fi
