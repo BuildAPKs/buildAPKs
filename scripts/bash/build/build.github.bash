@@ -107,8 +107,8 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 			exit 144
 		fi
 		NAMES=GNAMES # sets file name for _NAMESLOG_ 
-		local NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "73" "_CUTE_ NAPKS"
-		local USENAME="$(printf "%s" "${TYPE[1]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "74" "_CUTE_ USENAME"
+		NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "73" "_CUTE_ NAPKS"
+		USENAME="$(printf "%s" "${TYPE[1]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "74" "_CUTE_ USENAME"
 		_NAMESLOG_ 
 		if [[ "${TYPE[17]}" == *User* ]]
 		then
