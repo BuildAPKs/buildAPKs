@@ -212,7 +212,24 @@ then
 	printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  " > "$JDR/.conf/README.md" 
 fi
 cd "$JDR"
+if [[ ! -f profile ]] 
+then
 printf "%s\\n" "${TYPE[@]}" > profile
+fi
+grep "\"login\"" profile
+grep "\"id\"" profile
+grep "\"type\"" profile
+grep "\"name\"" profile
+grep "\"company\"" profile
+grep "\"blog\"" profile
+grep "\"location\"" profile
+grep "\"hirable\"" profile
+grep "\"bio\"" profile
+grep "\"public_repos\"" profile
+grep "\"public_gists\"" profile
+grep "\"followers\"" profile
+grep "\"following\"" profile
+grep "\"created_at\"" profile
 if [[ ! -f "repos" ]] 
 then
 	printf "%s\\n" "Downloading GitHub $USENAME repositories information:  "
