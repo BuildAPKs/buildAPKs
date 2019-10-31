@@ -161,8 +161,8 @@ _PRINTJS_() {
 }
 
 _SIGNAL_ () {
-	STRING="SIGNAL $1 found in $2 ${0##*/}!"
-	printf "\\e[2;2;38;5;208m%s\\e[0m\\n\\n" "$STRING" 
+	STRING="SIGNAL $1 found in $2 ${0##*/} build.github.bash!  Continuing...  "
+	printf "\\e[2;7;38;5;210m%s\\e[0m" "$STRING" 
 }
 
 if [[ -z "${1:-}" ]] 
