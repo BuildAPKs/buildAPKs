@@ -30,7 +30,7 @@ These files may contain duplicate names: CNAMES, ENAMES, ONAMES, UNAMES and ZNAM
 | ZNAMES  ∆   | user names who have zero APK projects |
 | rm.dups.bash | parses files for duplicate names |
 
-∆ *system created file* 
+∆ *system files* 
 
 Grep can be used ` grep NAMES ~/buildAPKs/var/db/README.md | tail -12 ` to view only the ?NAMES files table in this file.
 
