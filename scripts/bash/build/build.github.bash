@@ -131,13 +131,13 @@ _FJDX_ () {
 _GC_ () { 
 	if [[ "$OAUT" != "" ]] # see $RDR/.conf/GAUTH file for information  
 	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
-	 	curl -u "$OAUT" -r 0-1 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
+	 	curl -u "$OAUT" -i https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -31 | tail -1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
 	else
-	 	curl -r 0-1 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
+	 	curl -i https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -31 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
 	fi
 }
 
-_NAND_ () { # write configuration file for repository if AndroidManifest.xml file is NOT found in git repository.  
+_NAND_ () { # writes configuration file for repository if AndroidManifest.xml file is NOT found in git repository
 	printf "%s\\n" "$COMMIT" > "$JDR/.conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "%s\\n" "1" >> "$JDR/.conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "\\n%s\\n\\n" "Could not find an AndroidManifest.xml file in Java language repository $USER ${NAME##*/} ${COMMIT::7}:  NOT downloading ${NAME##*/} tarball."
