@@ -75,7 +75,7 @@ _CKAT_ () {
  	if [[ $CKFILE = "" ]] # configuration file is not found
  	then
  		printf "%s" "Checking $USENAME $REPO for last commit:  " 
-  		COMMIT="$(_GC_)" || _SIGNAL_ "60" "_CKAT_ COMMIT"
+  		COMMIT="$(_GC_)" || : # _SIGNAL_ "60" "_CKAT_ COMMIT"
  		printf "%s\\n" "Found ${COMMIT::7}; Continuing..."
  		_ATT_ 
  	else # load configuration information from file 
@@ -128,16 +128,16 @@ _FJDX_ () {
 	(tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" | grep AndroidManifest.xml || _SIGNAL_ "84" "_FJDX_") ; _IAR_ "$JDR/$SFX" || _SIGNAL_ "86" "_FJDX_"
 }
 
-_GC_ () { 
+_GC_ () { # gets lastest commit
 	if [[ "$OAUT" != "" ]] # see $RDR/.conf/GAUTH file for information  
 	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
-	 	curl -u "$OAUT" -r 0-1 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
+	 	curl -u "$OAUT" -i https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -31 | tail -1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
 	else
-	 	curl -r 0-1 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
+	 	curl -i https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -31 | tail -1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
 	fi
 }
 
-_NAND_ () { # write configuration file for repository if AndroidManifest.xml file is NOT found in git repository.  
+_NAND_ () { # writes configuration file for repository if AndroidManifest.xml file is NOT found in git repository
 	printf "%s\\n" "$COMMIT" > "$JDR/.conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "%s\\n" "1" >> "$JDR/.conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "\\n%s\\n\\n" "Could not find an AndroidManifest.xml file in Java language repository $USER ${NAME##*/} ${COMMIT::7}:  NOT downloading ${NAME##*/} tarball."
@@ -197,7 +197,7 @@ then	# create null directory, repos file and exit
 	cat "$RDR/var/db/README.md" | grep -v \<\!
 	printf "\\e[7;38;5;208m\\nUsername %s is found in %s: Not processing username %s!  Remove the username from the corresponding file(s) and the user's build directory in %s to process %s.  Then run \` %s \` again to attempt to build %s's APK projects, if any.  Scroll up to read the %s file.\\e[0m\\n" "$USENAME" "~/${RDR##*/}/var/db/[PZ]NAMES" "$USENAME" "~/${RDR##*/}/sources/github/{orgs,users}" "$USENAME" "${0##*/} $USENAME" "$USENAME" "~/${RDR##*/}/var/db/README.md" 
 	exit 0
-else	# check whether login is a user or an organization.
+else	# checks whether login is a user or an organization
 	_CUTE_
 fi
 export JDR="$RDR/sources/github/$ISOTUR/$USER"
