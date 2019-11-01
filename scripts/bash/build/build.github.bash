@@ -6,7 +6,7 @@ set -Eeuo pipefail
 shopt -s nullglob globstar
 export RDR="$HOME/buildAPKs"
 . "$RDR"/scripts/bash/init/ushlibs.bash
-. "$RDR"/scripts/bash/shlibs/trap.bash 67 68 69 "${0##*/}" 
+. "$RDR"/scripts/bash/shlibs/trap.bash 67 68 69
 
 _AND_ () { # write configuration file for git repository tarball if AndroidManifest.xml file is found in git repositoryr.
 	export CK=0
@@ -131,9 +131,9 @@ _FJDX_ () {
 _GC_ () { 
 	if [[ "$OAUT" != "" ]] # see $RDR/.conf/GAUTH file for information  
 	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
-	 	curl -u "$OAUT" -i -s https://api.github.com/repos/"$USER/$REPO"/commits 2>&1 | head -31 | tail -1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
+	 	curl -u "$OAUT" -r 0-1 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
 	else
-	 	curl -i -s https://api.github.com/repos/"$USER/$REPO"/commits 2>&1 | head -31 | tail -1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
+	 	curl -r 0-1 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
 	fi
 }
 
@@ -183,8 +183,6 @@ printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build
 . "$RDR/scripts/bash/shlibs/buildAPKs/prep.bash"
 . "$RDR/scripts/sh/shlibs/buildAPKs/fapks.sh"
 . "$RDR/scripts/sh/shlibs/buildAPKs/names.sh"
-. "$RDR/scripts/sh/shlibs/mkdirs.sh"
-_MKDIRS_ "cache/stash" "cache/tarballs" "db" "db/log" "log/signal"
 if grep -iw "$USENAME" "$RDR"/var/db/[PZ]NAMES
 then	# create null directory, repos file and exit
 	if grep -iw "$USENAME" "$RDR"/var/db/ONAMES
