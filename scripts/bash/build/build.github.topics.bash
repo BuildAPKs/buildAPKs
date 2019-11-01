@@ -4,36 +4,8 @@
 #####################################################################
 set -Eeuo pipefail
 shopt -s nullglob globstar
-
-_SGTRPERROR_() { # run on script error
-	local RV="$?"
-	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s ERROR:  Signal %s received!\\e[0m\\n" "${0##*/}" "$RV"
-	exit 201
-}
-
-_SGTRPEXIT_() { # run on exit
-	printf "\\e[?25h\\e[0m"
-	set +Eeuo pipefail 
-	exit 0
-}
-
-_SGTRPSIGNAL_() { # run on signal
-	local RV="$?"
-	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Signal %s received!\\e[0m\\n" "${0##*/}" "$RV"
- 	exit 211 
-}
-
-_SGTRPQUIT_() { # run on quit
-	local RV="$?"
-	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Quit signal %s received!\\e[0m\\n" "${0##*/}" "$RV"
- 	exit 221 
-}
-
-trap '_SGTRPERROR_ $LINENO $BASH_COMMAND $?' ERR 
-trap _SGTRPEXIT_ EXIT
-trap _SGTRPSIGNAL_ HUP INT TERM 
-trap _SGTRPQUIT_ QUIT 
-
+. "$RDR"/scripts/bash/init/ushlibs.bash
+. "$RDR"/scripts/bash/shlibs/trap.bash 77 78 79 "${0##*/}"
 export RDR="$HOME/buildAPKs"
 if [[ -z "${1:-}" ]] 
 then
@@ -89,5 +61,4 @@ do
 done
 . "$RDR"/scripts/bash/shlibs/lock.bash wake.stop
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 
-_WAKEUNLOCK_
 # build.github.topics.bash EOF
