@@ -131,7 +131,7 @@ _FJDX_ () {
 _GC_ () { 
 	if [[ "$OAUT" != "" ]] # see $RDR/.conf/GAUTH file for information  
 	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
-	 	curl -u "$OAUT" -i https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -31 | tail -1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
+	 	curl -u "$OAUT" -i https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 31 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
 	else
 	 	curl -i https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -31 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
 	fi
