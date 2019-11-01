@@ -217,20 +217,11 @@ then
 printf "%s\\n" "${TYPE[@]}" > profile
 fi
 printf "%s\\n" "Processing $USENAME:"
-grep "\"login\"" profile | sed 's/\,//g' | sed 's/\"//g'
-grep "\"id\"" profile | sed 's/\,//g' | sed 's/\"//g'
-grep "\"type\"" profile | sed 's/\,//g' | sed 's/\"//g'
-grep "\"name\"" profile | sed 's/\,//g' | sed 's/\"//g'
-grep "\"company\"" profile | sed 's/\,//g' | sed 's/\"//g'
-grep "\"blog\"" profile | sed 's/\,//g' | sed 's/\"//g'
-grep "\"location\"" profile | sed 's/\,//g' | sed 's/\"//g'
-grep "\"hireable\"" profile | sed 's/\,//g' | sed 's/\"//g'
-grep "\"bio\"" profile | sed 's/\,//g' | sed 's/\"//g'
-grep "\"public_repos\"" profile | sed 's/\,//g' | sed 's/\"//g'
-grep "\"public_gists\"" profile | sed 's/\,//g' | sed 's/\"//g'
-grep "\"followers\"" profile | sed 's/\,//g' | sed 's/\"//g'
-grep "\"following\"" profile | sed 's/\,//g' | sed 's/\"//g'
-grep "\"created_at\"" profile | sed 's/\,//g' | sed 's/\"//g'
+KEYT=("\"login\"" "\"id\"" "\"type\"" "\"name\"" "\"company\"" "\"blog\"" "\"location\"" "\"hireable\"" "\"bio\"" "\"public_repos\"" "\"public_gists\"" "\"followers\"" "\"following\"" "\"created_at\"" )
+for KEYS in "${KEYT[@]}" 
+do
+	grep "$KEYS" profile | sed 's/\,//g' | sed 's/\"//g'
+done
 if [[ ! -f "repos" ]] 
 then
 	printf "%s\\n" "Downloading GitHub $USENAME repositories information:  "
