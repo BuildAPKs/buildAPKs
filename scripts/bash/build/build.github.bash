@@ -182,8 +182,8 @@ printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build
 . "$RDR/scripts/bash/shlibs/buildAPKs/fandm.bash"
 . "$RDR/scripts/bash/shlibs/buildAPKs/prep.bash"
 . "$RDR/scripts/sh/shlibs/buildAPKs/fapks.sh"
-. "$RDR/scripts/sh/shlibs/buildAPKs/mkdirs.sh"
 . "$RDR/scripts/sh/shlibs/buildAPKs/names.sh"
+. "$RDR/scripts/sh/shlibs/mkdirs.sh"
 _MKDIRS_ "cache/stash" "cache/tarballs" "db" "db/log" "log/signal"
 if grep -iw "$USENAME" "$RDR"/var/db/[PZ]NAMES
 then	# create null directory, repos file and exit
