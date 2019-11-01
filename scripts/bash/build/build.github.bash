@@ -128,7 +128,7 @@ _FJDX_ () {
 	(tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" | grep AndroidManifest.xml || _SIGNAL_ "84" "_FJDX_") ; _IAR_ "$JDR/$SFX" || _SIGNAL_ "86" "_FJDX_"
 }
 
-_GC_ () { gets lastest commit
+_GC_ () { # gets lastest commit
 	if [[ "$OAUT" != "" ]] # see $RDR/.conf/GAUTH file for information  
 	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
 	 	curl -u "$OAUT" -i https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -31 | tail -1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
