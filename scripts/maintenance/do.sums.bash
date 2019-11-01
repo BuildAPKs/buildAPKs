@@ -15,10 +15,10 @@ fi
 ./scripts/maintenance/vgen.sh
 rm -f *.sum
 FILELIST=( $(find . -type f | grep -v .git | sort) )
-CHECKLIST=(sha512sum)
+CHECKLIST=(sha512sum) # md5sum sha1sum sha224sum sha256sum sha384sum
 for SCHECK in ${CHECKLIST[@]}
 do
- 	printf "%s\\n" "Creating $SCHECK file: Please wait a moment..."
+ 	printf "%s\\n" "Creating $SCHECK file..."
 	for FILE in "${FILELIST[@]}"
 	do
 		$SCHECK "$FILE" >> ${SCHECK::-3}.sum
@@ -35,5 +35,5 @@ SN="$(sn.sh)"
 git commit -m "$SN"
 git push
 ls
-printf "\\e[1;38;5;112m%s\\e[0m\\n" "$PWD"
+printf "%s\\n" "$PWD"
 # do.sums.bash EOF
