@@ -174,11 +174,6 @@ if [[ -z "${NUM:-}" ]]
 then
 	export NUM="$(date +%s)"
 fi
-export BNAMESB=0
-export CNAMESB=0
-export GNAMESB=0
-export QNAMESB=0
-export ZNAMESB=0
 export UONE="${1%/}" # https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion
 export USENAME="${UONE##*/}"
 export USER="${USENAME,,}"
