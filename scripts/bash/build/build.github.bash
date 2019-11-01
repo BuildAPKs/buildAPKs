@@ -6,7 +6,7 @@ set -Eeuo pipefail
 shopt -s nullglob globstar
 export RDR="$HOME/buildAPKs"
 . "$RDR"/scripts/bash/init/ushlibs.bash
-. "$RDR"/scripts/bash/shlibs/trap.bash 67 68 69 "${0##*/}"
+. "$RDR"/scripts/bash/shlibs/trap.bash 67 68 69
 
 _AND_ () { # write configuration file for git repository tarball if AndroidManifest.xml file is found in git repositoryr.
 	export CK=0
