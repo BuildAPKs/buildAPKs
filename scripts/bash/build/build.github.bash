@@ -8,7 +8,7 @@ export RDR="$HOME/buildAPKs"
 . "$RDR"/scripts/bash/init/ushlibs.bash
 . "$RDR"/scripts/bash/shlibs/trap.bash 67 68 69
 
-_AND_ () { # write configuration file for git repository tarball if AndroidManifest.xml file is found in git repository
+_AND_ () { # write configuration file for git repository tarball if AndroidManifest.xml file is found in git repositoryr.
 	export CK=0
 	printf "%s\\n" "$COMMIT" > "$JDR/.conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "%s\\n" "0" >> "$JDR/.conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
@@ -69,12 +69,14 @@ _BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/
 _CKAT_ () {
 	CK=0
 	REPO=$(awk -F/ '{print $NF}' <<< "$NAME") # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell 
-	NPCK="$(find "$JDR/.conf/" -name "$USER.${NAME##*/}.???????.ck")" || _SIGNAL_ "58" "NPCK" # https://stackoverflow.com/questions/6363441/check-if-a-file-exists-with-wildcard-in-shell-script
+	NPCK="$(find "$JDR/.conf/" -name "$USER.${NAME##*/}.???????.ck")" ||: # https://stackoverflow.com/questions/6363441/check-if-a-file-exists-with-wildcard-in-shell-script
 	for CKFILE in "$NPCK" 
 	do
  	if [[ $CKFILE = "" ]] # configuration file is not found
  	then
-  		_GC_ # downloads last commit and exports COMMIT
+ 		printf "%s" "Checking $USENAME $REPO for last commit:  " 
+  		COMMIT="$(_GC_)" || _SIGNAL_ "60" "_CKAT_ COMMIT"
+ 		printf "%s\\n" "Found ${COMMIT::7}; Continuing..."
  		_ATT_ 
  	else # load configuration information from file 
  		printf "%s" "Loading $USENAME $REPO config from $CKFILE:  "
@@ -126,15 +128,13 @@ _FJDX_ () {
 	(tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" | grep AndroidManifest.xml || _SIGNAL_ "84" "_FJDX_") ; _IAR_ "$JDR/$SFX" || _SIGNAL_ "86" "_FJDX_"
 }
 
-_GC_ () { # downloads only the first few lines of the source page
-	printf "%s" "Checking $USENAME $REPO for last commit:  " 
+_GC_ () { 
 	if [[ "$OAUT" != "" ]] # see $RDR/.conf/GAUTH file for information  
-	then # parses output for last commit and exports variable
-		export COMMIT=$(curl -u "$OAUT" -i https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -31 | tail -1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g') || _SIGNAL_ "60" "_GC export COMMIT" 
+	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
+	 	curl -u "$OAUT" -r 0-1 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
 	else
-		export COMMIT=$(curl -i https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -31 | tail -1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g') || _SIGNAL_ "62" "_GC export COMMIT" 
+	 	curl -r 0-1 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
 	fi
-	printf "%s\\n" "Found ${COMMIT::7}; Continuing..."
 }
 
 _NAND_ () { # write configuration file for repository if AndroidManifest.xml file is NOT found in git repository.  
