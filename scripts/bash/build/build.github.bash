@@ -24,7 +24,7 @@ _AND_ () { # writes configuration file for git repository tarball if AndroidMani
 _ATT_ () {
 	if [[ "$CK" != 1 ]]
 	then
-		if [[ ! -f "$COMMIT" ]] # tar file exists
+		if [[ ! -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] # tar file exists
 		then # https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value
 			printf "%s\\n" "Querying $USENAME $REPO ${COMMIT::7} for AndroidManifest.xml file:"
 			if [[ "$COMMIT" != "" ]] 
@@ -43,25 +43,25 @@ _ATT_ () {
 					_NAND_
 				fi
 			fi
-		elif [[ -f "$COMMIT" ]] && [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]] # tarfile exists and directory does not exist
+		elif [[ -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] && [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]] # tarfile exists and directory does not exist
 		then
 			_AND_
 			_FJDX_ 
-		elif [[ -f "$COMMIT" ]] && [[ "${F1AR[@]}" =~ "${NAME##*/}" ]] # tarfile and directory exist
+		elif [[ -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] && [[ "${F1AR[@]}" =~ "${NAME##*/}" ]] # tarfile and directory exist
 		then
 			_AND_
-			export SFX="$(tar tf "$COMMIT" | awk 'NR==1' )" || _SIGNAL_ "24" "_ATT_ SFX"
+			export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || _SIGNAL_ "24" "_ATT_ SFX"
 		fi
 	fi
 }
 
 _BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/
-	printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT:"
+	printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT -o ${NAME##*/}.${COMMIT::7}.tar.gz:"
 	if [[ "$OAUT" != "" ]] # see $RDR/.conf/GAUTH file 
 	then
-		curl -u "$OAUT" -OL "$NAME/tarball/$COMMIT" || _SIGNAL_ "40" "_BUILDAPKS_"
+		curl -u "$OAUT" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "40" "_BUILDAPKS_"
 	else
-		curl -OL "$NAME/tarball/$COMMIT" || _SIGNAL_ "42" "_BUILDAPKS_"
+		curl -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "42" "_BUILDAPKS_"
 	fi
 	_FJDX_ 
 }
@@ -154,8 +154,8 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 }
 
 _FJDX_ () { 
-	export SFX="$(tar tf "$COMMIT" | awk 'NR==1' )" || _SIGNAL_ "82" "_FJDX_"
-	(tar xvf "$COMMIT" | grep -w AndroidManifest.xml || _SIGNAL_ "84" "_FJDX_") ; _IAR_ "$JDR/$SFX" || _SIGNAL_ "86" "_FJDX_"
+	export SFX="$(tar tf "${NAME##*/}.${COMMIT::7}.tar.gz" | awk 'NR==1' )" || _SIGNAL_ "82" "_FJDX_"
+	(tar xvf "${NAME##*/}.${COMMIT::7}.tar.gz" | grep AndroidManifest.xml || _SIGNAL_ "84" "_FJDX_") ; _IAR_ "$JDR/$SFX" || _SIGNAL_ "86" "_FJDX_"
 }
 
 _GC_ () { 
