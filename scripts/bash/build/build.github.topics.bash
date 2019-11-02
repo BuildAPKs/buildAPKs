@@ -48,16 +48,10 @@ then
 		curl -H "Accept: application/vnd.github.mercy-preview+json" "https://api.github.com/search/repositories?q=topic:$TOPIC+language:Java" -o repos
 	fi
 fi
-TARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g' | sed 's/https\:\/\/github.com\///g' | cut -d\/ -f1)) # creates array of Java language repositories
+TARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g' | sed 's/https\:\/\/github.com\///g' | cut -d\/ -f1)) # creates array of Java language repositories for topic
 for NAME in "${TARR[@]}" 
 do 
-	read TYPE < <(curl "https://api.github.com/users/$NAME/repos" -s 2>&1 | head -n 25 | tail -n 1 | grep -o Organization) # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell/
-	if [[ "$TYPE" == Organization ]]
-	then
-		"$RDR"/scripts/bash/components/build.github.orgs.bash "$NAME"
-	else
-		"$RDR"/scripts/bash/components/build.github.users.bash "$NAME"
-	fi
+	"$RDR"/scripts/bash/components/build.github.bash "$NAME"
 done
 . "$RDR"/scripts/bash/shlibs/lock.bash wake.stop
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 

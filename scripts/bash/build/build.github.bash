@@ -107,8 +107,8 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 			exit 144
 		fi
 		NAMES=GNAMES # sets file name for _NAMESLOG_ 
-		NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "73" "_CUTE_ NAPKS"
-		USENAME="$(printf "%s" "${TYPE[1]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "74" "_CUTE_ USENAME"
+		NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "73" "_CUTE_ \$NAPKS: create \$NAPKS failed; Exiting..." ; exit 4
+		USENAME="$(printf "%s" "${TYPE[1]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "74" "_CUTE_ \$USENAME"
 		_NAMESLOG_ 
 		if [[ "${TYPE[17]}" == *User* ]]
 		then
@@ -188,20 +188,21 @@ printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build
 _MKDIRS_ "cache/stash" "cache/tarballs" "db" "db/log" "log/signal"
 _MKFILES_ "db/CNAMES" "db/ENAMES" "db/GNAMES" "db/QNAMES" "db/ZNAMES"
 if grep -iw "$USENAME" "$RDR"/var/db/[PZ]NAMES
-then	# create null directory, repos file and exit
+	# $USENAME is in the pending or zero lists
+then	# create null directory and repos file, and exit
 	if grep -iw "$USENAME" "$RDR"/var/db/ONAMES
 	then
 		JDR="$RDR/sources/github/orgs/$USER"
 	else
 		JDR="$RDR/sources/github/users/$USER"
 	fi
-	mkdir -p "$JDR"
-	touch "$JDR"/repos
+	mkdir -p "$JDR" # create null directory
+	touch "$JDR"/repos # create null repos file 
 	printf "\\e[7;38;5;208mUsername %s is found in %s: See preceeding output.  Not processing username %s!  Remove the username from the corresponding file(s) and the user's build directory in %s to process %s.  Then run \` %s \` again to attempt to build %s's APK projects, if any.  File %s has more information:\\n\\n\\e[0m" "$USENAME" "~/${RDR##*/}/var/db/[PZ]NAMES" "$USENAME" "~/${RDR##*/}/sources/github/{orgs,users}" "$USENAME" "${0##*/} $USENAME" "$USENAME" "~/${RDR##*/}/var/db/README.md" 
 	cat "$RDR/var/db/README.md" | grep -v \<\!
 	printf "\\e[7;38;5;208m\\nUsername %s is found in %s: Not processing username %s!  Remove the username from the corresponding file(s) and the user's build directory in %s to process %s.  Then run \` %s \` again to attempt to build %s's APK projects, if any.  Scroll up to read the %s file.\\e[0m\\n" "$USENAME" "~/${RDR##*/}/var/db/[PZ]NAMES" "$USENAME" "~/${RDR##*/}/sources/github/{orgs,users}" "$USENAME" "${0##*/} $USENAME" "$USENAME" "~/${RDR##*/}/var/db/README.md" 
-	exit 0
-else	# check whether login is a user or an organization.
+	exit 0 # and exit
+else	# check whether login is a user or an organization
 	_CUTE_
 fi
 export JDR="$RDR/sources/github/$ISOTUR/$USER"
@@ -218,7 +219,7 @@ fi
 cd "$JDR"
 if [[ ! -f profile ]] 
 then
-printf "%s\\n" "${TYPE[@]}" > profile
+	printf "%s\\n" "${TYPE[@]}" > profile
 fi
 printf "%s\\n" "Processing $USENAME:"
 KEYT=("\"login\"" "\"id\"" "\"type\"" "\"name\"" "\"company\"" "\"blog\"" "\"location\"" "\"hireable\"" "\"bio\"" "\"public_repos\"" "\"public_gists\"" "\"followers\"" "\"following\"" "\"created_at\"" )
