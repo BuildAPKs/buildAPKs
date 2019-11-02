@@ -52,7 +52,7 @@ fi
 TARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g' | sed 's/https\:\/\/github.com\///g' | cut -d\/ -f1)) # creates array of Java language repositories for topic
 for NAME in "${TARR[@]}" 
 do 
-	"$RDR"/scripts/bash/components/build.github.bash "$NAME"
+	"$RDR"/scripts/bash/build/build.github.bash "$NAME"
 done
 . "$RDR"/scripts/bash/shlibs/lock.bash wake.stop
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 
