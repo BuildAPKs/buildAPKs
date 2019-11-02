@@ -106,8 +106,13 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 			printf "\\n%s\\n\\n" "Could not find a GitHub login with $USENAME:  Exiting..."
 			exit 144
 		fi
+		if [[ -z "${TYPE[17]}" ]]
+		then
+			_SIGNAL_ "404" "${TYPE[17]} undefined!"
+			exit 4
+		fi
 		NAMES=GNAMES # sets file name for _NAMESLOG_ 
-		NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "73" "_CUTE_ \$NAPKS: create \$NAPKS failed; Exiting..." ; exit 4
+		NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "73" "_CUTE_ \$NAPKS: create \$NAPKS failed; Exiting..." 
 		USENAME="$(printf "%s" "${TYPE[1]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "74" "_CUTE_ \$USENAME"
 		_NAMESLOG_ 
 		if [[ "${TYPE[17]}" == *User* ]]
@@ -117,6 +122,31 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 		else
 			export ISUSER=users
 			export ISOTUR=orgs
+		fi
+		export JDR="$RDR/sources/github/$ISOTUR/$USER"
+		export JID="git.$ISOTUR.$USER"
+		if [[ ! -d "$JDR" ]] 
+		then
+			mkdir -p "$JDR"
+		fi
+		if [[ ! -d "$JDR/.conf" ]] 
+		then
+			mkdir -p "$JDR/.conf"
+			printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  " > "$JDR/.conf/README.md" 
+		fi
+		printf "%s\\n" "${TYPE[@]}" >  "$JDR/profile"
+		printf "%s\\n" "Processing $USENAME:"
+		KEYT=("\"login\"" "\"id\"" "\"type\"" "\"name\"" "\"company\"" "\"blog\"" "\"location\"" "\"hireable\"" "\"bio\"" "\"public_repos\"" "\"public_gists\"" "\"followers\"" "\"following\"" "\"created_at\"" )
+		for KEYS in "${KEYT[@]}" 
+		do
+			grep "$KEYS" "$JDR/profile" | sed 's/\,//g' | sed 's/\"//g'
+		done
+		printf "%s\\n" "Downloading GitHub $USENAME repositories information:  "
+		if [[ "$OAUT" != "" ]] # see $RDR/.conf/GAUTH file for information 
+		then
+			curl -u "$OAUT" "https://api.github.com/$ISUSER/$USER/repos" > repos
+		else
+			curl "https://api.github.com/$ISUSER/$USER/repos" > repos 
 		fi
 	fi
 	. "$RDR/scripts/bash/shlibs/lock.bash" 
@@ -205,40 +235,8 @@ then	# create null directory and repos file, and exit
 else	# check whether login is a user or an organization
 	_CUTE_
 fi
-export JDR="$RDR/sources/github/$ISOTUR/$USER"
-export JID="git.$ISOTUR.$USER"
-if [[ ! -d "$JDR" ]] 
-then
-	mkdir -p "$JDR"
-fi
-if [[ ! -d "$JDR/.conf" ]] 
-then
-	mkdir -p "$JDR/.conf"
-	printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  " > "$JDR/.conf/README.md" 
-fi
-cd "$JDR"
-if [[ ! -f profile ]] 
-then
-	printf "%s\\n" "${TYPE[@]}" > profile
-fi
-printf "%s\\n" "Processing $USENAME:"
-KEYT=("\"login\"" "\"id\"" "\"type\"" "\"name\"" "\"company\"" "\"blog\"" "\"location\"" "\"hireable\"" "\"bio\"" "\"public_repos\"" "\"public_gists\"" "\"followers\"" "\"following\"" "\"created_at\"" )
-for KEYS in "${KEYT[@]}" 
-do
-	grep "$KEYS" profile | sed 's/\,//g' | sed 's/\"//g'
-done
-if [[ ! -f "repos" ]] 
-then
-	printf "%s\\n" "Downloading GitHub $USENAME repositories information:  "
-	if [[ "$OAUT" != "" ]] # see $RDR/.conf/GAUTH file for information 
-	then
-		curl -u "$OAUT" "https://api.github.com/$ISUSER/$USER/repos" > repos
-	else
-		curl "https://api.github.com/$ISUSER/$USER/repos" > repos 
-	fi
-fi
 _PRINTJS_
-JARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g')) # creates array of Java language repositories	
+JARR=($(grep -v JavaScript "$JDR/repos" | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g')) # creates array of Java language repositories	
 _PRINTJD_
 if [[ "${JARR[@]}" == *ERROR* ]]
 then
@@ -246,7 +244,8 @@ then
 	_NAMESMAINBLOCK_ CNAMES ZNAMES
 	exit 0
 fi
-F1AR=($(find . -maxdepth 1 -type d)) # creates array of $JDR contents 
+F1AR=($(find "$JDR" -maxdepth 1 -type d)) # creates array of $JDR contents 
+cd "$JDR"
 for NAME in "${JARR[@]}" # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted, too.  They are repopulated from the tarballs.  
 do #  This creates a "slate" within each github/$JDR that can be selectively reset when desired.  This can be important on a slow connection.
 	_CKAT_ 
