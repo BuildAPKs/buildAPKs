@@ -144,9 +144,9 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 		printf "%s\\n" "Downloading GitHub $USENAME repositories information:  "
 		if [[ "$OAUT" != "" ]] # see $RDR/.conf/GAUTH file for information 
 		then
-			curl -u "$OAUT" "https://api.github.com/$ISUSER/$USER/repos" > repos
+			curl -u "$OAUT" "https://api.github.com/$ISUSER/$USER/repos" > "$JDR/profile" 
 		else
-			curl "https://api.github.com/$ISUSER/$USER/repos" > repos 
+			curl "https://api.github.com/$ISUSER/$USER/repos" > "$JDR/profile" 
 		fi
 	fi
 	. "$RDR/scripts/bash/shlibs/lock.bash" 
@@ -222,9 +222,9 @@ if grep -iw "$USENAME" "$RDR"/var/db/[PZ]NAMES
 then	# create null directory and repos file, and exit
 	if grep -iw "$USENAME" "$RDR"/var/db/ONAMES
 	then
-		export JDR="$RDR/sources/github/orgs/$USER"
+		JDR="$RDR/sources/github/orgs/$USER"
 	else
-		export JDR="$RDR/sources/github/users/$USER"
+		JDR="$RDR/sources/github/users/$USER"
 	fi
 	mkdir -p "$JDR" # create null directory
 	touch "$JDR"/repos # create null repos file 
