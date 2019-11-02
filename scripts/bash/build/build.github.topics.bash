@@ -24,7 +24,7 @@ export TOPIC="${TOPI##*/}"
 export TOPNAME="${TOPIC,,}"
 export JDR="$RDR/sources/github/topics/$TOPIC"
 export JID="git.$TOPIC"
-export OAUT="$(cat "$RDR/var/conf/GAUTH" | awk 'NR==1')"
+export OAUT="$(cat "$RDR/.conf/GAUTH" | awk 'NR==1')"
 export RDR="$HOME/buildAPKs"
 export STRING="ERROR FOUND; build.github.topics.bash $1:  CONTINUING... "
 printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build.github.topics.bash $1:"
@@ -33,10 +33,10 @@ then
 	mkdir -p "$JDR"
 fi
 cd "$JDR"
-if [[ ! -d "$JDR"/.config ]] 
+if [[ ! -d "$JDR"/.conf ]] 
 then
-	mkdir -p "$JDR"/.config
-	printf "%s\\n\\n" "This directory contains results from query for \`AndroidManifest.xml\` files in GitHub $TOPNAME repositores.  " > "$JDR"/.config/README.md 
+	mkdir -p "$JDR"/.conf
+	printf "%s\\n\\n" "This directory contains results from query for \`AndroidManifest.xml\` files in GitHub $TOPNAME repositores.  " > "$JDR"/.conf/README.md 
 fi
 printf "%s\\n" "Downloading GitHub $TOPNAME repositories information:  "
 if [[ "$OAUT" != "" ]] # see $RDR/var/conf/GAUTH file for information 
@@ -45,7 +45,7 @@ then
 else
 	curl -H "Accept: application/vnd.github.mercy-preview+json" "https://api.github.com/search/repositories?q=topic:$TOPIC+language:Java" -o topic
 fi
-TARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g' | sed 's/https\:\/\/github.com\///g' | cut -d\/ -f1)) # creates array of Java language repositories for topic
+TARR=($(grep -v JavaScript topic | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g' | sed 's/https\:\/\/github.com\///g' | cut -d\/ -f1)) # creates array of Java language repositories for topic
 for NAME in "${TARR[@]}" 
 do 
 	"$RDR"/scripts/bash/build/build.github.bash "$NAME"
