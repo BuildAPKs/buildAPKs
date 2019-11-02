@@ -222,9 +222,9 @@ if grep -iw "$USENAME" "$RDR"/var/db/[PZ]NAMES
 then	# create null directory and repos file, and exit
 	if grep -iw "$USENAME" "$RDR"/var/db/ONAMES
 	then
-		JDR="$RDR/sources/github/orgs/$USER"
+		export JDR="$RDR/sources/github/orgs/$USER"
 	else
-		JDR="$RDR/sources/github/users/$USER"
+		export JDR="$RDR/sources/github/users/$USER"
 	fi
 	mkdir -p "$JDR" # create null directory
 	touch "$JDR"/repos # create null repos file 
