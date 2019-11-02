@@ -49,7 +49,7 @@ then
 		curl -H "Accept: application/vnd.github.mercy-preview+json" "https://api.github.com/search/repositories?q=topic:$TOPIC+language:Java" -o repos
 	fi
 fi
-TARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g' | sed 's/https\:\/\/github.com\///g' | cut -d\/ -f1)) # creates array of Java language repositories for topic
+TARR=($(grep --color=never -v JavaScript repos | grep --color=never -B 5 Java | grep --color=never svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g' | sed 's/https\:\/\/github.com\///g' | cut -d\/ -f1)) # creates array of Java language repositories for topic
 for NAME in "${TARR[@]}" 
 do 
 	"$RDR"/scripts/bash/build/build.github.bash "$NAME"
