@@ -19,7 +19,6 @@ fi
 . "$RDR"/scripts/bash/init/ushlibs.bash
 . "$RDR"/scripts/bash/shlibs/lock.bash wake.start
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
-export NUM="$(date +%s)"
 export TOPI="${1%/}"
 export TOPIC="${TOPI##*/}"
 export TOPNAME="${TOPIC,,}"
@@ -34,22 +33,19 @@ then
 	mkdir -p "$JDR"
 fi
 cd "$JDR"
-if [[ ! -d "$JDR/.config" ]] 
+if [[ ! -d "$JDR"/.config ]] 
 then
-	mkdir -p "$JDR/.config"
-	printf "%s\\n\\n" "This directory contains results from query for \`AndroidManifest.xml\` files in GitHub $TOPNAME repositores.  " > "$JDR/.config/README.md" 
+	mkdir -p "$JDR"/.config
+	printf "%s\\n\\n" "This directory contains results from query for \`AndroidManifest.xml\` files in GitHub $TOPNAME repositores.  " > "$JDR"/.config/README.md 
 fi
-if [[ ! -f "repos" ]] 
+printf "%s\\n" "Downloading GitHub $TOPNAME repositories information:  "
+if [[ "$OAUT" != "" ]] # see $RDR/var/conf/GAUTH file for information 
 then
-	printf "%s\\n" "Downloading GitHub $TOPNAME repositories information:  "
-	if [[ "$OAUT" != "" ]] # see $RDR/var/conf/GAUTH file for information 
-	then
-		curl -u "$OAUT" -H "Accept: application/vnd.github.mercy-preview+json" "https://api.github.com/search/repositories?q=topic:$TOPIC+language:Java" -o repos
-	else
-		curl -H "Accept: application/vnd.github.mercy-preview+json" "https://api.github.com/search/repositories?q=topic:$TOPIC+language:Java" -o repos
-	fi
+	curl -u "$OAUT" -H "Accept: application/vnd.github.mercy-preview+json" "https://api.github.com/search/repositories?q=topic:$TOPIC+language:Java" -o topic
+else
+	curl -H "Accept: application/vnd.github.mercy-preview+json" "https://api.github.com/search/repositories?q=topic:$TOPIC+language:Java" -o topic
 fi
-TARR=($(grep --color=never -v JavaScript repos | grep --color=never -B 5 Java | grep --color=never svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g' | sed 's/https\:\/\/github.com\///g' | cut -d\/ -f1)) # creates array of Java language repositories for topic
+TARR=($(grep -v JavaScript repos | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g' | sed 's/https\:\/\/github.com\///g' | cut -d\/ -f1)) # creates array of Java language repositories for topic
 for NAME in "${TARR[@]}" 
 do 
 	"$RDR"/scripts/bash/build/build.github.bash "$NAME"
