@@ -128,17 +128,17 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 		export JDR="$RDR/sources/github/$ISOTUR/$USER"
 		export JID="git.$ISOTUR.$USER"
 		printf "%s\\n" "${TYPE[@]}" > "$JDR"/profile
-	fi
-	NAMES=GNAMES # sets file name for _NAMESLOG_ 
-	_NAMESLOG_ 
-	if [[ ! -d "$JDR" ]] 
-	then
-		mkdir -p "$JDR"
-	fi
-	if [[ ! -d "$JDR/.conf" ]] 
-	then
-		mkdir -p "$JDR/.conf"
-		printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  " > "$JDR/.conf/README.md" 
+		if [[ ! -d "$JDR" ]] 
+		then
+			mkdir -p "$JDR"
+		fi
+		if [[ ! -d "$JDR/.conf" ]] 
+		then
+			mkdir -p "$JDR/.conf"
+			printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  " > "$JDR/.conf/README.md" 
+		fi
+		NAMES=GNAMES # sets file name for _NAMESLOG_ 
+		_NAMESLOG_ 
 	fi
 	printf "%s\\n" "Processing $USENAME:"
 	KEYT=("\"login\"" "\"id\"" "\"type\"" "\"name\"" "\"company\"" "\"blog\"" "\"location\"" "\"hireable\"" "\"bio\"" "\"public_repos\"" "\"public_gists\"" "\"followers\"" "\"following\"" "\"created_at\"" )
