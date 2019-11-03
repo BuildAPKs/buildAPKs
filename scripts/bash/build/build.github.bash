@@ -153,7 +153,6 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 		else
 			curl "https://api.github.com/$ISUSER/$USER/repos" > "$JDR/repos" 
 		fi
-	fi
 	_WAKELOCK_
 	. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
 }
