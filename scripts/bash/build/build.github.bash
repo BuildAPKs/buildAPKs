@@ -180,7 +180,7 @@ _NAND_ () { # writed configuration file for repository if AndroidManifest.xml fi
 }
 
 _PRINTAS_ () {
-	printf "\\n\\e[1;34mSearching for AndroidManifest.xml files:\\n"'\033]2;Searching for AndroidManifest.xml files: OK\007'
+	printf "\\n\\e[1;34mSearching for AndroidManifest.xml files:\\e[0m\\n"'\033]2;Searching for AndroidManifest.xml files: OK\007'
 }
 
 _PRINTCK_ () {
