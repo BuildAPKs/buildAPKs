@@ -180,6 +180,10 @@ _NAND_ () { # writed configuration file for repository if AndroidManifest.xml fi
 	printf "\\n%s\\n\\n" "Could not find an AndroidManifest.xml file in Java language repository $USER ${NAME##*/} ${COMMIT::7}:  NOT downloading ${NAME##*/} tarball."
 }
 
+_PRINTAS_ () {
+	printf "\\n\\e[1;34mSearching for AndroidManifest.xml files: "'\033]2;Searching for AndroidManifest.xml files: OK\007'
+}
+
 _PRINTCK_ () {
 	if [[ "$CK" = 1 ]]
 	then
@@ -189,11 +193,11 @@ _PRINTCK_ () {
 	fi
 }
 
-_PRINTJD_() {
+_PRINTJD_ () {
 	printf "\\e[1;32mDONE\\e[0m\\n"
 }
 
-_PRINTJS_() {
+_PRINTJS_ () {
 	printf "\\n\\e[1;34mSearching for Java language repositories: "'\033]2;Searching for Java language repositories: OK\007'
 }
 
@@ -253,10 +257,12 @@ then
 fi
 F1AR=($(find "$JDR" -maxdepth 1 -type d)) # creates array of $JDR contents 
 cd "$JDR"
+_PRINTAS_
 for NAME in "${JARR[@]}" # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted, too.  They are repopulated from the tarballs.  
 do #  This creates a "slate" within each github/$JDR that can be selectively reset when desired.  This can be important on a slow connection.
 	_CKAT_ 
 done
+_PRINTJD_
 _ANDB_ 
 _APKBC_
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 
