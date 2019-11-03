@@ -131,28 +131,31 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 		export JID="git.$ISOTUR.$USER"
 		printf "%s\\n" "${TYPE[@]}" > "$JDR"/profile
 	fi
-		if [[ ! -d "$JDR" ]] 
-		then
-			mkdir -p "$JDR"
-		fi
-		if [[ ! -d "$JDR/.conf" ]] 
-		then
-			mkdir -p "$JDR/.conf"
-			printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  " > "$JDR/.conf/README.md" 
-		fi
-		printf "%s\\n" "Processing $USENAME:"
-		KEYT=("\"login\"" "\"id\"" "\"type\"" "\"name\"" "\"company\"" "\"blog\"" "\"location\"" "\"hireable\"" "\"bio\"" "\"public_repos\"" "\"public_gists\"" "\"followers\"" "\"following\"" "\"created_at\"" )
-		for KEYS in "${KEYT[@]}" 
-		do
-			grep "$KEYS" "$JDR/profile" | sed 's/\,//g' | sed 's/\"//g'
-		done
-		printf "%s\\n" "Downloading GitHub $USENAME repositories information:  "
+	if [[ ! -d "$JDR" ]] 
+	then
+		mkdir -p "$JDR"
+	fi
+	if [[ ! -d "$JDR/.conf" ]] 
+	then
+		mkdir -p "$JDR/.conf"
+		printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  " > "$JDR/.conf/README.md" 
+	fi
+	printf "%s\\n" "Processing $USENAME:"
+	KEYT=("\"login\"" "\"id\"" "\"type\"" "\"name\"" "\"company\"" "\"blog\"" "\"location\"" "\"hireable\"" "\"bio\"" "\"public_repos\"" "\"public_gists\"" "\"followers\"" "\"following\"" "\"created_at\"" )
+	for KEYS in "${KEYT[@]}" 
+	do
+		grep "$KEYS" "$JDR/profile" | sed 's/\,//g' | sed 's/\"//g'
+	done
+	printf "%s\\n" "Downloading GitHub $USENAME repositories information:  "
+	if [[ ! -f "$JDR/repos" ]] 
+	then
 		if [[ "$OAUT" != "" ]] # see $RDR/.conf/GAUTH file for information 
 		then
 			curl -u "$OAUT" "https://api.github.com/$ISUSER/$USER/repos" > "$JDR/repos" 
 		else
 			curl "https://api.github.com/$ISUSER/$USER/repos" > "$JDR/repos" 
 		fi
+	fi
 	_WAKELOCK_
 	. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
 }
