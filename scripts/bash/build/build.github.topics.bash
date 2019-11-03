@@ -36,7 +36,7 @@ then
 	mkdir -p "$JDR"/.conf
 	printf "%s\\n\\n" "This directory contains results from query for \`AndroidManifest.xml\` files in GitHub $TOPNAME repositores.  " > "$JDR"/.conf/README.md 
 fi
-printf "%s\\n" "Downloading GitHub $TOPNAME repositories information:  "
+printf "%s\\n" "Downloading GitHub $TOPNAME topic repositories information:"
 if [[ "$OAUT" != "" ]] # see $RDR/var/conf/GAUTH file for information 
 then
 	curl -u "$OAUT" -H "Accept: application/vnd.github.mercy-preview+json" "https://api.github.com/search/repositories?q=topic:$TOPIC+language:Java" -o topic
