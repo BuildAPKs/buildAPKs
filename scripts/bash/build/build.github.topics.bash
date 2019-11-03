@@ -16,7 +16,6 @@ if [[ -z "${NUM:-}" ]]
 then
 	export NUM="$(date +%s)"
 fi
-. "$RDR"/scripts/bash/shlibs/lock.bash wake.start
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
 export TOPI="${1%/}"
 export TOPIC="${TOPI##*/}"
@@ -51,4 +50,5 @@ do
 done
 . "$RDR"/scripts/bash/shlibs/lock.bash wake.stop
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 
+_WAKEUNLOCK_
 # build.github.topics.bash EOF
