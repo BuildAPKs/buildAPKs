@@ -131,17 +131,17 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 		then
 			mkdir -p "$JDR"
 		fi
-		if [[ ! -d "$JDR/.conf" ]] 
-		then
-			mkdir -p "$JDR/.conf"
-			printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  " > "$JDR/.conf/README.md" 
-		fi
 		printf "%s\\n" "${TYPE[@]}" > "$JDR"/profile
 		_NAMESMAINBLOCK_ GNAMES
 	fi
+	if [[ ! -d "$JDR/.conf" ]] 
+	then
+		mkdir -p "$JDR/.conf"
+		printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  " > "$JDR/.conf/README.md" 
+	fi
 	printf "%s\\n" "Processing $USENAME:"
 	KEYT=("\"login\"" "\"id\"" "\"type\"" "\"name\"" "\"company\"" "\"blog\"" "\"location\"" "\"hireable\"" "\"bio\"" "\"public_repos\"" "\"public_gists\"" "\"followers\"" "\"following\"" "\"created_at\"" )
-	for KEYS in "${KEYT[@]}" 
+	for KEYS in "${KEYT[@]}" # print selected information from profile file 
 	do
 		grep "$KEYS" "$JDR/profile" | sed 's/\,//g' | sed 's/\"//g'
 	done
