@@ -89,12 +89,12 @@ done
 }
 
 _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization or a user
-	if [[ $(grep -iw "$USENAME" "$RDR/var/db/GNAMES" | awk '{print $2}') == User ]]
+	if [[ $(grep -iw "$USENAME" "$RDR/var/db/GNAMES" | awk '{print $2}') == User ]] && [[ -f "$RDR/sources/github/users/$USER/profile" ]] && [[ -f "$RDR/sources/github/users/$USER/repos" ]]
 	then 
 		export ISUSER=users
 		export ISOTUR=users
 		export USENAME="$(grep -iw "$USENAME" "$RDR/var/db/GNAMES" | awk '{print $1}')"
-	elif [[ $(grep -iw "$USENAME" "$RDR/var/db/GNAMES" | awk '{print $2}') == Organization ]]
+	elif [[ $(grep -iw "$USENAME" "$RDR/var/db/GNAMES" | awk '{print $2}') == Organization ]] && [[ -f "$RDR/sources/github/orgs/$USER/profile" ]] && [[ -f "$RDR/sources/github/orgs/$USER/repos" ]]
 	then 
 		export ISUSER=users
 		export ISOTUR=orgs
@@ -112,7 +112,7 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 			exit 4
 		fi
 		NAMES=GNAMES # sets file name for _NAMESLOG_ 
-		NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "73" "_CUTE_ \$NAPKS: create \$NAPKS failed; Exiting..." 
+		NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "73" "_CUTE_ \$NAPKS: create \$NAPKS failed; Exiting..." && exit 4
 		USENAME="$(printf "%s" "${TYPE[1]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "74" "_CUTE_ \$USENAME"
 		_NAMESLOG_ 
 		if [[ "${TYPE[17]}" == *User* ]]

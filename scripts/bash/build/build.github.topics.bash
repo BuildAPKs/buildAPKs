@@ -16,7 +16,6 @@ if [[ -z "${NUM:-}" ]]
 then
 	export NUM="$(date +%s)"
 fi
-. "$RDR"/scripts/bash/init/ushlibs.bash
 . "$RDR"/scripts/bash/shlibs/lock.bash wake.start
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
 export TOPI="${1%/}"
