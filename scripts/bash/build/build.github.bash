@@ -94,11 +94,15 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 		export ISUSER=users
 		export ISOTUR=users
 		export USENAME="$(grep -iw "$USENAME" "$RDR/var/db/GNAMES" | awk '{print $1}')"
+		export JDR="$RDR/sources/github/$ISOTUR/$USER"
+		export JID="git.$ISOTUR.$USER"
 	elif [[ $(grep -iw "$USENAME" "$RDR/var/db/GNAMES" | awk '{print $2}') == Organization ]] && [[ -f "$RDR/sources/github/orgs/$USER/profile" ]] && [[ -f "$RDR/sources/github/orgs/$USER/repos" ]]
 	then 
 		export ISUSER=users
 		export ISOTUR=orgs
 		export USENAME="$(grep -iw "$USENAME" "$RDR/var/db/GNAMES" | awk '{print $1}')"
+		export JDR="$RDR/sources/github/$ISOTUR/$USER"
+		export JID="git.$ISOTUR.$USER"
 	else	# get USENAME and type of USENAME from GitHub
 		mapfile -t TYPE < <(curl "https://api.github.com/users/$USENAME")
 		if [[ "${TYPE[1]}" == *\"message\":\ \"Not\ Found\"* ]]
@@ -134,7 +138,6 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 			mkdir -p "$JDR/.conf"
 			printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  " > "$JDR/.conf/README.md" 
 		fi
-		printf "%s\\n" "${TYPE[@]}" >  "$JDR/profile"
 		printf "%s\\n" "Processing $USENAME:"
 		KEYT=("\"login\"" "\"id\"" "\"type\"" "\"name\"" "\"company\"" "\"blog\"" "\"location\"" "\"hireable\"" "\"bio\"" "\"public_repos\"" "\"public_gists\"" "\"followers\"" "\"following\"" "\"created_at\"" )
 		for KEYS in "${KEYT[@]}" 
