@@ -30,9 +30,9 @@ if [[ ! -d "$JDR" ]]
 then
 	mkdir -p "$JDR"
 fi
-printf "%s\\n" "Downloading GitHub $TOPNAME topic repositories information:"
 if [[ ! -f "$JDR"/topic ]] 
 then
+	printf "%s\\n" "Downloading GitHub $TOPNAME topic repositories information:"
 	if [[ "$OAUT" != "" ]] # see $RDR/var/conf/GAUTH file for information 
 	then
 		curl -u "$OAUT" -H "Accept: application/vnd.github.mercy-preview+json" "https://api.github.com/search/repositories?q=topic:$TOPIC+language:Java" -o "$JDR"/topic
