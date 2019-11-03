@@ -146,9 +146,9 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 	do
 		grep "$KEYS" "$JDR/profile" | sed 's/\,//g' | sed 's/\"//g'
 	done
-	printf "%s\\n" "Downloading GitHub $USENAME repositories information:  "
 	if [[ ! -f "$JDR/repos" ]] 
 	then
+		printf "%s\\n" "Downloading GitHub $USENAME repositories information:  "
 		if [[ "$OAUT" != "" ]] # see $RDR/.conf/GAUTH file for information 
 		then
 			curl -u "$OAUT" "https://api.github.com/$ISUSER/$USER/repos" > "$JDR/repos" 
