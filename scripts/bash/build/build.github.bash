@@ -129,7 +129,7 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 		fi
 		export JDR="$RDR/sources/github/$ISOTUR/$USER"
 		export JID="git.$ISOTUR.$USER"
-		printf "%s\\n" "${TYPE[@]}" > "$RDR"/profile
+		printf "%s\\n" "${TYPE[@]}" > "$JDR"/profile
 	fi
 		if [[ ! -d "$JDR" ]] 
 		then
