@@ -104,16 +104,16 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 		if [[ "${TYPE[1]}" == *\"message\":\ \"Not\ Found\"* ]]
 		then
 			printf "\\n%s\\n\\n" "Could not find a GitHub login with $USENAME:  Exiting..."
-			exit 144
+			exit 44
 		fi
 		if [[ -z "${TYPE[17]}" ]]
 		then
 			_SIGNAL_ "404" "${TYPE[17]} undefined!"
-			exit 4
+			exit 34
 		fi
 		NAMES=GNAMES # sets file name for _NAMESLOG_ 
-		NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "73" "_CUTE_ \$NAPKS: create \$NAPKS failed; Exiting..." && exit 4
-		USENAME="$(printf "%s" "${TYPE[1]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "74" "_CUTE_ \$USENAME"
+		NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || (_SIGNAL_ "74" "_CUTE_ \$NAPKS: create \$NAPKS failed; Exiting..." && exit 24)
+		USENAME="$(printf "%s" "${TYPE[1]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "73" "_CUTE_ \$USENAME"
 		_NAMESLOG_ 
 		if [[ "${TYPE[17]}" == *User* ]]
 		then
