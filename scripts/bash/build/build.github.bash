@@ -115,8 +115,8 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 			_SIGNAL_ "404" "${TYPE[17]} undefined!"
 			exit 34
 		fi
-		NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || (_SIGNAL_ "74" "_CUTE_ \$NAPKS: create \$NAPKS failed; Exiting..." && exit 24)
 		USENAME="$(printf "%s" "${TYPE[1]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "73" "_CUTE_ \$USENAME"
+		NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || (_SIGNAL_ "74" "_CUTE_ \$NAPKS: create \$NAPKS failed; Exiting..." && exit 24)
 		if [[ "${TYPE[17]}" == *User* ]]
 		then
 			export ISUSER=users
@@ -127,7 +127,6 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 		fi
 		export JDR="$RDR/sources/github/$ISOTUR/$USER"
 		export JID="git.$ISOTUR.$USER"
-		printf "%s\\n" "${TYPE[@]}" > "$JDR"/profile
 		if [[ ! -d "$JDR" ]] 
 		then
 			mkdir -p "$JDR"
@@ -137,6 +136,7 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 			mkdir -p "$JDR/.conf"
 			printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  " > "$JDR/.conf/README.md" 
 		fi
+		printf "%s\\n" "${TYPE[@]}" > "$JDR"/profile
 		NAMES=GNAMES # sets file name for _NAMESLOG_ 
 		_NAMESLOG_ 
 	fi
