@@ -137,7 +137,7 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 			printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  " > "$JDR/.conf/README.md" 
 		fi
 		printf "%s\\n" "${TYPE[@]}" > "$JDR"/profile
-		_NAMESLOG_ GNAMES
+		_NAMESMAINBLOCK_ GNAMES
 	fi
 	printf "%s\\n" "Processing $USENAME:"
 	KEYT=("\"login\"" "\"id\"" "\"type\"" "\"name\"" "\"company\"" "\"blog\"" "\"location\"" "\"hireable\"" "\"bio\"" "\"public_repos\"" "\"public_gists\"" "\"followers\"" "\"following\"" "\"created_at\"" )
