@@ -75,7 +75,7 @@ _CKAT_ () {
  	if [[ $CKFILE = "" ]] # configuration file is not found
  	then
  		printf "%s" "Checking $USENAME $REPO for last commit:  " 
-  		COMMIT="$(_GC_)" || _SIGNAL_ "60" "_CKAT_ COMMIT"
+  		COMMIT="$(_GC_)" ||:
  		printf "%s\\n" "Found ${COMMIT::7}; Continuing..."
  		_ATT_ 
  	else # load configuration information from file 
