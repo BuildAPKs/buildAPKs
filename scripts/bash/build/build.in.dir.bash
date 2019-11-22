@@ -12,7 +12,6 @@ then
 	exit 224
 fi
 export DAY="$(date +%Y%m%d)"
-export JAD=""
 export JID="in.dir.${JDR##*/}"
 export NUM="$(date +%s)"
 . "$RDR"/scripts/bash/init/ushlibs.bash
