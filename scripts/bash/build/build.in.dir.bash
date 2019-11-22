@@ -10,7 +10,7 @@ export RDR="$HOME/buildAPKs"
 . "$RDR"/scripts/bash/shlibs/trap.bash 201 211 221 "${0##*/}" wake.start
 export DAY="$(date +%Y%m%d)"
 export JAD=""
-export JID="in.dir.${PWD##*/}"
+export JID="in.dir.${JDR##*/}"
 export NUM="$(date +%s)"
 if [[ "$HOME" = "$PWD" ]] 
 then
