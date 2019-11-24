@@ -72,20 +72,9 @@ _CLEANUP_ () {
 	printf "\\e[1;38;5;151mCompleted tasks in %s\\n\\n\\e[0m" "$PWD"
 }
 
-MSDKVERSIO="$(getprop ro.build.version.min_supported_target_sdk)"
-MSDKVERSION="${MSDKVERSIO:-14}"
-TSDKVERSIO="$(getprop ro.build.version.sdk)"
-TSDKVERSION="${TSDKVERSIO:-23}"
-sed -i "s/minSdkVersion\=\"[0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml 
-sed -i "s/minSdkVersion\=\"[0-9][0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml 
-sed -i "s/targetSdkVersion\=\"[0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" AndroidManifest.xml 
-sed -i "s/targetSdkVersion\=\"[0-9][0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" AndroidManifest.xml 
-NOW=$(date +%s)
-PKGNAM="$(grep -o "package=.*" AndroidManifest.xml | cut -d\" -f2)"
-PKGNAME="$PKGNAM.$NOW"
 if [[ -z "${DAY:-}" ]] 
 then
-	DAY="$(date +%Y%m%d)"
+	DAY="$(date +%Y.%m.%d)"
 fi
 if [[ -z "${RDR:-}" ]] 
 then
@@ -129,7 +118,18 @@ if [[ ! -d "./res" ]]
 then
 	mkdir -p ./res
 fi
-sleep 0.1
+sleep 0.01
+MSDKVERSIO="$(getprop ro.build.version.min_supported_target_sdk)"
+MSDKVERSION="${MSDKVERSIO:-14}"
+TSDKVERSIO="$(getprop ro.build.version.sdk)"
+TSDKVERSION="${TSDKVERSIO:-23}"
+sed -i "s/minSdkVersion\=\"[0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml 
+sed -i "s/minSdkVersion\=\"[0-9][0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml 
+sed -i "s/targetSdkVersion\=\"[0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" AndroidManifest.xml 
+sed -i "s/targetSdkVersion\=\"[0-9][0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" AndroidManifest.xml 
+NOW=$(date +%s)
+PKGNAM="$(grep -o "package=.*" AndroidManifest.xml | cut -d\" -f2)"
+PKGNAME="$PKGNAM.$NOW"
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 aapt package -f \
 	-M AndroidManifest.xml \
@@ -157,30 +157,30 @@ if [[ -w "/storage/emulated/0/" ]] ||  [[ -w "/storage/emulated/legacy/" ]]
 then
 	if [[ -w "/storage/emulated/0/" ]] 
 	then
-		if [[ ! -d "/storage/emulated/0/Download/builtAPKs/$JID$DAY" ]]
+		if [[ ! -d "/storage/emulated/0/Download/builtAPKs/$JID.$DAY" ]]
 		then
-			mkdir -p "/storage/emulated/0/Download/builtAPKs/$JID$DAY"
+			mkdir -p "/storage/emulated/0/Download/builtAPKs/$JID.$DAY"
 		fi
-		cp "$PKGNAM.apk" "/storage/emulated/0/Download/builtAPKs/$JID$DAY/$PKGNAME.apk"
+		cp "$PKGNAM.apk" "/storage/emulated/0/Download/builtAPKs/$JID.$DAY/$PKGNAME.apk"
 	fi
 	if [[ -w "/storage/emulated/legacy/" ]]  
 	then
-		if [[ ! -d "/storage/emulated/legacy/Download/builtAPKs/$JID$DAY" ]]
+		if [[ ! -d "/storage/emulated/legacy/Download/builtAPKs/$JID.$DAY" ]]
 		then
-			mkdir -p "/storage/emulated/legacy/Download/builtAPKs/$JID$DAY"
+			mkdir -p "/storage/emulated/legacy/Download/builtAPKs/$JID.$DAY"
 		fi
-		cp "$PKGNAM.apk" "/storage/emulated/legacy/Download/builtAPKs/$JID$DAY/$PKGNAME.apk"
+		cp "$PKGNAM.apk" "/storage/emulated/legacy/Download/builtAPKs/$JID.$DAY/$PKGNAME.apk"
 	fi
-	printf "\\e[1;38;5;115mCopied %s to Download/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$JID$DAY" "$PKGNAME"
-	printf "\\e[1;38;5;149mThe APK %s file can be installed from Download/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$JID$DAY" "$PKGNAME"
+	printf "\\e[1;38;5;115mCopied %s to Download/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$JID.$DAY" "$PKGNAME"
+	printf "\\e[1;38;5;149mThe APK %s file can be installed from Download/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$JID.$DAY" "$PKGNAME"
 else
-	if [[ ! -d "$RDR/var/cache/builtAPKs/$JID$DAY" ]]
+	if [[ ! -d "$RDR/var/cache/builtAPKs/$JID.$DAY" ]]
 	then
-		mkdir -p "$RDR/var/cache/builtAPKs/$JID$DAY"
+		mkdir -p "$RDR/var/cache/builtAPKs/$JID.$DAY"
 	fi
-	cp "$PKGNAM.apk" "$RDR/var/cache/builtAPKs/$JID$DAY/$PKGNAME.apk"
-	printf "\\e[1;38;5;120mCopied %s to $RDR/var/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$JID$DAY" "$PKGNAME"
-	printf "\\e[1;38;5;154mThe APK %s file can be installed from ~/${RDR:33}/var/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$JID$DAY" "$PKGNAME"
+	cp "$PKGNAM.apk" "$RDR/var/cache/builtAPKs/$JID.$DAY/$PKGNAME.apk"
+	printf "\\e[1;38;5;120mCopied %s to $RDR/var/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$JID.$DAY" "$PKGNAME"
+	printf "\\e[1;38;5;154mThe APK %s file can be installed from ~/${RDR:33}/var/cache/builtAPKs/%s/%s.apk\\n" "$PKGNAM.apk" "$JID.$DAY" "$PKGNAME"
 fi
 printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐"
 # build.one.bash EOF
