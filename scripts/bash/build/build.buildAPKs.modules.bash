@@ -53,6 +53,7 @@ _GSMU_() {
 	for LOC in "${!GBMS[@]}" 
 	do
 		export JDR="$RDR/$LOC"
+		export WDIR="$RDR/$LOC"
 		cd "$RDR/"
 		_GSU_ 
 	done
