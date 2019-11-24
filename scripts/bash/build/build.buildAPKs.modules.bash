@@ -37,7 +37,7 @@ _CK4MS_() { # ChecKs 4 ModuleS
 }
 
 _GSA_() { # update submodules to latest version
-	((printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding $SIAD/${GBMS[$LOC]} to ~/buildAPKs/$LOC..." && git submodule add "$SIAD/${GBMS[$LOC]}" "$LOC") && (printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/${RDR##*/}/$LOC..." && git submodule update --init --recursive --remote "$LOC" && _IAR_ "$JDR")) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot add and update ~/${RDR##*/}/$LOC: Continuing...") 
+	((printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Adding $SIAD/${GBMS[$LOC]} to ~/buildAPKs/$LOC..." && git submodule add "$SIAD/${GBMS[$LOC]}" "$LOC") && (printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/${RDR##*/}/$LOC..." && git submodule update --init --recursive --remote "$LOC" && _IAR_ )) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot add and update ~/${RDR##*/}/$LOC: Continuing...") 
 }
 
 _GSMU_() {	
@@ -60,7 +60,7 @@ _GSMU_() {
 }
 
 _GSU_() { # update submodules to latest version
-	((printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/$LOC..." && git submodule update --init --recursive --remote "$LOC" && _IAR_ "$JDR") || ( _GSA_ )) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs/$LOC: Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
+	((printf "\\e[1;7;38;5;96m%s\\e[0m\\n" "Updating ~/buildAPKs/$LOC..." && git submodule update --init --recursive --remote "$LOC" && _IAR_ ) || ( _GSA_ )) ||  (printf "\\e[1;7;38;5;66m%s\\e[0m\\n" "Cannot update ~/buildAPKs/$LOC: Continuing...") # https://www.tecmint.com/chaining-operators-in-linux-with-practical-examples/
 	if [[ -f "$JDR"/ma.bash ]] 
 	then 
 		. "$JDR"/ma.bash 
