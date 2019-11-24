@@ -29,18 +29,28 @@ _ATT_ () {
 			printf "%s\\n" "Querying $USENAME $REPO ${COMMIT::7} for AndroidManifest.xml file:"
 			if [[ "$COMMIT" != "" ]] 
 			then
-				if [[ "$OAUT" != "" ]] # see $RDR/.conf/GAUTH file 
+				if [[ -z "${CULR:-}" ]]
 				then
-					ISAND="$(curl -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 4096)" ||:
-				else
- 					ISAND="$(curl -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1" -s 2>&1 | head -n 4096)" ||:
-				fi
-			 	if grep AndroidManifest.xml <<< "$ISAND" 
-				then
-					_AND_ 0
-					_BUILDAPKS_
-				else
-					_NAND_
+					if [[ "$OAUT" != "" ]] 
+					then
+						ISAND="$(curl -s -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")" ||:
+					else
+	 					ISAND="$(curl -s -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")" ||:
+					fi
+			else
+					if [[ "$OAUT" != "" ]] 
+					then
+						ISAND="$(curl --limit-rate "$CULR" -s -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")" ||:
+					else
+	 					ISAND="$(curl --limit-rate "$CULR" -s -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")" ||:
+					fi
+			fi
+				 	if grep AndroidManifest.xml <<< "$ISAND" 
+					then
+						_AND_ 0
+						_BUILDAPKS_
+					else
+						_NAND_
 				fi
 			fi
 		elif [[ -f "${NAME##*/}.${COMMIT::7}.tar.gz" ]] && [[ ! "${F1AR[@]}" =~ "${NAME##*/}" ]] # tarfile exists and directory does not exist
@@ -59,16 +69,16 @@ _BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/
 	printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT -o ${NAME##*/}.${COMMIT::7}.tar.gz:"
 	if [[ -z "${CULR:-}" ]]
 	then
-		if [[ "$OAUT" != "" ]] # see $RDR/.conf/GAUTH file 
+		if [[ "$OAUT" != "" ]] # see .conf/GAUTH file 
 		then
 			curl -u "$OAUT" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "40" "_BUILDAPKS_"
 		else
 			curl -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "42" "_BUILDAPKS_"
 		fi
 	else
-		if [[ "$OAUT" != "" ]] # see $RDR/.conf/GAUTH file 
+		if [[ "$OAUT" != "" ]] # see .conf/GAUTH file 
 		then
-			curl --limit-rate "$CULR"  -u "$OAUT" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "40" "_BUILDAPKS_"
+			curl --limit-rate "$CULR" -u "$OAUT" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "40" "_BUILDAPKS_"
 		else
 			curl --limit-rate "$CULR" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "42" "_BUILDAPKS_"
 		fi
@@ -100,21 +110,21 @@ done
 }
 
 _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization or a user
-	if [[ $(grep -iw "$USENAME" "$RDR/var/db/GNAMES" | awk '{print $2}') == User ]] && [[ -f "$RDR/sources/github/users/$USER/profile" ]] && [[ -f "$RDR/sources/github/users/$USER/repos" ]]
+	if [[ $(grep -iw "$USENAME" "$RDR/var/db/log/GNAMES" | awk '{print $2}') == User ]] && [[ -f "$RDR/sources/github/users/$USER/profile" ]] && [[ -f "$RDR/sources/github/users/$USER/repos" ]]
 	then 
 		export ISUSER=users
 		export ISOTUR=users
 		export USENAME="$(grep -iw "$USENAME" "$RDR/var/db/GNAMES" | awk '{print $1}')"
 		export JDR="$RDR/sources/github/$ISOTUR/$USER"
 		export JID="git.$ISOTUR.$USER"
-	elif [[ $(grep -iw "$USENAME" "$RDR/var/db/GNAMES" | awk '{print $2}') == Organization ]] && [[ -f "$RDR/sources/github/orgs/$USER/profile" ]] && [[ -f "$RDR/sources/github/orgs/$USER/repos" ]]
+	elif [[ $(grep -iw "$USENAME" "$RDR/var/db/log/GNAMES" | awk '{print $2}') == Organization ]] && [[ -f "$RDR/sources/github/orgs/$USER/profile" ]] && [[ -f "$RDR/sources/github/orgs/$USER/repos" ]]
 	then 
 		export ISUSER=users
 		export ISOTUR=orgs
 		export USENAME="$(grep -iw "$USENAME" "$RDR/var/db/GNAMES" | awk '{print $1}')"
 		export JDR="$RDR/sources/github/$ISOTUR/$USER"
 		export JID="git.$ISOTUR.$USER"
-	else	# get USENAME and type of USENAME from GitHub
+	else	# get login and type of login from GitHub
 		mapfile -t TYPE < <(curl "https://api.github.com/users/$USENAME")
 		if [[ "${TYPE[1]}" == *\"message\":\ \"Not\ Found\"* ]]
 		then
@@ -126,8 +136,8 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 			_SIGNAL_ "71" "${TYPE[17]} undefined!" "71"
 			exit 34
 		fi) || (_SIGNAL_ "72" "TYPE[17]: unbound variable" "72")
-		USENAME="$(printf "%s" "${TYPE[1]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "73" "_CUTE_ \$USENAME"
-		NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || (_SIGNAL_ "74" "_CUTE_ \$NAPKS: create \$NAPKS failed; Exiting..." 24)
+		export USENAME="$(printf "%s" "${TYPE[1]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "73" "_CUTE_ \$USENAME"
+		export NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || (_SIGNAL_ "74" "_CUTE_ \$NAPKS: create \$NAPKS failed; Exiting..." 24)
 		if [[ "${TYPE[17]}" == *User* ]]
 		then
 			export ISUSER=users
@@ -144,7 +154,7 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 		fi
 		printf "%s\\n" "${TYPE[@]}" > "$JDR"/profile
 		_MKJDC_ 
-		_NAMESMAINBLOCK_ CNAMES
+		_NAMESMAINBLOCK_ CNAMES GNAMES log/GNAMES
 	fi
 	printf "%s\\n" "Processing $USENAME:"
 	KEYT=("\"login\"" "\"id\"" "\"type\"" "\"name\"" "\"company\"" "\"blog\"" "\"location\"" "\"hireable\"" "\"bio\"" "\"public_repos\"" "\"public_gists\"" "\"followers\"" "\"following\"" "\"created_at\"" )
@@ -154,20 +164,20 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 	done
 	_WAKELOCK_
 	. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
-	RCT="$(grep public_repos "$JDR/profile" | sed 's/\,//g' | sed 's/\"//g' | awk '{print $2}')"
-	RPCT="$(($RCT/100))"
+	RCT="$(grep public_repos "$JDR/profile" | sed 's/\,//g' | sed 's/\"//g' | awk '{print $2}')" # repository count
+	RPCT="$(($RCT/100))" # repository page count
 	if [[ $(($RCT%100)) -gt 0 ]] # there is a remainder
-	then	# add one more page
+	then	# add one more page to total reqest
 		RPCT="$(($RPCT+1))"
 	fi
-	if [[ ! -f "$JDR/repos" ]] 
-	then
-		until [[ $RPCT -eq 0 ]]
-		do
+	if [[ ! -f "$JDR/repos" ]] # file repos does not exist 
+	then	# get repository information
+		until [[ $RPCT -eq 0 ]] # there are zero pages remaining
+		do	# get a page of repository information
 			printf "%s\\n" "Downloading GitHub $USENAME page $RPCT repositories information: "
-			if [[ -z "${CULR:-}" ]]
+			if [[ -z "${CULR:-}" ]] # curl --limit-rate is not set
 			then
-				if [[ "$OAUT" != "" ]] # see $RDR/.conf/GAUTH file for information 
+				if [[ "$OAUT" != "" ]] # see .conf/GAUTH file for information 
 				then
 					curl -u "$OAUT" "https://api.github.com/$ISUSER/$USER/repos?per_page=100&page=$RPCT" > "$JDR/var/conf/repos.tmp" 
 					cat "$JDR/var/conf/repos.tmp" >> "$JDR/repos"  
@@ -176,7 +186,7 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 					cat "$JDR/var/conf/repos.tmp" >> "$JDR/repos"  
 				fi
 			else
-				if [[ "$OAUT" != "" ]] # see $RDR/.conf/GAUTH file for information 
+				if [[ "$OAUT" != "" ]] 
 				then
 					curl --limit-rate "$CULR" -u "$OAUT" "https://api.github.com/$ISUSER/$USER/repos?per_page=100&page=$RPCT" > "$JDR/var/conf/repos.tmp"
 					cat "$JDR/var/conf/repos.tmp" >> "$JDR/repos"  
@@ -205,7 +215,7 @@ _FJDX_ () {
 }
 
 _GC_ () { 
-	if [[ "$OAUT" != "" ]] # see $RDR/.conf/GAUTH file for information  
+	if [[ "$OAUT" != "" ]] # see .conf/GAUTH file for information  
 	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
 	 	curl -u "$OAUT" https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
 	else
