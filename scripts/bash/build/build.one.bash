@@ -89,7 +89,7 @@ then
 fi
 if [[ -z "${RDR:-}" ]] 
 then
-	RDR="${PWD##*/}" # https://stackoverflow.com/questions/1371261/get-current-directory-name-without-full-path-in-a-bash-script
+	RDR="$HOME/buildAPKs"
 fi
 if [[ -z "${2:-}" ]] 
 then
