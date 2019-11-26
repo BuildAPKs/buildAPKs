@@ -24,7 +24,6 @@ export TOPNAME="${TOPIC,,}"
 export JDR="$RDR/sources/github/topics/$TOPIC"
 export JID="git.$TOPIC"
 export OAUT="$(cat "$RDR/.conf/GAUTH" | awk 'NR==1')"
-echo $OAUT
 export RDR="$HOME/buildAPKs"
 export STRING="ERROR FOUND; build.github.topics.bash $1:  CONTINUING... "
 _RPCT_() {
