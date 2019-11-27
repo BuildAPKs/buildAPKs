@@ -18,6 +18,7 @@ These files are located in ~/buildAPKs/var/db/, and their purpose is outlined in
 
 | File Name   | Purpose   |
 | ----------- | --------- |
+| ANAMES †    | user created listing for APK project names that will NOT be downloaded and built |
 | BNAMES ∆    | name number pairs that build APKs with buildAPKs on device |
 | B10NAMES ∆  | name number pairs that build at least 10 APKs with buildAPKs on device |
 | B100NAMES ∆ | name number pairs that build at least 100 APKs with buildAPKs on device |
