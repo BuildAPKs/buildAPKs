@@ -119,9 +119,9 @@ then
 	mkdir -p ./res
 fi
 sleep 0.01
-MSDKVERSIO="$(getprop ro.build.version.min_supported_target_sdk)"
+MSDKVERSIO="$(getprop ro.build.version.min_supported_target_sdk)" ||:
 MSDKVERSION="${MSDKVERSIO:-14}"
-TSDKVERSIO="$(getprop ro.build.version.sdk)"
+TSDKVERSIO="$(getprop ro.build.version.sdk)" ||:
 TSDKVERSION="${TSDKVERSIO:-23}"
 sed -i "s/minSdkVersion\=\"[0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml 
 sed -i "s/minSdkVersion\=\"[0-9][0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml 

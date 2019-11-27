@@ -49,7 +49,7 @@ _INPKGS_() {
 	then 
 		au $(echo ${PKGS[@]}) || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
 	else
-		pkg install $(echo ${PKGS[@]}) || printf "\\e[1;37;5;116m%s\\e[0m\\n" "$STRING2"
+		apt install $(echo ${PKGS[@]}) || printf "\\e[1;37;5;116m%s\\e[0m\\n" "$STRING2"
 	fi
 }
 
