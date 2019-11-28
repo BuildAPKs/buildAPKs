@@ -53,6 +53,7 @@ _SBOTRPSIGNAL_() { # run on signal
 
 _SBOTRPQUIT_() { # run on quit
 	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Quit signal %s received by build.one.bash!\\e[0m\\n" "${0##*/}" "$?"
+	_CLEANUP_
  	exit 162 
 }
 
