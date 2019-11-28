@@ -106,6 +106,7 @@ _CKAT_ () {
 		_PRINTCK_ 
  		_ATT_ 
  	fi
+	sleep 0.${RANDOM::4}
 done
 }
 
