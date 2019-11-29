@@ -240,6 +240,7 @@ _MAINGITHUB_ () {
 	export USENAME="${UONE##*/}"
 	export USER="${USENAME,,}"
 	export OAUT="$(cat "$RDR/.conf/GAUTH" | awk 'NR==1')" # loads login:token key from GAUTH file
+	export WRAMES=0
 	printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build.github.bash $@:"
 	. "$RDR"/scripts/bash/shlibs/buildAPKs/fandm.bash
 	. "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
