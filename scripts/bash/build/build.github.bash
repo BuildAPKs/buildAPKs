@@ -111,6 +111,7 @@ done
 }
 
 _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization or a user
+	. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
 	if [[ $(grep -iw "$USENAME" "$RDR/var/db/log/GNAMES" | awk '{print $2}') == User ]] && [[ -f "$RDR/sources/github/users/$USER/profile" ]] && [[ -f "$RDR/sources/github/users/$USER/repos" ]]
 	then 
 		export ISUSER=users
@@ -163,8 +164,6 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 	do
 		grep "$KEYS" "$JDR/profile" | sed 's/\,//g' | sed 's/\"//g'
 	done
-	_WAKELOCK_
-	. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
 	RCT="$(grep public_repos "$JDR/profile" | sed 's/\,//g' | sed 's/\"//g' | awk '{print $2}')" # repository count
 	RPCT="$(($RCT/100))" # repository page count
 	if [[ $(($RCT%100)) -gt 0 ]] # there is a remainder
