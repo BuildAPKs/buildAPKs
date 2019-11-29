@@ -66,24 +66,27 @@ _ATT_ () {
 }
 
 _BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/
-	printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT -o ${NAME##*/}.${COMMIT::7}.tar.gz:"
-	if [[ -z "${CULR:-}" ]]
-	then
-		if [[ "$OAUT" != "" ]] # see .conf/GAUTH file 
+	if ! grep -iw "${NAME##*/}" "$RDR"/var/db/ANAMES # repository name is not found
+	then	# download tarball
+		printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT -o ${NAME##*/}.${COMMIT::7}.tar.gz:"
+		if [[ -z "${CULR:-}" ]]
 		then
-			curl -u "$OAUT" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "40" "_BUILDAPKS_"
+			if [[ "$OAUT" != "" ]] # see .conf/GAUTH file 
+			then
+				curl -u "$OAUT" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "40" "_BUILDAPKS_"
+			else
+				curl -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "42" "_BUILDAPKS_"
+			fi
 		else
-			curl -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "42" "_BUILDAPKS_"
+			if [[ "$OAUT" != "" ]] # see .conf/GAUTH file 
+			then
+				curl --limit-rate "$CULR" -u "$OAUT" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "40" "_BUILDAPKS_"
+			else
+				curl --limit-rate "$CULR" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "42" "_BUILDAPKS_"
+			fi
 		fi
-	else
-		if [[ "$OAUT" != "" ]] # see .conf/GAUTH file 
-		then
-			curl --limit-rate "$CULR" -u "$OAUT" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "40" "_BUILDAPKS_"
-		else
-			curl --limit-rate "$CULR" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "42" "_BUILDAPKS_"
-		fi
+		_FJDX_ 
 	fi
-	_FJDX_ 
 }
 
 _CKAT_ () {
@@ -205,7 +208,13 @@ _MKJDC_ () {
 	if [[ ! -d "$JDR/var/conf" ]] 
 	then
 		mkdir -p "$JDR/var/conf"
-		printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  " > "$JDR/var/conf/README.md" 
+		printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  
+		| file name | purpose |
+		-----------------------
+		| *.ck      | commit and AndroidManifest.xml query result | 
+		| NAMES.db  | NAMES files proccessed | 
+		| NAMFS.db  | number of AndroidManifest.xml files found | 
+		| NAPKS.db  | number of APKs built |  " > "$JDR/var/conf/README.md" 
 	fi
 }
 
@@ -239,7 +248,7 @@ _MAINGITHUB_ () {
 	. "$RDR"/scripts/sh/shlibs/mkfiles.sh
 	. "$RDR"/scripts/sh/shlibs/mkdirs.sh
 	_MKDIRS_ "cache/stash" "cache/tarballs" "db" "db/log" "log/messages"
-	_MKFILES_ "db/ANAMES" "db/BNAMES" "db/B10NAMES" "db/B100NAMES" "db/CNAMES" "db/GNAMES" "db/QNAMES" "db/RNAMES" "db/XNAMES" "db/ZNAMES"
+	_MKFILES_ "db/ANAMES" "db/BNAMES" "db/B10NAMES" "db/B100NAMES" "db/CNAMES" "db/GNAMES" "db/QNAMES" "db/RNAMES" "db/XNAMES" "db/ZNAMES" "db/log/BNAMES" "db/log/B10NAMES" "db/log/B100NAMES" "db/log/GNAMES"
 	if grep -Hiw "$USENAME" "$RDR"/var/db/[PRXZ]NAMES
 	then	# create null directory, profile, repos files, and exit
 		if grep -iw "$USENAME" "$RDR"/var/db/ONAMES 1>/dev/null
@@ -266,7 +275,7 @@ _MAINGITHUB_ () {
 		_NAMESMAINBLOCK_ CNAMES ZNAMES
 		_SIGNAL_ "404" "search for Java language repositories" "4"
 	fi
-	F1AR=($(find "$JDR" -maxdepth 1 -type d)) # creates array of $JDR contents 
+	F1AR=($(find "$JDR" -maxdepth 1 -type d)) # creates array of JDR contents 
 	cd "$JDR"
 	_PRINTAS_
 	for NAME in "${JARR[@]}" # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted, too.  They are repopulated from the tarballs.  
