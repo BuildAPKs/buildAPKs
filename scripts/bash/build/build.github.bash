@@ -44,13 +44,13 @@ _ATT_ () {
 					else
 	 					ISAND="$(curl --limit-rate "$CULR" -s -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")" ||:
 					fi
-			fi
-				 	if grep AndroidManifest.xml <<< "$ISAND" 
-					then
-						_AND_ 0
-						_BUILDAPKS_
-					else
-						_NAND_
+				fi
+			 	if grep AndroidManifest.xml <<< "$ISAND" 
+				then
+					_AND_ 0
+					_BUILDAPKS_
+				else
+					_NAND_
 				fi
 			fi
 		# https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value
