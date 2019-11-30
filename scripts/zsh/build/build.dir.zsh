@@ -5,10 +5,8 @@
 # Invocation : $HOME/buildAPKs/scripts/zsh/build/build.dir.zsh dir 
 #####################################################################
 set -e
-
 for APP in $(find $1 -name "AndroidManifest.xml") 
 do 
 	$HOME/buildAPKs/scripts/zsh/build/build.zsh ${APP%/*} 
 done
-
-#EOF
+# build.dir.zsh EOF

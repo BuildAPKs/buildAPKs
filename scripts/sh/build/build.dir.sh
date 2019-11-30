@@ -5,10 +5,8 @@
 # Invocation : $HOME/buildAPKs/scripts/sh/build/build.dir.sh sources/
 #####################################################################
 set -e
-
 for APP in $(find $1 -name "AndroidManifest.xml") 
 do 
 	$HOME/buildAPKs/scripts/sh/build/build.sh ${APP%/*} 
 done
-
-#EOF
+# build.dir.sh EOF

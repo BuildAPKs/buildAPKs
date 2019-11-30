@@ -5,7 +5,6 @@
 # Invocation : $HOME/buildAPKs/scripts/zsh/build/build.zsh 
 #####################################################################
 set -e
-
 for CMD in aapt apksigner dx ecj 
 do
        	[ -z "$(command -v "$CMD")" ] && printf "%s\\n" " \"$CMD\" not found" && NOTFOUND=1
@@ -85,5 +84,4 @@ cd ..
 
 CLEAN=1
 _CLEANUP_
-
-#EOF
+# build.zsh EOF

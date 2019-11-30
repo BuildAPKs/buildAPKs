@@ -36,6 +36,5 @@ trap _SETRPQUIT_ QUIT
 
 export JAD=github.com/SDRausty/buildAPKsGames
 export JID="gamez" # job id/name
-. "$HOME/buildAPKs/scripts/bash/init/init.bash"
-
+. "$HOME/buildAPKs/scripts/bash/init/init.bash" "$@"
 # buildGames.bash EOF
