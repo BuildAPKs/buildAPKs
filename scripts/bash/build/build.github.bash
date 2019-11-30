@@ -175,6 +175,9 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 	then	# add one more page to total reqest
 		RPCT="$(($RPCT+1))"
 	fi
+}
+
+_GETREPOS_() {
 	if [[ ! -f "$JDR/repos" ]] # file repos does not exist 
 	then	# get repository information
 		until [[ $RPCT -eq 0 ]] # there are zero pages remaining
@@ -270,6 +273,8 @@ _MAINGITHUB_ () {
 	else	# check whether login is a user or an organization
 		_CUTE_
 	fi
+	_WAKELOCK_
+	_GETREPOS_
 	_PRINTJS_
 	JARR=($(grep -v JavaScript "$JDR/repos" | grep -B 5 Java | grep svn_url | awk -v x=2 '{print $x}' | sed 's/\,//g' | sed 's/\"//g')) ||: # creates array of Java language repositories	
 	_PRINTJD_

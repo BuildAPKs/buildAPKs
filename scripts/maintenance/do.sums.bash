@@ -8,7 +8,7 @@
 set -eu
 MTIME="$(ls -l --time-style=+"%s" .git/FETCH_HEAD | awk '{print $6}')"
 TIME="$(date +%s)"
-(if [[ $(($TIME - $MTIME)) -gt 43200 ]];then git pull;fi) || git pull
+(if [[ $(($TIME - $MTIME)) -gt 43200 ]] ; then git pull ; fi) || git pull
 ./scripts/maintenance/vgen.sh
 rm -f *.sum
 FILELIST=( $(find . -type f | grep -wv .git | sort) )
