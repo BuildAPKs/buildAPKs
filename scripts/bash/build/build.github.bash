@@ -66,51 +66,53 @@ _ATT_ () {
 }
 
 _BUILDAPKS_ () { # https://developer.github.com/v3/repos/commits/
-	if ! grep -iw "${NAME##*/}" "$RDR"/var/db/ANAMES # repository name is not found
-	then	# download tarball
-		printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT -o ${NAME##*/}.${COMMIT::7}.tar.gz:"
-		if [[ -z "${CULR:-}" ]]
+	printf "\\n%s\\n" "Getting $NAME/tarball/$COMMIT -o ${NAME##*/}.${COMMIT::7}.tar.gz:"
+	if [[ -z "${CULR:-}" ]]
+	then
+		if [[ "$OAUT" != "" ]] # see .conf/GAUTH file 
 		then
-			if [[ "$OAUT" != "" ]] # see .conf/GAUTH file 
-			then
-				curl --fail --retry 2 -u "$OAUT" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "40" "_BUILDAPKS_"
-			else
-				curl --fail --retry 2 -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "42" "_BUILDAPKS_"
-			fi
+			curl --fail --retry 2 -u "$OAUT" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "40" "_BUILDAPKS_"
 		else
-			if [[ "$OAUT" != "" ]] # see .conf/GAUTH file 
-			then
-				curl --fail --retry 2 --limit-rate "$CULR" -u "$OAUT" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "40" "_BUILDAPKS_"
-			else
-				curl --fail --retry 2 --limit-rate "$CULR" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "42" "_BUILDAPKS_"
-			fi
+			curl --fail --retry 2 -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "42" "_BUILDAPKS_"
 		fi
-		_FJDX_ 
+	else
+		if [[ "$OAUT" != "" ]] # see .conf/GAUTH file 
+		then
+			curl --fail --retry 2 --limit-rate "$CULR" -u "$OAUT" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "40" "_BUILDAPKS_"
+		else
+			curl --fail --retry 2 --limit-rate "$CULR" -L "$NAME/tarball/$COMMIT" -o "${NAME##*/}.${COMMIT::7}.tar.gz" || _SIGNAL_ "42" "_BUILDAPKS_"
+		fi
 	fi
+	_FJDX_ 
 }
 
 _CKAT_ () {
 	_MKJDC_ 
 	CK=0
 	REPO=$(awk -F/ '{print $NF}' <<< "$NAME") # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell 
-	NPCK="$(find "$JDR/var/conf/" -name "$USER.${NAME##*/}.???????.ck")" ||: # https://stackoverflow.com/questions/6363441/check-if-a-file-exists-with-wildcard-in-shell-script
-	for CKFILE in "$NPCK" 
-	do
- 	if [[ $CKFILE = "" ]] # configuration file is not found
- 	then
- 		printf "%s" "Checking $USENAME $REPO for last commit:  " 
-  		COMMIT="$(_GC_)" ||:
- 		printf "%s\\n" "Found ${COMMIT::7}; Continuing..."
- 		_ATT_ 
-		sleep 0.${RANDOM::4} # eases network latency
- 	else # load configuration information from file 
- 		printf "%s" "Loading $USENAME $REPO config from $CKFILE:  "
- 		COMMIT=$(head -n 1 "$NPCK") || _SIGNAL_ "62" "_CKAT_ COMMIT"
-  		CK=$(tail -n 1  "$NPCK") || _SIGNAL_ "64" "_CKAT_ CK"
-		_PRINTCK_ 
+	if ! grep -iw "$REPO" "$RDR"/var/db/ANAMES # repository name is not found in ANAMES file
+	then	# proccess repository 
+		NPCK="$(find "$JDR/var/conf/" -name "$USER.${NAME##*/}.???????.ck")" ||: # https://stackoverflow.com/questions/6363441/check-if-a-file-exists-with-wildcard-in-shell-script
+		for CKFILE in "$NPCK" 
+		do
+		 	if [[ $CKFILE = "" ]] # configuration file is not found
+		 	then
+		 		printf "%s" "Checking $USENAME $REPO for last commit:  " 
+		  		COMMIT="$(_GC_)" ||:
+		 		printf "%s\\n" "Found ${COMMIT::7}; Continuing..."
+		 		_ATT_ 
+				sleep 0.${RANDOM::4} # eases network latency
+		 	else # load configuration information from file 
+		 		printf "%s" "Loading $USENAME $REPO config from $CKFILE:  "
+		 		COMMIT=$(head -n 1 "$NPCK") || _SIGNAL_ "62" "_CKAT_ COMMIT"
+		  		CK=$(tail -n 1  "$NPCK") || _SIGNAL_ "64" "_CKAT_ CK"
+				_PRINTCK_ 
+		 	fi
+			export CK=0
+		done
+	else
+		printf "%s" "Nit proccessing $REPO; found in "$RDR"/var/db/ANAMES file. " 
  	fi
-	export CK=0
-done
 }
 
 _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization or a user
