@@ -1,7 +1,7 @@
 #!/bin/env bash
 # Copyright 2019 (c) all rights reserved by S D Rausty; see LICENSE  
 # https://sdrausty.github.io hosted courtesy https://pages.github.com
-# To create checksum files and commit use; ./do.sums.bash
+# You can use ` do.sums.bash ` to commit and create checksum files.
 # To see file tree use; awk '{print $2}' sha512.sum
 # To check the files use; sha512sum -c sha512.sum
 #####################################################################
