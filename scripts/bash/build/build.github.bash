@@ -182,19 +182,19 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 			then
 				if [[ "$OAUT" != "" ]] # see .conf/GAUTH file for information 
 				then
-					curl -u "$OAUT" "https://api.github.com/$ISUSER/$USER/repos?per_page=100&page=$RPCT" > "$JDR/var/conf/repos.tmp" 
+					curl --fail --retry 2 -u "$OAUT" "https://api.github.com/$ISUSER/$USER/repos?per_page=100&page=$RPCT" > "$JDR/var/conf/repos.tmp" 
 					cat "$JDR/var/conf/repos.tmp" >> "$JDR/repos"  
 				else
-					curl "https://api.github.com/$ISUSER/$USER/repos?per_page=100&page=$RPCT" > "$JDR/var/conf/repos.tmp"
+					curl --fail --retry 2 "https://api.github.com/$ISUSER/$USER/repos?per_page=100&page=$RPCT" > "$JDR/var/conf/repos.tmp"
 					cat "$JDR/var/conf/repos.tmp" >> "$JDR/repos"  
 				fi
 			else
 				if [[ "$OAUT" != "" ]] 
 				then
-					curl --limit-rate "$CULR" -u "$OAUT" "https://api.github.com/$ISUSER/$USER/repos?per_page=100&page=$RPCT" > "$JDR/var/conf/repos.tmp"
+					curl --fail --retry 2 --limit-rate "$CULR" -u "$OAUT" "https://api.github.com/$ISUSER/$USER/repos?per_page=100&page=$RPCT" > "$JDR/var/conf/repos.tmp"
 					cat "$JDR/var/conf/repos.tmp" >> "$JDR/repos"  
 				else
-					curl --limit-rate "$CULR" "https://api.github.com/$ISUSER/$USER/repos?per_page=100&page=$RPCT" > "$JDR/var/conf/repos.tmp"
+					curl --fail --retry 2 --limit-rate "$CULR" "https://api.github.com/$ISUSER/$USER/repos?per_page=100&page=$RPCT" > "$JDR/var/conf/repos.tmp"
 					cat "$JDR/var/conf/repos.tmp" >> "$JDR/repos"  
 				fi
 			fi
