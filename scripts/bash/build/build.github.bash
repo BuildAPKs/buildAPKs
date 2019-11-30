@@ -36,7 +36,7 @@ _ATT_ () {
 					else
 	 					ISAND="$(curl -s -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")" ||:
 					fi
-			else
+				else
 					if [[ "$OAUT" != "" ]] 
 					then
 						ISAND="$(curl --limit-rate "$CULR" -s -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")" ||:
