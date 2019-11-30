@@ -9,7 +9,6 @@ export RDR="$HOME/buildAPKs"
 . "$RDR"/scripts/bash/shlibs/trap.bash 67 68 69 "${0##*/}"
 
 _AND_ () { # writes configuration file for git repository tarball if AndroidManifest.xml file is found in git repository
-	export CK=0
 	printf "%s\\n" "$COMMIT" > "$JDR/var/conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "%s\\n" "0" >> "$JDR/var/conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	if [[ -z "${1:-}" ]] 
@@ -103,14 +102,14 @@ _CKAT_ () {
   		COMMIT="$(_GC_)" ||:
  		printf "%s\\n" "Found ${COMMIT::7}; Continuing..."
  		_ATT_ 
+		sleep 0.${RANDOM::4} # eases network latency
  	else # load configuration information from file 
  		printf "%s" "Loading $USENAME $REPO config from $CKFILE:  "
  		COMMIT=$(head -n 1 "$NPCK") || _SIGNAL_ "62" "_CKAT_ COMMIT"
   		CK=$(tail -n 1  "$NPCK") || _SIGNAL_ "64" "_CKAT_ CK"
 		_PRINTCK_ 
- 		_ATT_ 
  	fi
-	sleep 0.${RANDOM::4}
+	export CK=0
 done
 }
 
