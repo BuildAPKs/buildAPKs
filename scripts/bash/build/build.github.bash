@@ -91,7 +91,7 @@ _CKAT_ () {
 	CK=0
 	REPO=$(awk -F/ '{print $NF}' <<< "$NAME") # https://stackoverflow.com/questions/2559076/how-do-i-redirect-output-to-a-variable-in-shell 
 	if ! grep -iw "$REPO" "$RDR"/var/db/ANAMES # repository name is not found in ANAMES file
-	then	# proccess repository 
+	then	# process copy and build repository 
 		NPCK="$(find "$JDR/var/conf/" -name "$USER.${NAME##*/}.???????.ck")" ||: # https://stackoverflow.com/questions/6363441/check-if-a-file-exists-with-wildcard-in-shell-script
 		for CKFILE in "$NPCK" 
 		do
@@ -111,7 +111,7 @@ _CKAT_ () {
 			export CK=0
 		done
 	else
-		printf "%s" "Nit proccessing $REPO; found in "$RDR"/var/db/ANAMES file. " 
+		printf "%s" "Nit processing $REPO; found in "$RDR"/var/db/ANAMES file. " 
  	fi
 }
 
@@ -223,7 +223,7 @@ _MKJDC_ () {
 		| file name | purpose |
 		-----------------------
 		| *.ck      | commit and AndroidManifest.xml query result | 
-		| NAMES.db  | NAMES files proccessed | 
+		| NAMES.db  | var/db/*NAMES* files processed | 
 		| NAMFS.db  | number of AndroidManifest.xml files found | 
 		| NAPKS.db  | number of APKs built |  " > "$JDR/var/conf/README.md" 
 	fi
