@@ -132,7 +132,12 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 		export JDR="$RDR/sources/github/$ISOTUR/$USER"
 		export JID="git.$ISOTUR.$USER"
 	else	# get login and type of login from GitHub
-		mapfile -t TYPE < <(curl "https://api.github.com/users/$USENAME")
+		if [[ "$OAUT" != "" ]] # see .conf/GAUTH file for information 
+		then
+			mapfile -t TYPE < <(curl -u "$OAUT" "https://api.github.com/users/$USENAME")
+		else
+			mapfile -t TYPE < <(curl "https://api.github.com/users/$USENAME")
+		fi
 		if [[ "${TYPE[1]}" == *\"message\":\ \"Not\ Found\"* ]]
 		then
 			printf "\\n%s\\n\\n" "Could not find a GitHub login with $USENAME:  Exiting..."
@@ -140,9 +145,10 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 		fi
 		(if [[ -z "${TYPE[17]}" ]] 
 		then
+			echo "${TYPE[@]}"  
 			_SIGNAL_ "71" "${TYPE[17]} undefined!" "71"
 			exit 34
-		fi) || (_SIGNAL_ "72" "TYPE[17]: unbound variable" "72")
+		fi) || (echo "${TYPE[@]}" && _SIGNAL_ "72" "TYPE[17]: unbound variable" "72")
 		export USENAME="$(printf "%s" "${TYPE[1]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "73" "_CUTE_ \$USENAME"
 		export NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || (_SIGNAL_ "74" "_CUTE_ \$NAPKS: create \$NAPKS failed; Exiting..." 24)
 		if [[ "${TYPE[17]}" == *User* ]]
