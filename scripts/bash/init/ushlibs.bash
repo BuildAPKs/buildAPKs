@@ -41,6 +41,7 @@ _IFSHLIBS_() {
 	then
 		git clone https://github.com/shlibs/shlibs.bash scripts/bash/shlibs || printf "\\nCannot clone module %s into~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "https://github.com/shlibs/shlibs.bash" "${RDR##*/}"
 	fi
+	sleep 0.$(shuf -i 24-72 -n 1) # increase network latency support on fast networks 
 	if [[ ! -d "$RDR"/scripts/sh/shlibs ]] 
 	then
 		git clone https://github.com/shlibs/shlibs.sh scripts/sh/shlibs || printf "\\nCannot clone module %s into~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "https://github.com/shlibs/shlibs.sh" "${RDR##*/}"
