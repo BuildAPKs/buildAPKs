@@ -145,10 +145,11 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 		(if [[ -z "${TYPE[17]}" ]] 
 		then
 			echo "${TYPE[@]}"  
-			_SIGNAL_ "71" "${TYPE[17]} undefined!" "71"
+			_SIGNAL_ "68" "${TYPE[17]} undefined!" "68"
 			exit 34
-		fi) || (echo "${TYPE[@]}" && _SIGNAL_ "72" "TYPE[17]: unbound variable" "72")
-		export USENAME="$(printf "%s" "${TYPE[1]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "73" "_CUTE_ \$USENAME"
+		fi) || (echo "${TYPE[@]}" && _SIGNAL_ "70" "TYPE[17]: unbound variable" "70")
+		export USENAME="$(printf "%s" "${TYPE[1]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "71" "_CUTE_ \$USENAME"
+		export GHUID="$(printf "%s" "${TYPE[2]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "72" "_CUTE_ \$USENAME"
 		NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || (_SIGNAL_ "74" "_CUTE_ \$NAPKS: create \$NAPKS failed; Exiting..." 24)
 		if [[ "${TYPE[17]}" == *User* ]]
 		then
