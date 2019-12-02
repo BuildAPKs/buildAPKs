@@ -31,16 +31,16 @@ _ATT_ () {
 				then
 					if [[ "$OAUT" != "" ]] 
 					then
-						ISAND="$(curl -s -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")" ||:
+						ISAND="$(curl --fail --retry 2 -s -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")" ||:
 					else
-	 					ISAND="$(curl -s -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")" ||:
+	 					ISAND="$(curl --fail --retry 2 -s -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")" ||:
 					fi
 				else
 					if [[ "$OAUT" != "" ]] 
 					then
-						ISAND="$(curl --limit-rate "$CULR" -s -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")" ||:
+						ISAND="$(curl --fail --retry 2 --limit-rate "$CULR" -s -u "$OAUT" -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")" ||:
 					else
-	 					ISAND="$(curl --limit-rate "$CULR" -s -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")" ||:
+	 					ISAND="$(curl --fail --retry 2 --limit-rate "$CULR" -s -i "https://api.github.com/repos/$USENAME/$REPO/git/trees/$COMMIT?recursive=1")" ||:
 					fi
 				fi
 			 	if grep AndroidManifest.xml <<< "$ISAND" 
@@ -239,9 +239,9 @@ _FJDX_ () {
 _GC_ () { 
 	if [[ "$OAUT" != "" ]] # see .conf/GAUTH file for information  
 	then # https://unix.stackexchange.com/questions/117992/download-only-first-few-bytes-of-a-source-page
-	 	curl -u "$OAUT" https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
+	 	curl --fail --retry 2 -u "$OAUT" https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
 	else
-	 	curl https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
+	 	curl --fail --retry 2 https://api.github.com/repos/"$USER/$REPO"/commits -s 2>&1 | head -n 3 | tail -n 1 | awk '{ print $2 }' | sed 's/"//g' | sed 's/,//g' 
 	fi
 }
 
@@ -294,8 +294,10 @@ _MAINGITHUB_ () {
 	F1AR=($(find "$JDR" -maxdepth 1 -type d)) # creates array of JDR contents 
 	cd "$JDR"
 	_PRINTAS_
-	for NAME in "${JARR[@]}" # lets you delete partial downloads and repopulates from GitHub.  Directories can be deleted, too.  They are repopulated from the tarballs.  
-	do #  This creates a "slate" within each github/$JDR that can be selectively reset when desired.  This can be important on a slow connection.
+	for NAME in "${JARR[@]}" # lets you delete partial downloads and repopulates a JDR directory from remote source.  Directories can be deleted, too.  They are repopulated from the downloaded tarballs.  
+	do # This creates a "slate" within each ~/buildAPKs/sources/github/{orgs,users}/JDR folder that can be selectively reset.  This can be important on a slow connection that might yield incomplete download results on a first attempt to download and build multiple APKs from remote source code.  
+		# To hopefully populate a partially downloaded JDR folded without deleting everything that was downloaded, remove the ~/buildAPKs/sources/github/{orgs,users}/JDR/var directory and contents which this script creates.  The unpacked tarball directories can be deleted to reset a JDR directory as well.  This can be accomplished with one find command ` find . -maxdepth 1 -type d -exec rm -rf {} \; ` issued in the JDR folder.  Checking the integity of multiple tarballs is automated with ` ~/buildAPKs/scripts/maintenance/delete.corrupt.tars.sh ls ` which should be excecuted in the same JDR directory to check for tarball errors.  If a corrupt tarball is found by ` delete.corrupt.tars.sh `, it will be deleted.  
+		# Run ` build.github.bash login [curl rate] ` and hopefully the logins you are trying to build from will be completely downloaded and built as intended.  This information regards extremely fast and very slow connections, i.e. slower than 14400 baud and 4G at max speed.  Rate limiting is also effective on high speed connection.  If you have trouble downloading APK source code repositories, better results might be found downloading the many files build.github.bash can request with rate limiting enabled, than without rate limiting.  An example is provided for conveniece: ` build.github.bash https://github.com/BuildAPKs c 33600 ` will throttle the download rate for ` curl ` to 33600 and take a very long time to attempt to download everything from GitHub.  
 		_CKAT_ 
 	done
 	_PRINTJD_
