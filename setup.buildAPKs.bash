@@ -4,7 +4,6 @@
 #####################################################################
 set -Eeuo pipefail
 shopt -s nullglob globstar
-
 _SUPTRPERROR_() { # Run on script error.
 	local RV="$?"
 	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs setupBuildAPKs.sh ERROR:  Signal %s received!\\e[0m\\n" "$RV"

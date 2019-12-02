@@ -4,7 +4,6 @@
 #####################################################################
 set -Eeuo pipefail
 shopt -s nullglob globstar
-export RDR="$HOME/buildAPKs"
 _SATRPERROR_() { # run on script error
 	local RV="$?"
 	if [[ "$RV" == 1 ]]  
@@ -52,7 +51,6 @@ trap _SATRPEXIT_ EXIT
 trap '_SATRPSIGNAL_ $LINENO $BASH_COMMAND $?' HUP INT TERM
 trap '_SATRPQUIT_ $LINENO $BASH_COMMAND $?' QUIT 
 
-ANARGS="${#@}"
 ATQUIT="$1"
 ATSIGNAL="$2"
 ATERROR="$3"
