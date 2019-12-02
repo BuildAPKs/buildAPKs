@@ -82,7 +82,7 @@ if [[ ! -d "$RDR" ]]
 then
 	cd "$HOME" && git clone https://github.com/BuildAPKs/buildAPKs || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
 fi
-export JAD=github.com/BuildAPKs/buildAPKs.entertainment
-export JID=entertainment # job id/name
+export JAD=github.com/BuildAPKs/buildAPKs.entertainment	# job address
+export JID=entertainment	# job id/name
 bash "$RDR"/scripts/bash/init/init.bash "$@"
 # setup.buildAPKs.bash EOF
