@@ -149,7 +149,7 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 			exit 34
 		fi) || (echo "${TYPE[@]}" && _SIGNAL_ "72" "TYPE[17]: unbound variable" "72")
 		export USENAME="$(printf "%s" "${TYPE[1]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || _SIGNAL_ "73" "_CUTE_ \$USENAME"
-		export NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || (_SIGNAL_ "74" "_CUTE_ \$NAPKS: create \$NAPKS failed; Exiting..." 24)
+		NAPKS="$(printf "%s" "${TYPE[17]}" | sed 's/"//g' | sed 's/,//g' | awk '{print $2}')" || (_SIGNAL_ "74" "_CUTE_ \$NAPKS: create \$NAPKS failed; Exiting..." 24)
 		if [[ "${TYPE[17]}" == *User* ]]
 		then
 			export ISUSER=users
@@ -167,6 +167,7 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 		printf "%s\\n" "${TYPE[@]}" > "$JDR"/profile
 		_MKJDC_ 
 		_NAMESMAINBLOCK_ CNAMES GNAMES log/GNAMES
+		unset NAPKS
 	fi
 	printf "%s\\n" "Processing $USENAME:"
 	KEYT=("\"login\"" "\"id\"" "\"type\"" "\"name\"" "\"company\"" "\"blog\"" "\"location\"" "\"hireable\"" "\"bio\"" "\"public_repos\"" "\"public_gists\"" "\"followers\"" "\"following\"" "\"created_at\"" )
@@ -256,8 +257,8 @@ _MAINGITHUB_ () {
 	export WRAMES=0
 	printf "\\n\\e[1;38;5;116m%s\\n\\e[0m" "${0##*/}: Beginning BuildAPKs with build.github.bash $@:"
 	. "$RDR"/scripts/bash/shlibs/buildAPKs/fandm.bash
+	. "$RDR"/scripts/bash/shlibs/buildAPKs/fapks.bash
 	. "$RDR"/scripts/bash/shlibs/buildAPKs/prep.bash
-	. "$RDR"/scripts/sh/shlibs/buildAPKs/fapks.sh
 	. "$RDR"/scripts/sh/shlibs/buildAPKs/names.sh 0
 	. "$RDR"/scripts/sh/shlibs/mkfiles.sh
 	. "$RDR"/scripts/sh/shlibs/mkdirs.sh
