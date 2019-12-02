@@ -1,6 +1,6 @@
 [buildAPKs](https://github.com/BuildAPKs/buildAPKs)
 
-BuildAPKs has [source code](https://github.com/BuildAPKs) and [scripts](https://github.com/BuildAPKs/buildAPKs/tree/master/scripts/) in order to build APKs (Android Package Kits) on Android handhelds, and similar.  Quick setup instructions can be [found here](https://buildapks.github.io/docsBuildAPKs/setup) and [also right here.](https://buildapks.github.io/docsBuildAPKs/reallyEasilyBuildAndroidAPKsOnDevice)  To skip to installing:
+BuildAPKs has [source code](https://github.com/BuildAPKs) and [scripts](https://github.com/BuildAPKs/buildAPKs/tree/master/scripts/) in order to build APKs (Android Package Kits) on Android handhelds, and similar.  Quick setup instructions can be [found here](https://buildapks.github.io/docsBuildAPKs/setup) and [also right here.](https://buildapks.github.io/docsBuildAPKs/reallyEasilyBuildAndroidAPKsOnDevice)  To skip to installing in Amazon, Android, Chromebook and Windows in [Termux](https://github.com/termux) use:
 ```
 
    pkg install curl 
