@@ -7,7 +7,6 @@ shopt -s nullglob globstar
 export RDR="$HOME/buildAPKs"
 . "$RDR"/scripts/bash/init/ushlibs.bash
 . "$RDR"/scripts/bash/shlibs/trap.bash 67 68 69 "${0##*/}"
-
 _AND_ () { # writes configuration file for git repository tarball if AndroidManifest.xml file is found in git repository
 	printf "%s\\n" "$COMMIT" > "$JDR/var/conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
 	printf "%s\\n" "0" >> "$JDR/var/conf/$USER.${NAME##*/}.${COMMIT::7}.ck"
@@ -219,13 +218,13 @@ _MKJDC_ () {
 	if [[ ! -d "$JDR/var/conf" ]] 
 	then
 		mkdir -p "$JDR/var/conf"
-		printf "%s\\n\\n" "This directory contains results from query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores.  
+		printf "%s\\n\\n" "This directory contains query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores results.  The following files are created in ${USENAME,,}/var/conf and their purpose is outlined here:
 		| file name | purpose |
 		-----------------------
-		| *.ck      | commit and AndroidManifest.xml query result | 
-		| NAMES.db  | var/db/*NAMES* files processed | 
-		| NAMFS.db  | number of AndroidManifest.xml files found | 
-		| NAPKS.db  | number of APKs built |  " > "$JDR/var/conf/README.md" 
+		| *.ck      | results from query for commit and AndroidManifest.xml file(s) | 
+		| NAMES.db  | var/db/*NAMES* files processedthrough var/db/*NAMES;  Remove this file to reprocess login through var/db/*NAMES upon susequent build. | 
+		| NAMFS.db  | The number of AndroidManifest.xml files that were found at login https://github.com/$USENAME. | 
+		| NAPKS.db  | The number of APKs that were built on device with BuildAPKs. |  " > "$JDR/var/conf/README.md" 
 	fi
 }
 
