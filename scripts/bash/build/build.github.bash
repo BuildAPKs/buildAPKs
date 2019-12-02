@@ -110,7 +110,7 @@ _CKAT_ () {
 			export CK=0
 		done
 	else
-		printf "%s" "Nit processing $REPO; found in "$RDR"/var/db/ANAMES file. " 
+		printf "%s" "Not processing $REPO; listing found in ~/"${RDR##*/}"/var/db/ANAMES file. " 
  	fi
 }
 
