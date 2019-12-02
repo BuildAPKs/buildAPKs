@@ -64,14 +64,14 @@ STRING2="Cannot update ~/${RDR##*/} prerequisite: Continuing..."
 printf "\\e[1;38;5;115m%s\\e[0m\\n" "Beginning buildAPKs setup:"
 COMMANDR="$(command -v au)" || (printf "%s\\n\\n" "$STRING1") 
 COMMANDIF="${COMMANDR##*/}"
-PKGS=(aapt apksigner curl dx ecj findutils git)
+PKGS=(aapt apksigner curl dx ecj git)
 if [[ -z "${1:-}" ]]
 then
 	ARGS=""
 fi
 for PKG in "${PKGS[@]}"
 do
-	COMMANDP="$(command -v $PKG)" || printf "Command %s not found: Continuing...\\n""$PKG"
+	COMMANDP="$(command -v $PKG)" || printf "Command %s not found: Continuing...\\n" "$PKG"
 	COMMANDPF="${COMMANDP##*/}"
 	if [[ "$COMMANDPF" != "$PKG" ]] 
 	then 
