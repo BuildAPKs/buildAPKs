@@ -34,6 +34,7 @@ trap _SETRPEXIT_ EXIT
 trap _SETRPSIGNAL_ HUP INT TERM 
 trap _SETRPQUIT_ QUIT 
 
+export OAUT="$(cat "$RDR/.conf/GAUTH" | awk 'NR==1')" # load login:token key from .conf/GAUTH file, see the GAUTH file for more information to enable OAUTH authentication
 export NUM="$(date +%s)"
 export RDR="$HOME/buildAPKs"
 export SDR="/scripts/bash/build"
