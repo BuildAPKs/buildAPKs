@@ -218,13 +218,16 @@ _MKJDC_ () {
 	if [[ ! -d "$JDR/var/conf" ]] 
 	then
 		mkdir -p "$JDR/var/conf"
-		printf "%s\\n\\n" "This directory contains query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores results.  The following files are created in ${USENAME,,}/var/conf and their purpose is outlined here:
-		| file name | purpose |
-		-----------------------
-		| *.ck      | results from query for commit and AndroidManifest.xml file(s) | 
-		| NAMES.db  | var/db/*NAMES* files processedthrough var/db/*NAMES;  Remove this file to reprocess login through var/db/*NAMES upon susequent build. | 
-		| NAMFS.db  | The number of AndroidManifest.xml files that were found at login https://github.com/$USENAME. | 
-		| NAPKS.db  | The number of APKs that were built on device with BuildAPKs. |  " > "$JDR/var/conf/README.md" 
+	fi
+	if [[ ! -d "$JDR/var/conf" ]] 
+	then
+	printf "%s\\n\\n" "This directory contains query for \` AndroidManifest.xml \` files in GitHub $USENAME repositores results.  The following files are created in ${USENAME,,}/var/conf and their purpose is outlined here:
+	| file name | purpose |
+	-----------------------
+	| *.ck      | results from query for commit and AndroidManifest.xml file(s) | 
+	| NAMES.db  | var/db/*NAMES* files processedthrough var/db/*NAMES;  Remove this file to reprocess login through var/db/*NAMES upon susequent build. | 
+	| NAMFS.db  | The number of AndroidManifest.xml files that were found at login https://github.com/$USENAME. | 
+	| NAPKS.db  | The number of APKs that were built on device with BuildAPKs. |  " > "$JDR/var/conf/README.md" 
 	fi
 }
 
