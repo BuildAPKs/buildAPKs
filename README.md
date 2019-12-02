@@ -1,8 +1,17 @@
 [buildAPKs](https://github.com/BuildAPKs/buildAPKs)
 
-BuildAPKs has [source code](https://github.com/BuildAPKs) and [scripts](https://github.com/BuildAPKs/buildAPKs/tree/master/scripts/) in order to build APKs (Android Package Kits) on Android handhelds, and similar.  Quick setup instructions can be [found here](https://buildapks.github.io/docsBuildAPKs/setup) and [also right here.](https://buildapks.github.io/docsBuildAPKs/reallyEasilyBuildAndroidAPKsOnDevice)
+BuildAPKs has [source code](https://github.com/BuildAPKs) and [scripts](https://github.com/BuildAPKs/buildAPKs/tree/master/scripts/) in order to build APKs (Android Package Kits) on Android handhelds, and similar.  Quick setup instructions can be [found here](https://buildapks.github.io/docsBuildAPKs/setup) and [also right here.](https://buildapks.github.io/docsBuildAPKs/reallyEasilyBuildAndroidAPKsOnDevice)  To skip to installing:
+```
 
-You can try building hundreds of exciting, amazing and beautiful APKs by running [shell scripts](https://www.google.com/search?q=shell+scripts) from [this directory](https://github.com/BuildAPKs/buildAPKs/tree/master/scripts/bash/build).  It is simple!  The minimal install size to start building your first apps is about 10MB!  Have fun and enjoy compiling, hacking, modifying and running these select APKs!
+   pkg install curl 
+
+   curl -O https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/init/setup.buildAPKs.bash
+
+   bash setup.buildAPKs.bash
+
+```
+
+After installing, you can try building thousands of exciting, amazing and beautiful APKs by running [shell scripts](https://www.google.com/search?q=shell+scripts) from [this directory](https://github.com/BuildAPKs/buildAPKs/tree/master/scripts/bash/build).  It is simple!  The minimal install size to start building your first apps is about 10MB!  Have fun and enjoy compiling, hacking, modifying and running these select APKs!
 
 Build Android APKs on device, on your smartphone and tablet with [Termux](https://github.com/termux/); Make applications for your Android smartphone and tablet! This repository contains source code for various Android applications that have been successfully built in [Termux](https://github.com/termux/).
 
