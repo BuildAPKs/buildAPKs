@@ -40,11 +40,12 @@ _IFSHLIBS_() {
 	if [[ ! -d "$RDR"/scripts/bash/shlibs ]] 
 	then
 		git clone https://github.com/shlibs/shlibs.bash scripts/bash/shlibs || printf "\\nCannot clone module %s into~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "https://github.com/shlibs/shlibs.bash" "${RDR##*/}"
+		sleep 0.$(shuf -i 24-72 -n 1) # add network latency support on fast networks 
 	fi
-	sleep 0.$(shuf -i 24-72 -n 1) # increase network latency support on fast networks 
 	if [[ ! -d "$RDR"/scripts/sh/shlibs ]] 
 	then
 		git clone https://github.com/shlibs/shlibs.sh scripts/sh/shlibs || printf "\\nCannot clone module %s into~/%s/scripts/bash/shlibs: Continuing...\\n\\n" "https://github.com/shlibs/shlibs.sh" "${RDR##*/}"
+		sleep 0.$(shuf -i 24-72 -n 1) # increase network latency support on fast networks 
 	fi
 }
 
@@ -65,6 +66,7 @@ _UFSHLIBS_() { # add and update submodules
 		then
 		rm -f scripts/$MLOC/.git
  		printf "\\e[1;7;38;5;96mUpdating ~/%s/scripts/%s...\\e[0m\\n" "${RDR##*/}" "$MLOC" ; git submodule update --recursive --remote scripts/$MLOC || printf "Cannot update module ~/%s/scripts/%s: Continuing...\\n" "${RDR##*/}" "$MLOC"
+		sleep 0.$(shuf -i 24-72 -n 1) # add network latency support on fast networks 
 		fi
 	done
 	for MLOC in "${!ARSHLIBS[@]}" 
@@ -72,6 +74,7 @@ _UFSHLIBS_() { # add and update submodules
 		if ! grep "${ARSHLIBS[$MLOC]}" .gitmodules 1>/dev/null  
 		then
  			printf "\\e[1;7;38;5;96mAdding ~/%s/scripts/%s...\\e[0m\\n" "${RDR##*/}" "$MLOC" ; git submodule add https://github.com/${ARSHLIBS[$MLOC]} scripts/$MLOC || printf "Cannot add submodule ~/%s/scripts/%s: Continuing...\\n" "${RDR##*/}" "$MLOC"
+		sleep 0.$(shuf -i 24-72 -n 1) # increase network latency support on fast networks 
 		fi
 	done
 }
@@ -80,11 +83,13 @@ cd "$RDR"
 if [[ ! -d "$RDR"/.git ]] 
 then
 	_IRGR_
+	sleep 0.$(shuf -i 24-72 -n 1) # add network latency support on fast networks 
 	_IFSHLIBS_
 fi
 if [[ ! -f "$RDR"/scripts/bash/shlibs/.git ]] || [[ ! -f "$RDR"/scripts/sh/shlibs/.git ]] 
 then
 	git pull || printf "\\nCannot update ~/%s: Continuing...\\n\\n" "${RDR##*/}"
+	sleep 0.$(shuf -i 24-72 -n 1) # add network latency support on fast networks 
 	_UFSHLIBS_
 fi
 # ushlibs.bash EOF
