@@ -39,7 +39,7 @@ The [`buildAll.bash`](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/mast
 
 Contribute to this project through both [the issues page](https://github.com/BuildAPKs/buildAPKs/issues) and [pull requests](https://github.com/BuildAPKs/buildAPKs/pulls).  Enjoy building these select APKs for Termux [projects,](https://github.com/BuildAPKs/buildAPKs/tree/master/sources) and find the time to post your feelings [here,](https://github.com/BuildAPKs/buildAPKs/issues) and [at this wiki](https://github.com/BuildAPKs/buildAPKs/wiki).
 
-If you are confused by this page try [this link,](http://tldp.org/) and you might want to try [this one.](https://www.debian.org/doc/) Post your what you have found at [the wiki](https://github.com/BuildAPKs/buildAPKs/wiki).
+If you are confused by this page try [this link,](http://tldp.org/) and you might want to try [this one.](https://www.debian.org/doc/) 
 
 🚢🚤🚣⛵
 
