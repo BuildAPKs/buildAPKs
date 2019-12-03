@@ -5,7 +5,7 @@ BuildAPKs has [source code](https://github.com/BuildAPKs) and [scripts](https://
 
    pkg install curl 
 
-   curl -O https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/init/setup.buildAPKs.bash
+   curl -O https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash
 
    bash setup.buildAPKs.bash
 
