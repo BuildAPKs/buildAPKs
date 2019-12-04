@@ -4,7 +4,7 @@
 #####################################################################
 set -Eeuo pipefail
 shopt -s nullglob globstar
-
+. "$RDR"/scripts/bash/shlibs/buildAPKs/fapks.bash
 _SBOTRPERROR_() { # run on script error
 	local RV="$?"
 	echo $RV build.one.bash  
@@ -154,5 +154,5 @@ aapt add -f "$PKGNAM.apk" classes.dex
 printf "\\e[1;38;5;114m%s\\e[1;38;5;108m\\n" "Signing $PKGNAM.apk..."
 apksigner ../"$PKGNAM-debug.key" "$PKGNAM.apk" ../"$PKGNAM.apk"
 cd ..
-. "$RDR"/scripts/bash/shlibs/buildAPKs/fapks.bash
+_CPAPK_ # copy APK file 
 # build.one.bash EOF
