@@ -8,7 +8,6 @@ shopt -s nullglob globstar
 _SCLTRPERROR_() { # Run on script error.
 	local RV="$?"
 	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s ERROR:  Signal %s received!\\e[0m\\n" "${0##*/}" "$RV"
-	echo exit 201
 	exit 201
 }
 
@@ -21,14 +20,12 @@ _SCLTRPEXIT_() { # Run on exit.
 _SCLTRPSIGNAL_() { # Run on signal.
 	local RV="$?"
 	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Signal %s received!\\e[0m\\n" "${0##*/}" "$RV"
-	echo exit 211
  	exit 211 
 }
 
 _SCLTRPQUIT_() { # Run on quit.
 	local RV="$?"
 	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Quit signal %s received!\\e[0m\\n" "${0##*/}" "$RV"
-	echo exit 221
  	exit 221 
 }
 
