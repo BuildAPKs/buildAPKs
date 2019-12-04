@@ -154,5 +154,5 @@ aapt add -f "$PKGNAM.apk" classes.dex
 printf "\\e[1;38;5;114m%s\\e[1;38;5;108m\\n" "Signing $PKGNAM.apk..."
 apksigner ../"$PKGNAM-debug.key" "$PKGNAM.apk" ../"$PKGNAM.apk"
 cd ..
-"$RDR"/scripts/bash/shlibs/buildAPKs/fapks.bash
+. "$RDR"/scripts/bash/shlibs/buildAPKs/fapks.bash
 # build.one.bash EOF
