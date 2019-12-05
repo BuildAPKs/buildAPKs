@@ -1,3 +1,5 @@
+<link rel="prerender" href="https://termuxarch.github.io/TermuxArch/">
+
 ## [buildAPKs](https://github.com/BuildAPKs/buildAPKs)
 
 ##### -r--r--r-- [setup.buildAPKs.bash](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash)
