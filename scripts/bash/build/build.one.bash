@@ -120,15 +120,15 @@ then
 	mkdir -p ./res
 fi
 BOOTCLASSPATH=""
-DIRLIST="$(find /system/ -type f -iname "*.jar")" || printf "%s" "signal DIRLIST ${0##*/} build.one.bash generated"
+DIRLIST="$(find /system/ -type f -iname "*.jar")" || printf "%s" "signal DIRLIST ${0##*/} build.one.bash generated; Continuing..."
 for LIB in $DIRLIST
 do
 	BOOTCLASSPATH=${LIB}:${BOOTCLASSPATH};
 done
 BOOTCLASSPATH=${BOOTCLASSPATH%%:}
-MSDKVERSIO="$(getprop ro.build.version.min_supported_target_sdk)" || printf "%s" "signal ro.build.version.min_supported_target_sdk ${0##*/} build.one.bash generated"
+MSDKVERSIO="$(getprop ro.build.version.min_supported_target_sdk)" || printf "%s" "signal ro.build.version.min_supported_target_sdk ${0##*/} build.one.bash generated; Continuing..."
 MSDKVERSION="${MSDKVERSIO:-14}"
-TSDKVERSIO="$(getprop ro.build.version.sdk)" || printf "%s" "signal ro.build.version.sdk ${0##*/} build.one.bash generated"
+TSDKVERSIO="$(getprop ro.build.version.sdk)" || printf "%s" "signal ro.build.version.sdk ${0##*/} build.one.bash generated; Continuing..."
 TSDKVERSION="${TSDKVERSIO:-23}"
 sed -i "s/minSdkVersion\=\"[0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml 
 sed -i "s/minSdkVersion\=\"[0-9][0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml 
