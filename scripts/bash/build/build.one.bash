@@ -120,7 +120,7 @@ then
 	mkdir -p ./res
 fi
 BOOTCLASSPATH=""
-DIRLIST="$(find /system/ -type f -iname \*.jar)"
+DIRLIST="$(find /system/ -type f -iname "*.jar")"
 for LIB in $DIRLIST
 do
 	BOOTCLASSPATH=${LIB}:${BOOTCLASSPATH};
@@ -143,7 +143,7 @@ aapt package -f \
 	-F /system/framework/framework-res.apk \
 	-M AndroidManifest.xml \
 	-J gen \
-	-S res 
+	-S res || printf "%s\\n" "Signal generated in aapt package ${0##*/} build.one.bash;  Continuing..."
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "ecj: begun..."
 ecj -bootclasspath $BOOTCLASSPATH -d ./obj -sourcepath . $(find . -type f -name "*.java") || printf "%s\\n" "Signal generated in ecj ${0##*/} build.one.bash;  Continuing..."
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started..."
