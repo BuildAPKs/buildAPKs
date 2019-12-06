@@ -36,9 +36,9 @@ Submit a [pull request](https://github.com/BuildAPKs/buildAPKs/pulls) if you wou
 
 ### Really Easily Build an Android APK on an Android Device (Smartphone and Tablet).
 
-Prefix these bash scripts by typing dot slash ` ./ ` on your Android smartphone and tablet in Termux, i.e. type ` ./b ` at the prompt ($), press TAB TAB (x2).  The prompt will magically add uild.  Then add a capital  A.  Press TAB TAB (x2) again.  This should build the following command on the command line [`./buildAll.bash`](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/build/buildAll.bash) for you.  Press enter (return) in ` ~/buildAPKs/ `.  Additional CLI information at [The Linux Documentation Project.](https://duckduckgo.com/?q=command+line+beginner+site%3Atldp.org)
+Prefix these bash scripts by typing dot slash ` ./ ` on your Android smartphone and tablet in Termux, i.e. type ` ./b ` at the prompt $, press TAB TAB (x2).  The prompt will magically add uild.  Then add a capital  A.  Press TAB TAB (x2) again.  This will build the following command on the command line [`./buildAll.bash`](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/build/buildAll.bash) for you.  Press enter (return) in ` ~/buildAPKs/ `.  Additional CLI information at [The Linux Documentation Project.](https://duckduckgo.com/?q=command+line+beginner+site:tldp.org)
 
-The built APKs will be deposited into Download/builtAPKs for installing on smartphone and tablet through browsers, and download and file managers.  The minimal install size to start building your first applications is about 10MB.  Have fun and enjoy compiling, hacking, modifying and running these select APKs on device!
+The built APKs will be deposited into Download/builtAPKs if [Termux storage permission](https://github.com/termux/termux-app/blob/master/app/src/main/java/com/termux/app/TermuxActivity.java#L190&&#L198) is granted for installing on smartphone and tablet through browsers, and download and file managers.  Is storage permission is unaccessable, the built APKs will be deposited into ~/buildAPKs/cache/builtAPKs.  The minimal install size to start building your first applications is about 10MB.  Have fun and enjoy compiling, hacking, modifying and running these select APKs on device!
 
 The [`buildAll.bash`](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/build/buildAll.bash) command can build hundreds of APKs on your device.  Maximum space allotment for complete build of everything included (755) is about 850MB for buildAPKs, plus about 74MB for the finished products deposited into Download/builtAPKs;  More than seven hundred and fifty five (755) Android applications can be made from source code available at [BuildAPKs](https://github.com/BuildAPKs) on device today.  With [build.github.bash](https://github.com/BuildAPKs/buildAPKs/blob/master/scripts/bash/build/build.github.bash) you can build nearly an unlimited number of APKs which are available at GitHub.
 
@@ -47,5 +47,4 @@ Contribute to this project through both [the issues page](https://github.com/Bui
 If you are confused by this page try [this link,](http://tldp.org/) and you might want to try [this one.](https://www.debian.org/doc/) 
 
 🚢🚤🚣⛵
-
 <!-- README.md EOF -->
