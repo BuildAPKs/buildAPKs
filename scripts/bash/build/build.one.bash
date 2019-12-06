@@ -120,15 +120,16 @@ then
 	mkdir -p ./res
 fi
 BOOTCLASSPATH=""
-DIRLIST="$(find /system/ -type f -iname "*.jar")" || printf "%s" "signal DIRLIST ${0##*/} build.one.bash generated; Continuing..."
+[ -d /system ] && DIRLIST="$(find /system/ -type f -iname "*.jar" 2>/dev/null)" || printf "%s" "signal DIRLIST system ${0##*/} build.one.bash generated; Continuing...  "
+[ -d /vendor ] && DIRLIST="$DIRLIST $(find /vendor/ -type f -iname "*.jar" 2>/dev/null)" || printf "%s" "signal DIRLIST vendor ${0##*/} build.one.bash generated; Continuing...  "
 for LIB in $DIRLIST
 do
 	BOOTCLASSPATH=${LIB}:${BOOTCLASSPATH};
 done
 BOOTCLASSPATH=${BOOTCLASSPATH%%:}
-MSDKVERSIO="$(getprop ro.build.version.min_supported_target_sdk)" || printf "%s" "signal ro.build.version.min_supported_target_sdk ${0##*/} build.one.bash generated; Continuing..."
+MSDKVERSIO="$(getprop ro.build.version.min_supported_target_sdk)" || printf "%s" "signal ro.build.version.min_supported_target_sdk ${0##*/} build.one.bash generated; Continuing...  "
 MSDKVERSION="${MSDKVERSIO:-14}"
-TSDKVERSIO="$(getprop ro.build.version.sdk)" || printf "%s" "signal ro.build.version.sdk ${0##*/} build.one.bash generated; Continuing..."
+TSDKVERSIO="$(getprop ro.build.version.sdk)" || printf "%s" "signal ro.build.version.sdk ${0##*/} build.one.bash generated; Continuing...  "
 TSDKVERSION="${TSDKVERSIO:-23}"
 sed -i "s/minSdkVersion\=\"[0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml 
 sed -i "s/minSdkVersion\=\"[0-9][0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml 
@@ -143,9 +144,9 @@ aapt package -f \
 	-F /system/framework/framework-res.apk \
 	-M AndroidManifest.xml \
 	-J gen \
-	-S res || printf "%s\\n" "Signal generated in aapt package ${0##*/} build.one.bash;  Continuing..."
+	-S res || printf "%s\\n" "Signal generated in aapt package ${0##*/} build.one.bash;  Continuing...  "
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "ecj: begun..."
-ecj -bootclasspath $BOOTCLASSPATH -d ./obj -sourcepath . $(find . -type f -name "*.java") || printf "%s\\n" "Signal generated in ecj ${0##*/} build.one.bash;  Continuing..."
+ecj -bootclasspath $BOOTCLASSPATH -d ./obj -sourcepath . $(find . -type f -name "*.java") || printf "%s\\n" "Signal generated in ecj ${0##*/} build.one.bash;  Continuing...  "
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started..."
 dx --dex --output=bin/classes.dex obj
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAM.apk..."
