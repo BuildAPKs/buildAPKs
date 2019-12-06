@@ -120,7 +120,7 @@ then
 	mkdir -p ./res
 fi
 BOOTCLASSPATH=""
-DIRLIST="$(find /system/ -type f -iname "*.jar")"
+DIRLIST="$(find /system/ -type f -iname "*.jar")" || printf "%s" "signal DIRLIST ${0##*/} build.one.bash generated"
 for LIB in $DIRLIST
 do
 	BOOTCLASSPATH=${LIB}:${BOOTCLASSPATH};
