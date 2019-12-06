@@ -119,7 +119,13 @@ if [[ ! -d "./res" ]]
 then
 	mkdir -p ./res
 fi
-sleep 0.01
+BOOTCLASSPATH=""
+DIRLIST="$(find /system/ -type f -iname \*.jar)"
+for LIB in $DIRLIST
+do
+	BOOTCLASSPATH=${LIB}:${BOOTCLASSPATH};
+done
+BOOTCLASSPATH=${BOOTCLASSPATH%%:}
 MSDKVERSIO="$(getprop ro.build.version.min_supported_target_sdk)" || printf "%s" "signal ro.build.version.min_supported_target_sdk ${0##*/} build.one.bash generated"
 MSDKVERSION="${MSDKVERSIO:-14}"
 TSDKVERSIO="$(getprop ro.build.version.sdk)" || printf "%s" "signal ro.build.version.sdk ${0##*/} build.one.bash generated"
@@ -133,15 +139,17 @@ PKGNAM="$(grep -o "package=.*" AndroidManifest.xml | cut -d\" -f2)"
 PKGNAME="$PKGNAM.$NOW"
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 aapt package -f \
+	-j $BOOTCLASSPATH \
+	-F /system/framework/framework-res.apk \
 	-M AndroidManifest.xml \
 	-J gen \
 	-S res 
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "ecj: begun..."
-ecj -d ./obj -sourcepath . $(find . -type f -name "*.java")
+ecj -bootclasspath $BOOTCLASSPATH -d ./obj -sourcepath . $(find . -type f -name "*.java") || printf "%s\\n" "Signal generated in ecj ${0##*/} build.one.bash;  Continuing..."
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started..."
 dx --dex --output=bin/classes.dex obj
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAM.apk..."
-aapt package -f \
+aapt package -v -f \
 	--min-sdk-version "$MSDKVERSION" \
 	--target-sdk-version "$TSDKVERSION" \
 	-M AndroidManifest.xml \
