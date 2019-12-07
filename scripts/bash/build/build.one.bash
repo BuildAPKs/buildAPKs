@@ -141,13 +141,14 @@ PKGNAME="$PKGNAM.$NOW"
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 aapt package -f \
 	-j $BOOTCLASSPATH \
+	-I /system/framework/framework-res.apk \
 	-M AndroidManifest.xml \
 	-J gen \
-	-S res ||:
+	-S res
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "ecj: begun..."
-ecj -bootclasspath $BOOTCLASSPATH -d ./obj -sourcepath . $(find . -type f -name "*.java") ||:
+ecj -bootclasspath $BOOTCLASSPATH -d ./obj -sourcepath . $(find . -type f -name "*.java") 
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started..."
-dx --dex --output=bin/classes.dex obj ||:
+dx --dex --output=bin/classes.dex obj
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAM.apk..."
 aapt package -f \
 	--min-sdk-version "$MSDKVERSION" \
@@ -155,10 +156,10 @@ aapt package -f \
 	-M AndroidManifest.xml \
 	-S res \
 	-A assets \
-	-F bin/"$PKGNAM".apk ||:
+	-F bin/"$PKGNAM".apk 
 printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex to $PKGNAM.apk..."
 cd bin 
-aapt add -f "$PKGNAM.apk" classes.dex ||:
+aapt add -f "$PKGNAM.apk" classes.dex 
 printf "\\e[1;38;5;114m%s\\e[1;38;5;108m\\n" "Signing $PKGNAM.apk..."
 apksigner ../"$PKGNAM-debug.key" "$PKGNAM.apk" ../"$PKGNAM.apk"
 cd ..
