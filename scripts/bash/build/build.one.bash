@@ -152,7 +152,6 @@ printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGN
 aapt package -f \
 	--min-sdk-version "$MSDKVERSION" \
 	--target-sdk-version "$TSDKVERSION" \
-	-j $BOOTCLASSPATH \
 	-M AndroidManifest.xml \
 	-S res \
 	-A assets \
