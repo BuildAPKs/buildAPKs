@@ -120,8 +120,7 @@ then
 	mkdir -p ./res
 fi
 BOOTCLASSPATH=""
-[ -d /system ] && DIRLIST="$(find /system/ -type f -iname "*.jar" 2>/dev/null)" ||:
-[ -d /vendor ] && DIRLIST="$DIRLIST $(find /vendor/ -type f -iname "*.jar" 2>/dev/null)" ||:
+[ -d /system ] && DIRLIST="$(find -L /system/ -type f -iname "*.jar" -or -iname "*.apk" 2>/dev/null)" ||:
 for LIB in $DIRLIST
 do
 	BOOTCLASSPATH=${LIB}:${BOOTCLASSPATH};
