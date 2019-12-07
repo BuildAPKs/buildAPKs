@@ -13,7 +13,7 @@ _SBOTRPERROR_() { # run on script error
 	then 
 		printf "\\e[?25h\\e[1;7;38;5;0mOn Signal 255 try running %s again if the error includes R.java and similar; This error might have been corrected by clean up.  More information in \`%s/var/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "$RDR" "$JID" 
 	fi
-	_CLEANUP_
+ 	_CLEANUP_
 	exit 160
 }
 
@@ -40,7 +40,7 @@ _SBOTRPEXIT_() { # run on exit
 	then 
 		printf "\\e[?25h\\e[1;7;38;5;0mSignal 224 generated in %s;  Cannot run in $HOME!  See \`stnderr*.log\` file.\\n\\nRunning \`ls\`:\\e[0m\\n" "$PWD" "${0##*/}" "${0##*/}"
 	fi
-	_CLEANUP_
+ 	_CLEANUP_
 	printf "\\e[?25h\\e[0m"
 	set +Eeuo pipefail 
 	exit 0
@@ -53,7 +53,7 @@ _SBOTRPSIGNAL_() { # run on signal
 
 _SBOTRPQUIT_() { # run on quit
 	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Quit signal %s received by build.one.bash!\\e[0m\\n" "${0##*/}" "$?"
-	_CLEANUP_
+ 	_CLEANUP_
  	exit 162 
 }
 
@@ -120,8 +120,8 @@ then
 	mkdir -p ./res
 fi
 BOOTCLASSPATH=""
-[ -d /system ] && DIRLIST="$(find /system/ -type f -iname "*.jar" 2>/dev/null)" || printf "%s" "signal DIRLIST system ${0##*/} build.one.bash generated; Continuing...  "
-[ -d /vendor ] && DIRLIST="$DIRLIST $(find /vendor/ -type f -iname "*.jar" 2>/dev/null)" || printf "%s" "signal DIRLIST vendor ${0##*/} build.one.bash generated; Continuing...  "
+[ -d /system ] && DIRLIST="$(find /system/ -type f -iname "*.jar")" ||:
+[ -d /vendor ] && DIRLIST="$DIRLIST $(find /vendor/ -type f -iname "*.jar")" ||:
 for LIB in $DIRLIST
 do
 	BOOTCLASSPATH=${LIB}:${BOOTCLASSPATH};
@@ -129,7 +129,7 @@ done
 BOOTCLASSPATH=${BOOTCLASSPATH%%:}
 MSDKVERSIO="$(getprop ro.build.version.min_supported_target_sdk)" || printf "%s" "signal ro.build.version.min_supported_target_sdk ${0##*/} build.one.bash generated; Continuing...  "
 MSDKVERSION="${MSDKVERSIO:-14}"
-TSDKVERSIO="$(getprop ro.build.version.sdk)" || printf "%s" "signal ro.build.version.sdk ${0##*/} build.one.bash generated; Continuing...  "
+TSDKVERSIO="$(getprop ro.build.version.sdk)" || printf "%s" "Signal ro.build.version.sdk ${0##*/} build.one.bash generated; Continuing...  "
 TSDKVERSION="${TSDKVERSIO:-23}"
 sed -i "s/minSdkVersion\=\"[0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml 
 sed -i "s/minSdkVersion\=\"[0-9][0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml 
@@ -141,25 +141,25 @@ PKGNAME="$PKGNAM.$NOW"
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 aapt package -f \
 	-j $BOOTCLASSPATH \
-	-F /system/framework/framework-res.apk \
 	-M AndroidManifest.xml \
 	-J gen \
-	-S res || printf "%s\\n" "Signal generated in aapt package ${0##*/} build.one.bash;  Continuing...  "
+	-S res ||:
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "ecj: begun..."
-ecj -bootclasspath $BOOTCLASSPATH -d ./obj -sourcepath . $(find . -type f -name "*.java") || printf "%s\\n" "Signal generated in ecj ${0##*/} build.one.bash;  Continuing...  "
+ecj -bootclasspath $BOOTCLASSPATH -d ./obj -sourcepath . $(find . -type f -name "*.java") ||:
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started..."
-dx --dex --output=bin/classes.dex obj
+dx --dex --input-list=$DIRLIST --output=bin/classes.dex obj ||:
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAM.apk..."
 aapt package -f \
 	--min-sdk-version "$MSDKVERSION" \
 	--target-sdk-version "$TSDKVERSION" \
+	-j $BOOTCLASSPATH \
 	-M AndroidManifest.xml \
 	-S res \
 	-A assets \
-	-F bin/"$PKGNAM".apk
+	-F bin/"$PKGNAM".apk ||:
 printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex to $PKGNAM.apk..."
 cd bin 
-aapt add -f "$PKGNAM.apk" classes.dex
+aapt add -f "$PKGNAM.apk" classes.dex ||:
 printf "\\e[1;38;5;114m%s\\e[1;38;5;108m\\n" "Signing $PKGNAM.apk..."
 apksigner ../"$PKGNAM-debug.key" "$PKGNAM.apk" ../"$PKGNAM.apk"
 cd ..
