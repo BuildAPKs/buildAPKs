@@ -140,7 +140,6 @@ PKGNAME="$PKGNAM.$NOW"
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 aapt package -f \
 	-j $BOOTCLASSPATH \
-	-I /system/framework/framework-res.apk \
 	-M AndroidManifest.xml \
 	-J gen \
 	-S res
