@@ -19,12 +19,13 @@ _SBOTRPERROR_() { # run on script error
 
 _SBOTRPEXIT_() { # run on exit
 	local RV="$?"
-	if [[ "$RV" != 0 ]]  
+	if [[ "$RV" != 0 ]] && [[ "$RV" != 224 ]]  
 	then 
 		printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs signal %s received by %s in %s by build.one.bash.  More information in \`%s/var/log/stnderr.%s.log\` file.\\n\\n" "$RV" "${0##*/}" "$PWD" "$RDR" "$JID" 
 		printf "%s\\n" "Running: grep -iC 4 ERROR $RDR/var/log/stnderr.$JID.log | tail "
 		grep -iC 4 ERROR "$RDR/var/log/stnderr.$JID.log" | tail 
 		printf "\\e[0m\\n\\n" 
+ 		_CLEANUP_
 	fi
 	if [[ "$RV" = 220 ]]  
 	then 
@@ -40,7 +41,6 @@ _SBOTRPEXIT_() { # run on exit
 	then 
 		printf "\\e[?25h\\e[1;7;38;5;0mSignal 224 generated in %s;  Cannot run in $HOME!  See \`stnderr*.log\` file.\\n\\nRunning \`ls\`:\\e[0m\\n" "$PWD" "${0##*/}" "${0##*/}"
 	fi
- 	_CLEANUP_
 	printf "\\e[?25h\\e[0m"
 	set +Eeuo pipefail 
 	exit 0
@@ -73,6 +73,11 @@ _CLEANUP_ () {
 	printf "\\e[1;38;5;151mCompleted tasks in %s\\n\\n\\e[0m" "$PWD"
 }
 
+if [[ "$PWD" = "$HOME" ]] 
+then
+	echo "Cannot run in $HOME!  Signal 224 generated in $PWD."
+	exit 224
+fi
 if [[ -z "${DAY:-}" ]] 
 then
 	DAY="$(date +%Y.%m.%d)"
@@ -92,11 +97,6 @@ fi
 if [[ -z "${NUM:-}" ]] 
 then
 	NUM=""
-fi
-if [[ "$PWD" = "$HOME" ]] 
-then
-	echo "Cannot run in $HOME!  Signal 224 generated in $PWD."
-	exit 224
 fi
 printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in %s\\n\\e[0m" "$PWD"
 if [[ ! -e "./assets" ]]
