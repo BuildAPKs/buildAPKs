@@ -143,6 +143,7 @@ printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 aapt package -f \
 	--min-sdk-version "$MSDKVERSION" \
 	--target-sdk-version "$TSDKVERSION" \
+--version-code "$NOW" --version-name "$PKGNAM" \
 	-M AndroidManifest.xml \
 	-J gen \
 	-S res
