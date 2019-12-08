@@ -32,7 +32,7 @@ This command: ` for i in $(cat ~/buildAPKs/var/db/UNAMES) ; do ~/buildAPKs/scrip
 
 While this command: ` for i in $(cat ~/buildAPKs/var/db/TNAMES) ; do ~/buildAPKs/scripts/bash/build/build.github.bash $i ; done ` shall attempt to build [TNAMES](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/var/db/TNAMES), all known GitHub topics @GitHub.  
 
-Submit a [pull request](https://github.com/BuildAPKs/buildAPKs/pulls) if you would like names added to these listings.  See [https://github.com/BuildAPKs/db.BuildAPKs/tree/master/](https://github.com/BuildAPKs/db.BuildAPKs/tree/master/)[README.md](https://raw.githubusercontent.com/BuildAPKs/db.BuildAPKs/master/README.md) for more information about the new database buildAPKs uses.
+Submit a [pull request](https://github.com/BuildAPKs/db.BuildAPKs/pulls) at db.BuildAPKs if you would like names added to these listings.  See [https://github.com/BuildAPKs/db.BuildAPKs/tree/master/](https://github.com/BuildAPKs/db.BuildAPKs/tree/master/)[README.md](https://raw.githubusercontent.com/BuildAPKs/db.BuildAPKs/master/README.md) for more information about the new database buildAPKs uses.
 
 ### Really Easily Build an Android APK on an Android Device (Smartphone and Tablet).
 [![Screenshot_20191208](https://raw.githubusercontent.com/BuildAPKs/docsBuildAPKs/master/bitpics/screenshots/Screenshot_20191208.png)](https://buildapks.github.io/docsBuildAPKs/setup)
