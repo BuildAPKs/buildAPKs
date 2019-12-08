@@ -14,6 +14,7 @@ fi
 export DAY="$(date +%Y%m%d)"
 export JID="in.dir.${JDR##*/}"
 export NUM="$(date +%s)"
+export OAUT="$(cat "$RDR/.conf/GAUTH" | awk 'NR==1')" # load login:token key from .conf/GAUTH file, see the GAUTH file for more information to enable OAUTH authentication
 . "$RDR"/scripts/bash/init/ushlibs.bash
 . "$RDR"/scripts/bash/shlibs/trap.bash 201 211 221 "${0##*/}" wake.start
 . "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
