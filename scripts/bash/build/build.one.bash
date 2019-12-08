@@ -142,7 +142,7 @@ sed -i "s/targetSdkVersion\=\"[0-9][0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g"
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 aapt package -f \
 	--min-sdk-version "$MSDKVERSION" \
-	--target-sdk-version "$TSDKVERSION" \
+	--target-sdk-version "$TSDKVERSION" --version-code "$NOW" --version-name "$PKGNAM" -c "$(getprop persist.sys.locale|awk -F- '{print $1}')" \
 	-M AndroidManifest.xml \
 	-J gen \
 	-S res
