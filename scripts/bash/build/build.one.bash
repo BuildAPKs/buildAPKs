@@ -76,6 +76,10 @@ _CLEANUP_ () {
 	printf "\\e[1;38;5;151mCompleted tasks in %s\\n\\n\\e[0m" "$PWD"
 }
 
+if [[ -z "${RDR:-}" ]] 
+then
+	RDR="$HOME/buildAPKs"
+fi
 if [[ "$PWD" = "$HOME" ]] 
 then
 	echo "Cannot run in $HOME!  Signal 224 generated in $PWD."
@@ -84,10 +88,6 @@ fi
 if [[ -z "${DAY:-}" ]] 
 then
 	DAY="$(date +%Y.%m.%d)"
-fi
-if [[ -z "${RDR:-}" ]] 
-then
-	RDR="$HOME/buildAPKs"
 fi
 if [[ -z "${2:-}" ]] 
 then
