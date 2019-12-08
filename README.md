@@ -35,6 +35,7 @@ While this command: ` for i in $(cat ~/buildAPKs/var/db/TNAMES) ; do ~/buildAPKs
 Submit a [pull request](https://github.com/BuildAPKs/buildAPKs/pulls) if you would like names added to these listings.  See [https://github.com/BuildAPKs/db.BuildAPKs/tree/master/](https://github.com/BuildAPKs/db.BuildAPKs/tree/master/)[README.md](https://raw.githubusercontent.com/BuildAPKs/db.BuildAPKs/master/README.md) for more information about the new database buildAPKs uses.
 
 ### Really Easily Build an Android APK on an Android Device (Smartphone and Tablet).
+[![Screenshot_20191208](https://raw.githubusercontent.com/BuildAPKs/docsBuildAPKs/master/bitpics/screenshots/Screenshot_20191208.png)](https://buildapks.github.io/docsBuildAPKs/setup)
 
 Prefix these bash scripts by typing dot slash ` ./ ` on your Android smartphone and tablet in Termux, i.e. type ` ./b ` at the prompt $, press TAB TAB (x2).  The prompt will magically add uild.  Then add a capital  A.  Press TAB TAB (x2) again.  This will build the following command on the command line [`./buildAll.bash`](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/build/buildAll.bash) for you.  Press enter (return) in ` ~/buildAPKs/ `.  Additional CLI information at [The Linux Documentation Project.](https://duckduckgo.com/?q=command+line+beginner+site:tldp.org)
 
