@@ -142,6 +142,8 @@ PKGNAM="$(grep -o "package=.*" AndroidManifest.xml | cut -d\" -f2)"
 PKGNAME="$PKGNAM.$NOW"
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 aapt package -f \
+	--min-sdk-version "$MSDKVERSION" \
+	--target-sdk-version "$TSDKVERSION" \
 	-j $BOOTCLASSPATH \
 	-M AndroidManifest.xml \
 	-J gen \
