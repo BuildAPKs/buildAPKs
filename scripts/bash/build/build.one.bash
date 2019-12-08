@@ -122,10 +122,12 @@ then
 	mkdir -p ./res
 fi
 BOOTCLASSPATH=""
+SYSJCLASSPATH=""
 [ -d /system ] && DIRLIST="$(find -L /system/ -type f -iname "*.jar" -or -iname "*.apk" 2>/dev/null)" ||:
 for LIB in $DIRLIST
 do
 	BOOTCLASSPATH=${LIB}:${BOOTCLASSPATH};
+	SYSJCLASSPATH="-I $LIB $SYSJCLASSPATH"
 done
 BOOTCLASSPATH=${BOOTCLASSPATH%%:}
 MSDKVERSIO="$(getprop ro.build.version.min_supported_target_sdk)" || printf "%s" "signal ro.build.version.min_supported_target_sdk ${0##*/} build.one.bash generated; Continuing...  "
@@ -144,6 +146,7 @@ aapt package -f \
 	--min-sdk-version "$MSDKVERSION" \
 	--target-sdk-version "$TSDKVERSION" \
 	-j $BOOTCLASSPATH \
+	$SYSJCLASSPATH \
 	-M AndroidManifest.xml \
 	-J gen \
 	-S res
