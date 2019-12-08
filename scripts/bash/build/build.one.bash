@@ -22,7 +22,7 @@ _SBOTRPEXIT_() { # run on exit
 	if [[ "$RV" != 0 ]] &&  [[ "$RV" != 224 ]]  
 	then 
 		printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs signal %s received by %s in %s by build.one.bash.  More information in \`%s/var/log/stnderr.%s.log\` file.\\n\\n" "$RV" "${0##*/}" "$PWD" "$RDR" "$JID" 
-		printf "%s\\n" "Running: grep -iC 4 ERROR $RDR/var/log/stnderr.$JID.log | tail "
+		printf "%s\\n" "Running: grep -iC 4 ERROR $RDR/var/log/stnderr.$JID.log | head "
 		grep -iC 4 ERROR "$RDR/var/log/stnderr.$JID.log" | tail 
 		printf "\\e[0m\\n\\n" 
 	fi
