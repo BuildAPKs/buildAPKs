@@ -38,7 +38,7 @@ trap _SETRPSIGNAL_ HUP INT TERM
 trap _SETRPQUIT_ QUIT 
 
 export NUM="$(date +%s)"
-RDR="$HOME/buildAPKs"
+export RDR="$HOME/buildAPKs"
 cd "$RDR"
 . "$RDR"/scripts/bash/shlibs/lock.bash wake.start
 . "$RDR"/scripts/bash/init/ushlibs.bash
