@@ -19,7 +19,7 @@ _SUPTRPEXIT_() { # Run on exit.
 		printf "\\e]2; %s: %s \\007" "${0##*/} $ARGS" "DONE 🏁 "
 	else
 		printf "\\a\\e[1;7;38;5;88m%s %s \\a\\e[0m\\e[1;34m: \\a\\e[1;32m%s %s\\e[0m\\n\\n\\a\\e[0m" "${0##*/}" "$ARGS" "[Exit Signal $RV]" "DONE 🏁 "
-		printf "\033]2; %s: %s %s \\007" "${0##*/} $ARGS" "[Exit Signal $RV]" "DONE 🏁 "
+		printf "\\033]2; %s: %s %s \\007" "${0##*/} $ARGS" "[Exit Signal $RV]" "DONE 🏁 "
 	fi
 	printf "\\e[?25h\\e[0m"
 	set +Eeuo pipefail 
@@ -46,9 +46,9 @@ trap _SUPTRPQUIT_ QUIT
 _INPKGS_() {
 	if [[ "$COMMANDIF" = au ]] 
 	then 
-		au $(echo ${PKGS[@]}) || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
+		au "${PKGS[@]}" || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
 	else
-		apt install $(echo ${PKGS[@]}) || printf "\\e[1;37;5;116m%s\\e[0m\\n" "$STRING2"
+		apt install "${PKGS[@]}" || printf "\\e[1;37;5;116m%s\\e[0m\\n" "$STRING2"
 	fi
 }
 
@@ -71,7 +71,7 @@ COMMANDR="$(command -v au)" || (printf "%s\\n\\n" "$STRING1")
 COMMANDIF="${COMMANDR##*/}"
 for PKG in "${PKGS[@]}"
 do
-	COMMANDP="$(command -v $PKG)" || printf "Command %s not found: Continuing...\\n" "$PKG" # test if command exists
+	COMMANDP="$(command -v "$PKG")" || printf "Command %s not found: Continuing...\\n" "$PKG" # test if command exists
 	COMMANDPF="${COMMANDP##*/}"
 	if [[ "$COMMANDPF" != "$PKG" ]] 
 	then 
