@@ -123,7 +123,8 @@ then
 fi
 BOOTCLASSPATH=""
 SYSJCLASSPATH=""
-[ -d /system ] && DIRLIST="$(find -L /system/ -type f -iname "*.jar" -or -iname "*.apk" 2>/dev/null)" ||:
+[ -d "$RDR"/var/cache/lib ] && DIRLIST="$(find -L "$RDR"/var/cache/lib/ -type f -iname "*.aar" -or -iname "*.jar" -or -iname "*.apk" 2>/dev/null)" ||:
+[ -d /system ] && DIRLIST="$DIRLIST $(find -L /system/ -type f -iname "*.aar" -or -iname "*.jar" -or -iname "*.apk" 2>/dev/null)" ||:
 for LIB in $DIRLIST
 do
 	BOOTCLASSPATH=${LIB}:${BOOTCLASSPATH};
@@ -149,7 +150,7 @@ aapt package -f \
 	-J gen \
 	-S res
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "ecj: begun..."
-ecj -bootclasspath $BOOTCLASSPATH -d ./obj -sourcepath . $(find . -type f -name "*.java") 
+ecj -bootclasspath $BOOTCLASSPATH -d ./obj -extdirs $BOOTCLASSPATH -sourcepath . $(find . -type f -name "*.java") 
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started..."
 dx --dex --output=bin/classes.dex obj
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAM.apk..."
