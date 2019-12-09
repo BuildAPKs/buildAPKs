@@ -9,7 +9,7 @@ set -eu
 MTIME="$(ls -l --time-style=+"%s" .git/ORIG_HEAD 2>/dev/null | awk '{print $6}')"
 TIME="$(date +%s)"
 ([[ ! -z "${MTIME##*[!0-9]*}" ]] && (if [[ $(($TIME - $MTIME)) -gt 43200 ]] ; then git pull ; fi) || git pull) || (printf "%s\\n" "Signal generated at [ ! -z \${num##*[!0-9]*} ]" && git pull)
-./scripts/maintenance/vgen.sh
+.scripts/maintenance/vgen.sh
 rm -f *.sum
 FILELIST=( $(find . -type f | grep -vw .git | sort) )
 CHECKLIST=(sha512sum) # md5sum sha1sum sha224sum sha256sum sha384sum
