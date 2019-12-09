@@ -143,8 +143,8 @@ sed -i "s/targetSdkVersion\=\"[0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" Andr
 sed -i "s/targetSdkVersion\=\"[0-9][0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" AndroidManifest.xml 
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 aapt package -f \
-	--min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" --version-code "$NOW" --version-name "$PKGNAM" -c "$(getprop persist.sys.locale|awk -F- '{print $1}')" \
-	-j $BOOTCLASSPATH $SYSJCLASSPATH \
+ 	--min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" --version-code "$NOW" --version-name "$PKGNAM" -c "$(getprop persist.sys.locale|awk -F- '{print $1}')" \
+ 	-j $BOOTCLASSPATH $SYSJCLASSPATH \
 	-M AndroidManifest.xml \
 	-J gen \
 	-S res
@@ -154,6 +154,7 @@ printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started
 dx --dex --output=bin/classes.dex obj
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAM.apk..."
 aapt package -f \
+ 	--min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" \
 	-M AndroidManifest.xml \
 	-S res \
 	-A assets \
