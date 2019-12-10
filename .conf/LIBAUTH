@@ -1,5 +1,5 @@
 false
-Change to the first line to true in order to have BuildAPKs use aritificats during the build.  BuildAPKs loads libraries from directories that are located in:
+Change to the first line to true in order to have BuildAPKs use aritificats during the build process;  BuildAPKs loads libraries from directories that are located in:
 
 $RDR/var/cache/lib 
 $JDR/../lib*
