@@ -5,7 +5,7 @@ This link https://github.com/settings/tokens creates OAuth tokens easily.  Infor
 
 This command ` grep -C 4 -hr AUT ~/buildAPKs/scripts/ ` shows how the user token combination is used in the buildAPKs scripts to access the increased rate limit for authenticated GitHub users.  
 
-If there is a "stash them before you merge" message after running ` update.buildAPKs.sh ` a solution is ` mv ~/buildAPKs/[items] ~/buildAPKs/stash/ ` to clear the message and update.  You can comare the changes after updating with ` diff ~/buildAPKs/[items] ~/buildAPKs/stash/[items] `.
+If there is a "stash them before you merge" message after running ` update.buildAPKs.sh ` a solution is ` mv ~/buildAPKs/[items] ~/buildAPKs/stash/ ` to clear the message and update.  You can compare the changes after updating with ` diff ~/buildAPKs/[items] ~/buildAPKs/stash/[items] `.
 
-If there is a "Please commit your changes or stash them before you merge" message after running ` update.buildAPKs.sh ` a solution is ` mv ~/buildAPKs/.config/GAUTH ~/buildAPKs/stash/GAUTH ` to clear this message.  Add a user:token pair again to the new GAUTH file after updating this file. 
+If there is a "Please commit your changes or stash them before you merge" message after running ` update.buildAPKs.sh ` a solution is ` mv ~/buildAPKs/.config/GAUTH ~/buildAPKs/stash/GAUTH ` to clear the message.  Add a user:token pair again to the new GAUTH file after updating this file. 
 # GAUTH EOF
