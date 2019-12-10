@@ -160,7 +160,7 @@ _CUTE_ () { # checks if USENAME is found in GNAMES and if it is an organization 
 			export ISOTUR=orgs
 		fi
 		export JDR="$RDR/sources/github/$ISOTUR/$USER"
-		export JID="git.$ISOTUR.$USER"
+		export JID="github.$ISOTUR.$USER"
 		if [[ ! -d "$JDR" ]] 
 		then
 			mkdir -p "$JDR"
