@@ -123,10 +123,10 @@ then
 fi
 BOOTCLASSPATH=""
 SYSJCLASSPATH=""
-[ -d "$RDR"/var/cache/lib ] && DIRLIST="$(find -L "$RDR"/var/cache/lib/ -type f -name "*.aar" -or -type f -name "*.jar" -or -type f -name "*.apk" 2>/dev/null)" ||:  
-[ -d "$JDR"/../lib* ] && DIRLIST="$DIRLIST $(find -L /system/ -type f -name "*.aar" -or -type f -name "*.jar" -or -type f -name "*.apk" 2>/dev/null)" ||:  
-[ -d "$JDR"/lib* ] && DIRLIST="$DIRLIST $(find -L /system/ -type f -name "*.aar" -or -type f -name "*.jar" -or -type f -name "*.apk" 2>/dev/null)" ||:  
-[ -d /system ] && DIRLIST="$DIRLIST $(find -L /system/ -type f -name "*.aar" -or -type f -name "*.jar" -or -type f -name "*.apk" 2>/dev/null)" ||: 
+[ -d "$RDR"/var/cache/lib ] && DIRLIST="$(find -L "$RDR"/var/cache/lib -type f -name "*.aar" -or -type f -name "*.jar" -or -type f -name "*.apk" 2>/dev/null)" ||:  
+[ -d "$JDR"/../lib* ] && DIRLIST="$DIRLIST $(find -L "$JDR"/../lib* -type f -name "*.aar" -or -type f -name "*.jar" -or -type f -name "*.apk" 2>/dev/null)" ||:  
+[ -d "$JDR"/lib* ] && DIRLIST="$DIRLIST $(find -L "$JDR"/lib* -type f -name "*.aar" -or -type f -name "*.jar" -or -type f -name "*.apk" 2>/dev/null)" ||:  
+[ -d /system ] && DIRLIST="$DIRLIST $(find -L /system -type f -name "*.aar" -or -type f -name "*.jar" -or -type f -name "*.apk" 2>/dev/null)" ||: 
 for LIB in $DIRLIST
 do
 	BOOTCLASSPATH=${LIB}:${BOOTCLASSPATH};
