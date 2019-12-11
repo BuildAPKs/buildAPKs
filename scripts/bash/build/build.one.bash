@@ -76,30 +76,12 @@ _CLEANUP_ () {
 	printf "\\e[1;38;5;151mCompleted tasks in %s\\n\\n\\e[0m" "$PWD"
 }
 
-if [[ -z "${RDR:-}" ]] 
-then
-	RDR="$HOME/buildAPKs"
-fi
-if [[ "$PWD" = "$HOME" ]] 
-then
-	exit 224
-fi
-if [[ -z "${DAY:-}" ]] 
-then
-	DAY="$(date +%Y.%m.%d)"
-fi
-if [[ -z "${2:-}" ]] 
-then
-	JDR="$PWD"
-fi
-if [[ -z "${JID:-}" ]] 
-then
-	JID="${PWD##*/}" # https://www.tldp.org/LDP/abs/html/parameter-substitution.html 
-fi
-if [[ -z "${NUM:-}" ]] 
-then
-	NUM=""
-fi
+[ -z "${RDR:-}" ] && RDR="$HOME/buildAPKs"
+[ "$PWD" = "$HOME" ] && exit 224
+[ -z "${DAY:-}" ] && DAY="$(date +%Y.%m.%d)"
+[ -z "${2:-}" ] && JDR="$PWD"
+[ -z "${JID:-}" ] && JID="${PWD##*/}" # https://www.tldp.org/LDP/abs/html/parameter-substitution.html 
+[ -z "${NUM:-}" ] && NUM=""
 printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in %s\\n\\e[0m" "$PWD"
 if [[ ! -e "./assets" ]]
 then
