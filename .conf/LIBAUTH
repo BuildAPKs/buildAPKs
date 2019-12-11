@@ -16,7 +16,7 @@ The command ` cd ~/buildAPKs/var/cache/lib && curl -OL https://maven.google.com/
 =======
 Español
 =======
-Inglés Cambie la primera línea de este archivo a true para usar artefactos y bibliotecas durante la compilación; Cuando la primera línea de esto se cambia a true, BuildAPKs carga los siguientes archivos de carpeta en el proceso de compilación desde directorios ubicados en: 
+Cambie la primera línea de este archivo a true para usar artefactos y bibliotecas durante la compilación; Cuando la primera línea de esto se cambia a true, BuildAPKs carga los siguientes archivos de carpeta en el proceso de compilación desde directorios ubicados en: 
 
 $RDR/var/cache/lib 
 $JDR/../lib*
@@ -26,6 +26,7 @@ $JDR/lib*
 Puede llenar el directorio ~/buildAPKs/var/cache/lib desde el sitio https://mvnrepository.com web. Por ejemplo, este enlace https://mvnrepository.com/artifact/androidx.appcompat/appcompat contiene bibliotecas appcompat que puede descargar en ~/buildAPKs/var/cache/lib para compilar la inclusión. 
 
 El comando ` cd ~/buildAPKs/var/cache/lib && curl -OL https://maven.google.com/androidx/appcompat/appcompat/1.1.0/appcompat-1.1.0.aar && ~/buildAPKs/build.github.bash buildapks ` intentará construir todo lo que https://github.com/BuildAPKs tiene para ofrecer, incluyendo appcompat-1.1.0.aar y artefactos del sistema para construir una vez que la primera línea de este archivo tenga ha sido reemplazado por true.
+https://github.com/BuildAPKs tiene que ofrecer incluyendo appcompat-1.1.0.aar y artefactos del sistema en la compilación una vez que la primera línea de este archivo se cambia a true.
 
 =========
 Française
@@ -39,5 +40,5 @@ $JDR/lib*
 
 Vous pouvez remplir le répertoire ~/buildAPKs/var/cache/lib à partir du site https://mvnrepository.com Web. Par exemple, ce lien https://mvnrepository.com/artifact/androidx.appcompat/appcompat contient des bibliothèques appcompat que vous pouvez télécharger dans ~/buildAPKs/var/cache/lib pour compiler l'inclusion.
 
-La commande ` cd ~/buildAPKs/var/cache/lib && curl -OL https://maven.google.com/androidx/appcompat/appcompat/1.1.0/appcompat-1.1.0.aar && ~/buildAPKs/build.github.bash buildapks ` tentera de construire tout ce que https://github.com/BuildAPKs a à offrir, y compris appcompat-1.1.0.aar et les artefacts système à construire une fois que la première ligne de ce fichier aura été remplacée par true.
+La commande ` cd ~/buildAPKs/var/cache/lib && curl -OL https://maven.google.com/androidx/appcompat/appcompat/1.1.0/appcompat-1.1.0.aar && ~/buildAPKs/build.github.bash buildapks ` tentera de construire tout ce que https://github.com/BuildAPKs doit proposer notamment appcompat-1.1.0.aar et des artefacts système dans la version une fois que la première ligne de ce fichier est remplacée par true.
 # LIBAUTH EOF
