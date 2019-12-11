@@ -34,9 +34,9 @@ _RPCT_() {
 		export RPCT="$(($RPCT+1))"
 	fi
 	printf "%s\\n" "Found $RPCT pages of results." 
-	if [[ $RPCT -gt 10 ]] # greater than 1000 search results 
-	then	# enforce https://developer.github.com/v3/search/ limit 
-		printf "%s\\n" "Limiting to 10 pages of results." 
+	if [[ $RPCT -gt 10 ]] # the repository count is greater than 1000 search results, which is 10 pages at 100 results per page 
+	then	# enforce the https://developer.github.com/v3/search/ search limit of 1000 search results per query
+		printf "%s\\n" "Limiting to 10 pages of results per query." 
 		export RPCT=10
 	fi
 }
