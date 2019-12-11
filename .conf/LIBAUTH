@@ -14,8 +14,7 @@ The command ` cd ~/buildAPKs/var/cache/lib && curl -OL https://maven.google.com/
 Française
 =========
 
-Modifiez la première ligne de ce fichier sur true pour utiliser des artefacts et des bibliothèques pendant la compilation; Lorsque la première ligne de cette est changé en true, BuildAPKs charge les fichiers de dossier suivants
-dans le processus de génération à partir de répertoires situés dans:
+Modifiez la première ligne de ce fichier sur true pour utiliser des artefacts et des bibliothèques pendant la compilation; Lorsque la première ligne de cette est changé en true, BuildAPKs charge les fichiers de dossier suivants dans le processus de génération à partir de répertoires situés dans:
 
 $RDR/var/cache/lib 
 $JDR/../lib*
