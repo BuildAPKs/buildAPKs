@@ -12,7 +12,7 @@ TIME="$(date +%s)"
 .scripts/maintenance/vgen.sh
 rm -f *.sum
 FILELIST=( $(find . -type f | grep -vw .git | sort) )
-CHECKLIST=(sha512sum) # md5sum sha1sum sha224sum sha256sum sha384sum
+CHECKLIST=(sha512sum) # md5sum sha1sum sha224sum sha256sum sha384sum sha512sum shasum
 for SCHECK in ${CHECKLIST[@]}
 do
 	printf "%s\\n" "Creating $SCHECK file..."
