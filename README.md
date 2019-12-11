@@ -8,7 +8,7 @@
 BuildAPKs has [source code](https://github.com/BuildAPKs) and [scripts](https://github.com/BuildAPKs/buildAPKs/tree/master/scripts/) in order to build APKs (Android Package Kits) on Android handhelds, and similar.  Quick setup instructions can be [found here](https://buildapks.github.io/docsBuildAPKs/setup) and [also right here.](https://buildapks.github.io/docsBuildAPKs/reallyEasilyBuildAndroidAPKsOnDevice)  To skip to installing in Amazon, Android, [Arch Linux](https://termuxarch.github.io/TermuxArch/), [Debian](https://termuxarch.github.io/docsTermuxArch/PRoot), Chromebook, [Ubuntu](https://termuxarch.github.io/docsTermuxArch/PRoot) and Windows on device in [Termux](https://github.com/termux) you can use:
 ```
 
-   pkg install curl 
+   apt install curl 
 
    curl -O https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash
 
