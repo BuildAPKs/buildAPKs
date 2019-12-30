@@ -19,7 +19,7 @@ BuildAPKs has [source code](https://github.com/BuildAPKs) and [scripts](https://
 
 [![Screenshot_20191210.jpg](https://raw.githubusercontent.com/BuildAPKs/docsBuildAPKs/master/bitpics/screenshots/Screenshot_20191210.jpg)](https://buildapks.github.io/docsBuildAPKs/setup)
 
-#### File [var/db/BNAMES](https://raw.githubusercontent.com/BuildAPKs/db.BuildAPKs/master/BNAMES) contains built APKs information.
+#### File [opt/db/BNAMES](https://raw.githubusercontent.com/BuildAPKs/db.BuildAPKs/master/BNAMES) contains built APKs information.
 
 After installing, you can build hundreds of exciting, amazing and beautiful APKs on an Android smartphone by running [shell scripts](https://www.google.com/search?q=shell+scripts) from [this directory](https://github.com/BuildAPKs/buildAPKs/tree/master/scripts/bash/build).  It is simple!  The minimal install size to start building your first apps is about 10MB.  Have fun and enjoy compiling, hacking, modifying and running these select APKs!
 
