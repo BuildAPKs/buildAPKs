@@ -88,7 +88,7 @@ printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in %s\\n\\e[0m" "$PWD"
 [ ! -e "./gen" ] && mkdir -p ./gen
 [ ! -e "./obj" ] && mkdir -p ./obj
 [ ! -e "./res" ] && mkdir -p ./res
-LIBAU="$(cat "$RDR/.conf/LIBAUTH" | awk 'NR==1')" # load true/false from $RDR/.conf/LIBAUTH file, see the LIBAUTH file for more information to enable loading of artifacts and libraries into the build process. 
+LIBAU="$(awk 'NR==1' "$RDR/.conf/LIBAUTH")" # load true/false from $RDR/.conf/LIBAUTH file, see the LIBAUTH file for more information to enable loading of artifacts and libraries into the build process. 
 if [[ "$LIBAU" == true ]]
 then # load artifacts and libraries into the build process.
 	printf "\\e[1;34m%s" "Loading artifacts and libraries into the compilation:  "
