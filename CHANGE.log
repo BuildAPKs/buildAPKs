@@ -13,13 +13,13 @@ Computed on 20190104 branch master:
 Computed on 20190104 branch master:
 3.2M	.git
 3.8M	.
-Branch master:996f15 computed on 20190106.
+Branch master: 996f15 computed on 20190106.
 3.0M	.git
 3.7M	.
-Branch master:9f6c5c computed on 20190106.
+Branch master: 9f6c5c computed on 20190106.
 1.1M	.git
 1.7M	.
-Branch master:5966a4 computed on 20190106.
+Branch master: 5966a4 computed on 20190106.
 3.0M	.git
 3.6M	.
 Computed on 20190106 branch master:
@@ -48,7 +48,7 @@ Computed on 20190114 branch master:
 Size in KB
 3384	.git
 4472	.
-Computed on 20190122 branch master;  RESET; module errors 
+Computed on 20190122 branch master: RESET module errors 
 604	.git
 928	.
 AFTER `git pull`
@@ -62,7 +62,7 @@ Computed on 20190530 branch master:
 Size in KB
 8624	.git
 9020	.
-Computed on 20190602 branch master;  RESET: size 
+Computed on 20190602 branch master: RESET size 
 704	.git
 1220	.
 AFTER `git pull`
@@ -72,7 +72,7 @@ Computed on 20190614 branch master:
 Size in KB
 6712	.git
 7080	.
-Computed on 20190614 branch master;  RESET: size 
+Computed on 20190614 branch master: RESET size 
 Size in KB
 788	.git
 1096	.
@@ -80,7 +80,7 @@ Computed on 20190702 branch master:
 Size in KB
 5272	.git
 5560	.
-Computed on 20190702 branch master;  RESET: size 
+Computed on 20190702 branch master: RESET size 
 Size in KB
 1220	.git
 1532	.
@@ -92,11 +92,11 @@ Computed on 20190810 branch master:
 Size in KB
 1064	.git
 1340	.
-Computed on 20191010 branch master.
+Computed on 20191010 branch master:
 Size in KB
 7204	.git
 7784	.
-Computed on 20191010 branch master.
+Computed on 20191010 branch master:
 Size in KB
 1000	.git
 1580	.
@@ -104,14 +104,17 @@ Computed on 20191227 branch master:
 Size in KB
 7944	.git
 8572	.
-Computed on 20191227 branch master:  RESET: size + module structure  
+Computed on 20191227 branch master: RESET size + module structure  
 Size in KB
 2912	.git
 3528	.
 Computed on 20200411 branch master: buildAPKs
 1838	.git
 2079	.
-Computed on 20200411 branch master: buildAPKs
+Computed on 20200411 branch master: RESET size + module structure
 620	.git
 951	.
+Computed on 20200411 branch master: git pull buildAPKs
+800	.git
+1130	.
 <!-- CHANGE.log EOF -->
