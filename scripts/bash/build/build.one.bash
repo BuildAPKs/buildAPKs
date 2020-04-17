@@ -51,27 +51,23 @@ _CLEANUP_ () {
 	find . -name R.java -exec rm -f { } \;
 	printf "\\e[1;38;5;151mCompleted tasks in %s\\n\\n\\e[0m" "$PWD"
 }
-
-_CREATIT_ () {
-	# if it does not exist, then create it 
-	[ ! -e "./assets" ] && mkdir -p ./assets
-	[ ! -e "./bin" ] && mkdir -p ./bin
-	[ ! -e "./gen" ] && mkdir -p ./gen
-	[ ! -e "./obj" ] && mkdir -p ./obj
-	[ ! -e "./res" ] && mkdir -p ./res
-}
 # if root directory is undefined, define the root directory as ~/buildAPKs 
 [ -z "${RDR:-}" ] && RDR="$HOME/buildAPKs"
 . "$RDR"/scripts/bash/shlibs/buildAPKs/copy.apk.bash
-# if working directory is $HOME or buildAPKs, exit 
+# if working directory is $HOME or buildAPKs exit 
 [ "$PWD" = "$HOME" ] || [ "${PWD##*/}" = buildAPKs ] && exit 224
 printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in %s\\n\\e[0m" "$PWD"
-# if variables are undefined, define variables
+# if variables are undefined, then define these variables
 [ -z "${DAY:-}" ] && DAY="$(date +%Y%m%d)"
 [ -z "${2:-}" ] && JDR="$PWD"
 [ -z "${JID:-}" ] && JID="${PWD##*/}" # https://www.tldp.org/LDP/abs/html/parameter-substitution.html 
 [ -z "${NUM:-}" ] && NUM=""
-_CREATIT_
+# if it does not exist, then create it 
+[ ! -e "./assets" ] && mkdir -p ./assets
+[ ! -e "./bin" ] && mkdir -p ./bin
+[ ! -e "./gen" ] && mkdir -p ./gen
+[ ! -e "./obj" ] && mkdir -p ./obj
+[ ! -e "./res" ] && mkdir -p ./res
 LIBAU="$(awk 'NR==1' "$RDR/.conf/LIBAUTH")" # load true/false from $RDR/.conf/LIBAUTH file, see the LIBAUTH file for more information to enable loading of artifacts and libraries into the build process. 
 if [[ "$LIBAU" == true ]]
 then # load artifacts and libraries into the build process.
