@@ -4,8 +4,9 @@
 ################################################################################
 set -Eeuo pipefail
 shopt -s nullglob globstar
-. "$RDR"/scripts/bash/shlibs/trap.bash 67 68 69 "${0##*/} build.samples.bash"
-export JAD=github.com/BuildAPKs/buildAPKs.samples 
+export RDR="$HOME/buildAPKs"
+. "$RDR/scripts/bash/shlibs/trap.bash" 67 68 69 "${0##*/} build.samples.bash"
+export JAD="github.com/BuildAPKs/buildAPKs.samples" 
 export JID="samps" # job id/name
 . "$HOME/buildAPKs/scripts/bash/init/init.bash" "$@"
 # build.samples.bash EOF
