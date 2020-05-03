@@ -29,7 +29,7 @@ do
 done
 git add .
 SN="$(sn.sh)" # sn.sh is found in https://github.com/BuildAPKs/maintenance.BuildAPKs/blob/master/sn.sh
-git commit -a -S -m "$SN"
+git commit -m "$SN"
 git push
 ls
 printf "%s\\n" "$PWD"
