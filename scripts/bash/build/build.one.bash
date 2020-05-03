@@ -7,31 +7,34 @@ shopt -s nullglob globstar
 
 _SBOTRPERROR_() { # run on script error
 	local RV="$?"
-	echo $RV build.one.bash  
-	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s build.one.bash ERROR:  Signal %s received!  More information in \`%s/var/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "$RV" "$RDR" "$JID" 
-	[ "$RV" = 255 ] && printf "\\e[?25h\\e[1;7;38;5;0mOn Signal 255 try running %s again if the error includes R.java and similar; This error might have been corrected by clean up.  More information in \`%s/var/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "$RDR" "$JID" 
+	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Error %s received by build.one.bash!\\e[0m\\n" "${0##*/}" "$RV" 
+	[[ $(awk 'NR==1' "$RDR/.conf/QUIET") == false ]] && printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s build.one.bash ERROR:  Signal %s received!  More information in \`%s/var/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "$RV" "$RDR" "$JID" 
+	[[ $(awk 'NR==1' "$RDR/.conf/QUIET") == false ]] && [ "$RV" = 255 ] && printf "\\e[?25h\\e[1;7;38;5;0mOn Signal 255 try running %s again if the error includes R.java and similar; This error might have been corrected by clean up.  More information in \`%s/var/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "$RDR" "$JID" 
  	_CLEANUP_
 	exit 160
 }
 
 _SBOTRPEXIT_() { # run on exit
 	local RV="$?"
-	[ "$RV" != 0 ] && [ "$RV" != 224 ] && printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs signal %s received by %s in %s by build.one.bash.  More information in \`%s/var/log/stnderr.%s.log\` file.\\n\\n" "$RV" "${0##*/}" "$PWD" "$RDR" "$JID" && (printf "%s\\e[0m\\n" "Running: VAR=\"\$(grep -C 2 -ie error -ie errors \"$RDR/var/log/stnderr.$JID.log\")\" && VAR=\"\$(grep -v \\-\\- <<< \$VAR)\" && head <<< \$VAR && tail <<< \$VAR ") && VAR="$(grep -C 2 -ie error -ie errors "$RDR/var/log/stnderr.$JID.log")" && VAR="$(grep -v \\-\\- <<< $VAR)" && head <<< $VAR && tail <<< $VAR && printf "\\n\\n" 
-	[ "$RV" = 223 ] && printf "\\e[?25h\\e[1;7;38;5;0mSignal 223 generated in %s; Try running %s again; This error can be resolved by running %s in a directory that has an \`AndroidManifest.xml\` file.  More information in \`stnderr*.log\` files.\\n\\nRunning \`ls\`:\\e[0m\\n" "$PWD" "${0##*/}" "${0##*/}" && ls
-	[ "$RV" = 224 ] && printf "\\e[?25h\\e[1;7;38;5;0mSignal 224 generated in %s;  Cannot run in folder %s; %s exiting...\\e[0m\\n" "$PWD" "$PWD" "${0##*/} build.one.bash"
-	[ "$RV" != 224 ] &&  _CLEANUP_
+	[[ $(awk 'NR==1' "$RDR/.conf/QUIET") == false ]] && [ "$RV" != 0 ] && [ "$RV" != 224 ] && printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs signal %s received by %s in %s by build.one.bash.  More information in \`%s/var/log/stnderr.%s.log\` file.\\n\\n" "$RV" "${0##*/}" "$PWD" "$RDR" "$JID" && (printf "%s\\e[0m\\n" "Running: VAR=\"\$(grep -C 2 -ie error -ie errors \"$RDR/var/log/stnderr.$JID.log\")\" && VAR=\"\$(grep -v \\-\\- <<< \$VAR)\" && head <<< \$VAR && tail <<< \$VAR ") && VAR="$(grep -C 2 -ie error -ie errors "$RDR/var/log/stnderr.$JID.log")" && VAR="$(grep -v \\-\\- <<< $VAR)" && head <<< $VAR && tail <<< $VAR && printf "\\n\\n" 
+	[[ $(awk 'NR==1' "$RDR/.conf/QUIET") == false ]] && [ "$RV" = 223 ] && printf "\\e[?25h\\e[1;7;38;5;0mSignal 223 generated in %s; Try running %s again; This error can be resolved by running %s in a directory that has an \`AndroidManifest.xml\` file.  More information in \`stnderr*.log\` files.\\n\\nRunning \`ls\`:\\e[0m\\n" "$PWD" "${0##*/}" "${0##*/}" && ls
+	[[ $(awk 'NR==1' "$RDR/.conf/QUIET") == false ]] && [ "$RV" = 224 ] && printf "\\e[?25h\\e[1;7;38;5;0mSignal 224 generated in %s;  Cannot run in folder %s; %s exiting...\\e[0m\\n" "$PWD" "$PWD" "${0##*/} build.one.bash"
+ 	_CLEANUP_
 	printf "\\e[?25h\\e[0m"
 	set +Eeuo pipefail 
 	exit 0
 }
 
 _SBOTRPSIGNAL_() { # run on signal
-	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Signal %s received by build.one.bash!\\e[0m\\n" "${0##*/}" "$?" 
+	local RV="$?"
+	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Signal %s received by build.one.bash!\\e[0m\\n" "${0##*/}" "$RV" 
+ 	_CLEANUP_
  	exit 161 
 }
 
 _SBOTRPQUIT_() { # run on quit
-	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Quit signal %s received by build.one.bash!\\e[0m\\n" "${0##*/}" "$?"
+	local RV="$?"
+	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Quit signal %s received by build.one.bash!\\e[0m\\n" "${0##*/}" "$RV"
  	_CLEANUP_
  	exit 162 
 }
@@ -42,7 +45,7 @@ trap _SBOTRPSIGNAL_ HUP INT TERM
 trap _SBOTRPQUIT_ QUIT 
 
 _CLEANUP_ () {
-	sleep 0.$(shuf -i 24-72 -n 1) # add device latency support 
+	sleep 0."$(shuf -i 24-72 -n 1)" # add device latency support 
 	printf "\\e[1;38;5;151m%s\\n\\e[0m" "Completing tasks..."
 	rm -f *-debug.key 
  	rm -rf ./bin ./gen ./obj 
