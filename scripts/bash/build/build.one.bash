@@ -7,7 +7,7 @@ shopt -s nullglob globstar
 
 _SBOTRPERROR_() { # run on script error
 	local RV="$?"
-	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Error %s received by build.one.bash!\\e[0m\\n" "${0##*/}" "$RV" 
+	printf "buildAPKs %s WARNING:  ERROR %s received by build.one.bash!\n" "${0##*/}" "$RV" 
 	[[ $(awk 'NR==1' "$RDR/.conf/QUIET") == false ]] && printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s build.one.bash ERROR:  Signal %s received!  More information in \`%s/var/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "$RV" "$RDR" "$JID" 
 	[[ $(awk 'NR==1' "$RDR/.conf/QUIET") == false ]] && [ "$RV" = 255 ] && printf "\\e[?25h\\e[1;7;38;5;0mOn Signal 255 try running %s again if the error includes R.java and similar; This error might have been corrected by clean up.  More information in \`%s/var/log/stnderr.%s.log\` file.\\e[0m\\n" "${0##*/}" "$RDR" "$JID" 
  	_CLEANUP_
@@ -27,14 +27,14 @@ _SBOTRPEXIT_() { # run on exit
 
 _SBOTRPSIGNAL_() { # run on signal
 	local RV="$?"
-	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Signal %s received by build.one.bash!\\e[0m\\n" "${0##*/}" "$RV" 
+	printf "buildAPKs %s WARNING:  SIGNAL %s received by build.one.bash!\n" "${0##*/}" "$RV" 
  	_CLEANUP_
  	exit 161 
 }
 
 _SBOTRPQUIT_() { # run on quit
 	local RV="$?"
-	printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs %s WARNING:  Quit signal %s received by build.one.bash!\\e[0m\\n" "${0##*/}" "$RV"
+	printf "buildAPKs %s WARNING:  QUIT SIGNAL %s received by build.one.bash!\n" "${0##*/}" "$RV"
  	_CLEANUP_
  	exit 162 
 }
