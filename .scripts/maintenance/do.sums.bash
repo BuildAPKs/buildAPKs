@@ -1,5 +1,5 @@
-#!/bin/env bash
-# Copyright 2019 (c) all rights reserved by S D Rausty; see LICENSE  
+#!/usr/bin/env bash
+# Copyright 2019-2020 (c) all rights reserved by S D Rausty; see LICENSE  
 # https://sdrausty.github.io hosted courtesy https://pages.github.com
 # To create checksum files and commit use; ./do.sums.bash
 # To see file tree use; awk '{print $2}' sha512.sum
@@ -12,7 +12,7 @@ TIME="$(date +%s)"
 .scripts/maintenance/vgen.sh
 rm -f *.sum
 FILELIST=( $(find . -type f | grep -vw .git | sort) )
-CHECKLIST=(sha512sum) # md5sum sha1sum sha224sum sha256sum sha384sum sha512sum shasum
+CHECKLIST=(sha512sum) # md5sum sha1sum sha224sum sha256sum sha384sum
 for SCHECK in ${CHECKLIST[@]}
 do
 	printf "%s\\n" "Creating $SCHECK file..."
@@ -28,9 +28,9 @@ do
 	$SCHECK -c ${SCHECK::-3}.sum
 done
 git add .
-SN="$(sn.sh)" # sn.sh is found in https://github.com/BuildAPKs/maintenance.BuildAPKs/blob/master/sn.sh
-git commit -m "$SN"
+SN="$(sn.sh)" # sn.sh is located at https://github.com/BuildAPKs
+[[ -z "${1:-}" ]] && git commit -m "$SN" || [[ "${1//-}" = [Ss]* ]] && git commit -a -S -m "$SN" && pkill gpg-agent
 git push
-ls
+ls --color=always
 printf "%s\\n" "$PWD"
 # do.sums.bash EOF
