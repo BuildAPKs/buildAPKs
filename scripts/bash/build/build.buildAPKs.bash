@@ -11,7 +11,7 @@ export RDR="$HOME/buildAPKs"
 export SDR="/scripts/bash/build"
 export OAUT="$(cat "$RDR/.conf/GAUTH" | awk 'NR==1')" # load login:token key from file .conf/GAUTH which has information about enabling OAUTH authentication.
 declare -a LIST # declare array for all build scripts 
-LIST=("$(find ~/buildAPKs/scripts/bash/build/ -type f -name "*.bash")")
+LIST=($(find ~/buildAPKs/scripts/bash/build/ -type f -name "*.bash"))
 cd "$RDR"
 . "$RDR/scripts/bash/shlibs/lock.bash" wake.start 
 . "$RDR/scripts/bash/shlibs/buildAPKs/bnchn.bash" bch.st 
