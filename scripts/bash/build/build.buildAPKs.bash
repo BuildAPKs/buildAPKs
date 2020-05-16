@@ -15,10 +15,13 @@ LIST=($(find ~/buildAPKs/scripts/bash/build/ -type f -name "*.bash"))
 cd "$RDR"
 . "$RDR/scripts/bash/shlibs/lock.bash" wake.start 
 . "$RDR/scripts/bash/shlibs/buildAPKs/bnchn.bash" bch.st 
-. "$RDR/scripts/bash/shlibs/buildAPKs/init/build.buildAPKs.modules.bash" ||:
+. "$RDR/scripts/bash/shlibs/buildAPKs/init/build.buildAPKs.modules.bash"
 for NAME in "${LIST[@]}"
 do
-	"$NAME"
+	if [[ "${NAME##*/}" != build.buildAPKs.bash ]]
+	then
+		"$NAME"
+	fi
 done
 . "$RDR/scripts/bash/shlibs/lock.bash" wake.stop 
 . "$RDR/scripts/bash/shlibs/buildAPKs/bnchn.bash" bch.gt 
