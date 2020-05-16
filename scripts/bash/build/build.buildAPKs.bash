@@ -17,7 +17,7 @@ export OAUT="$(cat "$RDR/.conf/GAUTH" | awk 'NR==1')" # load login:token key fro
 LIST=($(find "$RDR/scripts/bash/build/" -type f -name "*.bash" -not -name "build.buildAPKs.bash" -not -name "build.in.dir.bash"))
 for NAME in "${LIST[@]}"
 do
-	echo "$NAME"
+	"$NAME"
 done
 . "$RDR/scripts/bash/shlibs/lock.bash" wake.stop 
 . "$RDR/scripts/bash/shlibs/buildAPKs/bnchn.bash" bch.gt 
