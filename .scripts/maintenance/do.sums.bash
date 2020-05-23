@@ -28,7 +28,7 @@ do
 	$SCHECK -c ${SCHECK::-3}.sum
 done
 git add .
-SN="$(sn.sh)" # sn.sh is located at https://github.com/BuildAPKs
+SN="$(sn.sh)" # sn.sh is located at https://github.com/BuildAPKs/maintenance.BuildAPKs
 [[ -z "${1:-}" ]] && git commit -m "$SN" || [[ "${1//-}" = [Ss]* ]] && git commit -a -S -m "$SN" && pkill gpg-agent || git commit -m "$SN"  
 git push
 ls --color=always
