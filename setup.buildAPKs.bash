@@ -80,7 +80,7 @@ do
 done
 if [[ ! -d "$RDR" ]]
 then
-	cd && git clone git://github.com/BuildAPKs/buildAPKs || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
+	cd && git clone --depth 1 git://github.com/BuildAPKs/buildAPKs --branch master --single-branch || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
 fi
 export JAD=github.com/BuildAPKs/buildAPKs.entertainment	# job address
 export JID=entertainment	# job id/name
