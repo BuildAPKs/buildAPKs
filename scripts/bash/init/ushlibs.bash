@@ -44,6 +44,7 @@ _UFSHLIBS_() { # add and update submodules
 	_ADBGH_
 }
 
+cd "$RDR"
 [ ! -d "$RDR"/.git ] && _IRGR_ && sleep 0.$(shuf -i 24-72 -n 1) 
 if [[ ! -f "$RDR"/scripts/bash/shlibs/.git ]] || [[ ! -f "$RDR"/scripts/sh/shlibs/.git ]] 
 then
