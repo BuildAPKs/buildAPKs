@@ -6,7 +6,6 @@ set -Eeuo pipefail
 shopt -s nullglob globstar
 export RDR="$HOME/buildAPKs"   
 . "$RDR"/scripts/bash/init/atrap.bash 147 148 149 "${0##*/} init.bash" 
-cd "$RDR"
 [ -z "${JID:-}" ] && "$RDR"/scripts/bash/build/build.entertainment.bash && exit 0
 [ ! -f "$RDR"/.gitmodules ] && touch "$RDR"/.gitmodules
 . "$RDR"/scripts/bash/init/ushlibs.bash 

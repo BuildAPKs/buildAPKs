@@ -8,7 +8,7 @@
 set -eu
 MTIME="$(ls -l --time-style=+"%s" .git/ORIG_HEAD 2>/dev/null | awk '{print $6}')"
 TIME="$(date +%s)"
-([[ ! -z "${MTIME##*[!0-9]*}" ]] && (if [[ $(($TIME - $MTIME)) -gt 43200 ]] ; then git pull --rebase upstream master ; fi) || git pull --rebase upstream master) || (printf "%s\\n" "Signal generated at [ ! -z \${num##*[!0-9]*} ]" && git pull --rebase upstream master)
+# ([[ ! -z "${MTIME##*[!0-9]*}" ]] && (if [[ $(($TIME - $MTIME)) -gt 43200 ]] ; then git pull --ff-only upstream master ; fi) || git pull --ff-only upstream master) || (printf "%s\\n" "Signal generated at [ ! -z \${num##*[!0-9]*} ]" && git pull --ff-only upstream master)
 .scripts/maintenance/vgen.sh
 rm -f *.sum
 FILELIST=( $(find . -type f | grep -vw .git | sort) )
@@ -29,7 +29,7 @@ do
 done
 git add .
 SN="$(sn.sh)" # sn.sh is located at https://github.com/BuildAPKs/maintenance.BuildAPKs/blob/master/sn.sh
-[[ -z "${1:-}" ]] && git commit -m "$SN" || [[ "${1//-}" = [Ss]* ]] && git commit -a -S -m "$SN" && pkill gpg-agent || git commit -m "$SN" ||: 
+([[ -z "${1:-}" ]] && git commit -m "$SN") || ([[ "${1//-}" = [Ss]* ]] && git commit -a -S -m "$SN" && pkill gpg-agent) || git commit -m "$SN"
 git push
 ls --color=always
 printf "%s\\n" "$PWD"
