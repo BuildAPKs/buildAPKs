@@ -52,14 +52,14 @@ _CLEANUP_ () {
 	[ -d ./assets ] && rmdir --ignore-fail-on-non-empty ./assets
 	[ -d ./res ] && rmdir --ignore-fail-on-non-empty ./res
 	find . -name R.java -exec rm -f { } \;
-	printf "\\e[1;38;5;151mCompleted tasks in %s\\n\\n\\e[0m" "~/$(cut -d"/" -f7-99 <<< $PWD)"
+	printf "\\e[1;38;5;151mCompleted tasks in ~/%s/.\\n\\n\\e[0m" "$(cut -d"/" -f7-99 <<< $PWD)"
 }
 # if root directory is undefined, define the root directory as ~/buildAPKs 
 [ -z "${RDR:-}" ] && RDR="$HOME/buildAPKs"
 . "$RDR"/scripts/bash/shlibs/buildAPKs/copy.apk.bash
 # if working directory is $HOME or buildAPKs, exit 
 [ "$PWD" = "$HOME" ] || [ "${PWD##*/}" = buildAPKs ] && exit 224
-printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in %s\\n\\e[0m" "~/$(cut -d"/" -f7-99 <<< $PWD)"
+printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in ~/%s/:\\n\\e[0m" "$(cut -d"/" -f7-99 <<< $PWD)"
 # if variables are undefined, define variables
 [ -z "${DAY:-}" ] && DAY="$(date +%Y%m%d)"
 [ -z "${2:-}" ] && JDR="$PWD"
