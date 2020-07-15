@@ -155,7 +155,7 @@ printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex to $PKGNAM.apk.
 cd bin 
 aapt add -f "$PKGNAM.apk" classes.dex 
 printf "\\e[1;38;5;114m%s\\e[1;38;5;108m\\n" "Signing $PKGNAM.apk..."
-[[ $(head -n 1 "$RDR/.conf/DOSO") = 0 ]] && _FUNZIP_ || echo "Signal generated in ${0##*/} build.one.bash."
+[[ $(head -n 1 "$RDR/.conf/DOSO") = 0 ]] && _FUNZIP_ || echo "Signal generated in _FUNZIP_ ${0##*/} build.one.bash."
 apksigner ../"$PKGNAM-debug.key" "$PKGNAM.apk" ../"$PKGNAM.apk"
 cd ..
 _COPYAPK_ || printf "%s\\n" "Unable to copy APK file ${0##*/} build.one.bash; Continuing..." 
