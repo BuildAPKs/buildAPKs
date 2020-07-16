@@ -155,7 +155,7 @@ printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex to $PKGNAM.apk.
 cd bin 
 aapt add -f "$PKGNAM.apk" classes.dex 
 		[[ $(head -n 1 "$RDR/.conf/DOSO") = 1 ]] && printf "%s\\n" "To include \`*.so\` files in the APK build change the 1 in file ~/${RDR##*/}/.conf/DOSO to a 0."
-		[[ $(head -n 1 "$RDR/.conf/DOSO") = 0 ]] && printf "%s\\n" "Building and including \`*.so\` files in the APK build.  This feature is being developed." && . "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash ||: 
+		[[ $(head -n 1 "$RDR/.conf/DOSO") = 0 ]] && printf "%s\\n" "Building and including \`*.so\` files in the APK build.  This feature is being developed." && . "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "%s\\n" "Signal generated doso.bash ${0##*/} build.one.bash. "
 printf "\\e[1;38;5;114m%s\\e[1;38;5;108m\\n" "Signing $PKGNAM.apk..."
 apksigner ../"$PKGNAM-debug.key" "$PKGNAM.apk" ../"$PKGNAM.apk"
 cd ..
