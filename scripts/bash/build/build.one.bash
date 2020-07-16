@@ -151,7 +151,7 @@ aapt package -f \
 	-S res \
 	-A assets \
 	-F bin/"$PKGNAM".apk 
-[[ $(head -n 1 "$RDR/.conf/DOSO") = 1 ]] && printf "%s\\n" "To include \`*.so\` files in the APK build change the 1 in file ~/${RDR##*/}/.conf/DOSO to a 0."
+[[ $(head -n 1 "$RDR/.conf/DOSO") = 1 ]] && printf "%s\\n" "To build and include \`*.so\` files in the APK build change the 1 in file ~/${RDR##*/}/.conf/DOSO to a 0."
 [[ $(head -n 1 "$RDR/.conf/DOSO") = 0 ]] && (. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "%s\\n" "Signal generated doso.bash ${0##*/} build.one.bash. ")
 cd bin 
 [[ ! -d lib ]] && mkdir -p lib 
