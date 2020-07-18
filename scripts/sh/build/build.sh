@@ -5,6 +5,7 @@
 # Invocation : $HOME/buildAPKs/scripts/sh/build/build.sh 
 #####################################################################
 set -e
+[ -z "${RDR:-}" ] && RDR="$HOME/buildAPKs"
 for CMD in aapt apksigner dx ecj 
 do
        	[ -z "$(command -v "$CMD")" ] && printf "%s\\n" " \"$CMD\" not found" && NOTFOUND=1
@@ -15,7 +16,7 @@ done
 
 _CLEANUP_() {
        	printf "\\n\\n%s\\n" "Completing tasks..."
-       	[ "$CLEAN" = "1" ] && mv "bin/$PKGNAME-signed.apk" .
+       	[ "$CLEAN" = "1" ] && mv "bin/$PKGNAME.apk" .
       	rmdir assets 2>/dev/null ||:
        	rmdir res 2>/dev/null ||:
        	rm -rf bin
@@ -78,7 +79,8 @@ cd bin || _UNTP_
 aapt add -f "$PKGNAME.apk" classes.dex || { cd ..; _UNTP_; }
 
 printf "\\n%s\\n" "Signing $PKGNAME.apk..."
-apksigner "$PKGNAME-debug.key" "$PKGNAME.apk" "$PKGNAME-signed.apk" || { cd ..; _UNTP_; }
+apksigner sign --cert "$RDR/opt/key/certificate.pem" --key "$RDR/opt/key/key.pk8" "$PKGNAME.apk" || { cd ..; _UNTP_; } 
+apksigner verify --verbose "$PKGNAME.apk" || { cd ..; _UNTP_; }
 
 cd ..
 
