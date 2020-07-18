@@ -157,8 +157,10 @@ cd bin
 [[ ! -d lib ]] && mkdir -p lib 
 printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex $(find lib -type f -name "*.so") to $PKGNAM.apk..."
 aapt add -v -f "$PKGNAM.apk" classes.dex $(find lib -type f -name "*.so") 
-printf "\\e[1;38;5;114m%s\\e[1;38;5;108m\\n" "Signing $PKGNAM.apk..."
+printf "\\e[1;38;5;114m%s" "Signing $PKGNAM.apk: "
 apksigner sign --cert "$RDR/opt/key/certificate.pem" --key "$RDR/opt/key/key.pk8" "$PKGNAM.apk" 
+printf "%s\\n" "DONE"
+printf "%s\\e[1;38;5;108m\\n" "Verify $PKGNAM.apk..."
 apksigner verify --verbose "$PKGNAM.apk" 
 cd ..
 _COPYAPK_ || printf "%s\\n" "Unable to copy APK file ${0##*/} build.one.bash; Continuing..." 
