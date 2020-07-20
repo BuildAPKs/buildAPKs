@@ -74,11 +74,11 @@ aapt package -f \
        	-F bin/"$PKGNAME.apk" || _UNTP_
 
 
-printf "\\n%s\\n" "Adding classes.dex to $PKGNAME.apk..."
+printf "\n%s\\n" "Adding classes.dex to $PKGNAME.apk..."
 cd bin || _UNTP_ 
 aapt add -f "$PKGNAME.apk" classes.dex || { cd ..; _UNTP_; }
 
-printf "\\n%s" "Signing $PKGNAME.apk: "
+printf "\n%s" "Signing $PKGNAME.apk: "
 apksigner sign --cert "$RDR/opt/key/certificate.pem" --key "$RDR/opt/key/key.pk8" "$PKGNAME.apk" || { cd ..; _UNTP_; } 
 printf "%s\\n" "DONE"
 printf "%s" "Verifying $PKGNAME.apk: "

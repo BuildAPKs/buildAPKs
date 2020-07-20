@@ -156,10 +156,10 @@ cd bin
 [[ ! -d lib ]] && mkdir -p lib 
 printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex $(find lib -type f -name "*.so") to $PKGNAME.apk..."
 aapt add -v -f "$PKGNAME.apk" classes.dex $(find lib -type f -name "*.so") 
-printf "\\e[1;38;5;114m%s" "Signing $PKGNAME.apk: "
+printf "\\e[1;38;5;114m%s\\e[1;38;5;108m" "Signing $PKGNAME.apk: "
 apksigner sign --cert "$RDR/opt/key/certificate.pem" --key "$RDR/opt/key/key.pk8" "$PKGNAME.apk" 
 printf "%s\\n" "DONE"
-printf "%s\\e[1;38;5;108m" "Verifying $PKGNAME.apk: "
+printf "\\e[1;38;5;114m%s\\e[1;38;5;108m" "Verifying $PKGNAME.apk: "
 apksigner verify "$PKGNAME.apk" 
 printf "%s\\n" "DONE"
 cd ..
