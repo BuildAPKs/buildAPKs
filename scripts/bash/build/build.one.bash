@@ -115,7 +115,8 @@ else # do not load artifacts and libraries into the build process.
 	JSJCLASSPATH=""
 fi
 NOW=$(date +%s)
-PKGNAME="$(grep -o "package=.*" AndroidManifest.xml | cut -d\" -f2)"
+PKGNAM="$(grep -o "package=.*" AndroidManifest.xml | cut -d\" -f2)"
+PKGNAME="$PKGNAM.$NOW"
 COMMANDIF="$(command -v getprop)" ||:
 if [[ "$COMMANDIF" = "" ]]
 then
@@ -133,7 +134,7 @@ sed -i "s/targetSdkVersion\=\"[0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" Andr
 sed -i "s/targetSdkVersion\=\"[0-9][0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" AndroidManifest.xml 
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 aapt package -f \
- 	--min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" --version-code "$NOW" --version-name "$PKGNAME" -c "$PSYSLOCAL" \
+ 	--min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" --version-code "$NOW" --version-name "$PKGNAM" -c "$PSYSLOCAL" \
 	-M AndroidManifest.xml \
  	$AAPTENT \
 	-J gen \
@@ -142,26 +143,25 @@ printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "ecj: begun
 ecj $ECJENT -d ./obj -sourcepath . $(find . -type f -name "*.java") 
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started..."
 dx --dex --output=bin/classes.dex obj
-printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAME.apk..."
+printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAM.apk..."
 aapt package -f \
  	--min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" \
 	-M AndroidManifest.xml \
  	$JSJCLASSPATH \
 	-S res \
 	-A assets \
-	-F bin/"$PKGNAME".apk 
+	-F bin/"$PKGNAM".apk 
 [[ $(head -n 1 "$RDR/.conf/DOSO") = 1 ]] && printf "%s\\n" "To build and include \`*.so\` files in the APK build change the 1 in file ~/${RDR##*/}/.conf/DOSO to a 0."
 [[ $(head -n 1 "$RDR/.conf/DOSO") = 0 ]] && (. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "%s\\n" "Signal generated doso.bash ${0##*/} build.one.bash. ")
 cd bin 
 [[ ! -d lib ]] && mkdir -p lib 
-printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex $(find lib -type f -name "*.so") to $PKGNAME.apk..."
-aapt add -v -f "$PKGNAME.apk" classes.dex $(find lib -type f -name "*.so") 
-printf "\\e[1;38;5;114m%s\\e[1;38;5;108m" "Signing $PKGNAME.apk: "
-apksigner sign --cert "$RDR/opt/key/certificate.pem" --key "$RDR/opt/key/key.pk8" "$PKGNAME.apk" 
+printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex $(find lib -type f -name "*.so") to $PKGNAM.apk..."
+aapt add -v -f "$PKGNAM.apk" classes.dex $(find lib -type f -name "*.so") 
+printf "\\e[1;38;5;114m%s" "Signing $PKGNAM.apk: "
+apksigner sign --cert "$RDR/opt/key/certificate.pem" --key "$RDR/opt/key/key.pk8" "$PKGNAM.apk" 
 printf "%s\\n" "DONE"
-printf "\\e[1;38;5;114m%s\\e[1;38;5;108m" "Verifying $PKGNAME.apk: "
-apksigner verify "$PKGNAME.apk" 
-printf "%s\\n" "DONE"
+printf "%s\\e[1;38;5;108m\\n" "Verifying $PKGNAM.apk..."
+apksigner verify --verbose "$PKGNAM.apk" 
 cd ..
 _COPYAPK_ || printf "%s\\n" "Unable to copy APK file ${0##*/} build.one.bash; Continuing..." 
 printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐"
