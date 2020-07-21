@@ -23,7 +23,7 @@ _ADBGH_() { # add database and github submodules
 
 _UFSHLIBS_() { # add and update submodules 
 	declare -A ARSHLIBS # declare associative array for available submodules
-	ARSHLIBS=([bash/shlibs]="shlibs/shlibs.bash" [sh/shlibs]="shlibs/shlibs.sh")
+	ARSHLIBS=([bash/shlibs]="shlibs/shlibs.bash" [sh/shlibs]="shlibs/shlibs.sh" [opt/api/github]="BuildAPKs/buildAPKs.github" [opt/db]="BuildAPKs/db.BuildAPKs")
 	for MLOC in "${!ARSHLIBS[@]}" 
 	do
 		if grep "${ARSHLIBS[$MLOC]}" .gitmodules >/dev/null  
@@ -41,7 +41,7 @@ _UFSHLIBS_() { # add and update submodules
 		sleep 0.$(shuf -i 24-72 -n 1) # increase network latency support on fast networks 
 		fi
 	done
-	_ADBGH_
+# 	_ADBGH_
 }
 
 [ ! -d "$RDR"/.git ] && _IRGR_ && sleep 0.$(shuf -i 24-72 -n 1) 
