@@ -12,4 +12,4 @@ These configuration files are located in ~/buildAPKs/.conf and their purpose is 
 | RDR       | project root directory | 
 | README.md | this file |
 | VERSIONID | current project version |
-<!-- README.md EOF -->
+<!-- .conf README.md EOF -->
