@@ -14,13 +14,6 @@ _IRGR_() { # initialize a remote git repository
 		git remote add origin ssh://${USER}@${HOSTIP}${PROJECT}.git
 }
 
-_ADBGH_() { # add database and github submodules
-	[ -f "$RDR"/opt/db/.git ] && git submodule update --depth 1 --recursive --remote opt/db || git submodule add --depth 1 git://github.com/BuildAPKs/db.BuildAPKs opt/db || printf "\\nCannot add module %s into ~/%s/opt/db: Continuing...\\n\\n" "git://github.com/BuildAPKs/db.BuildAPKs" "${RDR##*/}"
-	sleep 0.$(shuf -i 24-72 -n 1)
-	[ -f "$RDR"/opt/api/github/.git ] && git submodule update --depth 1 --recursive --remote opt/api/github || git submodule add --depth 1 git://github.com/BuildAPKs/buildAPKs.github opt/api/github || printf "\\nCannot add module %s into ~/%s/opt/api/github: Continuing...\\n\\n" "git://github.com/BuildAPKs/buildAPKs.github" "${RDR##*/}"
-	sleep 0.$(shuf -i 24-72 -n 1)
-}
-
 _UFSHLIBS_() { # add and update submodules 
 	declare -A ARSHLIBS # declare associative array for available submodules
 	ARSHLIBS=([scripts/bash/shlibs]="shlibs/shlibs.bash" [scripts/sh/shlibs]="shlibs/shlibs.sh" [opt/api/github]="BuildAPKs/buildAPKs.github" [opt/db]="BuildAPKs/db.BuildAPKs")
@@ -41,7 +34,6 @@ _UFSHLIBS_() { # add and update submodules
 		sleep 0.$(shuf -i 24-72 -n 1) # increase network latency support on fast networks 
 		fi
 	done
-# 	_ADBGH_
 }
 
 [ ! -d "$RDR"/.git ] && _IRGR_ && sleep 0.$(shuf -i 24-72 -n 1) 
