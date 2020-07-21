@@ -159,10 +159,9 @@ printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex $(find lib -typ
 aapt add -v -f "$PKGNAM.apk" classes.dex $(find lib -type f -name "*.so") 
 printf "\\e[1;38;5;114m%s" "Signing $PKGNAM.apk: "
 apksigner sign --cert "$RDR/opt/key/certificate.pem" --key "$RDR/opt/key/key.pk8" "$PKGNAM.apk" 
-printf "%s\\n" "DONE"
-printf "%s\\e[1;38;5;108m\\n" "Verifying $PKGNAM.apk..."
+printf "%s\\e[1;38;5;108m\\n" "DONE"
+printf "\\e[1;38;5;114m%s\\e[1;38;5;108m\\n" "Verifying $PKGNAM.apk..."
 apksigner verify --verbose "$PKGNAM.apk" 
-cd ..
 _COPYAPK_ || printf "%s\\n" "Unable to copy APK file ${0##*/} build.one.bash; Continuing..." 
 printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐"
 # build.one.bash EOF
