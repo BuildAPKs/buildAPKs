@@ -24,7 +24,7 @@ _UFSHLIBS_() { # add and update submodules
 		if grep "${ARSHLIBS[$MLOC]}" .gitmodules >/dev/null  
 		then
 		rm -f scripts/$MLOC/.git
- 		printf "\\e[1;7;38;5;96mUpdating submodule ~/%s/scripts/%s from Internet site %s address:\\e[0m\\n" "${RDR##*/}" "$MLOC" "$SIAD/${ARSHLIBS[$MLOC]}" ; git submodule update --depth 1 --recursive --remote $MLOC || printf "Cannot update module ~/%s/scripts/%s: Continuing...\\n" "${RDR##*/}" "$MLOC"
+ 		printf "\\e[1;7;38;5;96mUpdating submodule ~/%s/%s from Internet site %s address:\\e[0m\\n" "${RDR##*/}" "$MLOC" "$SIAD/${ARSHLIBS[$MLOC]}" ; git submodule update --depth 1 --recursive --remote $MLOC || printf "Cannot update module ~/%s/scripts/%s: Continuing...\\n" "${RDR##*/}" "$MLOC"
 		sleep 0.$(shuf -i 24-72 -n 1) # add network latency support on fast networks 
 		fi
 	done
