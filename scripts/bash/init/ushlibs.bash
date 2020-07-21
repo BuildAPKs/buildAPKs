@@ -40,7 +40,7 @@ _UFSHLIBS_() { # add and update submodules
 if [[ ! -f "$RDR"/scripts/bash/shlibs/.git ]] || [[ ! -f "$RDR"/scripts/sh/shlibs/.git ]] 
 then
 	cd "$RDR"
-	git pull --rebase upstream master || printf "\\nCannot update ~/%s: Continuing...\\n\\n" "${RDR##*/}"
+	git pull --ff-only || printf "\\nCannot update ~/%s: Continuing...\\n\\n" "${RDR##*/}"
 	sleep 0.$(shuf -i 24-72 -n 1) # add network latency support on fast networks 
 	_UFSHLIBS_
 fi
