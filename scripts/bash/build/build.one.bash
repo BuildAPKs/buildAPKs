@@ -116,6 +116,7 @@ else # do not load artifacts and libraries into the build process.
 fi
 NOW=$(date +%s)
 PKGNAM="$(grep -o "package=.*" AndroidManifest.xml | cut -d\" -f2)"
+[ -f ./bin/"$PKGNAM.apk"  ] && rm ./bin/"$PKGNAM.apk" 
 PKGNAME="$PKGNAM.$NOW"
 COMMANDIF="$(command -v getprop)" ||:
 if [[ "$COMMANDIF" = "" ]]
@@ -153,7 +154,7 @@ aapt package -f \
 	-F bin/"$PKGNAME".apk 
 [[ $(head -n 1 "$RDR/.conf/DOSO") = 1 ]] && printf "%s\\n" "To build and include \`*.so\` files in the APK build change the 1 in file ~/${RDR##*/}/.conf/DOSO to a 0."
 [[ $(head -n 1 "$RDR/.conf/DOSO") = 0 ]] && (. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "%s\\n" "Signal generated doso.bash ${0##*/} build.one.bash. ")
-cd bin 
+cd ./bin 
 [[ ! -d lib ]] && mkdir -p lib 
 printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex $(find lib -type f -name "*.so") to $PKGNAME.apk..."
 aapt add -v -f "$PKGNAME.apk" classes.dex $(find lib -type f -name "*.so") 
@@ -162,6 +163,8 @@ apksigner sign --cert "$RDR/opt/key/certificate.pem" --key "$RDR/opt/key/key.pk8
 printf "%s\\e[1;38;5;108m\\n" "DONE"
 printf "\\e[1;38;5;114m%s\\e[1;38;5;108m\\n" "Verifying $PKGNAME.apk..."
 apksigner verify --verbose "$PKGNAME.apk" 
+cd ..
 _COPYAPK_ || printf "%s\\n" "Unable to copy APK file ${0##*/} build.one.bash; Continuing..." 
+mv ./bin/"$PKGNAME.apk" "$PKGNAM.apk" 
 printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐"
 # build.one.bash EOF
