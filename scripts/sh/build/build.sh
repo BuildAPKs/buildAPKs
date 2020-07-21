@@ -82,7 +82,7 @@ printf "\n%s" "Signing $PKGNAME.apk: "
 apksigner sign --cert "$RDR/opt/key/certificate.pem" --key "$RDR/opt/key/key.pk8" "$PKGNAME.apk" || { cd ..; _UNTP_; } 
 printf "%s\\n" "DONE"
 printf "%s" "Verifying $PKGNAME.apk: "
-apksigner verify "$PKGNAME.apk" 
+apksigner verify --verbose "$PKGNAME.apk" || { cd ..; _UNTP_; }
 printf "%s\\n" "DONE"
 
 cd ..
