@@ -163,8 +163,8 @@ apksigner sign --cert "$RDR/opt/key/certificate.pem" --key "$RDR/opt/key/key.pk8
 printf "%s\\e[1;38;5;108m\\n" "DONE"
 printf "\\e[1;38;5;114m%s\\e[1;38;5;108m\\n" "Verifying $PKGNAME.apk..."
 apksigner verify --verbose "$PKGNAME.apk" 
-cd ..
 _COPYAPK_ || printf "%s\\n" "Unable to copy APK file ${0##*/} build.one.bash; Continuing..." 
+cd ..
 mv ./bin/"$PKGNAME.apk" "$PKGNAM.apk" 
 printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐"
 # build.one.bash EOF
