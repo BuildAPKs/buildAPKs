@@ -18,13 +18,12 @@ _UFSHLIBS_() { # add and update submodules
 	declare -A ARSHLIBS # declare associative array for available submodules
 	ARSHLIBS=([scripts/bash/shlibs]="shlibs/shlibs.bash" [scripts/sh/shlibs]="shlibs/shlibs.sh" [opt/api/github]="BuildAPKs/buildAPKs.github" [opt/db]="BuildAPKs/db.BuildAPKs")
  	printf "\\e[1;7;38;5;98mUpdating %s additional components of ~/%s/:\\e[0m\\n" "${#ARSHLIBS[@]}" "${RDR##*/}"
-	 
 	for MLOC in "${!ARSHLIBS[@]}" 
 	do
-		if grep "${ARSHLIBS[$MLOC]}" .gitmodules >/dev/null  
+		if grep "${ARSHLIBS[$MLOC]}" .gitmodules >/dev/null
 		then
 		rm -f scripts/$MLOC/.git
- 		printf "\\e[1;7;38;5;96mUpdating submodule ~/%s/%s from Internet site %s address:\\e[0m\\n" "${RDR##*/}" "$MLOC" "$SIAD/${ARSHLIBS[$MLOC]}" ; git submodule update --depth 1 --recursive --remote $MLOC || printf "Cannot update module ~/%s/scripts/%s: Continuing...\\n" "${RDR##*/}" "$MLOC"
+ 		printf "\\e[1;7;38;5;96mUpdating submodule ~/%s/%s from Internet site %s address:\\e[0m\\n" "${RDR##*/}" "$MLOC" "$SIAD/${ARSHLIBS[$MLOC]}" ; git submodule update --depth 1 --recursive --remote "$MLOC" || printf "Cannot update module ~/%s/scripts/%s: Continuing...\\n" "${RDR##*/}" "$MLOC"
 		sleep 0.$(shuf -i 24-72 -n 1) # add network latency support on fast networks 
 		fi
 	done
@@ -32,7 +31,7 @@ _UFSHLIBS_() { # add and update submodules
 	do
 		if ! grep "${ARSHLIBS[$MLOC]}" .gitmodules 1>/dev/null  
 		then
- 			printf "\\e[1;7;38;5;96mAdding ~/%s/scripts/%s...\\e[0m\\n" "${RDR##*/}" "$MLOC" ; git submodule add --depth 1 git://github.com/${ARSHLIBS[$MLOC]} $MLOC || printf "Cannot add submodule ~/%s/scripts/%s: Continuing...\\n" "${RDR##*/}" "$MLOC"
+ 			printf "\\e[1;7;38;5;96mAdding ~/%s/scripts/%s...\\e[0m\\n" "${RDR##*/}" "$MLOC" ; git submodule add --depth 1 "git://github.com/${ARSHLIBS[$MLOC]}" "$MLOC" || printf "Cannot add submodule ~/%s/scripts/%s: Continuing...\\n" "${RDR##*/}" "$MLOC"
 		sleep 0.$(shuf -i 24-72 -n 1) # increase network latency support on fast networks 
 		fi
 	done
