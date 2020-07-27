@@ -142,7 +142,8 @@ aapt package -f \
 	-S res
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "ecj: begun..."
 [[ $(head -n 1 "$RDR/.conf/DOSO") = 1 ]] && printf "%s\\n" "To build and include \`*.so\` files in the APK build change the 1 in file ~/${RDR##*/}/.conf/DOSO to a 0."
-[[ $(head -n 1 "$RDR/.conf/DOSO") = 0 ]] && (. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "%s\\n" "Signal generated doso.bash ${0##*/} build.one.bash. ")
+[[ $(head -n 1 "$RDR/.conf/DOSO") = 0 ]] && (. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "\\e[1;48;5;166m%s\\e[0m\\n" "Signal generated doso.bash ${0##*/} build.one.bash. ")
+# [[ -d "$JDR/bin/lib/$CPUABI" ]] && ECJSO=" -classpath $JDR/bin/lib/$CPUABI" || ECJSO="" # https://www.eclipse.org/forums/index.php/t/94766/
 [[ -d ./bin/lib ]] && ECJSO="$(find ./bin/lib -type f -name "*.so")" ||:
 if [[ -z "${ECJSO:-}" ]] # is undefined
 then # no files found
@@ -150,7 +151,7 @@ then # no files found
 else # populate ecj .so files string
 	ECJSO=" -classpath $ECJSO "
 fi
-ecj $ECJENT $ECJSO -d ./obj -sourcepath . $(find $JDR -type f -name "*.java") || ecj $ECJENT $ECJSO -d ./obj -sourcepath $(find $JDR -type f -name "*.java") 
+ecj $ECJENT $ECJSO -d ./obj -sourcepath . $(find $JDR -type f -name "*.java") || ecj $ECJENT $ECJSO -d ./obj -sourcepath $(find $JDR -type f -name "*.java") || ( printf "\\e[1;48;5;167m%s\\e[0m\\n" "Signal generated ecj ${0##*/} build.one.bash." && exit 167 )
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started..."
 dx --dex --output=bin/classes.dex obj
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAME.apk..."
