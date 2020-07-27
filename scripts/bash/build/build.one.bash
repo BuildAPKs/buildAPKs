@@ -141,20 +141,28 @@ aapt package -f \
 	-J gen \
 	-S res
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "ecj: begun..."
-ecj $ECJENT -d ./obj -sourcepath . $(find . -type f -name "*.java") 
+[[ $(head -n 1 "$RDR/.conf/DOSO") = 1 ]] && printf "%s\\n" "To build and include \`*.so\` files in the APK build change the 1 in file ~/${RDR##*/}/.conf/DOSO to a 0."
+[[ $(head -n 1 "$RDR/.conf/DOSO") = 0 ]] && (. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "%s\\n" "Signal generated doso.bash ${0##*/} build.one.bash. ")
+[[ -d ./bin/lib ]] && ECJSO="$(find ./bin/lib -type f -name "*.so")" ||:
+if [[ -z "${ECJSO:-}" ]] # is undefined
+then # no files found
+	ECJSO=""
+else # populate ecj .so files string
+	ECJSO=" -classpath $ECJSO "
+fi
+ecj $ECJENT $ECJSO -d ./obj -sourcepath . $(find $JDR -type f -name "*.java") || ecj $ECJENT $ECJSO -d ./obj -sourcepath $(find $JDR -type f -name "*.java") 
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started..."
 dx --dex --output=bin/classes.dex obj
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAME.apk..."
 aapt package -f \
- 	--min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" \
+ 	--min-sdk-version "$MSDKVERSION" \
+	--target-sdk-version "$TSDKVERSION" \
 	-M AndroidManifest.xml \
  	$JSJCLASSPATH \
 	-S res \
 	-A assets \
 	-F bin/"$PKGNAME".apk 
-[[ $(head -n 1 "$RDR/.conf/DOSO") = 1 ]] && printf "%s\\n" "To build and include \`*.so\` files in the APK build change the 1 in file ~/${RDR##*/}/.conf/DOSO to a 0."
-[[ $(head -n 1 "$RDR/.conf/DOSO") = 0 ]] && (. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "%s\\n" "Signal generated doso.bash ${0##*/} build.one.bash. ")
-cd ./bin 
+cd bin 
 [[ ! -d lib ]] && mkdir -p lib 
 printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex $(find lib -type f -name "*.so") to $PKGNAME.apk..."
 aapt add -v -f "$PKGNAME.apk" classes.dex $(find lib -type f -name "*.so") 
@@ -164,7 +172,7 @@ printf "%s\\e[1;38;5;108m\\n" "DONE"
 printf "\\e[1;38;5;114m%s\\e[1;38;5;108m\\n" "Verifying $PKGNAME.apk..."
 apksigner verify --verbose "$PKGNAME.apk" 
 _COPYAPK_ || printf "%s\\n" "Unable to copy APK file ${0##*/} build.one.bash; Continuing..." 
+mv "$PKGNAME.apk" ../"$PKGNAM.apk"
 cd ..
-mv ./bin/"$PKGNAME.apk" "$PKGNAM.apk" 
 printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐"
 # build.one.bash EOF
