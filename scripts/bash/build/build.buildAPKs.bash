@@ -6,7 +6,7 @@ set -Eeuo pipefail
 shopt -s nullglob globstar
 declare -a LIST # declare array for build scripts 
 export RDR="$HOME/buildAPKs"
-. "$RDR/scripts/bash/shlibs/trap.bash" 67 68 69 "${0##*/} build.buildAPKs.bash"
+. "$RDR/scripts/bash/init/atrap.bash" 67 68 69 "${0##*/} build.buildAPKs.bash"
 export NUM="$(date +%s)"
 export RDR="$HOME/buildAPKs"
 export SDR="/scripts/bash/build"

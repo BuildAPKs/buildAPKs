@@ -5,7 +5,7 @@
 set -Eeuo pipefail
 shopt -s nullglob globstar
 export RDR="$HOME/buildAPKs"
-. "$RDR/scripts/bash/shlibs/trap.bash" 67 68 69 "${0##*/} build.tutorials.bash"
+. "$RDR/scripts/bash/init/atrap.bash" 67 68 69 "${0##*/} build.tutorials.bash"
 export JAD=github.com/sdrausty/buildAPKsTutorials
 export JID=tutorials # job id/name
 . "$HOME/buildAPKs/scripts/bash/init/init.bash" "$@"

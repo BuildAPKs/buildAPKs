@@ -5,7 +5,7 @@
 set -Eeuo pipefail
 shopt -s nullglob globstar
 export RDR="$HOME/buildAPKs"
-. "$RDR/scripts/bash/shlibs/trap.bash" 67 68 69 "${0##*/} buildAll.bash"
+. "$RDR/scripts/bash/init/atrap.bash" 67 68 69 "${0##*/} buildAll.bash"
 export NUM="$(date +%s)"
 export RDR="$HOME/buildAPKs"
 cd "$RDR"

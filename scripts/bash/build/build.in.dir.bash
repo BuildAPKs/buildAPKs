@@ -5,7 +5,7 @@
 set -Eeuo pipefail
 shopt -s nullglob globstar
 export RDR="$HOME/buildAPKs"
-. "$RDR"/scripts/bash/shlibs/trap.bash 201 211 221 "${0##*/} build.in.dir.bash" wake.start
+. "$RDR"/scripts/bash/init/atrap.bash 201 211 221 "${0##*/} build.in.dir.bash" wake.start
 export JDR="$PWD"
 if [[ "$HOME" = "$JDR" ]] 
 then
