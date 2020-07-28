@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Copyright 2017-2020 (c) all rights reserved by S D Rausty 
+# Copyright 2017-2020 (c) all rights reserved by BuildAPKs 
+# See LICENSE for details https://buildapks.github.io/docsBuildAPKs/
 # Adapted from https://github.com/fx-adi-lima/android-tutorials
 #####################################################################
 set -Eeuo pipefail
@@ -16,7 +17,7 @@ _SBOTRPERROR_() { # run on script error
 
 _SBOTRPEXIT_() { # run on exit
 	local RV="$?"
-	[[ $(awk 'NR==1' "$RDR/.conf/QUIET") == false ]] && [ "$RV" != 0 ] && [ "$RV" != 224 ] && printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs signal %s received by %s in %s by build.one.bash.  More information in \`%s/var/log/stnderr.%s.log\` file.\\n\\n" "$RV" "${0##*/}" "$PWD" "$RDR" "$JID" && (printf "%s\\e[0m\\n" "Running: VAR=\"\$(grep -C 2 -ie error -ie errors \"$RDR/var/log/stnderr.$JID.log\")\" && VAR=\"\$(grep -v \\-\\- <<< \$VAR)\" && head <<< \$VAR && tail <<< \$VAR ") && VAR="$(grep -C 2 -ie error -ie errors "$RDR/var/log/stnderr.$JID.log")" && VAR="$(grep -v \\-\\- <<< $VAR)" && head <<< $VAR && tail <<< $VAR && printf "\\n\\n" 
+	[[ $(awk 'NR==1' "$RDR/.conf/QUIET") == false ]] && [ "$RV" != 0 ] && [ "$RV" != 224 ] && printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs signal %s received by %s in %s by build.one.bash.  More information in \`%s/var/log/stnderr.%s.log\` file.\\n\\n" "$RV" "${0##*/}" "$PWD" "$RDR" "$JID" && (printf "%s\\e[0m\\n" "Running: VAR=\"\$(grep -C 2 -ie error -ie errors \"$RDR/var/log/stnderr.$JID.log\")\" && VAR=\"\$(grep -v \\-\\- <<< \$VAR)\" && head <<< \$VAR && tail <<< \$VAR ") && VAR="$(grep -C 2 -ie error -ie errors "$RDR/var/log/stnderr.$JID.log")" && VAR="$(grep -v \\-\\- <<< "$VAR")" && head <<< "$VAR" && tail <<< "$VAR" && printf "\\n\\n" 
 	[[ $(awk 'NR==1' "$RDR/.conf/QUIET") == false ]] && [ "$RV" = 223 ] && printf "\\e[?25h\\e[1;7;38;5;0mSignal 223 generated in %s; Try running %s again; This error can be resolved by running %s in a directory that has an \`AndroidManifest.xml\` file.  More information in \`stnderr*.log\` files.\\n\\nRunning \`ls\`:\\e[0m\\n" "$PWD" "${0##*/}" "${0##*/}" && ls
 	[[ $(awk 'NR==1' "$RDR/.conf/QUIET") == false ]] && [ "$RV" = 224 ] && printf "\\e[?25h\\e[1;7;38;5;0mSignal 224 generated in %s;  Cannot run in folder %s; %s exiting...\\e[0m\\n" "$PWD" "$PWD" "${0##*/} build.one.bash"
  	_CLEANUP_
@@ -52,14 +53,14 @@ _CLEANUP_ () {
 	[ -d ./assets ] && rmdir --ignore-fail-on-non-empty ./assets
 	[ -d ./res ] && rmdir --ignore-fail-on-non-empty ./res
 	find . -name R.java -exec rm -f { } \;
-	printf "\\e[1;38;5;151mCompleted tasks in ~/%s/.\\n\\n\\e[0m" "$(cut -d"/" -f7-99 <<< $PWD)"
+	printf "\\e[1;38;5;151mCompleted tasks in ~/%s/.\\n\\n\\e[0m" "$(cut -d"/" -f7-99 <<< "$PWD")"
 }
 # if root directory is undefined, define the root directory as ~/buildAPKs 
 [ -z "${RDR:-}" ] && RDR="$HOME/buildAPKs"
 . "$RDR"/scripts/bash/shlibs/buildAPKs/copy.apk.bash
 # if working directory is $HOME or buildAPKs, exit 
 [ "$PWD" = "$HOME" ] || [ "${PWD##*/}" = buildAPKs ] && exit 224
-printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in ~/%s/:\\n\\e[0m" "$(cut -d"/" -f7-99 <<< $PWD)"
+printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in ~/%s/:\\n\\e[0m" "$(cut -d"/" -f7-99 <<< "$PWD")"
 # if variables are undefined, define variables
 [ -z "${DAY:-}" ] && DAY="$(date +%Y%m%d)"
 [ -z "${2:-}" ] && JDR="$PWD"
@@ -86,12 +87,12 @@ then # load artifacts and libraries into the build process
 		then	# search directory for artifacts and libraries
 			DIRLIS="$(find -L "$LIBDIR" -type f -name "*.aar" -or -type f -name "*.jar" -or -type f -name "*.vdex" 2>/dev/null)"||:
 			DIRLIST="$DIRLIST $DIRLIS"
-			NUMIA=$(wc -l <<< $DIRLIST)
+			NUMIA=$(wc -l <<< "$DIRLIST")
 	 		if [[ $DIRLIS == "" ]] # nothing was found 
 			then	# adjust ` wc -l ` count to zero
 				NUMIA=0
 			fi
-			printf "\\e[1;34m%s" "Adding $NUMIA artifacts and libraries from directory "$LIBDIR" into build "${PWD##*/}":  "
+			printf "\\e[1;34m%s" "Adding $NUMIA artifacts and libraries from directory $LIBDIR into build ${PWD##*/} : "
 		fi
 	done
 	for LIB in $DIRLIST
@@ -143,7 +144,7 @@ aapt package -f \
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "ecj: begun..."
 [[ $(head -n 1 "$RDR/.conf/DOSO") = 1 ]] && printf "%s\\n" "To build and include \`*.so\` files in the APK build change the 1 in file ~/${RDR##*/}/.conf/DOSO to a 0."
 [[ $(head -n 1 "$RDR/.conf/DOSO") = 0 ]] && (. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "\\e[1;48;5;166m%s\\e[0m\\n" "Signal generated doso.bash ${0##*/} build.one.bash. ")
-# [[ -d "$JDR/bin/lib/$CPUABI" ]] && ECJSO=" -classpath $JDR/bin/lib/$CPUABI" || ECJSO="" # https://www.eclipse.org/forums/index.php/t/94766/
+# [[ -d "$JDR/bin/lib/$CPUABI" ]] && ECJSO="-classpath $JDR/bin/lib/$CPUABI" || ECJSO="" # https://www.eclipse.org/forums/index.php/t/94766/
 [[ -d ./bin/lib ]] && ECJSO="$(find ./bin/lib -type f -name "*.so")" ||:
 if [[ -z "${ECJSO:-}" ]] # is undefined
 then # no files found
@@ -151,7 +152,7 @@ then # no files found
 else # populate ecj .so files string
 	ECJSO=" -classpath $ECJSO "
 fi
-ecj $ECJENT $ECJSO -d ./obj -sourcepath . $(find $JDR -type f -name "*.java") || ecj $ECJENT $ECJSO -d ./obj -sourcepath $(find $JDR -type f -name "*.java") || ( printf "\\e[1;48;5;167m%s\\e[0m\\n" "Signal generated ecj ${0##*/} build.one.bash." && exit 167 )
+ecj $ECJENT $ECJSO -d ./obj -sourcepath . $(find "$JDR" -type f -name "*.java") || ecj $ECJENT $ECJSO -d ./obj -sourcepath $(find "$JDR" -type f -name "*.java") || ( printf "\\e[1;48;5;167m%s\\e[0m\\n" "Signal generated ecj ${0##*/} build.one.bash." && exit 167 )
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started..."
 dx --dex --output=bin/classes.dex obj
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAME.apk..."

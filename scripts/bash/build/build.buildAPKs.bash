@@ -14,7 +14,7 @@ export OAUT="$(cat "$RDR/.conf/GAUTH" | awk 'NR==1')" # load login:token key fro
 . "$RDR/scripts/bash/shlibs/lock.bash" wake.start 
 . "$RDR/scripts/bash/shlibs/buildAPKs/bnchn.bash" bch.st 
 . "$RDR/scripts/bash/shlibs/buildAPKs/init/build.buildAPKs.modules.bash"
-LIST=($(find "$RDR/scripts/bash/build/" -type f -name "*.bash" -not -name "build.buildAPKs.bash" -not -name "build.in.dir.bash" -not -name "buildAll.bash"))
+LIST=("$(find "$RDR/scripts/bash/build/" -type f -name "*.bash" -not -name "build.buildAPKs.bash" -not -name "build.in.dir.bash" -not -name "buildAll.bash")")
 for NAME in "${LIST[@]}"
 do
 	"$NAME"
