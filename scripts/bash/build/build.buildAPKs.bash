@@ -9,7 +9,6 @@ export RDR="$HOME/buildAPKs"
 . "$RDR/scripts/bash/init/atrap.bash" 67 68 69 "${0##*/} build.buildAPKs.bash"
 export NUM="$(date +%s)"
 export RDR="$HOME/buildAPKs"
-export SDR="/scripts/bash/build"
 export OAUT="$(cat "$RDR/.conf/GAUTH" | awk 'NR==1')" # load login:token key from file.  File RDR/.conf/GAUTH has more information about enabling OAUTH authentication.
 . "$RDR/scripts/bash/shlibs/lock.bash" wake.start 
 . "$RDR/scripts/bash/shlibs/buildAPKs/bnchn.bash" bch.st 

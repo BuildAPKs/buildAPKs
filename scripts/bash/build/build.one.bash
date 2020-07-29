@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Copyright 2017-2020 (c) all rights reserved by BuildAPKs 
+# Copyright 2017-2020 (c) all rights reserved by BuildAPKs
 # See LICENSE for details https://buildapks.github.io/docsBuildAPKs/
-# Adapted from https://github.com/fx-adi-lima/android-tutorials
 #####################################################################
 set -Eeuo pipefail
 shopt -s nullglob globstar
+[ "$PWD" = "$HOME" ] || [ "${PWD##*/}" = buildAPKs ] && printf "\\e[?25h\\e[1;7;38;5;0mSignal 224 generated in %s;  Cannot run in folder %s; %s exiting...\\e[0m\\n" "$PWD" "$PWD" "${0##*/} build.one.bash" && exit 224
 
 _SBOTRPERROR_() { # run on script error
 	local RV="$?"
@@ -19,7 +19,6 @@ _SBOTRPEXIT_() { # run on exit
 	local RV="$?"
 	[[ $(awk 'NR==1' "$RDR/.conf/QUIET") == false ]] && [ "$RV" != 0 ] && [ "$RV" != 224 ] && printf "\\e[?25h\\e[1;7;38;5;0mbuildAPKs signal %s received by %s in %s by build.one.bash.  More information in \`%s/var/log/stnderr.%s.log\` file.\\n\\n" "$RV" "${0##*/}" "$PWD" "$RDR" "$JID" && (printf "%s\\e[0m\\n" "Running: VAR=\"\$(grep -C 2 -ie error -ie errors \"$RDR/var/log/stnderr.$JID.log\")\" && VAR=\"\$(grep -v \\-\\- <<< \$VAR)\" && head <<< \$VAR && tail <<< \$VAR ") && VAR="$(grep -C 2 -ie error -ie errors "$RDR/var/log/stnderr.$JID.log")" && VAR="$(grep -v \\-\\- <<< "$VAR")" && head <<< "$VAR" && tail <<< "$VAR" && printf "\\n\\n" 
 	[[ $(awk 'NR==1' "$RDR/.conf/QUIET") == false ]] && [ "$RV" = 223 ] && printf "\\e[?25h\\e[1;7;38;5;0mSignal 223 generated in %s; Try running %s again; This error can be resolved by running %s in a directory that has an \`AndroidManifest.xml\` file.  More information in \`stnderr*.log\` files.\\n\\nRunning \`ls\`:\\e[0m\\n" "$PWD" "${0##*/}" "${0##*/}" && ls
-	[[ $(awk 'NR==1' "$RDR/.conf/QUIET") == false ]] && [ "$RV" = 224 ] && printf "\\e[?25h\\e[1;7;38;5;0mSignal 224 generated in %s;  Cannot run in folder %s; %s exiting...\\e[0m\\n" "$PWD" "$PWD" "${0##*/} build.one.bash"
  	_CLEANUP_
 	printf "\\e[?25h\\e[0m"
 	set +Eeuo pipefail 
@@ -55,11 +54,11 @@ _CLEANUP_ () {
 	find . -name R.java -exec rm -f { } \;
 	printf "\\e[1;38;5;151mCompleted tasks in ~/%s/.\\n\\n\\e[0m" "$(cut -d"/" -f7-99 <<< "$PWD")"
 }
+
 # if root directory is undefined, define the root directory as ~/buildAPKs 
 [ -z "${RDR:-}" ] && RDR="$HOME/buildAPKs"
 . "$RDR"/scripts/bash/shlibs/buildAPKs/copy.apk.bash
 # if working directory is $HOME or buildAPKs, exit 
-[ "$PWD" = "$HOME" ] || [ "${PWD##*/}" = buildAPKs ] && exit 224
 printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in ~/%s/:\\n\\e[0m" "$(cut -d"/" -f7-99 <<< "$PWD")"
 # if variables are undefined, define variables
 [ -z "${DAY:-}" ] && DAY="$(date +%Y%m%d)"
