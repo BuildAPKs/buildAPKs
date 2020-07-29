@@ -4,7 +4,8 @@
 #####################################################################
 set -Eeuo pipefail
 shopt -s nullglob globstar
-[ "$PWD" = "$HOME" ] || [ "${PWD##*/}" = buildAPKs ] && printf "\\e[?25h\\e[1;7;38;5;0mSignal 224 generated in %s;  Cannot run in folder %s; %s exiting...\\e[0m\\n" "$PWD" "$PWD" "${0##*/} build.one.bash" && exit 224
+[ -z "${RDR:-}" ] && RDR="$HOME/buildAPKs"
+[ "$PWD" = "$HOME" ] || [ "$PWD" = "$RDR" ] && printf "\\e[?25h\\e[1;7;38;5;0mSignal 224 generated in %s;  Cannot run in folder %s; %s exiting...\\e[0m\\n" "$PWD" "$PWD" "${0##*/} build.one.bash" && exit 224
 
 _SBOTRPERROR_() { # run on script error
 	local RV="$?"
@@ -56,7 +57,6 @@ _CLEANUP_ () {
 }
 
 # if root directory is undefined, define the root directory as ~/buildAPKs 
-[ -z "${RDR:-}" ] && RDR="$HOME/buildAPKs"
 . "$RDR"/scripts/bash/shlibs/buildAPKs/copy.apk.bash
 # if working directory is $HOME or buildAPKs, exit 
 printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in ~/%s/:\\n\\e[0m" "$(cut -d"/" -f7-99 <<< "$PWD")"
@@ -134,6 +134,7 @@ sed -i "s/minSdkVersion\=\"[0-9][0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" Andro
 sed -i "s/targetSdkVersion\=\"[0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" AndroidManifest.xml 
 sed -i "s/targetSdkVersion\=\"[0-9][0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" AndroidManifest.xml 
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
+# build entry point
 aapt package -f \
  	--min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" --version-code "$NOW" --version-name "$PKGNAME" -c "$PSYSLOCAL" \
 	-M AndroidManifest.xml \
@@ -141,17 +142,7 @@ aapt package -f \
 	-J gen \
 	-S res
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "ecj: begun..."
-[[ $(head -n 1 "$RDR/.conf/DOSO") = 1 ]] && printf "%s\\n" "To build and include \`*.so\` files in the APK build change the 1 in file ~/${RDR##*/}/.conf/DOSO to a 0."
-[[ $(head -n 1 "$RDR/.conf/DOSO") = 0 ]] && (. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "\\e[1;48;5;166m%s\\e[0m\\n" "Signal generated doso.bash ${0##*/} build.one.bash. ")
-# [[ -d "$JDR/bin/lib/$CPUABI" ]] && ECJSO="-classpath $JDR/bin/lib/$CPUABI" || ECJSO="" # https://www.eclipse.org/forums/index.php/t/94766/
-[[ -d ./bin/lib ]] && ECJSO="$(find ./bin/lib -type f -name "*.so")" ||:
-if [[ -z "${ECJSO:-}" ]] # is undefined
-then # no files found
-	ECJSO=""
-else # populate ecj .so files string
-	ECJSO=" -classpath $ECJSO "
-fi
-ecj $ECJENT $ECJSO -d ./obj -sourcepath . $(find "$JDR" -type f -name "*.java") || ecj $ECJENT $ECJSO -d ./obj -sourcepath $(find "$JDR" -type f -name "*.java") || ( printf "\\e[1;48;5;167m%s\\e[0m\\n" "Signal generated ecj ${0##*/} build.one.bash." && exit 167 )
+ecj $ECJENT -d ./obj -sourcepath . $(find "$JDR" -type f -name "*.java") || ecj $ECJENT -d ./obj -sourcepath $(find "$JDR" -type f -name "*.java") || ( printf "\\e[1;48;5;167m%s\\e[0m\\n" "Signal generated ecj ${0##*/} build.one.bash." && exit 167 )
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started..."
 dx --dex --output=bin/classes.dex obj
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAME.apk..."
@@ -164,6 +155,8 @@ aapt package -f \
 	-A assets \
 	-F bin/"$PKGNAME".apk 
 cd bin 
+[[ $(head -n 1 "$RDR/.conf/DOSO") = 1 ]] && printf "%s\\n" "To build and include \`*.so\` files in the APK build change the 1 in file ~/${RDR##*/}/.conf/DOSO to a 0."
+[[ $(head -n 1 "$RDR/.conf/DOSO") = 0 ]] && (. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "\\e[1;48;5;166m%s\\e[0m\\n" "Signal generated doso.bash ${0##*/} build.one.bash. ")
 [[ ! -d lib ]] && mkdir -p lib 
 printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex $(find lib -type f -name "*.so") to $PKGNAME.apk..."
 aapt add -v -f "$PKGNAME.apk" classes.dex $(find lib -type f -name "*.so") 
