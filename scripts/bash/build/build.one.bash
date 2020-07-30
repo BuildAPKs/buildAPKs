@@ -66,11 +66,11 @@ printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in ~/%s/:\\n\\e[0m" "$(cut -d"/"
 [ -z "${JID:-}" ] && JID="${PWD##*/}" # https://www.tldp.org/LDP/abs/html/parameter-substitution.html 
 [ -z "${NUM:-}" ] && NUM=""
 # if it does not exist, create it 
-[ ! -e "./assets" ] && mkdir -p ./assets
-[ ! -e "./bin" ] && mkdir -p ./bin
-[ ! -e "./gen" ] && mkdir -p ./gen
-[ ! -e "./obj" ] && mkdir -p ./obj
-[ ! -e "./res" ] && mkdir -p ./res
+[ ! -e ./assets ] && mkdir -p ./assets
+[ ! -e ./bin/lib ] && mkdir -p ./bin/lib 
+[ ! -e ./gen ] && mkdir -p ./gen
+[ ! -e ./obj ] && mkdir -p ./obj
+[ ! -e ./res ] && mkdir -p ./res
 LIBAU="$(awk 'NR==1' "$RDR/.conf/LIBAUTH")" # load true/false from .conf/LIBAUTH file.  File LIBAUTH has information about loading artifacts and libraries into the build process. 
 if [[ "$LIBAU" == true ]]
 then # load artifacts and libraries into the build process
@@ -158,7 +158,6 @@ cd bin
 ISDOSO="$(head -n 1 "$RDR/.conf/DOSO")"
 [[ $ISDOSO = 0 ]] && (. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "\\e[1;48;5;166m%s\\e[0m\\n" "Signal generated doso.bash ${0##*/} build.one.bash. ")
 [[ $ISDOSO = 1 ]] && printf "%s\\n" "To build and include \`*.so\` files in the APK build change the 1 in file ~/${RDR##*/}/.conf/DOSO to a 0.  The command \`build.native.bash\` builds native APKs on device."
-[[ ! -d lib ]] && mkdir -p lib 
 printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex $(find lib -type f -name "*.so") to $PKGNAME.apk..."
 aapt add -v -f "$PKGNAME.apk" classes.dex $(find lib -type f -name "*.so") 
 printf "\\e[1;38;5;114m%s" "Signing $PKGNAME.apk: "
