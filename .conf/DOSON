@@ -1,2 +1,3 @@
 1
+Change the first line of this file to 0 (true) to enable ninja to build the `*.so` files instead of make for the APK build.  This feature is under development.
 # To enable ninja change the 1 to a 0.
