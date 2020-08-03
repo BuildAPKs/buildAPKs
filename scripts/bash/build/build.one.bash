@@ -65,6 +65,7 @@ printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in ~/%s/:\\n\\e[0m" "$(cut -d"/"
 [ -z "${2:-}" ] && JDR="$PWD"
 [ -z "${JID:-}" ] && JID="${PWD##*/}" # https://www.tldp.org/LDP/abs/html/parameter-substitution.html 
 [ -z "${NUM:-}" ] && NUM=""
+tree || ls -R
 # if it does not exist, create it 
 [ ! -e ./assets ] && mkdir -p ./assets
 [ ! -e ./bin/lib ] && mkdir -p ./bin/lib 
