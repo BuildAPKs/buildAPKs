@@ -1,1 +1,3 @@
 false
+# display build error messages 
+# QUIET EOF 
