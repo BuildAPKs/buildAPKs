@@ -4,13 +4,13 @@ These configuration files are located in ~/buildAPKs/.conf and their purpose is 
 
 | File Name | Purpose |
 | --------- | ------- |
-| DOSO      | use cmake && make to build `*.so` files (feature is under development) |
-| DOSON     | use cmake && ninja to build `*.so` files (feature is under development) |
+| DOSO      | use cmake && make to build `*.so` files **(feature is being development)** |
+| DOSON     | use cmake && ninja to build `*.so` files **(feature is being development)** |
 | DRLIM     | display rate limit check | 
 | GAUTH     | see file GAUTH for informtion |
 | LIBAUTH   | see file LIBAUTH for informtion (feature is under development) |
 | QUIET     | display build error messages |  
-| RDR       | project root directory (feature is under development) | 
+| RDR       | project root directory **(feature is under development)** | 
 | README.md | this file |
 | VERSIONID | current project version |
 <!-- BuildAPKs/.conf README.md EOF -->
