@@ -9,8 +9,8 @@ These configuration files are located in ~/buildAPKs/.conf and their purpose is 
 | DRLIM     | display rate limit | 
 | EXTSTDO   | install most of the installation in in external storage **(partial design ; testing )** |
 | GAUTH     | OAUTH GitHub authentication, file GAUTH has more informtion |
-| LIBAUTH   | add libraries and artifacts into the APK build, see file LIBAUTH for informtion **(partial design ; stable )** |
-| QUIET     | display build warning anf error messages |  
+| LIBAUTH   | add libraries and artifacts into the APK build, file LIBAUTH has more informtion **(partial design ; stable )** |
+| QUIET     | display build warning and error messages |  
 | RDR       | project root directory **(partial design ; stable )** |
 | README.md | this file |
 | VERSIONID | current project version |
