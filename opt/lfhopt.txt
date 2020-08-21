@@ -52,5 +52,5 @@ guidelines for /opt/package. A valid reason for diverging from this structure
 is for support packages which may have files installed in /opt/ 'provider'/
 lib or /opt/'provider'/bin.
 
-Source Page: https://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
+# Source Page: https://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 # lfhopt.txt EOF
