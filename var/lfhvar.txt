@@ -149,5 +149,5 @@ The following directories, or symbolic links to directories, must be in /var, if
   mail      User mailbox files (optional)
   yp        Network Information Service (NIS) database files (optional)
   
-Source Page: https://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/var.html
+# Source Page: https://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/var.html
 # lfhvar.txt EOF
