@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+		<!--	created with www.mysitemapgenerator.com	-->
+		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+	<loc>https://buildapks.github.io/</loc>
+	<lastmod>2020-08-27T05:24:16+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://buildapks.github.io/docsBuildAPKs/</loc>
+	<lastmod>2020-08-27T05:24:16+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://buildapks.github.io/docsBuildAPKs/init</loc>
+	<lastmod>2020-08-27T05:24:19+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://buildapks.github.io/docsBuildAPKs/easilyBuildAndroidAPKsOnDevice</loc>
+	<lastmod>2020-08-27T05:24:19+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://buildapks.github.io/docsBuildAPKs/setup</loc>
+	<lastmod>2020-08-27T05:24:19+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://buildapks.github.io/docsBuildAPKs/reallyEasilyBuildAndroidAPKsOnDevice</loc>
+	<lastmod>2020-08-27T05:24:19+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://buildapks.github.io/docsBuildAPKs/pages/asac</loc>
+	<lastmod>2020-08-27T05:24:19+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://buildapks.github.io/docsBuildAPKs/pages/asac.html</loc>
+	<lastmod>2020-08-27T05:24:20+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+</urlset>
