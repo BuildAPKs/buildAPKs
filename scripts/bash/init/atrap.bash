@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Copyright 2019-2020 (c) all rights reserved by S D Rausty; see LICENSE
+# Copyright 2019-2021 (c) all rights reserved by S D Rausty; see LICENSE
 # https://sdrausty.github.io published courtesy https://pages.github.com
 ################################################################################
 set -Eeuo pipefail
