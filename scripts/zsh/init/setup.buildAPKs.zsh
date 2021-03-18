@@ -10,6 +10,6 @@ STRING3="Cannot clone ~/buildAPKs: Continuing..."
 printf "\\e[1;38;5;117m%s\\e[0m\\n" "Beginning buildAPKs setup:"
 [ ! -z "$(command -v "au")" ] && (au aapt apksigner curl dx ecj git) || (printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING1") || [ ! -z "$(command -v apt)" ] && (apt install aapt apksigner curl dx ecj git) || (printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2") 
 cd "$HOME"
-git clone git://github.com/BuildAPKs/buildAPKs || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING3"
+git clone https://github.com/BuildAPKs/buildAPKs || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING3"
 bash "$HOME"/buildAPKs/scripts/bash/build/build.entertainment.bash "$@"
 # setup.BuildAPKs.zsh EOF
