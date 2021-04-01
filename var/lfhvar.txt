@@ -11,11 +11,11 @@ done to reduce the size of the root partition or when space runs low in the
 root partition.) However, /var must not be linked to /usr because this makes
 separation of /usr and /var more difficult and is likely to create a naming
 conflict. Instead, link /var to /usr/var.
-  
+
 Applications must generally not add directories to the top level of /var. Such
 directories should only be added if they have some system-wide implication, and
 in consultation with the FHS mailing list.
-  
+
 /var/backups
 Directory containing backups of various key system files such as /etc/shadow, /etc/group, /etc/inetd.conf and dpkg.status. They are normally renamed to something like dpkg.status.0, group.bak, gshadow.bak, inetd.conf.bak, passwd.bak, shadow.bak
 
@@ -129,7 +129,7 @@ The following directories, or symbolic links to directories, are required in /va
   /var/run	Data relevant to running processes
   /var/spool	Application spool data
   /var/tmp	Temporary files preserved between system reboots
-  
+
 
 Several directories are 'reserved' in the sense that they must not be used arbitrarily by some new application, since they would conflict with historical and/or local practice. They are:
 
@@ -138,7 +138,7 @@ Several directories are 'reserved' in the sense that they must not be used arbit
   /var/cron
   /var/msgs
   /var/preserve
-  
+
 
 The following directories, or symbolic links to directories, must be in /var, if the corresponding subsystem is installed:
 
@@ -148,6 +148,6 @@ The following directories, or symbolic links to directories, must be in /var, if
   games     Variable game data (optional)
   mail      User mailbox files (optional)
   yp        Network Information Service (NIS) database files (optional)
-  
+
 # source page https://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/var.html
 # lfhvar.txt EOF

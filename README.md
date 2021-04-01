@@ -3,13 +3,13 @@
 ## [buildAPKs](https://github.com/BuildAPKs/buildAPKs/)
 
 ##### -r--r--r-- [setup.buildAPKs.bash](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash)
-##### -rwxrwxrwx [setup.buildAPKs.bash](https://buildAPKs.github.io/buildAPKs/setup.buildAPKs.bash) 
+##### -rwxrwxrwx [setup.buildAPKs.bash](https://buildAPKs.github.io/buildAPKs/setup.buildAPKs.bash)
 
 BuildAPKs has [source code](https://github.com/BuildAPKs/) and [scripts](https://github.com/BuildAPKs/buildAPKs/tree/master/scripts/) in order to build APKs (Android Package Kits) on Android handhelds, smartphones and similar.  Quick setup instructions can be [found here](https://buildapks.github.io/docsBuildAPKs/setup) and [also right here.](https://buildapks.github.io/docsBuildAPKs/reallyEasilyBuildAndroidAPKsOnDevice)  To skip to installing in Amazon, Android, [Arch Linux](https://termuxarch.github.io/TermuxArch/), [Debian](https://termuxarch.github.io/docsTermuxArch/PRoot), Chromebook, [Ubuntu](https://termuxarch.github.io/docsTermuxArch/PRoot) and Windows on device in [Termux](https://github.com/termux/) and [Termux PRoot](https://github.com/termux/proot/) you can use:
 
 ```
 
-   apt install curl 
+   apt install curl
 
    curl -O https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash
 
@@ -29,13 +29,13 @@ Have you ever wanted to build your own application? Something that you can distr
 
 [BuildAPKs](https://github.com/BuildAPKs/) is a project containing repositories of source code designed just for this purpose.  Source code is the way programs are written in a human understandable language for applications to compile and then to be run on an Android device.  These programs have been successfully built on device, a smartphone.  First successful builds on Sun May 28 2017 in [Termux](https://github.com/termux/) (Android 6.0.1 aarch64).
 
-__Cloning and updating [submodules](https://gist.github.com/gitaarik/8735255) is automated into the ` build*.bash ` scripts.  To manually update this project to the newest version, see [` update.buildAPKs.sh `](https://github.com/shlibs/shlibs.sh/blob/master/buildAPKs/maintenance/up.sh) for information.__  If you recieve a history error message from git pull, the simplest solution is ` mv ~/buildAPKs ~/b0 ` and then reclone into the $HOME folder.  See [CHANGE.log](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/CHANGE.log) for this git repository's change history. 
+__Cloning and updating [submodules](https://gist.github.com/gitaarik/8735255) is automated into the ` build*.bash ` scripts.  To manually update this project to the newest version, see [` update.buildAPKs.sh `](https://github.com/shlibs/shlibs.sh/blob/master/buildAPKs/maintenance/up.sh) for information.__  If you recieve a history error message from git pull, the simplest solution is ` mv ~/buildAPKs ~/b0 ` and then reclone into the $HOME folder.  See [CHANGE.log](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/CHANGE.log) for this git repository's change history.
 
 The ` ~/buildAPKs/sources/github ` and ` ~/buildAPKs/var ` directories can be symbolic links to external storage space to save native space on device.  For example, a ` github/var ` directory can be created and each can be symlinked with ln -s.  Prefix the <code> build*.bash </code> scripts with bash to run buildAPKs in external storage, i.e. [`$ bash buildFlashlights.bash`](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/build/buildFlashlights.bash). Build Android APKs on device (smartphone and tablet).
 
-This command: ` for i in $(cat ~/buildAPKs/var/db/UNAMES) ; do ~/buildAPKs/build.github.bash $i ; done ` will attempt to build [UNAMES](https://raw.githubusercontent.com/BuildAPKs/db.BuildAPKs/master/UNAMES), all known GitHub usernames. 
+This command: ` for i in $(cat ~/buildAPKs/var/db/UNAMES) ; do ~/buildAPKs/build.github.bash $i ; done ` will attempt to build [UNAMES](https://raw.githubusercontent.com/BuildAPKs/db.BuildAPKs/master/UNAMES), all known GitHub usernames.
 
-While this command: ` for i in $(cat ~/buildAPKs/var/db/TNAMES) ; do ~/buildAPKs/scripts/bash/github/build.github.topics.bash $i ; done ` will attempt to build [TNAMES](https://raw.githubusercontent.com/BuildAPKs/db.BuildAPKs/master/TNAMES), all known GitHub topics at GitHub.  
+While this command: ` for i in $(cat ~/buildAPKs/var/db/TNAMES) ; do ~/buildAPKs/scripts/bash/github/build.github.topics.bash $i ; done ` will attempt to build [TNAMES](https://raw.githubusercontent.com/BuildAPKs/db.BuildAPKs/master/TNAMES), all known GitHub topics at GitHub.
 
 Submit a [pull request](https://github.com/BuildAPKs/db.BuildAPKs/pulls) at db.BuildAPKs to add names to these listings.  The [db.BuildAPKs ](https://github.com/BuildAPKs/db.BuildAPKs/tree/master/)[README.md](https://raw.githubusercontent.com/BuildAPKs/db.BuildAPKs/master/README.md) has more information about the new database buildAPKs uses.  File [BNAMES](https://raw.githubusercontent.com/BuildAPKs/db.BuildAPKs/master/BNAMES) contains results from accounts that built at least one APK on device with BuildAPKs.  The results are printed as follows: account name, download size, build time, number of AndroidManifest.xml files found, number of APKs built and the names of the APK files that built on device.
 

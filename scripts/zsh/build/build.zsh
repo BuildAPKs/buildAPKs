@@ -1,16 +1,16 @@
-#!/usr/bin/env zsh 
-# Copyright 2019 (c) all rights reserved 
+#!/usr/bin/env zsh
+# Copyright 2019 (c) all rights reserved
 # by BuildAPKs https://buildapks.github.io/buildAPKs/
 # Contributeur : https://github.com/HemanthJabalpuri
-# Invocation : $HOME/buildAPKs/scripts/zsh/build/build.zsh 
+# Invocation : $HOME/buildAPKs/scripts/zsh/build/build.zsh
 #####################################################################
 set -e
-for CMD in aapt apksigner dx ecj 
+for CMD in aapt apksigner dx ecj
 do
        	[ -z "$(command -v "$CMD")" ] && printf "%s\\n" " \"$CMD\" not found" && NOTFOUND=1
 done
 [ "$NOTFOUND" = "1" ] && exit
-[ "$1" ] && [ -f "$1/AndroidManifest.xml" ] && cd "$1" 
+[ "$1" ] && [ -f "$1/AndroidManifest.xml" ] && cd "$1"
 [ -f AndroidManifest.xml ] || exit
 
 _CLEANUP_() {
@@ -74,7 +74,7 @@ aapt package -f \
 
 
 printf "\\n%s\\n" "Adding classes.dex to $PKGNAME.apk..."
-cd bin || _UNTP_ 
+cd bin || _UNTP_
 aapt add -f "$PKGNAME.apk" classes.dex || { cd ..; _UNTP_; }
 
 printf "\\n%s\\n" "Signing $PKGNAME.apk..."

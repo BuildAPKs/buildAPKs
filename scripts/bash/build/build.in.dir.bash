@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Copyright 2019 (c) all rights reserved 
+# Copyright 2019 (c) all rights reserved
 # by SDRausty https://sdrausty.github.io
 #####################################################################
 set -Eeuo pipefail
@@ -13,8 +13,8 @@ export JID="in.dir.${JDR##*/}"
 export NUM="$(date +%s)"
 export OAUT="$(cat "$RDR/.conf/GAUTH" | awk 'NR==1')" # load login:token key from .conf/GAUTH file, see the GAUTH file for more information to enable OAUTH authentication
 . "$RDR"/scripts/bash/init/ushlibs.bash
-. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st 
-. "$RDR"/scripts/bash/shlibs/buildAPKs/fandm.bash 
-_ANDB_ 
-. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt 
+. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.st
+. "$RDR"/scripts/bash/shlibs/buildAPKs/fandm.bash
+_ANDB_
+. "$RDR"/scripts/bash/shlibs/buildAPKs/bnchn.bash bch.gt
 # build.in.dir.bash EOF

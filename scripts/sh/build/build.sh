@@ -1,17 +1,17 @@
-#!/usr/bin/env sh 
-# Copyright 2019 (c) all rights reserved 
+#!/usr/bin/env sh
+# Copyright 2019 (c) all rights reserved
 # by BuildAPKs https://buildapks.github.io/buildAPKs/
 # Contributeur : https://github.com/HemanthJabalpuri
-# Invocation : $HOME/buildAPKs/scripts/sh/build/build.sh 
+# Invocation : $HOME/buildAPKs/scripts/sh/build/build.sh
 #####################################################################
 set -e
 [ -z "${RDR:-}" ] && RDR="$HOME/buildAPKs"
-for CMD in aapt apksigner dx ecj 
+for CMD in aapt apksigner dx ecj
 do
        	[ -z "$(command -v "$CMD")" ] && printf "%s\\n" " \"$CMD\" not found" && NOTFOUND=1
 done
 [ "$NOTFOUND" = "1" ] && exit
-[ "$1" ] && [ -f "$1/AndroidManifest.xml" ] && cd "$1" 
+[ "$1" ] && [ -f "$1/AndroidManifest.xml" ] && cd "$1"
 [ -f AndroidManifest.xml ] || exit
 
 _CLEANUP_() {
@@ -75,11 +75,11 @@ aapt package -f \
 
 
 printf "\n%s\\n" "Adding classes.dex to $PKGNAME.apk..."
-cd bin || _UNTP_ 
+cd bin || _UNTP_
 aapt add -f "$PKGNAME.apk" classes.dex || { cd ..; _UNTP_; }
 
 printf "\n%s" "Signing $PKGNAME.apk: "
-apksigner sign --cert "$RDR/opt/key/certificate.pem" --key "$RDR/opt/key/key.pk8" "$PKGNAME.apk" || { cd ..; _UNTP_; } 
+apksigner sign --cert "$RDR/opt/key/certificate.pem" --key "$RDR/opt/key/key.pk8" "$PKGNAME.apk" || { cd ..; _UNTP_; }
 printf "%s\\n" "DONE"
 printf "%s" "Verifying $PKGNAME.apk: "
 apksigner verify --verbose "$PKGNAME.apk" || { cd ..; _UNTP_; }

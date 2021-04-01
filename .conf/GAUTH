@@ -1,9 +1,9 @@
 
-The first line of this file is intentionally left blank for the user to complete.  Insert an OAuth username token pair (user:token) in the first line of this file to enable OAuth authentication to complete this file.  
+The first line of this file is intentionally left blank for the user to complete.  Insert an OAuth username token pair (user:token) in the first line of this file to enable OAuth authentication to complete this file.
 
-The ` build.github*.bash ` scripts can stall for unauthenticated users of Github due to the high bandwith they consume when conducting multiple queries.  Enabling OAuth authentication increases the rate limit for authenticated Github users.  This link https://github.com/settings/tokens creates OAuth tokens easily.  
+The ` build.github*.bash ` scripts can stall for unauthenticated users of Github due to the high bandwith they consume when conducting multiple queries.  Enabling OAuth authentication increases the rate limit for authenticated Github users.  This link https://github.com/settings/tokens creates OAuth tokens easily.
 
-Information about Github authentication can be viewed at this address https://developer.github.com/v3/auth/#basic-authentication at Github.  This command ` grep -C 4 -hr AUT ~/buildAPKs/scripts/ ` shows how the user token combination is used in the buildAPKs scripts to access the increased rate limit for authenticated Github users.  
+Information about Github authentication can be viewed at this address https://developer.github.com/v3/auth/#basic-authentication at Github.  This command ` grep -C 4 -hr AUT ~/buildAPKs/scripts/ ` shows how the user token combination is used in the buildAPKs scripts to access the increased rate limit for authenticated Github users.
 
 A solution for a "stash them before you merge" message after running ` ~/buildAPKs/update.buildAPKs.sh ` is ` mv ~/buildAPKs/[file] ~/buildAPKs/stash/ ` to clear this message and update.  Compare the changes with ` diff ~/buildAPKs/[file] ~/buildAPKs/stash/[file] ` after updating.
 
@@ -15,5 +15,5 @@ After moving this file, run ` ~/buildAPKs/update.buildAPKs.sh ` again.  To add t
 ```
 (head -1 ~/buildAPKs/stash/GAUTH && cat ~/buildAPKs/.conf/GAUTH) > ~/buildAPKs/var/tmp/GAUTH.$$.tmp && mv ~/buildAPKs/var/tmp/GAUTH.$$.tmp ~/buildAPKs/.conf/GAUTH
 ```
-This will add the OAuth token from the copied ~/buildAPKs/stash/GAUTH file to the first line of the newly updated GAUTH file. 
+This will add the OAuth token from the copied ~/buildAPKs/stash/GAUTH file to the first line of the newly updated GAUTH file.
 # GAUTH EOF
