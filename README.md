@@ -17,7 +17,7 @@ BuildAPKs has [source code](https://github.com/BuildAPKs/) and [scripts](https:/
 
 ```
 
-[![Screenshot_20191210.jpg](https://raw.githubusercontent.com/BuildAPKs/docsBuildAPKs/master/bitpics/screenshots/Screenshot_20191210.jpg)](https://buildapks.github.io/docsBuildAPKs/setup)
+[![APKsBuiltInTermux.png](https://raw.githubusercontent.com/BuildAPKs/docsBuildAPKs/master/bitpics/APKsBuiltInTermux.png)](https://buildapks.github.io/docsBuildAPKs/setup)
 
 #### File [opt/db/BNAMES](https://raw.githubusercontent.com/BuildAPKs/db.BuildAPKs/master/BNAMES) contains built APKs information.
 
@@ -46,7 +46,7 @@ Prefix these bash scripts by typing dot slash ` ./ ` on your Android smartphone 
 
 The built APKs will be deposited into Download/builtAPKs if [Termux storage permission](https://github.com/termux/termux-app/blob/master/app/src/main/java/com/termux/app/TermuxActivity.java#L190&&#L198) is granted for installing on smartphone and tablet through browsers, and download and file managers.  Built APKs will be deposited into ~/buildAPKs/cache/builtAPKs if storage permission is not granted.  The minimal install size to start building your first applications is about 10MB.  Have fun and enjoy compiling, hacking, modifying and running these select APKs on device!
 
-[![APKsBuiltInTermux.png](https://raw.githubusercontent.com/BuildAPKs/docsBuildAPKs/master/bitpics/APKsBuiltInTermux.png)](https://buildapks.github.io/docsBuildAPKs/setup)
+[![Screenshot_20191210.jpg](https://raw.githubusercontent.com/BuildAPKs/docsBuildAPKs/master/bitpics/screenshots/Screenshot_20191210.jpg)](https://buildapks.github.io/docsBuildAPKs/setup)
 
 The [`buildAll.bash`](https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/build/buildAll.bash) command can build hundreds of APKs on your device.  Maximum space allotment for complete build of everything included (1209 APKs) is about 1.7GB for buildAPKs, plus about 124MB for the finished products deposited into Download/builtAPKs;  More than twelve hundred and nine (1209) Android applications can be made from source code available at [BuildAPKs](https://github.com/BuildAPKs) on device today.  With [build.github.bash](https://github.com/BuildAPKs/buildAPKs.github/blob/master/build.github.bash) you can build nearly an unlimited number of APKs which are available at GitHub.
 
