@@ -88,7 +88,7 @@ then
 	cat > "$PREFIX/etc/profile.d/buildAPKs.sh" <<- EOM
 	if [ -d "$HOME/buildAPKs/bin/" ]
 	then
-	PATH="$PATH:$HOME/buildAPKs/bin/"
+	PATH="\$PATH:\$HOME/buildAPKs/bin/"
 	fi
 	EOM
 fi
