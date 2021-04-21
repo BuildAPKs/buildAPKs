@@ -5,7 +5,7 @@
 set -Eeuo pipefail
 shopt -s nullglob globstar
 export RDR="$HOME/buildAPKs"
-[ "$PWD" = "$PREFIX" ] || [ "$PWD" = "$HOME" ] || [ "$PWD" = "$RDR" ] && printf "\\e[?25h\\e[1;7;38;5;0mSignal 224 generated in %s;  Cannot run in folder %s; %s exiting...\\e[0m\\n" "$PWD" "$PWD" "${0##*/} build.in.dir.bash" && exit 224
+[ "$PWD" = "$PREFIX" ] || [ "$PWD" = "$HOME" ] || [ "$PWD" = "$RDR" ] && printf "\\e[?25h\\e[1;7;38;5;0mSignal 224 generated in %s;  Command ${0##*/} cannot be run in directory %s; %s exiting...\\e[0m\\n" "$PWD" "$PWD" "${0##*/} build.in.dir.bash" && exit 224
 . "$RDR"/scripts/bash/init/atrap.bash 201 211 221 "${0##*/} build.in.dir.bash" wake.start
 export JDR="$PWD"
 export DAY="$(date +%Y%m%d)"
