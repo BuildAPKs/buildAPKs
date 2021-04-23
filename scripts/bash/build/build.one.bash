@@ -143,7 +143,7 @@ aapt package -f \
 	-J gen \
 	-S res
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "ecj: begun..."
-ecj $ECJENT -d ./obj -sourcepath . $(find "$JDR" -type f -name "*.java") || ecj $ECJENT -d ./obj -sourcepath $(find "$JDR" -type f -name "*.java") || ( printf "\\e[1;48;5;167m%s\\e[0m\\n" "Signal generated ecj ${0##*/} build.one.bash." && exit 167 )
+ecj $ECJENT -d ./obj -sourcepath . $(find "$JDR" -type f -name "*.java") || (printf "\\e[1;48;5;167m%s\\e[0m\\n" "Signal generated ecj ${0##*/} build.one.bash: Continuing...")
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started..."
 dx --dex --output=bin/classes.dex obj
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAME.apk..."
@@ -157,7 +157,7 @@ aapt package -f \
 	-F bin/"$PKGNAME".apk
 cd bin
 ISDOSO="$(head -n 1 "$RDR/.conf/DOSO")"
-[[ $ISDOSO = 0 ]] && (. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "\\e[1;48;5;166m%s\\e[0m\\n" "Signal generated doso.bash ${0##*/} build.one.bash. ")
+[[ $ISDOSO = 0 ]] && (. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "\\e[1;48;5;166m%s\\e[0m\\n" "Signal generated doso.bash ${0##*/} build.one.bash: Continuing...")
 [[ $ISDOSO = 1 ]] && printf "%s\\n" "To build and include \`*.so\` files in the APK build change the 1 in file ~/${RDR##*/}/.conf/DOSO to a 0.  The command \`build.native.bash\` builds native APKs on device."
 printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex $(find lib -type f -name "*.so") to $PKGNAME.apk..."
 aapt add -v -f "$PKGNAME.apk" classes.dex $(find lib -type f -name "*.so")
