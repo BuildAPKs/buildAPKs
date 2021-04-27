@@ -56,6 +56,11 @@ _CLEANUP_ () {
 	printf "\\e[1;38;5;151mCompleted tasks in ~/%s/.\\n\\n\\e[0m" "$(cut -d"/" -f7-99 <<< "$PWD")"
 }
 
+_PRINTSGE_ () {
+	printf "\\e[1;48;5;167m%s\\e[0m\\n" "Signal generated $1 ${0##*/} build.one.bash: EXITING..."
+	exit 220
+}
+
 # if root directory is undefined, define the root directory as ~/buildAPKs
 . "$RDR"/scripts/bash/shlibs/buildAPKs/copy.apk.bash
 # if working directory is $HOME or buildAPKs, exit
@@ -136,25 +141,13 @@ sed -i "s/targetSdkVersion\=\"[0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" Andr
 sed -i "s/targetSdkVersion\=\"[0-9][0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" AndroidManifest.xml
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 # build entry point
-aapt package -f \
- 	--min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" --version-code "$NOW" --version-name "$PKGNAME" -c "$PSYSLOCAL" \
-	-M AndroidManifest.xml \
- 	$AAPTENT \
-	-J gen \
-	-S res
+aapt package -f --min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" --version-code "$NOW" --version-name "$PKGNAME" -c "$PSYSLOCAL" -M AndroidManifest.xml $AAPTENT -J gen -S res || _PRINTSGE_ aapt
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "ecj: begun..."
-ecj $ECJENT -d ./obj -sourcepath . $(find "$JDR" -type f -name "*.java") || (printf "\\e[1;48;5;167m%s\\e[0m\\n" "Signal generated ecj ${0##*/} build.one.bash: EXITING..." && exit 220)
+ecj $ECJENT -d ./obj -sourcepath . $(find "$JDR" -type f -name "*.java") || _PRINTSGE_ ecj
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started..."
-dx --dex --output=bin/classes.dex obj
+dx --dex --output=bin/classes.dex obj || _PRINTSGE_ dx
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAME.apk..."
-aapt package -f \
- 	--min-sdk-version "$MSDKVERSION" \
-	--target-sdk-version "$TSDKVERSION" \
-	-M AndroidManifest.xml \
- 	$JSJCLASSPATH \
-	-S res \
-	-A assets \
-	-F bin/"$PKGNAME".apk
+aapt package -f --min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" -M AndroidManifest.xml $JSJCLASSPATH -S res -A assets -F bin/"$PKGNAME".apk || _PRINTSGE_ aapt
 cd bin
 ISDOSO="$(head -n 1 "$RDR/.conf/DOSO")"
 [[ $ISDOSO = 0 ]] && (. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "\\e[1;48;5;166m%s\\e[0m\\n" "Signal generated doso.bash ${0##*/} build.one.bash: Continuing...")
