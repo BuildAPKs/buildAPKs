@@ -16,6 +16,45 @@ BuildAPKs has [source code](https://github.com/BuildAPKs/) and [scripts](https:/
    bash setup.buildAPKs.bash
 
 ```
+Once buildAPKs is installed, these commands will become available after opening a new [Termux](https://github.com/termux/) session:
+```
+build.apps.bash
+build.bits.bash
+build.browsers.bash
+build.buildAPKs.bash
+build.buildAPKs.modules.bash
+build.clocks.bash
+build.code.google.com.bash
+build.compasses.bash
+build.demos.bash
+build.developers.tools.bash
+build.entertainment.bash
+build.flashlights.bash
+build.games.bash
+build.github.bash
+build.github.sequential.bash
+build.github.tarballs.bash
+build.github.topics.bash
+build.github.topics.bkp.bash
+build.github.topics30.bash
+build.hellos.bash
+build.in.dir.bash
+build.keyboards.bash
+build.launchers.bash
+build.live.wallpapers.bash
+build.native.bash
+build.one.bash
+build.repo.bash
+build.samples.bash
+build.top10.bash
+build.tutorials.bash
+build.widgets.bash
+buildAll.bash
+buildApplications.bash
+buildFlashlights.bash
+buildGames.bash
+buildSamples.bash
+```
 
 [![APKsBuiltInTermux.png](https://raw.githubusercontent.com/BuildAPKs/docsBuildAPKs/master/bitpics/APKsBuiltInTermux.png)](https://buildapks.github.io/docsBuildAPKs/setup)
 
