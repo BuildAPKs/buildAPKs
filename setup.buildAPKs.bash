@@ -83,6 +83,18 @@ if [[ ! -d "$RDR" ]]
 then
 	cd && git clone --depth 1 https://github.com/BuildAPKs/buildAPKs --branch master --single-branch || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
 fi
+if [[ -z "${PREFIX:-}" ]]
+then
+if [ ! -e "/etc/profile.d/buildAPKs.sh" ]
+then
+	cat > "/etc/profile.d/buildAPKs.sh" <<- EOM
+	if [ -d "$HOME/buildAPKs/bin/" ]
+	then
+	PATH="\$PATH:\$HOME/buildAPKs/bin/"
+	fi
+	EOM
+fi
+else
 if [ ! -e "$PREFIX/etc/profile.d/buildAPKs.sh" ]
 then
 	cat > "$PREFIX/etc/profile.d/buildAPKs.sh" <<- EOM
@@ -91,6 +103,7 @@ then
 	PATH="\$PATH:\$HOME/buildAPKs/bin/"
 	fi
 	EOM
+fi
 fi
 export JAD=github.com/BuildAPKs/buildAPKs.entertainment	# job address
 export JID=entertainment	# job id/name
