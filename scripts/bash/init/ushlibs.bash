@@ -17,7 +17,7 @@ _IRGR_() { # initialize a remote git repository
 _UFSHLIBS_() { # add and update submodules
 	declare -A ARSHLIBS # declare associative array for available submodules
 	ARSHLIBS=([scripts/bash/shlibs]="shlibs/shlibs.bash" [scripts/sh/shlibs]="shlibs/shlibs.sh" [opt/api/github]="BuildAPKs/buildAPKs.github" [opt/db]="BuildAPKs/db.BuildAPKs")
- 	printf "\\e[1;7;38;5;98mUpdating %s prerequisite components of ~/%s/:\\e[0m\\n" "${#ARSHLIBS[@]}" "${RDR##*/}"
+ 	printf "\\e[1;7;38;5;98mInstalling %s prerequisite components of ~/%s/:\\e[0m\\n" "${#ARSHLIBS[@]}" "${RDR##*/}"
 	for MLOC in "${!ARSHLIBS[@]}"
 	do
 		if grep "${ARSHLIBS[$MLOC]}" .gitmodules >/dev/null
