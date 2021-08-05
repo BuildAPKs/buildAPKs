@@ -53,7 +53,8 @@ _CLEANUP_ () {
  	rm -rf ./bin ./gen ./obj
 	[ -d ./assets ] && rmdir --ignore-fail-on-non-empty ./assets
 	[ -d ./res ] && rmdir --ignore-fail-on-non-empty ./res
-	find . -name R.java -exec rm -f { } \;
+	find . -type f -name *.class -delete
+	find . -type f -name R.java -delete
 	printf "\\e[1;38;5;151mCompleted tasks in ~/%s/.\\n\\n\\e[0m" "$(cut -d"/" -f7-99 <<< "$PWD")"
 }
 
