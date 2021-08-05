@@ -126,7 +126,6 @@ NOW=$(date +%s)
 PKGNAM="$(grep -o "package=.*" AndroidManifest.xml | cut -d\" -f2)"
 [ -f ./bin/"$PKGNAM.apk"  ] && rm ./bin/"$PKGNAM.apk"
 PKGNAME="$PKGNAM.$NOW"
-COMMANDIF="$(command -v getprop)"
 MSDKVERSION="$(getprop ro.build.version.min_supported_target_sdk)"
 PSYSLOCAL="$(getprop persist.sys.locale|awk -F- '{print $1}')"
 TSDKVERSION="$(getprop ro.build.version.sdk)"
