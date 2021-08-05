@@ -150,4 +150,8 @@ The following directories, or symbolic links to directories, must be in /var, if
   yp        Network Information Service (NIS) database files (optional)
 
 # source page https://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/var.html
+
+https://mvnrepository.com/artifact/com.android.support/appcompat-v7
+https://mvnrepository.com/artifact/androidx.appcompat
+
 # lfhvar.txt EOF
