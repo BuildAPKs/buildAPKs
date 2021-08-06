@@ -71,6 +71,7 @@ printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in ~/%s/:\\n\\e[0m" "$(cut -d"/"
 [ -z "${2:-}" ] && JDR="$PWD"
 [ -z "${JID:-}" ] && JID="${PWD##*/}" # https://www.tldp.org/LDP/abs/html/parameter-substitution.html
 [ -z "${NUM:-}" ] && NUM=""
+find . -maxdepth 1 -type f -name *.apk -delete
 tree || ls -R
 # if it does not exist, create it
 [ ! -e ./assets ] && mkdir -p ./assets
