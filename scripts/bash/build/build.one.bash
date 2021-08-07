@@ -75,7 +75,6 @@ find . -maxdepth 1 -type f -name *.apk -delete
 tree || ls -R
 # if it does not exist, create it
 [ ! -e ./assets ] && mkdir -p ./assets
-[ ! -e ./bin/lib ] && mkdir -p ./bin/lib
 [ ! -e ./gen ] && mkdir -p ./gen
 [ ! -e ./obj ] && mkdir -p ./obj
 [ ! -e ./res ] && mkdir -p ./res
@@ -87,12 +86,12 @@ then # load artifacts and libraries into the build process
 	SYSJCLASSPATH=""
 	JSJCLASSPATH=""
 	DIRLIST=""
-	LIBDIRPATH=("$JDR/../../../lib" "$JDR/../../../libraries" "$JDR/../../../library" "$JDR/../../../libs" "$JDR/../../lib" "$JDR/../../libraries" "$JDR/../../library" "$JDR/../../libs" "$JDR/../lib" "$JDR/../libraries" "$JDR/../library" "$JDR/../libs" "$JDR/lib" "$JDR/libraries" "$JDR/library" "$JDR/libs" "$RDR/var/cache/lib" "/system") # modify array LIBDIRPATH to suit the projects artifact needs.
+	LIBDIRPATH=("$JDR/lib" "$JDR/libraries" "$JDR/library" "$JDR/libs" "$RDR/var/cache/lib") # modify array LIBDIRPATH to suit the projects artifact needs.
 	for LIBDIR in ${LIBDIRPATH[@]} # every element in array LIBDIRPATH
 	do	# directory path check
 	 	if [[ -d "$LIBDIR" ]] # library directory exists
 		then	# search directory for artifacts and libraries
-			DIRLIS="$(find -L "$LIBDIR" -type f -name "*.aar" -or -type f -name "*.jar" -or -type f -name "*.vdex" 2>/dev/null)"||:
+			DIRLIS="$(find -L "$LIBDIR" -type f -name "*.jar" 2>/dev/null)"||:
 			DIRLIST="$DIRLIST $DIRLIS"
 			NUMIA=$(wc -l <<< "$DIRLIST")
 	 		if [[ $DIRLIS == "" ]] # nothing was found
