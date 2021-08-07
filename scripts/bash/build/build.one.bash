@@ -75,7 +75,7 @@ find . -maxdepth 1 -type f -name *.apk -delete
 tree || ls -R
 # if it does not exist, create it
 [ ! -e ./assets ] && mkdir -p ./assets
-[ ! -e ./bin ] && mkdir -p ./bin
+[ ! -e ./bin/lib ] && mkdir -p ./bin/lib
 [ ! -e ./gen ] && mkdir -p ./gen
 [ ! -e ./obj ] && mkdir -p ./obj
 [ ! -e ./res ] && mkdir -p ./res
