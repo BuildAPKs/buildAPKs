@@ -157,5 +157,5 @@ _COPYAPK_ || printf "%s\\n" "Unable to copy APK file ${0##*/} build.one.bash; Co
 mv "$PKGNAME.apk" ../"$PKGNAM.apk"
 cd ..
 printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐"
-printf "\\e[0m\\n\\e[1;38;5;116mThe build APK can be installed with the command ' termux-open ~/%s/%s '.\\n\\e[0m" "$(cut -d"/" -f7-99 <<< "$PWD")" "$PKGNAM.apk"
+printf "\\e[0m\\n\\e[1;38;5;116mThe build APK can be installed with the command: \\e[1;38;5;115m' termux-open ~/%s/%s '\\e[1;38;5;116m.\\n\\e[0m" "$(cut -d"/" -f7-99 <<< "$PWD")" "$PKGNAM.apk"
 # build.one.bash EOF
