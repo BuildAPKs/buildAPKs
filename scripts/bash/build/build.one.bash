@@ -72,7 +72,7 @@ printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in ~/%s/:\\n\\e[0m" "$(cut -d"/"
 [ -z "${JID:-}" ] && JID="${PWD##*/}" # https://www.tldp.org/LDP/abs/html/parameter-substitution.html
 [ -z "${NUM:-}" ] && NUM=""
 find . -maxdepth 1 -type f -name *.apk -delete
-find . -type f -print | sed -e 's;[^/]*/;|__;g;s;__|; |;g' | sort
+find . -type f -print | sed -e 's;[^/]*/;|_;g;s;_|; |;g' | sort
 # if it does not exist, create it
 [ ! -e ./assets ] && mkdir -p ./assets
 [ ! -e ./bin/lib ] && mkdir -p ./bin/lib
