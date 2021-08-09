@@ -108,4 +108,6 @@ fi
 export JAD=github.com/BuildAPKs/buildAPKs.entertainment	# job address
 export JID=entertainment	# job id/name
 bash "$RDR"/scripts/bash/init/init.bash "$@"
+cd "$RDR"
+sed -i '/gitmodules/d' *.sum
 # setup.buildAPKs.bash EOF
