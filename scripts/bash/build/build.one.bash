@@ -156,6 +156,6 @@ apksigner verify --verbose "$PKGNAME.apk"
 _COPYAPK_ || printf "%s\\n" "Unable to copy APK file ${0##*/} build.one.bash; Continuing..."
 mv "$PKGNAME.apk" ../"$PKGNAM.apk"
 cd ..
-printf "\\e[1;38;5;116mThe built APK can be installed with the command: \\e[1;38;5;115m' termux-open ~/%s/%s '\\e[1;38;5;116m.\\n" "$(cut -d"/" -f7-99 <<< "$PWD")" "$PKGNAM.apk"
+printf "\\e[1;38;5;116mThe built APK can be installed with the command:  termux-open ~/%s/%s  \\n" "$(cut -d"/" -f7-99 <<< "$PWD")" "$PKGNAM.apk"
 printf "\\e[1;7;38;5;34mPlease share %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐"
 # build.one.bash EOF
