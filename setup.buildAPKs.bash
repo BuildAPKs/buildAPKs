@@ -49,7 +49,7 @@ _INPKGS_() {
 	then
 		au "${PKGS[@]}" || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
 	else
-		( apt update && apt upgrade -y && apt install "${PKGS[@]}" ) || printf "\\e[1;37;5;116m%s\\e[0m\\n" "$STRING2"
+		( apt update && apt upgrade -y && apt install -y "${PKGS[@]}" ) || printf "\\e[1;37;5;116m%s\\e[0m\\n" "$STRING2"
 	fi
 }
 
