@@ -49,7 +49,13 @@ _INPKGS_() {
 	then
 		au "${PKGS[@]}" || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
 	else
+	if [[ -z "${COMMANDAPTUP:-}" ]]
+	then
+		COMMANDAPTUP=0
 		( apt update && apt upgrade -y && apt install -y "${PKGS[@]}" ) || printf "\\e[1;37;5;116m%s\\e[0m\\n" "$STRING2"
+	else
+ 		apt install -y "${PKGS[@]}" || printf "\\e[1;37;5;116m%s\\e[0m\\n" "$STRING2"
+	fi
 	fi
 }
 
@@ -62,7 +68,7 @@ declare RDR
 export RDR="$HOME/buildAPKs"
 STRING1="COMMAND \`au\` enables rollback, available at https://wae.github.io/au/ IS NOT FOUND: Continuing... "
 STRING2="Cannot update ~/${RDR##*/} prerequisite: Continuing..."
-PKGS=(aapt apksigner curl dx ecj git)
+PKGS=(tree aapt apksigner curl dx ecj git)
 if [[ -z "${1:-}" ]]
 then
 	ARGS=""
