@@ -148,9 +148,9 @@ printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "dalvikvm: 
 unset JAVA_HOME
 dalvikvm -Xmx512m -Xcompiler-option --compiler-filter=speed -cp "$PREFIX"/share/dex/ecj.jar org.eclipse.jdt.internal.compiler.batch.Main -proc:none -source 1.8 -target 1.8 -cp "$PREFIX"/share/java/android.jar $ECJENT -d ./obj . || _PRINTSGE_ ecj
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "dalvikvm: done" "dx: started..."
-dx --dex --output=bin/classes.dex obj || _PRINTSGE_ dx
+dx --dex --output=bin/classes.dex ./obj || _PRINTSGE_ dx
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAME.apk..."
-aapt package -f --min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" -M AndroidManifest.xml $JSJCLASSPATH -S res -A assets -F bin/"$PKGNAME".apk || _PRINTSGE_ aapt
+aapt package -f --min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" -M AndroidManifest.xml $JSJCLASSPATH -S ./res -A ./assets -F ./bin/"$PKGNAME".apk || _PRINTSGE_ aapt
 cd bin
 ISDOSO="$(head -n 1 "$RDR/.conf/DOSO")"
 [[ $ISDOSO = 0 ]] && (. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "\\e[1;48;5;166m%s\\e[0m\\n" "Signal generated doso.bash ${0##*/} build.one.bash: Continuing...")
