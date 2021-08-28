@@ -48,11 +48,12 @@ trap _SBOTRPQUIT_ QUIT
 _CLEANUP_ () {
 	sleep 0."$(shuf -i 24-72 -n 1)" # add device latency support
 	printf "\\e[1;38;5;151m%s\\n\\e[0m" "Completing tasks..."
-	rm -f *-debug.key
+	rm -f ./*-debug.key
  	rm -rf ./bin ./gen ./obj
 	[ -d ./assets ] && rmdir --ignore-fail-on-non-empty ./assets
 	[ -d ./res ] && rmdir --ignore-fail-on-non-empty ./res
-	find . -name R.java -exec rm -f { } \;
+	find . -type f -name "*.class" -delete
+	find . -type f -name R.java -delete
 	printf "\\e[1;38;5;151mCompleted tasks in ~/%s/.\\n\\n\\e[0m" "$(cut -d"/" -f7-99 <<< "$PWD")"
 }
 
@@ -66,17 +67,18 @@ _PRINTSGE_ () {
 # if working directory is $HOME or buildAPKs, exit
 printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in ~/%s/:\\n\\e[0m" "$(cut -d"/" -f7-99 <<< "$PWD")"
 # if variables are undefined, define variables
+find . -maxdepth 1 -type f -name "*.apk" -delete
+find . -type f -print | sed -e 's;[^/]*/;|_;g;s;_|; |;g' | sort -r
 [ -z "${DAY:-}" ] && DAY="$(date +%Y%m%d)"
 [ -z "${2:-}" ] && JDR="$PWD"
 [ -z "${JID:-}" ] && JID="${PWD##*/}" # https://www.tldp.org/LDP/abs/html/parameter-substitution.html
 [ -z "${NUM:-}" ] && NUM=""
-tree || ls -R
 # if it does not exist, create it
-[ ! -e ./assets ] && mkdir -p ./assets
-[ ! -e ./bin/lib ] && mkdir -p ./bin/lib
-[ ! -e ./gen ] && mkdir -p ./gen
-[ ! -e ./obj ] && mkdir -p ./obj
-[ ! -e ./res ] && mkdir -p ./res
+[ -e ./assets ] || mkdir -p ./assets
+[ -e ./bin/lib ] || mkdir -p ./bin/lib
+[ -e ./gen ] || mkdir -p ./gen
+[ -e ./obj ] || mkdir -p ./obj
+[ -e ./res ] || mkdir -p ./res
 LIBAU="$(awk 'NR==1' "$RDR/.conf/LIBAUTH")" # load true/false from .conf/LIBAUTH file.  File LIBAUTH has information about loading artifacts and libraries into the build process.
 if [[ "$LIBAU" == true ]]
 then # load artifacts and libraries into the build process
@@ -85,12 +87,12 @@ then # load artifacts and libraries into the build process
 	SYSJCLASSPATH=""
 	JSJCLASSPATH=""
 	DIRLIST=""
-	LIBDIRPATH=("$JDR/../../../lib" "$JDR/../../../libraries" "$JDR/../../../library" "$JDR/../../../libs" "$JDR/../../lib" "$JDR/../../libraries" "$JDR/../../library" "$JDR/../../libs" "$JDR/../lib" "$JDR/../libraries" "$JDR/../library" "$JDR/../libs" "$JDR/lib" "$JDR/libraries" "$JDR/library" "$JDR/libs" "$RDR/var/cache/lib" "/system") # modify array LIBDIRPATH to suit the projects artifact needs.
+	LIBDIRPATH=("$JDR/lib" "$JDR/libraries" "$JDR/library" "$JDR/libs" "$RDR/var/cache/lib") # modify array LIBDIRPATH to suit the projects artifact needs.
 	for LIBDIR in ${LIBDIRPATH[@]} # every element in array LIBDIRPATH
 	do	# directory path check
 	 	if [[ -d "$LIBDIR" ]] # library directory exists
 		then	# search directory for artifacts and libraries
-			DIRLIS="$(find -L "$LIBDIR" -type f -name "*.aar" -or -type f -name "*.jar" -or -type f -name "*.vdex" 2>/dev/null)"||:
+			DIRLIS="$(find -L "$LIBDIR" -type f -name "*.jar" 2>/dev/null)" || _PRINTSGE_ DIRLIS
 			DIRLIST="$DIRLIST $DIRLIS"
 			NUMIA=$(wc -l <<< "$DIRLIST")
 	 		if [[ $DIRLIS == "" ]] # nothing was found
@@ -162,5 +164,6 @@ apksigner verify --verbose "$PKGNAME.apk"
 _COPYAPK_ || printf "%s\\n" "Unable to copy APK file ${0##*/} build.one.bash; Continuing..."
 mv "$PKGNAME.apk" ../"$PKGNAM.apk"
 cd ..
-printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐"
+printf "\\e[1;38;5;116mThe built APK can be installed with the command:  termux-open ~/%s/%s  \\n" "$(cut -d"/" -f7-99 <<< "$PWD")" "$PKGNAM.apk"
+printf "\\e[1;7;38;5;34mPlease share %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐"
 # build.one.bash EOF
