@@ -137,7 +137,7 @@ printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 # begin build
 aapt package -f --generate-dependencies --min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" --version-code "$NOW" --version-name "$PKGNAME" -c "$PSYSLOCALE" --non-constant-id -m -M AndroidManifest.xml -S ./res -J ./gen
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "ecj: begun..."
-ecj $ECJENT -d ./obj -sourcepath . $(find "$JDR" -type f -name "*.java") || _PRINTSGE_ ecj
+ecj $ECJENT -d ./obj -sourcepath . $(find . -type f -name "*.java") || _PRINTSGE_ ecj
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started..."
 dx --dex --output=bin/classes.dex obj || _PRINTSGE_ dx
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAME.apk..."
