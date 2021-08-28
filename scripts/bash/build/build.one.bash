@@ -137,11 +137,12 @@ printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 # begin build
 aapt package -f --generate-dependencies --min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" --version-code "$NOW" --version-name "$PKGNAME" -c "$PSYSLOCALE" --non-constant-id -m -M AndroidManifest.xml -S ./res -J ./gen
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "ecj: begun..."
-ecj $ECJENT -d ./obj -sourcepath . $(find . -type f -name "*.java") || _PRINTSGE_ ecj
+unset JAVA_HOME
+dalvikvm -Xmx512m -Xcompiler-option --compiler-filter=speed -cp "$PREFIX"/share/dex/ecj.jar org.eclipse.jdt.internal.compiler.batch.Main -proc:none -source 1.8 -target 1.8 -cp "$PREFIX"/share/java/android.jar -d ./obj . || _PRINTSGE_ ecj
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started..."
-dx --dex --output=bin/classes.dex obj || _PRINTSGE_ dx
+dx --dex --output=bin/classes.dex ./obj || _PRINTSGE_ dx
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAME.apk..."
-aapt package -f --min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" -M AndroidManifest.xml $JSJCLASSPATH -S res -A assets -F bin/"$PKGNAME".apk || _PRINTSGE_ aapt
+aapt package -f --min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" -M AndroidManifest.xml $JSJCLASSPATH -S ./res -A ./assets -F ./bin/"$PKGNAME".apk || _PRINTSGE_ aapt
 cd bin
 ISDOSO="$(head -n 1 "$RDR/.conf/DOSO")"
 [[ $ISDOSO = 0 ]] && (. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "\\e[1;48;5;166m%s\\e[0m\\n" "Signal generated doso.bash ${0##*/} build.one.bash: Continuing...")
