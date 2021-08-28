@@ -115,7 +115,7 @@ then # load artifacts and libraries into the build process
 	[ -e "./libs/res-design" ] && AAPTENT=" -S libs/res-design $AAPTENT"
 	[ -e "./libs/res-recyclerview" ] && AAPTENT=" -S libs/res-recyclerview $AAPTENT"
  	AAPTENT=" --auto-add-overlay $SYSJCLASSPATH " # add 500K
- 	ECJENT=" -classpath $BOOTCLASSPATH "
+ 	ECJENT=" -cp $BOOTCLASSPATH "
 	printf "\\e[1;32m\\bDONE\\e[0m\\n"
 else # do not load artifacts and libraries into the build process.
  	AAPTENT=""
@@ -144,9 +144,10 @@ sed -i "s/targetSdkVersion\=\"[0-9][0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g"
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 # build entry point
 aapt package -f --min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" --version-code "$NOW" --version-name "$PKGNAME" -c "$PSYSLOCAL" -M AndroidManifest.xml $AAPTENT -J gen -S res || _PRINTSGE_ aapt
-printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "ecj: begun..."
-ecj $ECJENT -d ./obj -sourcepath . $(find "$JDR" -type f -name "*.java") || _PRINTSGE_ ecj
-printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started..."
+printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "dalvikvm: begun..."
+unset JAVA_HOME
+dalvikvm -Xmx512m -Xcompiler-option --compiler-filter=speed -cp "$PREFIX"/share/dex/ecj.jar org.eclipse.jdt.internal.compiler.batch.Main -proc:none -source 1.8 -target 1.8 -cp "$PREFIX"/share/java/android.jar $ECJENT -d ./obj . || _PRINTSGE_ ecj
+printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "dalvikvm: done" "dx: started..."
 dx --dex --output=bin/classes.dex obj || _PRINTSGE_ dx
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAME.apk..."
 aapt package -f --min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" -M AndroidManifest.xml $JSJCLASSPATH -S res -A assets -F bin/"$PKGNAME".apk || _PRINTSGE_ aapt
