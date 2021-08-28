@@ -5,7 +5,7 @@
 set -Eeuo pipefail
 shopt -s nullglob globstar
 [ -z "${RDR:-}" ] && RDR="$HOME/buildAPKs"
-[ "$PWD" = "$HOME" ] || [ "$PWD" = "$RDR" ] && printf "\\e[?25h\\e[1;7;38;5;0mSignal 224 generated in %s;  Command '${0##*/}' cannot be run in directory %s; %s exiting...\\e[0m\\n" "$PWD" "$PWD" "${0##*/} build.one.bash" && exit 224
+[ "$PWD" = "$PREFIX" ] || [ "$PWD" = "$HOME" ] || [ "$PWD" = "$RDR" ] && printf "\\e[?25h\\e[1;7;38;5;0mSignal 224 generated in %s;  Command '${0##*/}' cannot be run in directory %s; %s exiting...\\e[0m\\n" "$PWD" "$PWD" "${0##*/} build.one.bash" && exit 224
 
 _SBOTRPERROR_() { # run on script error
 	local RV="$?"
@@ -48,12 +48,11 @@ trap _SBOTRPQUIT_ QUIT
 _CLEANUP_ () {
 	sleep 0."$(shuf -i 24-72 -n 1)" # add device latency support
 	printf "\\e[1;38;5;151m%s\\n\\e[0m" "Completing tasks..."
-	rm -f ./*-debug.key
+	rm -f *-debug.key
  	rm -rf ./bin ./gen ./obj
 	[ -d ./assets ] && rmdir --ignore-fail-on-non-empty ./assets
 	[ -d ./res ] && rmdir --ignore-fail-on-non-empty ./res
-	find . -type f -name "*.class" -delete
-	find . -type f -name R.java -delete
+	find . -name R.java -exec rm -f { } \;
 	printf "\\e[1;38;5;151mCompleted tasks in ~/%s/.\\n\\n\\e[0m" "$(cut -d"/" -f7-99 <<< "$PWD")"
 }
 
@@ -71,14 +70,13 @@ printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in ~/%s/:\\n\\e[0m" "$(cut -d"/"
 [ -z "${2:-}" ] && JDR="$PWD"
 [ -z "${JID:-}" ] && JID="${PWD##*/}" # https://www.tldp.org/LDP/abs/html/parameter-substitution.html
 [ -z "${NUM:-}" ] && NUM=""
-find . -maxdepth 1 -type f -name "*.apk" -delete
-find . -type f -print | sed -e 's;[^/]*/;|_;g;s;_|; |;g' | sort -r
+tree || ls -R
 # if it does not exist, create it
-[ -e ./assets ] || mkdir -p ./assets
-[ -e ./bin/lib ] || mkdir -p ./bin/lib
-[ -e ./gen ] || mkdir -p ./gen
-[ -e ./obj ] || mkdir -p ./obj
-[ -e ./res ] || mkdir -p ./res
+[ ! -e ./assets ] && mkdir -p ./assets
+[ ! -e ./bin/lib ] && mkdir -p ./bin/lib
+[ ! -e ./gen ] && mkdir -p ./gen
+[ ! -e ./obj ] && mkdir -p ./obj
+[ ! -e ./res ] && mkdir -p ./res
 LIBAU="$(awk 'NR==1' "$RDR/.conf/LIBAUTH")" # load true/false from .conf/LIBAUTH file.  File LIBAUTH has information about loading artifacts and libraries into the build process.
 if [[ "$LIBAU" == true ]]
 then # load artifacts and libraries into the build process
@@ -87,12 +85,12 @@ then # load artifacts and libraries into the build process
 	SYSJCLASSPATH=""
 	JSJCLASSPATH=""
 	DIRLIST=""
-	LIBDIRPATH=("$JDR/lib" "$JDR/libraries" "$JDR/library" "$JDR/libs" "$RDR/var/cache/lib") # modify array LIBDIRPATH to suit the projects artifact needs.
+	LIBDIRPATH=("$JDR/../../../lib" "$JDR/../../../libraries" "$JDR/../../../library" "$JDR/../../../libs" "$JDR/../../lib" "$JDR/../../libraries" "$JDR/../../library" "$JDR/../../libs" "$JDR/../lib" "$JDR/../libraries" "$JDR/../library" "$JDR/../libs" "$JDR/lib" "$JDR/libraries" "$JDR/library" "$JDR/libs" "$RDR/var/cache/lib" "/system") # modify array LIBDIRPATH to suit the projects artifact needs.
 	for LIBDIR in ${LIBDIRPATH[@]} # every element in array LIBDIRPATH
 	do	# directory path check
 	 	if [[ -d "$LIBDIR" ]] # library directory exists
 		then	# search directory for artifacts and libraries
-			DIRLIS="$(find -L "$LIBDIR" -type f -name "*.jar" 2>/dev/null)"||:
+			DIRLIS="$(find -L "$LIBDIR" -type f -name "*.aar" -or -type f -name "*.jar" -or -type f -name "*.vdex" 2>/dev/null)"||:
 			DIRLIST="$DIRLIST $DIRLIS"
 			NUMIA=$(wc -l <<< "$DIRLIST")
 	 		if [[ $DIRLIS == "" ]] # nothing was found
@@ -126,23 +124,30 @@ NOW=$(date +%s)
 PKGNAM="$(grep -o "package=.*" AndroidManifest.xml | cut -d\" -f2)"
 [ -f ./bin/"$PKGNAM.apk"  ] && rm ./bin/"$PKGNAM.apk"
 PKGNAME="$PKGNAM.$NOW"
-MSDKVERSION="$(getprop ro.build.version.min_supported_target_sdk)"
-PSYSLOCALE="$(getprop persist.sys.locale|awk -F- '{print $1}')"
-TSDKVERSION="$(getprop ro.build.version.sdk)"
+COMMANDIF="$(command -v getprop)" ||:
+if [[ "$COMMANDIF" = "" ]]
+then
+	MSDKVERSION="14"
+ 	PSYSLOCAL="en"
+	TSDKVERSION="23"
+else
+	MSDKVERSION="$(getprop ro.build.version.min_supported_target_sdk)" || printf "%s" "signal ro.build.version.min_supported_target_sdk ${0##*/} build.one.bash generated; Continuing...  " && MSDKVERSION="14"
+ 	PSYSLOCAL="$(getprop persist.sys.locale|awk -F- '{print $1}')" || printf "%s" "Signal persist.sys.locale ${0##*/} build.one.bash generated; Continuing...  " && PSYSLOCAL="en"
+	TSDKVERSION="$(getprop ro.build.version.sdk)" || printf "%s" "Signal ro.build.version.sdk ${0##*/} build.one.bash generated; Continuing...  " && TSDKVERSION="23"
+fi
 sed -i "s/minSdkVersion\=\"[0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml
 sed -i "s/minSdkVersion\=\"[0-9][0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml
 sed -i "s/targetSdkVersion\=\"[0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" AndroidManifest.xml
 sed -i "s/targetSdkVersion\=\"[0-9][0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" AndroidManifest.xml
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
-# begin build
-aapt package -f --generate-dependencies --min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" --version-code "$NOW" --version-name "$PKGNAME" -c "$PSYSLOCALE" --non-constant-id -m -M AndroidManifest.xml -S ./res -J ./gen
+# build entry point
+aapt package -f --min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" --version-code "$NOW" --version-name "$PKGNAME" -c "$PSYSLOCAL" -M AndroidManifest.xml $AAPTENT -J gen -S res || _PRINTSGE_ aapt
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "ecj: begun..."
-unset JAVA_HOME
-dalvikvm -Xmx512m -Xcompiler-option --compiler-filter=speed -cp "$PREFIX"/share/dex/ecj.jar org.eclipse.jdt.internal.compiler.batch.Main -proc:none -source 1.8 -target 1.8 -cp "$PREFIX"/share/java/android.jar -d ./obj . || _PRINTSGE_ ecj
+ecj $ECJENT -d ./obj -sourcepath . $(find "$JDR" -type f -name "*.java") || _PRINTSGE_ ecj
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "ecj: done" "dx: started..."
-dx --dex --output=bin/classes.dex ./obj || _PRINTSGE_ dx
+dx --dex --output=bin/classes.dex obj || _PRINTSGE_ dx
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAME.apk..."
-aapt package -f --min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" -M AndroidManifest.xml $JSJCLASSPATH -S ./res -A ./assets -F ./bin/"$PKGNAME".apk || _PRINTSGE_ aapt
+aapt package -f --min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" -M AndroidManifest.xml $JSJCLASSPATH -S res -A assets -F bin/"$PKGNAME".apk || _PRINTSGE_ aapt
 cd bin
 ISDOSO="$(head -n 1 "$RDR/.conf/DOSO")"
 [[ $ISDOSO = 0 ]] && (. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "\\e[1;48;5;166m%s\\e[0m\\n" "Signal generated doso.bash ${0##*/} build.one.bash: Continuing...")
@@ -157,6 +162,5 @@ apksigner verify --verbose "$PKGNAME.apk"
 _COPYAPK_ || printf "%s\\n" "Unable to copy APK file ${0##*/} build.one.bash; Continuing..."
 mv "$PKGNAME.apk" ../"$PKGNAM.apk"
 cd ..
-printf "\\e[1;38;5;116mThe built APK can be installed with the command:  termux-open ~/%s/%s  \\n" "$(cut -d"/" -f7-99 <<< "$PWD")" "$PKGNAM.apk"
-printf "\\e[1;7;38;5;34mPlease share %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐"
+printf "\\e[?25h\\e[1;7;38;5;34mShare %s everwhere%s!\\e[0m\\n" "https://wiki.termux.com/wiki/Development" "🌎🌍🌏🌐"
 # build.one.bash EOF
