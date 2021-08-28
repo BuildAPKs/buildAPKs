@@ -48,11 +48,11 @@ trap _SBOTRPQUIT_ QUIT
 _CLEANUP_ () {
 	sleep 0."$(shuf -i 24-72 -n 1)" # add device latency support
 	printf "\\e[1;38;5;151m%s\\n\\e[0m" "Completing tasks..."
-	rm -f *-debug.key
+	rm -f ./*-debug.key
  	rm -rf ./bin ./gen ./obj
 	[ -d ./assets ] && rmdir --ignore-fail-on-non-empty ./assets
 	[ -d ./res ] && rmdir --ignore-fail-on-non-empty ./res
-	find . -type f -name *.class -delete
+	find . -type f -name "*.class" -delete
 	find . -type f -name R.java -delete
 	printf "\\e[1;38;5;151mCompleted tasks in ~/%s/.\\n\\n\\e[0m" "$(cut -d"/" -f7-99 <<< "$PWD")"
 }
@@ -71,14 +71,14 @@ printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in ~/%s/:\\n\\e[0m" "$(cut -d"/"
 [ -z "${2:-}" ] && JDR="$PWD"
 [ -z "${JID:-}" ] && JID="${PWD##*/}" # https://www.tldp.org/LDP/abs/html/parameter-substitution.html
 [ -z "${NUM:-}" ] && NUM=""
-find . -maxdepth 1 -type f -name *.apk -delete
+find . -maxdepth 1 -type f -name "*.apk" -delete
 find . -type f -print | sed -e 's;[^/]*/;|_;g;s;_|; |;g' | sort -r
 # if it does not exist, create it
-[ ! -e ./assets ] && mkdir -p ./assets
-[ ! -e ./bin/lib ] && mkdir -p ./bin/lib
-[ ! -e ./gen ] && mkdir -p ./gen
-[ ! -e ./obj ] && mkdir -p ./obj
-[ ! -e ./res ] && mkdir -p ./res
+[ -e ./assets ] || mkdir -p ./assets
+[ -e ./bin/lib ] || mkdir -p ./bin/lib
+[ -e ./gen ] || mkdir -p ./gen
+[ -e ./obj ] || mkdir -p ./obj
+[ -e ./res ] || mkdir -p ./res
 LIBAU="$(awk 'NR==1' "$RDR/.conf/LIBAUTH")" # load true/false from .conf/LIBAUTH file.  File LIBAUTH has information about loading artifacts and libraries into the build process.
 if [[ "$LIBAU" == true ]]
 then # load artifacts and libraries into the build process
