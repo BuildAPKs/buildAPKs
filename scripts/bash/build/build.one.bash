@@ -143,7 +143,7 @@ sed -i "s/targetSdkVersion\=\"[0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" Andr
 sed -i "s/targetSdkVersion\=\"[0-9][0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" AndroidManifest.xml
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 # build entry point
-aapt package -f --min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" --version-code "$NOW" --version-name "$PKGNAME" -c "$PSYLOCALE" -M AndroidManifest.xml $AAPTENT -J gen -S res || _PRINTSGE_ aapt
+aapt package $AAPTENT -c "$PSYLOCALE" -f --generate-dependencies -J gen --min-sdk-version "$MSDKVERSION" -M AndroidManifest.xml --target-sdk-version "$TSDKVERSION" --replace-version -S res --version-code "$NOW" --version-name "$PKGNAME" || _PRINTSGE_ aapt
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "dalvikvm: begun..."
 unset JAVA_HOME
 dalvikvm -Xmx512m -Xcompiler-option --compiler-filter=speed -cp "$PREFIX"/share/dex/ecj.jar org.eclipse.jdt.internal.compiler.batch.Main -proc:none -source 1.8 -target 1.8 -cp "$PREFIX"/share/java/android.jar $ECJENT -d ./obj . || _PRINTSGE_ ecj
