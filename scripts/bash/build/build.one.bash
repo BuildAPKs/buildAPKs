@@ -68,7 +68,7 @@ _PRINTSGE_ () {
 printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in ~/%s/:\\n\\e[0m" "$(cut -d"/" -f7-99 <<< "$PWD")"
 # if variables are undefined, define variables
 find . -maxdepth 1 -type f -name "*.apk" -delete
-find . -type f -print | sed -e 's;[^/]*/;|_;g;s;_|; |;g' | sort -r
+find . -type f -print | sed -e 's;[^/]*/;|  ;g;s;  |; |;g' | sort -r
 [ -z "${DAY:-}" ] && DAY="$(date +%Y%m%d)"
 [ -z "${2:-}" ] && JDR="$PWD"
 [ -z "${JID:-}" ] && JID="${PWD##*/}" # https://www.tldp.org/LDP/abs/html/parameter-substitution.html
