@@ -68,7 +68,7 @@ _PRINTSGE_ () {
 printf "\\e[0m\\n\\e[1;38;5;116mBeginning build in ~/%s/:\\n\\e[0m" "$(cut -d"/" -f7-99 <<< "$PWD")"
 # if variables are undefined, define variables
 find . -maxdepth 1 -type f -name "*.apk" -delete
-find . -type f -print | sed -e 's;[^/]*/;|  ;g;s;  |; |;g' | sort -r
+find . -type f -print
 [ -z "${DAY:-}" ] && DAY="$(date +%Y%m%d)"
 [ -z "${2:-}" ] && JDR="$PWD"
 [ -z "${JID:-}" ] && JID="${PWD##*/}" # https://www.tldp.org/LDP/abs/html/parameter-substitution.html
@@ -130,11 +130,11 @@ COMMANDIF="$(command -v getprop)" ||:
 if [[ "$COMMANDIF" = "" ]]
 then
 	MSDKVERSION="14"
- 	PSYLOCALE="en"
+ 	PRSYSLOCALE="en"
 	TSDKVERSION="23"
 else
 	MSDKVERSION="$(getprop ro.build.version.min_supported_target_sdk)" || printf "%s" "signal ro.build.version.min_supported_target_sdk ${0##*/} build.one.bash generated; Continuing...  " && MSDKVERSION="14"
- 	PSYLOCALE="$(getprop persist.sys.locale|awk -F- '{print $1}')" || printf "%s" "Signal persist.sys.locale ${0##*/} build.one.bash generated; Continuing...  " && PSYLOCALE="en"
+ 	PRSYSLOCALE="$(getprop persist.sys.locale|awk -F- '{print $1}')" || printf "%s" "Signal persist.sys.locale ${0##*/} build.one.bash generated; Continuing...  " && PRSYSLOCALE="en"
 	TSDKVERSION="$(getprop ro.build.version.sdk)" || printf "%s" "Signal ro.build.version.sdk ${0##*/} build.one.bash generated; Continuing...  " && TSDKVERSION="23"
 fi
 sed -i "s/minSdkVersion\=\"[0-9]\"/minSdkVersion\=\"$MSDKVERSION\"/g" AndroidManifest.xml
@@ -143,7 +143,7 @@ sed -i "s/targetSdkVersion\=\"[0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" Andr
 sed -i "s/targetSdkVersion\=\"[0-9][0-9]\"/targetSdkVersion\=\"$TSDKVERSION\"/g" AndroidManifest.xml
 printf "\\e[1;38;5;115m%s\\n\\e[0m" "aapt: started..."
 # build entry point
-aapt package $AAPTENT -c "$PSYLOCALE" -f --generate-dependencies -J gen --min-sdk-version "$MSDKVERSION" -M AndroidManifest.xml --target-sdk-version "$TSDKVERSION" --replace-version -S res --version-code "$NOW" --version-name "$PKGNAME" || _PRINTSGE_ aapt
+aapt package $AAPTENT -c "$PRSYSLOCALE" -f --generate-dependencies -J gen --min-sdk-version "$MSDKVERSION" -M AndroidManifest.xml --target-sdk-version "$TSDKVERSION" --replace-version -S res --version-code "$NOW" --version-name "$PKGNAME" || _PRINTSGE_ aapt
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "dalvikvm: begun..."
 unset JAVA_HOME
 dalvikvm -Xmx512m -Xcompiler-option --compiler-filter=speed -cp "$PREFIX"/share/dex/ecj.jar org.eclipse.jdt.internal.compiler.batch.Main -proc:none -source 1.8 -target 1.8 -cp "$PREFIX"/share/java/android.jar $ECJENT -d ./obj . || _PRINTSGE_ ecj
