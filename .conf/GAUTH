@@ -1,5 +1,5 @@
 
-The first line of this file is intentionally left blank for the user to complete.  Insert an OAuth username token pair (user:token) in the first line of this file to enable OAuth authentication to complete this file.
+The first line of this file is intentionally left blank for the user to complete.  Insert an OAuth token pair (token:token) in the first line of this file to enable OAuth authentication to complete this file.
 
 The ` build.github*.bash ` scripts can stall for unauthenticated users of Github due to the high bandwith they consume when conducting multiple queries.  Enabling OAuth authentication increases the rate limit for authenticated Github users.  This link https://github.com/settings/tokens creates OAuth tokens easily.
 
