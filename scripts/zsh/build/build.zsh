@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
-# Copyright 2019 (c) all rights reserved
+# Copyright 2019-2021 (c) all rights reserved
 # by BuildAPKs https://buildapks.github.io/buildAPKs/
-# Contributeur : https://github.com/HemanthJabalpuri
-# Invocation : $HOME/buildAPKs/scripts/zsh/build/build.zsh
+# See LICENSE for details https://buildapks.github.io/docsBuildAPKs/
 #####################################################################
 set -e
+[ "$PWD" = "${PREFIX%/*}" ] || [ "$PWD" = "$PREFIX" ] || [ "$PWD" = "$HOME" ] || [ "$PWD" = "$RDR" ] && { printf "Signal 224 generated in %s;  Command '${0##*/}' cannot be run in directory %s; %s exiting...\\n" "$PWD" "$PWD" "${0##*/} build.one.bash" ; exit 224 ; }
 for CMD in aapt apksigner dx ecj
 do
        	[ -z "$(command -v "$CMD")" ] && printf "%s\\n" " \"$CMD\" not found" && NOTFOUND=1

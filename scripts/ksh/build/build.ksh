@@ -1,10 +1,11 @@
 #!/usr/bin/env ksh
-# Copyright 2020 (c) all rights reserved
+# Copyright 2020-2021 (c) all rights reserved
 # by BuildAPKs https://buildapks.github.io/buildAPKs/
 # See LICENSE for details https://buildapks.github.io/docsBuildAPKs/
 #####################################################################
 set -e
 [ -z "${RDR:-}" ] && RDR="$HOME/buildAPKs"
+[ "$PWD" = "${PREFIX%/*}" ] || [ "$PWD" = "$PREFIX" ] || [ "$PWD" = "$HOME" ] || [ "$PWD" = "$RDR" ] && { printf "Signal 224 generated in %s;  Command '${0##*/}' cannot be run in directory %s; %s exiting...\\n" "$PWD" "$PWD" "${0##*/} build.one.bash" ; exit 224 ; }
 for CMD in aapt apksigner dx ecj
 do
        	[ -z "$(command -v "$CMD")" ] && printf "%s\\n" " \"$CMD\" not found" && NOTFOUND=1
