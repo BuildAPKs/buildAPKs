@@ -16,10 +16,10 @@ done
 
 _CLEANUP_() {
        	printf "\\n\\n%s\\n" "Completing tasks..."
-       	[ "$CLEAN" = "1" ] && mv "bin/$PKGNAME.apk" .
+       	[ "$CLEAN" = "1" ] && mv "out/$PKGNAME.apk" .
       	rmdir assets 2>/dev/null ||:
        	rmdir res 2>/dev/null ||:
-       	rm -rf bin
+       	rm -rf out
        	rm -rf gen
        	rm -rf obj
 	printf "\\n\\n%s\\n\\n" "Share https://wiki.termux.com/wiki/Development everwhere🌎🌍🌏🌐!"
@@ -37,7 +37,7 @@ PKGNAME="$(grep -o "package=.*" AndroidManifest.xml | cut -d\" -f2)"
 printf "%s\\n" "Beginning build"
 [ -d assets ] || mkdir assets
 [ -d res ] || mkdir res
-mkdir -p bin
+mkdir -p out
 mkdir -p gen
 mkdir -p obj
 
@@ -60,7 +60,7 @@ printf "%s\\n\\n" "ecj: done"
 
 
 printf "%s\\n" "dx: started..."
-dx --dex --output=bin/classes.dex obj || _UNTP_
+dx --dex --output=out/classes.dex obj || _UNTP_
 printf "%s\\n\\n" "dx: done"
 
 
@@ -71,11 +71,11 @@ aapt package -f \
        	-M AndroidManifest.xml \
        	-S res \
        	-A assets \
-       	-F bin/"$PKGNAME.apk" || _UNTP_
+       	-F out/"$PKGNAME.apk" || _UNTP_
 
 
 printf "\n%s\\n" "Adding classes.dex to $PKGNAME.apk..."
-cd bin || _UNTP_
+cd out || _UNTP_
 aapt add -f "$PKGNAME.apk" classes.dex || { cd ..; _UNTP_; }
 
 printf "\n%s" "Signing $PKGNAME.apk: "

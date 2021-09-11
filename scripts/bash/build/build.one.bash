@@ -49,7 +49,7 @@ _CLEANUP_ () {
 	sleep 0."$(shuf -i 24-72 -n 1)" # add device latency support
 	printf "\\e[1;38;5;151m%s\\n\\e[0m" "Completing tasks..."
 	rm -f ./*-debug.key
- 	rm -rf ./bin ./gen ./obj
+ 	rm -rf ./out ./gen ./obj
 	[ -d ./assets ] && rmdir --ignore-fail-on-non-empty ./assets
 	[ -d ./res ] && rmdir --ignore-fail-on-non-empty ./res
 	find . -type f -name "*.class" -delete
@@ -75,7 +75,7 @@ find . -type f -print | sed 's@.*/@@' | sort
 [ -z "${NUM:-}" ] && NUM=""
 # if it does not exist, create it
 [ -e ./assets ] || mkdir -p ./assets
-[ -e ./bin/lib ] || mkdir -p ./bin/lib
+[ -e ./out/lib ] || mkdir -p ./out/lib
 [ -e ./gen ] || mkdir -p ./gen
 [ -e ./obj ] || mkdir -p ./obj
 [ -e ./res ] || mkdir -p ./res
@@ -124,7 +124,7 @@ else # do not load artifacts and libraries into the build process.
 fi
 NOW=$(date +%s)
 PKGNAM="$(grep -o "package=.*" AndroidManifest.xml | cut -d\" -f2)"
-[ -f ./bin/"$PKGNAM.apk"  ] && rm ./bin/"$PKGNAM.apk"
+[ -f ./out/"$PKGNAM.apk"  ] && rm ./out/"$PKGNAM.apk"
 PKGNAME="$PKGNAM.$NOW"
 COMMANDIF="$(command -v getprop)" ||:
 if [[ "$COMMANDIF" = "" ]]
@@ -148,10 +148,10 @@ printf "\\e[1;38;5;148m%s;  \\e[1;38;5;114m%s\\n\\e[0m" "aapt: done" "dalvikvm: 
 unset JAVA_HOME
 dalvikvm -Xmx512m -Xcompiler-option --compiler-filter=speed -cp "$PREFIX"/share/dex/ecj.jar org.eclipse.jdt.internal.compiler.batch.Main -proc:none -source 1.8 -target 1.8 -cp "$PREFIX"/share/java/android.jar $ECJENT -d ./obj . || _PRINTSGE_ dalvikvm
 printf "\\e[1;38;5;149m%s;  \\e[1;38;5;113m%s\\n\\e[0m" "dalvikvm: done" "dx: started..."
-dx --dex --output=bin/classes.dex ./obj || _PRINTSGE_ dx
+dx --dex --output=out/classes.dex ./obj || _PRINTSGE_ dx
 printf "\\e[1;38;5;148m%s;  \\e[1;38;5;112m%s\\n\\e[0m" "dx: done" "Making $PKGNAME.apk..."
-aapt package -f --min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" -M AndroidManifest.xml $JSJCLASSPATH -S ./res -A ./assets -F ./bin/"$PKGNAME".apk || _PRINTSGE_ aapt
-cd bin
+aapt package -f --min-sdk-version "$MSDKVERSION" --target-sdk-version "$TSDKVERSION" -M AndroidManifest.xml $JSJCLASSPATH -S ./res -A ./assets -F ./out/"$PKGNAME".apk || _PRINTSGE_ aapt
+cd out
 ISDOSO="$(head -n 1 "$RDR/.conf/DOSO")"
 [[ $ISDOSO = 0 ]] && (. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "\\e[1;48;5;166m%s\\e[0m\\n" "Signal generated doso.bash ${0##*/} build.one.bash: Continuing...")
 [[ $ISDOSO = 1 ]] && printf "%s\\n" "To build and include \`*.so\` files in the APK build change the 1 in file ~/${RDR##*/}/.conf/DOSO to a 0.  The command \`build.native.bash\` builds native APKs on device."
