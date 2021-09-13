@@ -160,7 +160,7 @@ then
 	. "$RDR"/scripts/bash/shlibs/buildAPKs/native.bash || printf "\\e[1;48;5;166m%s\\e[0m\\n" "Signal generated native.bash ${0##*/} build.one.bash: Continuing..."
 	cd output
 else
-	printf "%s\\n" "To build and include \`*.so\` files in the APK build change the 1 in file ~/${RDR##*/}/.conf/DOSO to a 0.  The command \`build.native.bash\` builds native APKs on device."
+	printf "%s\\n" "To build and include \`*.so\` files in the APK build change the 1 in file ~/${RDR##*/}/.conf/DOSO to a 0.  The command \`build.native.bash\` builds native APKs on device and will do this when run."
 fi
 printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex $(find lib -type f -name "*.so") to $PKGNAME.apk..."
 aapt add -v -f "$PKGNAME.apk" classes.dex $(find lib -type f -name "*.so")
