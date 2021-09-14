@@ -126,7 +126,7 @@ NOW=$(date +%s)
 PKGNAM="$(grep -o "package=.*" AndroidManifest.xml | cut -d\" -f2)"
 [ -f ./output/"$PKGNAM.apk"  ] && rm ./output/"$PKGNAM.apk"
 PKGNAME="$PKGNAM.$NOW"
-COMMANDIF="$(command -v getprop)" ||:
+COMMANDIF="$(command -v getprop)" || _PRINTSGE_ COMMANDIF
 if [[ "$COMMANDIF" = "" ]]
 then
 	MSDKVERSION="14"

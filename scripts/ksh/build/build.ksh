@@ -17,8 +17,8 @@ done
 _CLEANUP_() {
        	printf "\\n\\n%s\\n" "Completing tasks..."
        	[ "$CLEAN" = "1" ] && mv "output/$PKGNAME.apk" .
-      	rmdir assets 2>/dev/null ||:
-       	rmdir res 2>/dev/null ||:
+      	rmdir --ignore-fail-on-non-empty assets
+       	rmdir --ignore-fail-on-non-empty res
        	rm -rf output
        	rm -rf gen
        	rm -rf obj
