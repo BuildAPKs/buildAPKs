@@ -156,6 +156,7 @@ ISDOSO="$(head -n 1 "$RDR/.conf/DOSO")"
 if [[ $ISDOSO = 0 ]]
 then
 	. "$RDR"/scripts/bash/shlibs/buildAPKs/doso.bash || printf "\\e[1;48;5;166m%s\\e[0m\\n" "Signal generated doso.bash ${0##*/} build.one.bash: Continuing..."
+	cd "$JDR"
 else
 	printf "%s\\n" "To build and include \`*.so\` files in the APK build change the 1 in file ~/${RDR##*/}/.conf/DOSO to a 0.  The command \`build.native.bash\` builds native APKs on device and will do this when run."
 fi
