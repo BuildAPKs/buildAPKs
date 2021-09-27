@@ -162,8 +162,9 @@ then
 else
 	printf "%s\\n" "To build and include \`*.so\` files in the APK build change the 1 in file ~/${RDR##*/}/.conf/DOSO to a 0.  The command \`build.native.bash\` builds native APKs on device and will do this when run."
 fi
-printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex $(find lib -type f -name "*.so") to $PKGNAME.apk..."
-aapt add -v -f "$PKGNAME.apk" classes.dex $(find lib -type f -name "*.so")
+SOFILES="$(find lib -type f -name "*.so")"
+printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex $SOFILES to $PKGNAME.apk..."
+aapt add -v -f "$PKGNAME.apk" classes.dex $SOFILES
 printf "\\e[1;38;5;114m%s" "Signing $PKGNAME.apk: "
 apksigner sign --cert "$RDR/opt/key/certificate.pem" --key "$RDR/opt/key/key.pk8" "$PKGNAME.apk"
 printf "%s\\e[1;38;5;108m\\n" "DONE"
