@@ -1,3 +1,6 @@
 [submodule ".scripts/maintenance"]
 	path = .scripts/maintenance
 	url = https://github.com/shlibs/maintenance
+[submodule "scripts/tcsh"]
+	path = scripts/tcsh
+	url = https://github.com/shlibs/shlibs.tcsh
