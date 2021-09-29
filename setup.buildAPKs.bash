@@ -114,4 +114,5 @@ fi
 export JAD=github.com/BuildAPKs/buildAPKs.entertainment	# job address
 export JID=entertainment	# job id/name
 bash "$RDR"/scripts/bash/init/init.bash "$@"
+! grep "setup.buildAPKs.bash" "$RDR"/sha512.sum 1>/dev/null || sed -i "/setup.buildAPKs.bash/d" "$RDR"/sha512.sum
 # setup.buildAPKs.bash EOF
