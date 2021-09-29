@@ -4,3 +4,9 @@
 [submodule "scripts/tcsh"]
 	path = scripts/tcsh
 	url = https://github.com/shlibs/shlibs.tcsh
+[submodule "scripts/bash/shlibs"]
+	path = scripts/bash/shlibs
+	url = https://github.com/shlibs/shlibs.bash
+[submodule "scripts/sh/shlibs"]
+	path = scripts/sh/shlibs
+	url = https://github.com/shlibs/shlibs.sh
