@@ -13,6 +13,9 @@ The command ` cd ~/buildAPKs/var/cache/lib && curl -OL https://maven.google.com/
 
 The functionality of this option is being enhanced; and to improve this automation, see https://github.com/BuildAPKs/buildAPKs/issues and https://github.com/BuildAPKs/buildAPKs/pulls.
 
+https://mvnrepository.com/artifact/androidx.appcompat
+https://mvnrepository.com/artifact/com.android.support/appcompat-v7
+
 =========
  Español
 =========
@@ -27,6 +30,9 @@ https://github.com/BuildAPKs tiene que ofrecer incluyendo appcompat-1.1.0.aar y 
 
 Se está mejorando la funcionalidad de esta opción; y para mejorar esta automatización, consulte https://github.com/BuildAPKs/buildAPKs/issues y https://github.com/BuildAPKs/buildAPKs/pulls.
 
+https://mvnrepository.com/artifact/androidx.appcompat
+https://mvnrepository.com/artifact/com.android.support/appcompat-v7
+
 ===========
  Française
 ===========
@@ -39,4 +45,8 @@ Adaptez les chemins aux prérequis du projet dans `LIBDIRPATH build.one.bash`.  
 La commande ` cd ~/buildAPKs/var/cache/lib && curl -OL https://maven.google.com/androidx/appcompat/appcompat/1.1.0/appcompat-1.1.0.aar && ~/buildAPKs/build.github.bash buildapks ` tentera de construire tout ce que https://github.com/BuildAPKs veulent offrir avec appcompat-1.1.0.aar et des artefacts système dans la version une fois que la première ligne de ce fichier est remplacée par true.
 
 La fonctionnalité de cette option est en cours d'amélioration; et pour améliorer cette automatisation, voir https://github.com/BuildAPKs/buildAPKs/issues et https://github.com/BuildAPKs/buildAPKs/pulls.
+
+https://mvnrepository.com/artifact/androidx.appcompat
+https://mvnrepository.com/artifact/com.android.support/appcompat-v7
+
 # LIBAUTH EOF
