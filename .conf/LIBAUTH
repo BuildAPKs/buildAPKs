@@ -5,8 +5,7 @@ true
 =========
 Change the first line of this file to true to use artifacts and libraries during compilation; When the first line of this file is changed to true, BuildAPKs loads files from these folders into the build process from directories located in:
 
-LIBDIRPATH=("$JDR/lib" "$JDR/libraries" "$JDR/library" "$JDR/libs" "$RDR/var/cache/lib") # modify array LIBDIRPATH to suit the projects artifact needs.
-The directory '~/buildAPKs/var/cache/lib' is created for working with libraries.
+LIBDIRPATH=("$JDR/lib" "$JDR/libraries" "$JDR/library" "$JDR/libs" "$RDR/var/cache/lib") # modify array LIBDIRPATH to suit the projects artifact needs.  The directory '~/buildAPKs/var/cache/lib' is created for working with libraries.
 
 Adjust the paths to the prerequisites of the project in 'LIBDIRPATH build.one.bash'.  You can populate the ~/buildAPKs/var/cache/lib directory from the https://mvnrepository.com website.  For example, this link https://mvnrepository.com/artifact/androidx.appcompat/appcompat has appcompat libraries that you can download into ~/buildAPKs/var/cache/lib for compiling inclusion.
 
@@ -22,7 +21,7 @@ https://mvnrepository.com/artifact/com.android.support/appcompat-v7
 =========
 Cambie la primera línea de este archivo a true para usar artefactos y bibliotecas durante la compilación; Cuando la primera línea de esto se cambia a true, BuildAPKs carga archivos de la estas carpetas dentro el proceso de compilación en directorios ubicados en:
 
-LIBDIRPATH=("$JDR/lib" "$JDR/libraries" "$JDR/library" "$JDR/libs" "$RDR/var/cache/lib") # Adapte las rutas a los requisitos previos del proyecto en LIBDIRPATH
+LIBDIRPATH=("$JDR/lib" "$JDR/libraries" "$JDR/library" "$JDR/libs" "$RDR/var/cache/lib") # Adapte las rutas a los requisitos previos del proyecto en LIBDIRPATH El directorio '~/buildAPKs/var/cache/lib' se crea para trabajar con bibliotecas.
 
 Adapte las rutas a los requisitos previos del proyecto en 'LIBDIRPATH build.one.bash'.  Puede llenar el directorio ~/buildAPKs/var/cache/lib desde el sitio https://mvnrepository.com web. Por ejemplo, este enlace https://mvnrepository.com/artifact/androidx.appcompat/appcompat contiene bibliotecas appcompat que puede descargar en ~/buildAPKs/var/cache/lib para compilar la inclusión.
 
@@ -40,6 +39,7 @@ https://mvnrepository.com/artifact/com.android.support/appcompat-v7
 Modifiez la première ligne de ce fichier sur true pour utiliser des artefacts et des bibliothèques pendant la compilation; Lorsque la première ligne de cette est changé en true, BuildAPKs charge les fichiers de ceux-ci des dossiers dedans le processus de génération à partir de répertoires situés dans:
 
 LIBDIRPATH=("$JDR/lib" "$JDR/libraries" "$JDR/library" "$JDR/libs" "$RDR/var/cache/lib") # Adaptez les chemins aux prérequis du projet dans LIBDIRPATH
+Le répertoire '~/buildAPKs/var/cache/lib' est créé pour fonctionner avec les bibliothèques.
 
 Adaptez les chemins aux prérequis du projet dans 'LIBDIRPATH build.one.bash'.  Vous pouvez remplir le répertoire ~/buildAPKs/var/cache/lib à partir du site https://mvnrepository.com Web. Par exemple, ce lien https://mvnrepository.com/artifact/androidx.appcompat/appcompat contient des bibliothèques appcompat que vous pouvez télécharger dans ~/buildAPKs/var/cache/lib pour compiler l'inclusion.
 
