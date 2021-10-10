@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
+# See https://buildapks.github.io/ LICENSE for details.
 # Copyright 2017-2021 (c) all rights reserved by BuildAPKs
-# See LICENSE for details https://buildapks.github.io/docsBuildAPKs/
 #####################################################################
 set -Eeuo pipefail
 shopt -s nullglob globstar
