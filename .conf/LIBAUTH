@@ -4,6 +4,10 @@ true
  English
 =========
 20211011 UNDER CONSTRUCTION!
+https://github.com/BuildAPKs/buildAPKs/issues/1
+https://github.com/BuildAPKs/buildAPKs/issues/2
+https://github.com/BuildAPKs/buildAPKs/issues/13
+https://github.com/BuildAPKs/buildAPKs/issues/24
 
 Change the first line of this file to true to use artifacts and libraries during compilation; When the first line of this file is changed to true, BuildAPKs loads files from these folders into the build process from directories located in:
 
@@ -21,6 +25,10 @@ The functionality of this option is being enhanced; and to improve this automati
  Español
 =========
 20211011 EN CONSTRUCCIÓN!
+https://github.com/BuildAPKs/buildAPKs/issues/1
+https://github.com/BuildAPKs/buildAPKs/issues/2
+https://github.com/BuildAPKs/buildAPKs/issues/13
+https://github.com/BuildAPKs/buildAPKs/issues/24
 
 Cambie la primera línea de este archivo a true para usar artefactos y bibliotecas durante la compilación; Cuando la primera línea de esto se cambia a true, BuildAPKs carga archivos de la estas carpetas dentro el proceso de compilación en directorios ubicados en:
 
@@ -39,6 +47,10 @@ Se está mejorando la funcionalidad de esta opción; y para mejorar esta automat
  Française
 ===========
 20211011 EN CONSTRUCTION!
+https://github.com/BuildAPKs/buildAPKs/issues/1
+https://github.com/BuildAPKs/buildAPKs/issues/2
+https://github.com/BuildAPKs/buildAPKs/issues/13
+https://github.com/BuildAPKs/buildAPKs/issues/24
 
 Modifiez la première ligne de ce fichier sur true pour utiliser des artefacts et des bibliothèques pendant la compilation; Lorsque la première ligne de cette est changé en true, BuildAPKs charge les fichiers de ceux-ci des dossiers dedans le processus de génération à partir de répertoires situés dans:
 
