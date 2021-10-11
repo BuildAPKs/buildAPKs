@@ -3,6 +3,8 @@ true
 =========
  English
 =========
+20211011 UNDER CONSTRUCTION!
+
 Change the first line of this file to true to use artifacts and libraries during compilation; When the first line of this file is changed to true, BuildAPKs loads files from these folders into the build process from directories located in:
 
 LIBDIRPATH=("$JDR/lib" "$JDR/libraries" "$JDR/library" "$JDR/libs" "$RDR/var/cache/lib") # modify array LIBDIRPATH to suit the projects artifact needs.  The directory '~/buildAPKs/var/cache/lib' is created for working with libraries.  Libraries can be downloaded from these web links:
@@ -18,6 +20,8 @@ The functionality of this option is being enhanced; and to improve this automati
 =========
  Español
 =========
+20211011 EN CONSTRUCCIÓN!
+
 Cambie la primera línea de este archivo a true para usar artefactos y bibliotecas durante la compilación; Cuando la primera línea de esto se cambia a true, BuildAPKs carga archivos de la estas carpetas dentro el proceso de compilación en directorios ubicados en:
 
 LIBDIRPATH=("$JDR/lib" "$JDR/libraries" "$JDR/library" "$JDR/libs" "$RDR/var/cache/lib") # Adapte las rutas a los requisitos previos del proyecto en LIBDIRPATH.  El directorio '~/buildAPKs/var/cache/lib' se crea para trabajar con bibliotecas.  Las bibliotecas se pueden descargar desde estos enlaces web:
@@ -34,6 +38,8 @@ Se está mejorando la funcionalidad de esta opción; y para mejorar esta automat
 ===========
  Française
 ===========
+20211011 EN CONSTRUCTION!
+
 Modifiez la première ligne de ce fichier sur true pour utiliser des artefacts et des bibliothèques pendant la compilation; Lorsque la première ligne de cette est changé en true, BuildAPKs charge les fichiers de ceux-ci des dossiers dedans le processus de génération à partir de répertoires situés dans:
 
 LIBDIRPATH=("$JDR/lib" "$JDR/libraries" "$JDR/library" "$JDR/libs" "$RDR/var/cache/lib") # Adaptez les chemins aux prérequis du projet dans LIBDIRPATH.  Le répertoire '~/buildAPKs/var/cache/lib' est créé pour fonctionner avec les bibliothèques.  Les bibliothèques peuvent être téléchargées à partir de ces liens Web:
