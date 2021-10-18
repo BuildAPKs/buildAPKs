@@ -2,7 +2,7 @@ name: Mark stale issues and pull requests
 
 on:
   schedule:
-  - cron: "0 0 * * *"
+  - cron: "32 6 * 2 2"
 
 jobs:
   stale:
@@ -13,7 +13,7 @@ jobs:
     - uses: actions/stale@v1
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-issue-message: 'old issue sanse activity issue message'
+        stale-issue-message: 'old issue sanse activity message'
         stale-pr-message: 'old issue sanse activity pull request message'
         stale-issue-label: 'old issue sanse activity'
-        stale-pr-label: 'old issue sanse activity'
+        stale-pr-label: 'old pr sanse activity'
