@@ -164,7 +164,7 @@ else
 fi
 SOFILES="$(find lib -type f -name "*.so")"
 printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex $SOFILES to $PKGNAME.apk..."
-aapt add -v -f "$PKGNAME.apk" classes.dex "$SOFILES"
+aapt add -v -f "$PKGNAME.apk" classes.dex $SOFILES
 mv "$PKGNAME.apk" "$PKGNAME.0.apk"
 printf "\\e[1;38;5;114m%s" "Signing $PKGNAME.apk: "
 "$RDR/scripts/sh/shlibs/signapk" sign --cert "$RDR/opt/key/cert.x509.pem" --key "$RDR/opt/key/key.pk8" --out "$PKGNAME.apk" "$PKGNAME.0.apk"
