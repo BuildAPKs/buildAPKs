@@ -68,7 +68,7 @@ declare RDR
 export RDR="$HOME/buildAPKs"
 STRING1="COMMAND \`au\` enables rollback, available at https://wae.github.io/au/ IS NOT FOUND: Continuing... "
 STRING2="Cannot update ~/${RDR##*/} prerequisite: Continuing..."
-PKGS=(aapt apksigner curl dx ecj git)
+PKGS=(aapt curl dx ecj git)
 if [[ -z "${1:-}" ]]
 then
 ARGS=""
