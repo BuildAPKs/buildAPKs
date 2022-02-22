@@ -1,6 +1,0 @@
-[submodule "opt/api/github"]
-	path = opt/api/github
-	url = https://github.com/BuildAPKs/buildAPKs.github
-[submodule "opt/db"]
-	path = opt/db
-	url = https://github.com/BuildAPKs/db.BuildAPKs
