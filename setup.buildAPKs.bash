@@ -68,7 +68,7 @@ declare RDR
 export RDR="$HOME/buildAPKs"
 STRING1="COMMAND \`au\` enables rollback, available at https://wae.github.io/au/ IS NOT FOUND: Continuing... "
 STRING2="Cannot update ~/${RDR##*/} prerequisite: Continuing..."
-PKGS=(aapt apksigner curl dx ecj git)
+PKGS=(aapt openssl-tool curl dx ecj git)
 if [[ -z "${1:-}" ]]
 then
 ARGS=""
@@ -78,13 +78,19 @@ COMMANDR="$(command -v au)" || (printf "%s\\n\\n" "$STRING1")
 COMMANDIF="${COMMANDR##*/}"
 for PKG in "${PKGS[@]}"
 do
+[ "$PKG" = "openssl-tool" ] && PKG=openssl
 COMMANDP="$(command -v "$PKG")" || printf "Command %s not found: Continuing...\\n" "$PKG" # test if command exists
 COMMANDPF="${COMMANDP##*/}"
+echo $COMMANDPF
+echo $COMMANDPF
+echo echo
+[ "$COMMANDPF" = openssl ] && PKG=openssl
 if [[ "$COMMANDPF" != "$PKG" ]]
 then
 _INPKGS_
 fi
 done
+echo exit
 if [[ ! -d "$RDR" ]]
 then
 cd && git clone --depth 1 https://github.com/BuildAPKs/buildAPKs --branch master --single-branch || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"
