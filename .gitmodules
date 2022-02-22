@@ -1,0 +1,12 @@
+[submodule "opt/api/github"]
+	path = opt/api/github
+	url = https://github.com/BuildAPKs/buildAPKs.github
+[submodule "scripts/bash/shlibs"]
+	path = scripts/bash/shlibs
+	url = https://github.com/shlibs/shlibs.bash
+[submodule "scripts/sh/shlibs"]
+	path = scripts/sh/shlibs
+	url = https://github.com/shlibs/shlibs.sh
+[submodule "opt/db"]
+	path = opt/db
+	url = https://github.com/BuildAPKs/db.BuildAPKs
