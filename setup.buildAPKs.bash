@@ -81,16 +81,12 @@ do
 [ "$PKG" = "openssl-tool" ] && PKG=openssl
 COMMANDP="$(command -v "$PKG")" || printf "Command %s not found: Continuing...\\n" "$PKG" # test if command exists
 COMMANDPF="${COMMANDP##*/}"
-echo $COMMANDPF
-echo $COMMANDPF
-echo echo
 [ "$COMMANDPF" = openssl ] && PKG=openssl
 if [[ "$COMMANDPF" != "$PKG" ]]
 then
 _INPKGS_
 fi
 done
-echo exit
 if [[ ! -d "$RDR" ]]
 then
 cd && git clone --depth 1 https://github.com/BuildAPKs/buildAPKs --branch master --single-branch || printf "\\e[1;38;5;117m%s\\e[0m\\n" "$STRING2"

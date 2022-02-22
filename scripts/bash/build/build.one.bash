@@ -164,12 +164,11 @@ else
 fi
 SOFILES="$(find lib -type f -name "*.so")"
 printf "\\e[1;38;5;113m%s\\e[1;38;5;107m\\n" "Adding classes.dex $SOFILES to $PKGNAME.apk..."
-aapt add -v -f "$PKGNAME.apk" classes.dex $SOFILES
+aapt add -v -f "$PKGNAME.apk" classes.dex "$SOFILES"
+mv "$PKGNAME.apk" "$PKGNAME.0.apk"
 printf "\\e[1;38;5;114m%s" "Signing $PKGNAME.apk: "
-apksigner sign --cert "$RDR/opt/key/certificate.pem" --key "$RDR/opt/key/key.pk8" "$PKGNAME.apk"
+"$RDR/scripts/sh/shlibs/signapk" sign --cert "$RDR/opt/key/cert.x509.pem" --key "$RDR/opt/key/key.pk8" --out "$PKGNAME.apk" "$PKGNAME.0.apk"
 printf "%s\\e[1;38;5;108m\\n" "DONE"
-printf "\\e[1;38;5;114m%s\\e[1;38;5;108m\\n" "Verifying $PKGNAME.apk..."
-apksigner verify --verbose "$PKGNAME.apk"
 _COPYAPK_ || printf "%s\\n" "Unable to copy APK file ${0##*/} build.one.bash; Continuing..."
 mv "$PKGNAME.apk" ../"$PKGNAM.apk"
 cd ..
